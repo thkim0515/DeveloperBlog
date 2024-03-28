@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+//레이아웃
+import { Layout } from './components/Layout/Layout';
 
-function App() {
+//페이지
+import { Main } from './pages/Main';
+import { Login } from './pages/Login';
+import { SignUp } from './pages/SignUp';
+import { CodeCreate } from './pages/CodeCreate';
+import { PostDetail } from './pages/PostDetail';
+import { PostUpdate } from './pages/PostUpdate';
+import { Profile } from './pages/Profile';
+import { ProfileEdit } from './pages/ProfileEdit';
+import { MyCodes } from './pages/MyCodes';
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* 로그인 및 회원가입 페이지를 레이아웃 밖에 배치 */}
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route element={<Layout />}>
+          {/* Layout 컴포넌트 안에서 자식 Route들을 배치 */}
+          <Route index element={<Main />} />
+          <Route path='codeCreate' element={<CodeCreate />} />
+          <Route path='post/:postId' element={<PostDetail />} />
+          <Route path='postUpdate' element={<PostUpdate />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='profileEdit' element={<ProfileEdit />} />
+          <Route path='myCodes' element={<MyCodes />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
