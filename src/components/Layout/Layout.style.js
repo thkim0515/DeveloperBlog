@@ -6,14 +6,21 @@ import { Link } from 'react-router-dom';
 export const Container = styled.div`
   max-width: 1140px;
   margin: 0 auto;
-  padding-top: 40px;
-  height: calc(100vh - 80px); /* 100vh에서 헤더 80px를 뺀 값으로 설정 */
+  padding-top: 120px;
 `;
+
+export const HeaerParentBox = styled.div`
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  background-color: #F9F7F7;
+`
 
 //헤더 스타일
 export const HeaderBox = styled.header`
   position: relative;
-  max-width: 1400px;
+  z-index: 10;
+  max-width: 1300px;
   height: 80px;
   margin: 0 auto;
   display: flex;
@@ -50,10 +57,13 @@ export const LogoLink = styled(Link)`
 export const UserLoginBox = styled.div`
   height: 100%;
   display: flex;
-  gap: 24px;
+  gap: 12px;
   align-items: center;
   div {
     cursor: pointer;
+  }
+  img {
+      cursor: pointer;
   }
 `;
 //프로필 이미지
@@ -65,14 +75,16 @@ export const ProfileImage = styled.img`
 
 //메뉴 전체 박스
 export const MenuBox = styled.div`
-  width: 200px;
-  height: 300px;
+  width: 160px;
+  height: 360px;
   display: ${({ $isOpen }) => ($isOpen ? "block" : "none")};
   position: absolute;
-  top: 70px;
+  z-index: 10;
+  top: 80px;
   right: 0;
-  background-color: rgba(17, 45, 78, 0.9); /* #112d4e; 90% 투명도의 배경색 */
+  background-color: #112d4e;
   color: white;
+
 `;
 
 //메뉴 리스트 박스
@@ -85,6 +97,7 @@ export const MenuListBox = styled.ul`
   align-items: center;
   gap: 16px;
   p {
+    margin: 4px 0;
     font-weight: bold;
     cursor: default;
   }
