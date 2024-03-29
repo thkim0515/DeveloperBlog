@@ -8,7 +8,7 @@ export const Container = styled.div`
 `;
 
 export const LeftBox = styled.div`
-  flex-basis: 54%;
+  flex-basis: 57%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,7 +16,7 @@ export const LeftBox = styled.div`
 `;
 
 export const RightBox = styled.div`
-  flex-basis: 46%;
+  flex-basis: 43%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -29,20 +29,11 @@ export const RightBox = styled.div`
 `;
 
 export const Hr = styled.hr`
-  margin: 1.8rem 0;
+  margin: 1rem 0;
 `;
 
 // TODO 소셜 로그인 버튼 컴포넌트화 하기
 export const SocialButtons = styled.div`
-  button {
-    display: block;
-    background-color: #dbe2ef;
-    color: #112d4e;
-    width: 100%;
-    padding: 1rem;
-    border-radius: 20px;
-  }
-
   button:not(:last-child) {
     margin-bottom: 1rem;
   }
@@ -54,13 +45,13 @@ export const FormField = styled.div`
   justify-content: space-between;
 
   label {
-    padding: 0.75rem 0.75rem 0.75rem 0;
+    padding: 0.7rem 0;
   }
 
   input[type='text'],
   input[type='password'] {
-    width: 80%;
-    padding: 0.75rem;
+    width: 76%;
+    padding: 0.7rem;
     margin-bottom: 1.25rem;
     border: 1px solid #000000;
     border-radius: 20px;
