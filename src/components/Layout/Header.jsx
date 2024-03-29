@@ -6,7 +6,7 @@ export const Header = () => {
   // 네비게이션 객체 생성
   const navigate = useNavigate();
 
-  //로그인 상태(임시로 데이터 하드코딩 중)
+  //TODO 로그인 상태관리 필요(임시로 데이터 하드코딩 중)
   //const [isLogin, setIsLogin] = useState(false);
   const isLogin = true;
 

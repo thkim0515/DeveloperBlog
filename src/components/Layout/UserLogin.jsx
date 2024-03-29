@@ -39,7 +39,7 @@ export const UserLogin = () => {
             <SListLink to="/myCodes">My Gallery</SListLink>
           </li>
           <li>
-            <SListLink to="/profile">Settings</SListLink>
+            <SListLink to="/profile">Profile</SListLink>
           </li>
           <p></p>
           <li>Logout</li>
