@@ -1,3 +1,8 @@
+import { PostDetailComponent } from "../components/imagegallery/ImageGalleryComponents/PostDetailComponent";
 export const PostDetail = () => {
-  return <div>상세</div>;
+  return (
+    <div>
+      <PostDetailComponent />
+    </div>
+  );
 };

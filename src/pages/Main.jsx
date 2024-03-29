@@ -1,3 +1,8 @@
+import { ImageGallery } from "../components/imagegallery/ImageGallery";
 export const Main = () => {
-  return <div>메인</div>;
+  return (
+    <div>
+      <ImageGallery />
+    </div>
+  );
 };
