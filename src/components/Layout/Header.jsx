@@ -1,4 +1,4 @@
-import { SHeaderBox, SLogineButton, SLogo, SLogoLink } from "./Layout.style";
+import * as S from "./Layout.style";
 import { UserLogin } from "./UserLogin";
 import { useNavigate } from "react-router-dom";
 
@@ -17,16 +17,16 @@ export const Header = () => {
   };
 
   return (
-    <SHeaderBox>
-      <SLogo>
-        <SLogoLink to="/">STARBLOG</SLogoLink>
-      </SLogo>
+    <S.HeaderBox>
+      <S.Logo>
+        <S.LogoLink to="/">STARBLOG</S.LogoLink>
+      </S.Logo>
       {/* 로그인 여부에 따라 조건부 렌더링 */}
       {isLogin ? (
         <UserLogin></UserLogin>
       ) : (
-        <SLogineButton onClick={handleLoginButtonClick}>로그인</SLogineButton>
+        <S.LogineButton onClick={handleLoginButtonClick}>로그인</S.LogineButton>
       )}
-    </SHeaderBox>
+    </S.HeaderBox>
   );
 };
