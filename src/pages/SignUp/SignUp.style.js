@@ -28,43 +28,28 @@ export const RightBox = styled.div`
   }
 `;
 
-export const Hr = styled.hr`
-  margin: 1.8rem 0;
-`;
-
-// TODO 소셜 로그인 버튼 컴포넌트화 하기
-export const SocialButtons = styled.div`
-  button {
-    display: block;
-    background-color: #dbe2ef;
-    color: #112d4e;
-    width: 100%;
-    padding: 1rem;
-    border-radius: 20px;
-  }
-
-  button:not(:last-child) {
-    margin-bottom: 1rem;
-  }
-`;
-
 // form
 export const FormField = styled.div`
-  display: flex;
-  justify-content: space-between;
-
   label {
-    padding: 0.75rem 0.75rem 0.75rem 0;
+    display: block;
   }
 
   input[type='text'],
-  input[type='password'] {
-    width: 80%;
-    padding: 0.75rem;
-    margin-bottom: 1.25rem;
-    border: 1px solid #000000;
-    border-radius: 20px;
-    resize: vertical;
+  input[type='password'],
+  input[type='email'] {
+    width: 100%;
+    margin: 0.5rem 0 0.75rem 0;
+    padding: 15px;
+    display: inline-block;
+    border: 1px solid #d9d9d9;
+    background: #ffffff;
+  }
+
+  input[type='text']:focus,
+  input[type='password']:focus,
+  input[type='email']:focus {
+    background-color: #dbe2ef;
+    outline: none;
   }
 `;
 
@@ -75,12 +60,6 @@ export const LoginButton = styled.input`
   border-radius: 20px;
   color: #ffffff;
   background-color: #3f72af;
-`;
-
-export const RevertAccount = styled.button`
-  font-size: 0.8rem;
-  color: #112d4e;
-  text-align: right;
 `;
 
 export const MoveSignUp = styled.span`
