@@ -1,50 +1,44 @@
+import * as S from "./Layout.style";
 import React, { useState } from "react";
-import {
-  SUserLoginBox,
-  SProfileImage,
-  SMenuContainer,
-  SMenuListBox,
-  SListLink,
-} from "./Layout.style";
-
 export const UserLogin = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
-      <SUserLoginBox>
+      <S.UserLoginBox>
         <div>user1</div>
-        <SProfileImage alt="프로필 사진" src="./img/layout/user-profile.jpg" />
+        <S.ProfileImage alt="프로필 사진" src="./img/layout/user-profile.jpg" />
         <img
           onMouseEnter={() => setIsMenuOpen(true)}
+          onMouseLeave={() => setIsMenuOpen(false)}
           alt="메뉴 아이콘"
           src="./img/layout/menu-icon.png"
         />
-      </SUserLoginBox>
-      <SMenuContainer
+      </S.UserLoginBox>
+      <S.MenuBox
         $isOpen={isMenuOpen}
         onMouseEnter={() => setIsMenuOpen(true)}
         onMouseLeave={() => setIsMenuOpen(false)}
       >
-        <SMenuListBox>
+        <S.MenuListBox>
           <p>CODE</p>
           <li>
-            <SListLink to="/">Code Gallery</SListLink>
+            <S.ListLink to="/">Code Gallery</S.ListLink>
           </li>
           <li>
-            <SListLink to="/codeCreate">Code Annotate</SListLink>
+            <S.ListLink to="/codeCreate">Code Annotate</S.ListLink>
           </li>
           <p>MY PAGE</p>
           <li>
-            <SListLink to="/myCodes">My Gallery</SListLink>
+            <S.ListLink to="/myCodes">My Gallery</S.ListLink>
           </li>
           <li>
-            <SListLink to="/profile">Profile</SListLink>
+            <S.ListLink to="/profile">Profile</S.ListLink>
           </li>
           <p></p>
           <li>Logout</li>
-        </SMenuListBox>
-      </SMenuContainer>
+        </S.MenuListBox>
+      </S.MenuBox>
     </>
   );
 };
