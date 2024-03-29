@@ -41,4 +41,11 @@ export const STitle = styled.div`
   font-size: 1.5rem;
   color: white;
   margin-bottom: 20px;
+  padding-left: 20px;
+`;
+
+export const AceEditorContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;

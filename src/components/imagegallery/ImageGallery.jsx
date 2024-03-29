@@ -16,7 +16,7 @@ export const ImageGallery = () => {
     firstPage,
     lastPage,
   } = usePaginationSetValue(maxCount);
-  console.log(svgImages);
+
   return (
     <S.Container>
       <S.Spacer>
