@@ -18,7 +18,8 @@ export const ProfileInfo = () => {
               <p>이름</p>
             </S.TextBoxItem>
             <S.TextBoxItem>
-              <input />
+              {/* 이름은 변경 못 하게 div*/}
+              <div>정세은</div>
             </S.TextBoxItem>
             <S.TextBoxItem>
               <p>닉네임</p>
@@ -36,7 +37,9 @@ export const ProfileInfo = () => {
         </S.ProfileInfoBox>
         <S.EditButtonBox>
           <div>
-            <S.ProfileEditButton>사진 수정</S.ProfileEditButton>
+            <S.ProfileEditButton className="image_edit">
+              사진 수정
+            </S.ProfileEditButton>
           </div>
           <div>
             <S.ProfileEditButton>변경사항 저장</S.ProfileEditButton>
