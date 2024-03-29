@@ -1,5 +1,15 @@
 {
   "svgs": ["html.svg", "css.svg", "js.svg", "ts.svg", "java.svg", "react.svg"],
+  "loginuser" : [
+    {
+      "userid": "admin",
+      "username":"김개발",
+      "usernickname":"코딩박사",
+      "useremail":"admin@gmail.com",
+      "password":12341234,
+      "userimg":"./img/layout/user-profile.jpg"
+    }
+  ],
   "names": [
     "kosta",
     "코스타",

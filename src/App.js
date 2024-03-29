@@ -3,15 +3,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout/Layout";
 
 //페이지
-import { Main } from "./pages/Main";
-import { Login } from "./pages/Login/Login";
-import { SignUp } from "./pages/SignUp/SignUp";
-import { CodeCreate } from "./pages/CodeCreate";
-import { PostDetail } from "./pages/PostDetail";
-import { PostUpdate } from "./pages/PostUpdate";
-import { Profile } from "./pages/Profile";
-import { ProfileEdit } from "./pages/ProfileEdit";
-import { MyCodes } from "./pages/MyCodes";
+import { Main } from './pages/Main';
+import { Login } from './pages/Login/Login';
+import { SignUp } from './pages/SignUp/SignUp';
+import { CodeCreate } from './pages/CodeCreate';
+import { PostDetail } from './pages/PostDetail';
+import { PostUpdate } from './pages/PostUpdate';
+import { Profile } from './pages/Profile/Profile';
+import { ProfileEdit } from './pages/ProfileEdit/ProfileEdit';
+import { MyCodes } from './pages/MyCodes';
+
 
 export const App = () => {
   return (
