@@ -9,17 +9,12 @@ export const UserLogin = () => {
         <div>user1</div>
         <S.ProfileImage alt="프로필 사진" src="./img/layout/user-profile.jpg" />
         <img
-          onMouseEnter={() => setIsMenuOpen(true)}
-          onMouseLeave={() => setIsMenuOpen(false)}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
           alt="메뉴 아이콘"
           src="./img/layout/menu-icon.png"
         />
       </S.UserLoginBox>
-      <S.MenuBox
-        $isOpen={isMenuOpen}
-        onMouseEnter={() => setIsMenuOpen(true)}
-        onMouseLeave={() => setIsMenuOpen(false)}
-      >
+      <S.MenuBox $isOpen={isMenuOpen}>
         <S.MenuListBox>
           <p>CODE</p>
           <li>

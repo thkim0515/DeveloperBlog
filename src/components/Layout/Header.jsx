@@ -17,16 +17,20 @@ export const Header = () => {
   };
 
   return (
-    <S.HeaderBox>
-      <S.Logo>
-        <S.LogoLink to="/">STARBLOG</S.LogoLink>
-      </S.Logo>
-      {/* 로그인 여부에 따라 조건부 렌더링 */}
-      {isLogin ? (
-        <UserLogin></UserLogin>
-      ) : (
-        <S.LogineButton onClick={handleLoginButtonClick}>로그인</S.LogineButton>
-      )}
-    </S.HeaderBox>
+    <S.HeaerParentBox>
+      <S.HeaderBox>
+        <S.Logo>
+          <S.LogoLink to="/">STARBLOG</S.LogoLink>
+        </S.Logo>
+        {/* 로그인 여부에 따라 조건부 렌더링 */}
+        {isLogin ? (
+          <UserLogin></UserLogin>
+        ) : (
+          <S.LogineButton onClick={handleLoginButtonClick}>
+            로그인
+          </S.LogineButton>
+        )}
+      </S.HeaderBox>
+    </S.HeaerParentBox>
   );
 };
