@@ -1,14 +1,7 @@
-import * as S from "./Profile.style.js";
-import { useNavigate } from "react-router-dom";
+import * as S from "./ProfileEdit.style.js";
 
-export const Profile = () => {
-  //정보 수정 버튼 클릭시 이동 함수
-  const navigate = useNavigate();
-
-  const handleEditButtonClick = () => {
-    navigate("/profileEdit");
-  };
-
+export const ProfileInfo = () => {
+  //TODO 컴포넌트화해서 조회,수정 페이지에 같이 적용하게 만들기
   return (
     <S.ProfileInfoMainBox>
       <S.ProfileTitle>Profile</S.ProfileTitle>
@@ -20,36 +13,35 @@ export const Profile = () => {
               src="./img/layout/user-profile.jpg"
             />
           </S.ProfileImgBox>
-          <S.ProfileTextBox>
+          <S.ProfileTextForm>
             <S.TextBoxItem>
               <p>이름</p>
             </S.TextBoxItem>
             <S.TextBoxItem>
-              <div>
-                <p>정세은</p>
-              </div>
+              <input />
             </S.TextBoxItem>
             <S.TextBoxItem>
               <p>닉네임</p>
             </S.TextBoxItem>
             <S.TextBoxItem>
-              <div>
-                <p>css혐오자</p>
-              </div>
+              <input />
             </S.TextBoxItem>
             <S.TextBoxItem>
               <p>이메일</p>
             </S.TextBoxItem>
             <S.TextBoxItem>
-              <div className="email_box">
-                <p>123@gmail.com</p>
-              </div>
+              <input />
             </S.TextBoxItem>
-          </S.ProfileTextBox>
+          </S.ProfileTextForm>
         </S.ProfileInfoBox>
-        <S.ProfileEditButton onClick={handleEditButtonClick}>
-          정보 수정
-        </S.ProfileEditButton>
+        <S.EditButtonBox>
+          <div>
+            <S.ProfileEditButton>사진 수정</S.ProfileEditButton>
+          </div>
+          <div>
+            <S.ProfileEditButton>변경사항 저장</S.ProfileEditButton>
+          </div>
+        </S.EditButtonBox>
       </S.InfoAndBtnBox>
     </S.ProfileInfoMainBox>
   );

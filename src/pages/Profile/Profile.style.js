@@ -20,15 +20,17 @@ export const ProfileTitle = styled.h2`
 
 //프로필 내용 & 버튼 박스
 export const InfoAndBtnBox = styled.div`
-  max-width: 70%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
 
+
 //프로필 이미지& 텍스트 박스
 export const ProfileInfoBox = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,6 +55,7 @@ export const ProfileImg = styled.img`
 
 //프로필 텍스트박스
 export const ProfileTextBox = styled.div`
+  flex:1;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr 4fr;
   column-gap: 12px;
