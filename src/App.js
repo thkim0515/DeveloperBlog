@@ -1,9 +1,8 @@
 import { DynamicContent } from "./js/dummy";
 import { ImageGallery } from "./components/ImageGallery";
-import { Refact } from "./components/Refact";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ImageItem } from "./components/imagegallery/ImageGalleryComponents/ImageItem";
 import { PostDetail } from "./components/imagegallery/ImageGalleryComponents/postDetail";
+import { AnnotationCord } from "./components/AnnotationCord";
 
 export function App() {
   return (
@@ -15,8 +14,7 @@ export function App() {
         </Routes>
       </div>
       {/* <DynamicContent /> */}
-      {/* <ImageGallery /> */}
-      <Refact />
+      <AnnotationCord />
     </>
   );
 }

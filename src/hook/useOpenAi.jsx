@@ -5,8 +5,8 @@ const useOpenai = () => {
   const [commentedCode, setCommentedCode] = useState("");
   const [error, setError] = useState(null);
 
+  // ref . https://tilnote.io/pages/655203b7212492cbddf939fa
   const annotateCode = async (code) => {
-    // ref . https://tilnote.io/pages/655203b7212492cbddf939fa
     try {
       const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
       const orderToGPT = process.env.REACT_APP_OPENAI_orderBlock;

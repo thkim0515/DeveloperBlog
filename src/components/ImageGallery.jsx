@@ -1,7 +1,8 @@
 import { ImageItem } from "./imagegallery/ImageGalleryComponents/ImageItem";
 import { MainPagination } from "./imagegallery/ImageGalleryComponents/MainPagination";
 import { usePaginationSetValue } from "../hook/usePagination";
-import { Container, SPContainer, Spacer } from "../layout/ImageGallryLayout";
+// import { Container, SPContainer, Spacer } from "../layout/ImageGallryLayout";
+import * as S from "../layout/ImageGallryLayout";
 
 export const ImageGallery = () => {
   const maxCount = 9;
@@ -19,21 +20,16 @@ export const ImageGallery = () => {
 
   console.log(currentImages);
   return (
-    <Container>
-      <Spacer>
+    <S.Container>
+      <S.Spacer>
         {svgImages.map((svgName, idx) => (
           <img key={idx} src={`/svg/${svgName}`} alt={svgName} />
         ))}
-      </Spacer>
-      {/* {currentImages
-        .filter((img) => img.publicPrivate)
-        .map((img, idx) => (
-          <ImageItem key={idx} image={img} /> */}
-
+      </S.Spacer>
       {currentImages.map((img, idx) => (
         <ImageItem key={idx} image={img} />
       ))}
-      <SPContainer>
+      <S.SPContainer>
         <MainPagination
           currentPage={currentPage}
           totalPages={totalPages}
@@ -43,7 +39,7 @@ export const ImageGallery = () => {
           firstPage={firstPage}
           lastPage={lastPage}
         />
-      </SPContainer>
-    </Container>
+      </S.SPContainer>
+    </S.Container>
   );
 };
