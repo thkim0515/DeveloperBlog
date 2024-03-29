@@ -34,7 +34,9 @@ const useOpenai = () => {
       const lastMessageContent = lastMessage
         ? lastMessage.content.trim()
         : "반환 텍스트가 없음";
-      setCommentedCode(lastMessageContent);
+
+      const replaceAllBackticks = lastMessageContent.replaceAll("```", "");
+      setCommentedCode(replaceAllBackticks);
     } catch (error) {
       console.error(
         "OpenAI 에러",
