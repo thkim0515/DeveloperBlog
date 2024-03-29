@@ -9,7 +9,7 @@ import { SignUp } from './pages/SignUp/SignUp';
 import { CodeCreate } from './pages/CodeCreate';
 import { PostDetail } from './pages/PostDetail';
 import { PostUpdate } from './pages/PostUpdate';
-import { Profile } from './pages/Profile';
+import { Profile } from './pages/Profile/Profile';
 import { ProfileEdit } from './pages/ProfileEdit';
 import { MyCodes } from './pages/MyCodes';
 
