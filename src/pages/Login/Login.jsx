@@ -1,11 +1,20 @@
 import * as S from './Login.style';
+import { Link } from 'react-router-dom';
 
 export const Login = () => {
   return (
     <S.Container>
-      <S.LeftBox>StarBlog</S.LeftBox>
+      <S.LeftBox>
+        <span> web class 2024</span>
+        <br />
+        <span>STARBLOG</span>
+        <br />
+        <span>KOSTA 281</span>
+      </S.LeftBox>
       <S.RightBox>
-        <span className="logo">STARBLOG</span>
+        <Link to={'/'}>
+          <span className="logo">STARBLOG</span>
+        </Link>
         <div className="social-login">
           <p className="login-title">똑소리 나는 코드 기록</p>
           <S.SocialButtons>
@@ -26,8 +35,10 @@ export const Login = () => {
           </S.FormField>
           <S.LoginButton type="button" value="로그인" />
         </form>
-        <button className="account-reset">아이디/비밀번호 찾기</button>
-        <p>회원이 아니신가요? 회원가입 하기</p>
+        <S.RevertAccount className="account-reset">
+          아이디/비밀번호 찾기
+        </S.RevertAccount>
+        <Link to={'/signup'}>회원이 아니신가요? 회원가입 하기</Link>
       </S.RightBox>
     </S.Container>
   );
