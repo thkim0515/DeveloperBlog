@@ -7,7 +7,8 @@ export const ImageItem = ({ image }) => {
 
   const handleImageClick = () => {
     if (image) {
-      navigate(`/image/${image.pid}`, { state: { image } });
+      console.log(image.pid);
+      navigate(`/post/${image.pid}`, { state: { image } });
     }
   };
 

@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width: 1140px;
   display: flex;
+  flex-wrap: wrap;
 
   h1 {
     color: #333;
@@ -18,7 +20,7 @@ export const Container = styled.div`
     width: 100%;
     height: 200px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 3rem;
     border: 2px solid #ccc;
     border-radius: 5px;
     resize: vertical; /* 수직 리사이징 허용 */
@@ -26,24 +28,17 @@ export const Container = styled.div`
     color: #333; /* 텍스트 색상 변경 */
     margin-bottom: 10px;
   }
+`;
 
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    transition: background-color 0.2s;
-  }
-
-  button:hover {
-    background-color: #0056b3;
-  }
-
-  p {
-    color: red;
-    margin-top: 10px;
-  }
+export const STitle = styled.div`
+  background-color: #3f72af;
+  width: 100%;
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 20px;
 `;

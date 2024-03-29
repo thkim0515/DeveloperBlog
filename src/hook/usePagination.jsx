@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const usePaginationSetValue = (imagesPerPage) => {
+export const usePaginationSetValue = (PageCount) => {
   const [allImages, setAllImages] = useState([]); // 모든 이미지를 저장하는 상태
   const [filteredImages, setFilteredImages] = useState([]); // publicPrivate가 true인 이미지만 필터링해서 저장하는 상태
   const [svgImages, setSvgImages] = useState([]);
@@ -46,15 +46,15 @@ export const usePaginationSetValue = (imagesPerPage) => {
 
   // 현재 페이지에 따른 이미지 계산은 filteredImages를 기준으로 함
   // 이렇게 하면 publicPrivate가 true인 이미지만 페이지네이션 대상이 됨
-  const indexOfLastImage = currentPage * imagesPerPage;
-  const indexOfFirstImage = indexOfLastImage - imagesPerPage;
+  const indexOfLastImage = currentPage * PageCount;
+  const indexOfFirstImage = indexOfLastImage - PageCount;
   // filteredImages 배열에서 현재 페이지에 해당하는 이미지 목록을 계산
   const currentImages = filteredImages.slice(
     indexOfFirstImage,
     indexOfLastImage
   );
   // 전체 페이지 수는 필터링된 이미지 목록의 길이를 기준으로 계산
-  const totalPages = Math.ceil(filteredImages.length / imagesPerPage);
+  const totalPages = Math.ceil(filteredImages.length / PageCount);
 
   // 페이지네이션 관련 함수들
   const paginate = (pageNumber) => setCurrentPage(pageNumber);

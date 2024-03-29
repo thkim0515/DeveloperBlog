@@ -1,3 +1,8 @@
+import { AnnotationCode } from "../components/AnnotationCode/AnnotationCode";
 export const CodeCreate = () => {
-  return <div>작성</div>;
+  return (
+    <div>
+      <AnnotationCode />
+    </div>
+  );
 };

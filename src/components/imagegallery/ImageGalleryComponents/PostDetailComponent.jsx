@@ -1,9 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
+import * as S from "./PostDetailComponent.style";
 
-import * as S from "./postDetail.style";
-
-export const PostDetail = () => {
+export const PostDetailComponent = () => {
   const location = useLocation();
   const { image } = location.state;
 

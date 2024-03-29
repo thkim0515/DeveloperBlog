@@ -4,7 +4,7 @@ import { Pagination } from "react-bootstrap";
 const SPagination = styled(Pagination)`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin: 20px 0;
 `;
 
 export const MainPagination = ({

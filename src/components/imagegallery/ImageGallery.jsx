@@ -1,8 +1,7 @@
-import { ImageItem } from "./imagegallery/ImageGalleryComponents/ImageItem";
-import { MainPagination } from "./imagegallery/ImageGalleryComponents/MainPagination";
-import { usePaginationSetValue } from "../hook/usePagination";
-// import { Container, SPContainer, Spacer } from "../layout/ImageGallryLayout";
-import * as S from "../layout/ImageGallryLayout";
+import { ImageItem } from "./ImageGalleryComponents/ImageItem";
+import { MainPagination } from "./ImageGalleryComponents/MainPagination";
+import { usePaginationSetValue } from "../../hook/usePagination";
+import * as S from "./ImageGallry.style";
 
 export const ImageGallery = () => {
   const maxCount = 9;
@@ -17,8 +16,7 @@ export const ImageGallery = () => {
     firstPage,
     lastPage,
   } = usePaginationSetValue(maxCount);
-
-  console.log(currentImages);
+  console.log(svgImages);
   return (
     <S.Container>
       <S.Spacer>
