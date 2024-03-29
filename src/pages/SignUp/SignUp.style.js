@@ -8,7 +8,7 @@ export const Container = styled.div`
 `;
 
 export const LeftBox = styled.div`
-  flex-basis: 54%;
+  flex-basis: 57%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,7 +16,7 @@ export const LeftBox = styled.div`
 `;
 
 export const RightBox = styled.div`
-  flex-basis: 46%;
+  flex-basis: 43%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -39,7 +39,7 @@ export const FormField = styled.div`
   input[type='email'] {
     width: 100%;
     margin: 0.5rem 0 0.75rem 0;
-    padding: 15px;
+    padding: 0.75rem;
     display: inline-block;
     border: 1px solid #d9d9d9;
     background: #ffffff;

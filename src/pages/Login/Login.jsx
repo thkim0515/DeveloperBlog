@@ -1,3 +1,4 @@
+import { SocialButton } from './SocialButton';
 import * as S from './Login.style';
 import { Link } from 'react-router-dom';
 
@@ -18,9 +19,9 @@ export const Login = () => {
         <div className="social-login">
           <p className="login-title">똑소리 나는 코드 기록</p>
           <S.SocialButtons>
-            <button>Github 계정으로 로그인</button>
-            <button>Google 계정으로 로그인</button>
-            <button>Naver 계정으로 로그인</button>
+            <SocialButton social="Github" />
+            <SocialButton social="Google" />
+            <SocialButton social="Naver" />
           </S.SocialButtons>
         </div>
         <S.Hr />
