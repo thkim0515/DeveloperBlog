@@ -12,7 +12,13 @@ export const LeftBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   text-align: center;
+  span{
+    font-family: "kage";
+    font-size: 1.5rem;
+    color: #112d4e;
+  }
 `;
 
 export const RightBox = styled.div`
