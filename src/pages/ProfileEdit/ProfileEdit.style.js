@@ -7,7 +7,7 @@ export const ProfileInfoMainBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px
+  gap: 40px;
 `;
 
 //프로필 제목
@@ -18,8 +18,8 @@ export const ProfileTitle = styled.h2`
   align-self: start;
 `;
 
-//프로필 내용 & 버튼 박스
-export const InfoAndBtnBox = styled.div`
+//프로필 내용 & 버튼 폼 박스
+export const InfoAndBtnFormBox = styled.form`
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -53,7 +53,7 @@ export const ProfileImg = styled.img`
 `;
 
 //프로필 텍스트박스
-export const ProfileTextForm = styled.form`
+export const ProfileTextBox = styled.div`
   flex:1;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr 4fr;
@@ -88,6 +88,9 @@ export const TextBoxItem = styled.div`
     text-align: center;
     background-color: #dbe2ef;
   }
+  div{
+    color:gray;
+  }
 `;
 
 //버튼박스
@@ -100,20 +103,30 @@ export const EditButtonBox = styled.div`
   div{
     display: flex;
     align-items: center;
-    .image_edit {
-    height: 30px;
-  }
   }
 
 `
 //TODO 버튼 컴포넌트화 하기
-//사진 수정, 변경사항 저장
+//변경사항 저장
 export const ProfileEditButton = styled.button`
   width: 100%;
   height: 40px;
   background-color: #3f72af;
   border-radius: 12px;
   color: white;
+  cursor: pointer;
+`;
+
+//사진 수정
+export const ImgEditButton = styled.label`
+  width: 100%;
+  height: 30px;
+  background-color: #3f72af;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
 `;
 
 /**-------비밀번호 변경, 회원탈퇴 컴포넌트 시작 ----------- */
@@ -121,7 +134,9 @@ export const ProfileEditButton = styled.button`
 //패스워드, 회원탈퇴 메인 박스
 export const PasswordAndUserOutBox = styled.div`
   width: 100%;
-  margin-top: 80px;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid #dbe2ef;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -186,7 +201,9 @@ export const PwdEditButton = styled.button`
 
 /**회원 탈퇴 */
 export const UseroutBtnBox = styled.div`
-  margin-top: 36px;
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid #dbe2ef;
   width: 60%;
   display: flex;
   justify-content: end;

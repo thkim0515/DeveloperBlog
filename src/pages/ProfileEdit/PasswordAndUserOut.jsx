@@ -1,6 +1,6 @@
 import * as S from "./ProfileEdit.style.js";
 
-export const PasswordAndUserOut = () => {
+export const PasswordAndUserOut = ({ userData }) => {
   return (
     <S.PasswordAndUserOutBox>
       <S.PwdTitle>비밀번호 변경</S.PwdTitle>
