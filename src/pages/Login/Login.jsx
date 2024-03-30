@@ -1,8 +1,19 @@
 import { SocialButton } from "./SocialButton";
 import * as S from "./Login.style";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserLogin } from "../../context/UserLoginContext";
 
 export const Login = () => {
+  //TODO 임시로그인 기능
+  const [, setIsLogin] = useUserLogin();
+
+  //페이지 이동
+  const navigate = useNavigate();
+  //로그인,페이지 이동 함수
+  const handleLogin = () => {
+    setIsLogin(true);
+    navigate("/");
+  };
   return (
     <S.Container>
       <S.LeftBox>
@@ -34,7 +45,7 @@ export const Login = () => {
             <label htmlFor="password">비밀번호</label>
             <input type="password" id="password" />
           </S.FormField>
-          <S.LoginButton type="button" value="로그인" />
+          <S.LoginButton type="button" value="로그인" onClick={handleLogin} />
         </form>
         <S.RevertAccount className="account-reset">
           아이디/비밀번호 찾기

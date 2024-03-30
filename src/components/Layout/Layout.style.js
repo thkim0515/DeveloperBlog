@@ -33,7 +33,7 @@ export const HeaderBox = styled.header`
 export const LogineButton = styled.button`
   width: 80px;
   height: 40px;
-  padding: 10px 20px;
+  padding: 10px;
   background-color: #3f72af;
   color: #fff;
   border: none;

@@ -1,7 +1,13 @@
 import * as S from "./Layout.style";
 import React, { useState } from "react";
-export const UserLogin = () => {
+export const UserLogin = ({ setIsLogin }) => {
+  //메뉴박스 열기/닫기 상태관리
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  //TODO 임시로그아웃 기능
+  const handleLogout = () => {
+    setIsLogin(false);
+  };
 
   return (
     <>
@@ -31,7 +37,7 @@ export const UserLogin = () => {
             <S.ListLink to="/profile">Profile</S.ListLink>
           </li>
           <p></p>
-          <li>Logout</li>
+          <li onClick={handleLogout}>Logout</li>
         </S.MenuListBox>
       </S.MenuBox>
     </>
