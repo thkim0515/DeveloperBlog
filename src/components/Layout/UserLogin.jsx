@@ -1,8 +1,16 @@
 import * as S from "./Layout.style";
-import React, { useState } from "react";
-export const UserLogin = ({ setIsLogin }) => {
+import React, { useEffect, useState } from "react";
+export const UserLogin = ({ isLogin, setIsLogin }) => {
   //메뉴박스 열기/닫기 상태관리
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  //TODO 하드코딩한 로그인 유저정보(임시)
+  const [loginUser, setLoginUser] = useState(null);
+
+  //세션에서 로그인 유저정보 가져오기
+  useEffect(() => {
+    setLoginUser(JSON.parse(sessionStorage.getItem("loginUser")));
+  }, [isLogin]);
 
   //TODO 임시로그아웃 기능
   const handleLogout = () => {
@@ -11,15 +19,17 @@ export const UserLogin = ({ setIsLogin }) => {
 
   return (
     <>
-      <S.UserLoginBox>
-        <div>user1</div>
-        <S.ProfileImage alt="프로필 사진" src="./img/layout/user-profile.jpg" />
-        <img
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          alt="메뉴 아이콘"
-          src="./img/layout/menu-icon.png"
-        />
-      </S.UserLoginBox>
+      {loginUser && (
+        <S.UserLoginBox>
+          <div>{loginUser.usernickname}</div>
+          <S.ProfileImage alt="프로필 사진" src={loginUser.userimg} />
+          <img
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            alt="메뉴 아이콘"
+            src="./img/layout/menu-icon.png"
+          />
+        </S.UserLoginBox>
+      )}
       <S.MenuBox $isOpen={isMenuOpen}>
         <S.MenuListBox>
           <p>CODE</p>
