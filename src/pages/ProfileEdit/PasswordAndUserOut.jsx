@@ -1,8 +1,8 @@
 import * as S from "./ProfileEdit.style.js";
 
-export const PasswordEdit = () => {
+export const PasswordAndUserOut = ({ userData }) => {
   return (
-    <S.PasswordBox>
+    <S.PasswordAndUserOutBox>
       <S.PwdTitle>비밀번호 변경</S.PwdTitle>
       <S.PwdFormBox>
         <S.PwdForm>
@@ -12,9 +12,12 @@ export const PasswordEdit = () => {
           <input type="password" />
           <label>비밀번호 재입력</label>
           <input type="password" />
-          <button>변경사항 저장</button>
+          <S.PwdEditButton>변경사항 저장</S.PwdEditButton>
         </S.PwdForm>
       </S.PwdFormBox>
-    </S.PasswordBox>
+      <S.UseroutBtnBox>
+        <button>회원탈퇴</button>
+      </S.UseroutBtnBox>
+    </S.PasswordAndUserOutBox>
   );
 };

@@ -7,7 +7,7 @@ export const ProfileInfoMainBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap:15%;
+  gap: 40px;
 `;
 
 //프로필 제목
@@ -18,8 +18,8 @@ export const ProfileTitle = styled.h2`
   align-self: start;
 `;
 
-//프로필 내용 & 버튼 박스
-export const InfoAndBtnBox = styled.div`
+//프로필 내용 & 버튼 폼 박스
+export const InfoAndBtnFormBox = styled.form`
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@ export const ProfileInfoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:8px;
+  gap:16px;
 `;
 
 //프로필 이미지 박스
@@ -53,7 +53,7 @@ export const ProfileImg = styled.img`
 `;
 
 //프로필 텍스트박스
-export const ProfileTextForm = styled.form`
+export const ProfileTextBox = styled.div`
   flex:1;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr 4fr;
@@ -75,8 +75,8 @@ export const TextBoxItem = styled.div`
     font-weight: 600;
     text-align: left;
   }
-  /* 자식 input 태그 스타일 적용 */
-  input {
+  /* 자식 input, div 태그 스타일 적용 */
+  input, div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,6 +88,9 @@ export const TextBoxItem = styled.div`
     text-align: center;
     background-color: #dbe2ef;
   }
+  div{
+    color:gray;
+  }
 `;
 
 //버튼박스
@@ -97,36 +100,54 @@ export const EditButtonBox = styled.div`
   display: grid;
   gap: 12px;
   grid-template-columns: 100px 1fr;
-
+  div{
+    display: flex;
+    align-items: center;
+  }
 
 `
 //TODO 버튼 컴포넌트화 하기
-//사진 수정, 변경사항 저장
+//변경사항 저장
 export const ProfileEditButton = styled.button`
+  width: 100%;
+  height: 40px;
+  background-color: #3f72af;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+`;
+
+//사진 수정
+export const ImgEditButton = styled.label`
   width: 100%;
   height: 30px;
   background-color: #3f72af;
   border-radius: 12px;
   color: white;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
 `;
 
-/**-------비밀번호 변경 컴포넌트 시작 ----------- */
+/**-------비밀번호 변경, 회원탈퇴 컴포넌트 시작 ----------- */
 
-//패스워드 메인 박스
-export const PasswordBox = styled.div`
+//패스워드, 회원탈퇴 메인 박스
+export const PasswordAndUserOutBox = styled.div`
   width: 100%;
-  margin-top: 24px;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid #dbe2ef;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap:40px;
 `;
 
 //비밀번호 변경 제목
 export const PwdTitle = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #112d4e;
-  margin-bottom: 32px;
   align-self: start;
 `;
 
@@ -165,13 +186,29 @@ input {
     text-align: center;
   }
 `
+//변경사항 저장 버튼
+export const PwdEditButton = styled.button`
+  grid-column: 2/3;
+  grid-row: 4/5;
+  width: 100%;
+  height: 40px;
+  background-color: #3f72af;
+  border-radius: 12px;
+  color: white;
+
+`;
+
 
 /**회원 탈퇴 */
-export const UseroutBtn = styled.button`
-  margin-top: 24px;
-  float: right;
-  background-color: none;
-  border: none;
-  font-style: 0.5rem;
-  color: #112d4e;
+export const UseroutBtnBox = styled.div`
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid #dbe2ef;
+  width: 60%;
+  display: flex;
+  justify-content: end;
+  button{
+    font-size: 0.8rem;
+    color: #dbe2ef;
+  }
 `

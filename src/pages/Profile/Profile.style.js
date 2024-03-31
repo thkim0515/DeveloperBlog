@@ -8,13 +8,13 @@ export const ProfileInfoMainBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap:80px;
 `;
 
 //프로필 제목
 export const ProfileTitle = styled.h2`
   font-size: 1.5rem;
   color: #112d4e;
-  margin-bottom: 32px;
   align-self: start;
 `;
 
@@ -34,7 +34,7 @@ export const ProfileInfoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:8px;
+  gap:16px;
 `;
 
 //프로필 이미지 박스
