@@ -16,6 +16,7 @@ export const ProfileTitle = styled.h2`
   font-size: 1.5rem;
   color: #112d4e;
   align-self: start;
+  cursor: default;
 `;
 
 //프로필 내용 & 버튼 박스

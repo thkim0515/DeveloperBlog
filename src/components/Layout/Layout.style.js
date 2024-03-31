@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 //메인 컨테이너 스타일
 export const Container = styled.div`
   max-width: 1140px;
-  min-height: 100vh;
+  min-height: 90vh;
   margin: 0 auto;
   padding: 120px 0;
 `;
@@ -16,6 +16,7 @@ export const HeaerParentBox = styled.div`
   z-index: 10;
   width: 100%;
   background-color: #F9F7F7;
+  border-bottom: 1px solid #dbe2ef;
 `
 
 export const HeaderBox = styled.header`
@@ -138,6 +139,7 @@ export const CorporationBox = styled.div`
   display: flex;
   color: #112d4e;
   gap: 8px;
+  cursor: pointer;
   div{
     padding: 0 8px;
   }

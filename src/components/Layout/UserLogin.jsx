@@ -1,28 +1,33 @@
 import * as S from "./Layout.style";
-import React, { useEffect, useState } from "react";
-export const UserLogin = ({ isLogin, setIsLogin }) => {
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUserLogin } from "../../context/UserLoginContext";
+
+export const UserLogin = () => {
+  //로그인 유저정보
+  const { setIsLogin, loginUser, setLoginUser, setIsChange } = useUserLogin();
+
   //메뉴박스 열기/닫기 상태관리
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  //TODO 하드코딩한 로그인 유저정보(임시)
-  const [loginUser, setLoginUser] = useState(null);
-
-  //세션에서 로그인 유저정보 가져오기
-  useEffect(() => {
-    setLoginUser(JSON.parse(sessionStorage.getItem("loginUser")));
-  }, [isLogin]);
+  //페이지이동
+  const navigate = useNavigate();
 
   //TODO 임시로그아웃 기능
   const handleLogout = () => {
     setIsLogin(false);
+    setLoginUser(null);
+    setIsChange(false);
+    sessionStorage.clear();
+    navigate("/");
   };
 
   return (
     <>
       {loginUser && (
         <S.UserLoginBox>
-          <div>{loginUser.usernickname}</div>
-          <S.ProfileImage alt="프로필 사진" src={loginUser.userimg} />
+          <div>{loginUser.userNickname}</div>
+          <S.ProfileImage alt="프로필 사진" src={loginUser.userImg} />
           <img
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             alt="메뉴 아이콘"

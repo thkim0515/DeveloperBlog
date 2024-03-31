@@ -5,7 +5,7 @@ import { useUserLogin } from "../../context/UserLoginContext";
 
 export const Login = () => {
   //TODO 임시로그인 기능
-  const [, setIsLogin] = useUserLogin();
+  const { setIsLogin } = useUserLogin();
 
   //페이지 이동
   const navigate = useNavigate();

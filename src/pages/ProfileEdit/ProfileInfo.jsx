@@ -1,11 +1,24 @@
 import * as S from "./ProfileEdit.style.js";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUserLogin } from "../../context/UserLoginContext.jsx";
 
-export const ProfileInfo = ({ userData }) => {
-  //로그인 유저정보 상태관리
-  const [userNickname, setUserNickname] = useState(userData.userNickname);
-  const [userEmail, setUserEmail] = useState(userData.userEmail);
-  const [userImgSrc, setUserImgSrc] = useState(userData.userImg);
+export const ProfileInfo = () => {
+  const { loginUser, setIsChange } = useUserLogin();
+
+  //user정보변경상태 false로 초기화
+  const memoizedSetIsChange = useCallback(setIsChange, [setIsChange]);
+  useEffect(() => {
+    memoizedSetIsChange(false);
+    console.log("실행중");
+  }, [memoizedSetIsChange]);
+
+  //로그인 유저정보
+  const [userNickname, setUserNickname] = useState(loginUser.userNickname);
+  const [userEmail, setUserEmail] = useState(loginUser.userEmail);
+  const userImgSrc = loginUser.userImg;
+  //이미지 미리보기
+  const [imgPreview, setImgPreview] = useState(null);
 
   //이름, 닉네임 state 변경 함수
   const handleInputChange = (setState) => (e) => {
@@ -20,20 +33,47 @@ export const ProfileInfo = ({ userData }) => {
       reader.readAsDataURL(file);
       return new Promise((resolve) => {
         reader.onload = () => {
-          setUserImgSrc(reader.result || null);
+          setImgPreview(reader.result || null);
           resolve();
         };
       });
     }
   };
 
+  //페이지 이동
+  const navigate = useNavigate();
+  //TODO 변경사항 저장 함수(임시로 세션스토리지 이용중)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // 이미지를 Blob URL로 변환
+    let imgBlobUrl = null;
+    if (imgPreview) {
+      const response = await fetch(imgPreview);
+      const blob = await response.blob();
+      imgBlobUrl = URL.createObjectURL(blob);
+    }
+
+    const editData = { ...loginUser };
+    editData.userNickname = userNickname;
+    editData.userEmail = userEmail;
+    editData.userImg = imgBlobUrl ? imgBlobUrl : userImgSrc;
+    sessionStorage.setItem("loginUser", JSON.stringify(editData));
+    setIsChange(true);
+    navigate("/profile");
+  };
+
   return (
     <S.ProfileInfoMainBox>
       <S.ProfileTitle>Profile</S.ProfileTitle>
-      <S.InfoAndBtnFormBox>
+      <S.InfoAndBtnFormBox onSubmit={handleSubmit}>
         <S.ProfileInfoBox>
           <S.ProfileImgBox>
-            <S.ProfileImg alt="프로필 이미지" src={userImgSrc} />
+            <S.ProfileImg
+              alt="프로필 이미지"
+              src={imgPreview ? imgPreview : userImgSrc}
+            />
           </S.ProfileImgBox>
           <S.ProfileTextBox>
             <S.TextBoxItem>
@@ -41,7 +81,7 @@ export const ProfileInfo = ({ userData }) => {
             </S.TextBoxItem>
             <S.TextBoxItem>
               {/* 이름은 변경 못 하게 div*/}
-              <div>김코딩</div>
+              <div>{loginUser.userName}</div>
             </S.TextBoxItem>
             <S.TextBoxItem>
               <p>닉네임</p>
@@ -75,7 +115,9 @@ export const ProfileInfo = ({ userData }) => {
             />
           </div>
           <div>
-            <S.ProfileEditButton>변경사항 저장</S.ProfileEditButton>
+            <S.ProfileEditButton type="submit">
+              변경사항 저장
+            </S.ProfileEditButton>
           </div>
         </S.EditButtonBox>
       </S.InfoAndBtnFormBox>

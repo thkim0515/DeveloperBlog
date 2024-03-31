@@ -16,6 +16,7 @@ export const ProfileTitle = styled.h2`
   color: #112d4e;
   margin-bottom: 16px;
   align-self: start;
+  cursor: default;
 `;
 
 //프로필 내용 & 버튼 폼 박스
@@ -149,6 +150,7 @@ export const PwdTitle = styled.h2`
   font-size: 1rem;
   color: #112d4e;
   align-self: start;
+  cursor: default;
 `;
 
 
