@@ -1,7 +1,15 @@
 import styled from "styled-components";
 
 export const SItem = styled.div`
+<<<<<<< HEAD
   width: calc(33.333% - 14px);
+=======
+<<<<<<< HEAD
+  width: calc(33.333% - 25px);
+=======
+  width: calc(33.333% - 14px);
+>>>>>>> serverDB
+>>>>>>> c0587e1884edf5ef7424143189684493a3ff6fcb
   height: 350px;
   display: flex;
   flex-direction: column;

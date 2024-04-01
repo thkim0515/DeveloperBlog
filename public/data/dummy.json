@@ -1,5 +1,10 @@
 {
   "svgs": ["html.svg", "css.svg", "js.svg", "ts.svg", "java.svg", "react.svg"],
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> c0587e1884edf5ef7424143189684493a3ff6fcb
   "loginuser" : [
     {
       "userid": "admin",
@@ -10,6 +15,10 @@
       "userimg":"./img/layout/user-profile.jpg"
     }
   ],
+<<<<<<< HEAD
+=======
+>>>>>>> serverDB
+>>>>>>> c0587e1884edf5ef7424143189684493a3ff6fcb
   "names": [
     "kosta",
     "코스타",
