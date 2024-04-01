@@ -4,7 +4,7 @@ import { useUserLogin } from "../../context/UserLoginContext";
 
 export const Profile = () => {
   //TODO 유저정보 받아오기
-  const { loginUser } = useUserLogin();
+  const { user } = useUserLogin();
   //정보 수정 버튼 클릭시 이동 함수
   const navigate = useNavigate();
   const handleEditButtonClick = () => {
@@ -15,18 +15,18 @@ export const Profile = () => {
     <S.ProfileInfoMainBox>
       <S.ProfileTitle>Profile</S.ProfileTitle>
       <S.InfoAndBtnBox>
-        {loginUser && (
+        {user && (
           <S.ProfileInfoBox>
             <S.ProfileImgBox>
-              <S.ProfileImg alt="프로필 이미지" src={loginUser.userImg} />
+              <S.ProfileImg alt="프로필 이미지" src={user.userimg} />
             </S.ProfileImgBox>
             <S.ProfileTextBox>
               <S.TextBoxItem>
-                <p>이름</p>
+                <p>아이디</p>
               </S.TextBoxItem>
               <S.TextBoxItem>
                 <div>
-                  <p>{loginUser.userName}</p>
+                  <p>{user.userid}</p>
                 </div>
               </S.TextBoxItem>
               <S.TextBoxItem>
@@ -34,7 +34,7 @@ export const Profile = () => {
               </S.TextBoxItem>
               <S.TextBoxItem>
                 <div>
-                  <p>{loginUser.userNickname}</p>
+                  <p>{user.usernickname}</p>
                 </div>
               </S.TextBoxItem>
               <S.TextBoxItem>
@@ -42,7 +42,7 @@ export const Profile = () => {
               </S.TextBoxItem>
               <S.TextBoxItem>
                 <div className="email_box">
-                  <p>{loginUser.userEmail}</p>
+                  <p>{user.useremail}</p>
                 </div>
               </S.TextBoxItem>
             </S.ProfileTextBox>
