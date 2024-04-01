@@ -1,7 +1,5 @@
 {
   "svgs": ["html.svg", "css.svg", "js.svg", "ts.svg", "java.svg", "react.svg"],
-<<<<<<< HEAD
-=======
   "loginuser" : [
     {
       "userid": "admin",
@@ -12,7 +10,6 @@
       "userimg":"./img/layout/user-profile.jpg"
     }
   ],
->>>>>>> serverDB
   "names": [
     "kosta",
     "코스타",

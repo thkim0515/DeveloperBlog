@@ -4,20 +4,14 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.1",
-<<<<<<< HEAD
-=======
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
->>>>>>> serverDB
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-<<<<<<< HEAD
-=======
     "@toast-ui/react-editor": "^3.2.3",
->>>>>>> serverDB
     "ace-builds": "^1.32.8",
     "axios": "^1.6.8",
     "body-parse": "^0.1.0",
@@ -25,13 +19,9 @@
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-<<<<<<< HEAD
-    "mongoose": "^8.2.3",
-=======
     "font-awesome": "^4.7.0",
     "html2canvas": "^1.4.1",
     "mongoose": "^8.2.4",
->>>>>>> serverDB
     "react": "^18.2.0",
     "react-ace": "^11.0.1",
     "react-bootstrap": "^2.10.2",
