@@ -9,7 +9,7 @@ export const Header = () => {
 
   //TODO 로그인 상태관리 필요(임시로 데이터 하드코딩 중)
   //const [isLogin, setIsLogin] = useState(false);
-  const isLogin = true;
+  const { isLogin } = useUserLogin();
 
   // 로그인 버튼 클릭 시 페이지 이동 처리 함수
   const handleLoginButtonClick = () => {
