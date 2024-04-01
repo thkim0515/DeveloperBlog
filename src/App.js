@@ -6,8 +6,8 @@ import { Join } from './pages/Join/Join';
 
 //페이지
 import { Main } from './pages/Main/Main';
-import { Login } from './pages/Join/Login/Login';
-import { SignUp } from './pages/Join/SignUp/SignUp';
+import { Login } from './pages/Login/Login';
+import { SignUp } from './pages/SignUp/SignUp';
 import { CodeCreate } from './pages/CodeCreate/CodeCreate';
 import { PostDetail } from './pages/PostDetail/PostDetail';
 import { PostUpdate } from './pages/PostUpdate/PostUpdate';
@@ -24,11 +24,12 @@ export const App = () => {
       <UserLoginProvider>
         <Routes>
           {/* 로그인 및 회원가입 페이지를 레이아웃 밖에 배치 */}
-          <Route element={<Join />}>
+          {/* <Route element={<Join />}>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-          </Route>
-
+          </Route> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route element={<Layout />}>
             {/* Layout 컴포넌트 안에서 자식 Route들을 배치 */}
             <Route index element={<Main />} />
