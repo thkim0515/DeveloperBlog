@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 5000;
 const DATABASE = process.env.DATABASE;
 const uri = `${DATABASE}starblog?retryWrites=true&w=majority`;
 
+console.log(uri);
+
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("DB 연결 확인 - STARBLOG"))
