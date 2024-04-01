@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // 레이아웃
 export const Container = styled.div`
@@ -14,7 +14,7 @@ export const LeftBox = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  span{
+  span {
     font-family: "kage";
     font-size: 1.5rem;
     color: #112d4e;
@@ -54,8 +54,8 @@ export const FormField = styled.div`
     padding: 0.7rem 0;
   }
 
-  input[type='text'],
-  input[type='password'] {
+  input[type="text"],
+  input[type="password"] {
     width: 76%;
     padding: 0.7rem;
     margin-bottom: 1.25rem;

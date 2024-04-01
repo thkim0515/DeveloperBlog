@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 //메인 컨테이너 스타일
 export const Container = styled.div`
@@ -15,9 +14,9 @@ export const HeaerParentBox = styled.div`
   position: fixed;
   z-index: 10;
   width: 100%;
-  background-color: #F9F7F7;
+  background-color: #f9f7f7;
   border-bottom: 1px solid #dbe2ef;
-`
+`;
 
 export const HeaderBox = styled.header`
   position: relative;
@@ -53,7 +52,6 @@ export const Logo = styled.h1`
 export const LogoLink = styled(Link)`
   cursor: pointer;
   color: #112d4e;
-  
 `;
 
 //로그인 된 유저 박스
@@ -66,7 +64,7 @@ export const UserLoginBox = styled.div`
     cursor: pointer;
   }
   img {
-      cursor: pointer;
+    cursor: pointer;
   }
 `;
 //프로필 이미지
@@ -87,7 +85,6 @@ export const MenuBox = styled.div`
   right: 0;
   background-color: #112d4e;
   color: white;
-
 `;
 
 //메뉴 리스트 박스
@@ -116,7 +113,6 @@ export const ListLink = styled(Link)`
   color: #fff;
 `;
 
-
 /**------풋터 스타일------ */
 export const FooterBox = styled.div`
   display: flex;
@@ -126,24 +122,24 @@ export const FooterBox = styled.div`
   align-items: center;
   background-color: #dbe2ef;
   height: 160px;
-`
+`;
 export const DevelopersBox = styled.div`
   display: flex;
   color: #112d4e;
   gap: 8px;
-  h4{
+  h4 {
     font-weight: bold;
   }
-`
+`;
 export const CorporationBox = styled.div`
   display: flex;
   color: #112d4e;
   gap: 8px;
   cursor: pointer;
-  div{
+  div {
     padding: 0 8px;
   }
   div:not(:last-child) {
-    border-right: 1px solid #F9F7F7; //고객센터 박스만 제외하고 오른쪽에 테두리
+    border-right: 1px solid #f9f7f7; //고객센터 박스만 제외하고 오른쪽에 테두리
   }
-`
+`;

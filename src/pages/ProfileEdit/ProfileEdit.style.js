@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 //프로필 전체 박스
 export const ProfileInfoMainBox = styled.div`
@@ -34,7 +34,7 @@ export const ProfileInfoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:16px;
+  gap: 16px;
 `;
 
 //프로필 이미지 박스
@@ -55,7 +55,7 @@ export const ProfileImg = styled.img`
 
 //프로필 텍스트박스
 export const ProfileTextBox = styled.div`
-  flex:1;
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr 4fr;
   column-gap: 12px;
@@ -77,7 +77,8 @@ export const TextBoxItem = styled.div`
     text-align: left;
   }
   /* 자식 input, div 태그 스타일 적용 */
-  input, div {
+  input,
+  div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,8 +90,8 @@ export const TextBoxItem = styled.div`
     text-align: center;
     background-color: #dbe2ef;
   }
-  div{
-    color:gray;
+  div {
+    color: gray;
   }
 `;
 
@@ -101,12 +102,11 @@ export const EditButtonBox = styled.div`
   display: grid;
   gap: 12px;
   grid-template-columns: 100px 1fr;
-  div{
+  div {
     display: flex;
     align-items: center;
   }
-
-`
+`;
 //TODO 버튼 컴포넌트화 하기
 //변경사항 저장
 export const ProfileEditButton = styled.button`
@@ -142,7 +142,7 @@ export const PasswordAndUserOutBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap:40px;
+  gap: 40px;
 `;
 
 //비밀번호 변경 제목
@@ -153,7 +153,6 @@ export const PwdTitle = styled.h2`
   cursor: default;
 `;
 
-
 //패스워드 폼 박스
 export const PwdFormBox = styled.div`
   width: 60%;
@@ -161,7 +160,7 @@ export const PwdFormBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+`;
 //패스워드 폼
 export const PwdForm = styled.form`
   width: 100%;
@@ -169,13 +168,13 @@ export const PwdForm = styled.form`
   grid-template-columns: 4fr 6fr;
   column-gap: 12px;
   row-gap: 24px;
-label{
-  color: #112d4e;
-  font-weight: 600;
-  text-align: right;
-  line-height: 30px;
-}
-input {
+  label {
+    color: #112d4e;
+    font-weight: 600;
+    text-align: right;
+    line-height: 30px;
+  }
+  input {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -187,7 +186,7 @@ input {
     background-color: #dbe2ef;
     text-align: center;
   }
-`
+`;
 //변경사항 저장 버튼
 export const PwdEditButton = styled.button`
   grid-column: 2/3;
@@ -197,9 +196,7 @@ export const PwdEditButton = styled.button`
   background-color: #3f72af;
   border-radius: 12px;
   color: white;
-
 `;
-
 
 /**회원 탈퇴 */
 export const UseroutBtnBox = styled.div`
@@ -209,8 +206,8 @@ export const UseroutBtnBox = styled.div`
   width: 60%;
   display: flex;
   justify-content: end;
-  button{
+  button {
     font-size: 0.8rem;
     color: #dbe2ef;
   }
-`
+`;
