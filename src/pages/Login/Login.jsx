@@ -9,7 +9,7 @@ export const Login = () => {
   const [password, setPassword] = useState("");
 
   //TODO 임시로그인 기능
-  const { setIsLogin } = useUserLogin();
+  const { setIsLogin, setIsChange } = useUserLogin();
 
   const navigate = useNavigate();
   const handleLogin = async () => {
@@ -22,6 +22,7 @@ export const Login = () => {
       if (response.data.user) {
         sessionStorage.setItem("user", JSON.stringify(response.data.user));
         setIsLogin(true);
+        setIsChange(true);
         navigate("/");
       } else {
         console.log(response.data.message);

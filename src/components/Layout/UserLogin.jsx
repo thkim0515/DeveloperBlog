@@ -26,8 +26,8 @@ export const UserLogin = () => {
     <>
       {user && (
         <S.UserLoginBox>
-          <div>{user.usernickname}</div>
-          <S.ProfileImage alt="프로필 사진" src={user.userimg} />
+          <div>{user.nickname}</div>
+          <S.ProfileImage alt="프로필 사진" src={user.profile} />
           <img
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             alt="메뉴 아이콘"

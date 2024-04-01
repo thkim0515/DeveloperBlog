@@ -14,9 +14,9 @@ export const ProfileInfo = () => {
   }, [memoizedSetIsChange]);
 
   //로그인 유저정보
-  const [userNickname, setUserNickname] = useState(user.usernickname);
-  const [userEmail, setUserEmail] = useState(user.useremail);
-  const userImgSrc = user.userimg;
+  const [userNickname, setUserNickname] = useState(user.nickname);
+  const [userEmail, setUserEmail] = useState(user.email);
+  const userImgSrc = user.profile;
   //이미지 미리보기
   const [imgPreview, setImgPreview] = useState(null);
 
@@ -47,18 +47,18 @@ export const ProfileInfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 이미지를 Blob URL로 변환
+    // 이미지를 Blob URL로 변환(서버에 이미지 저장되면 지우기)
     let imgBlobUrl = null;
     if (imgPreview) {
       const response = await fetch(imgPreview);
       const blob = await response.blob();
       imgBlobUrl = URL.createObjectURL(blob);
     }
-
+    // TODO 백엔드 완성되면 해당 값 PUT요청보내기
     const editData = { ...user };
-    editData.usernickname = userNickname;
-    editData.useremail = userEmail;
-    editData.userimg = imgBlobUrl ? imgBlobUrl : userImgSrc;
+    editData.nickname = userNickname;
+    editData.email = userEmail;
+    editData.profile = imgBlobUrl ? imgBlobUrl : userImgSrc;
     sessionStorage.setItem("user", JSON.stringify(editData));
     setIsChange(true);
     navigate("/profile");
@@ -81,7 +81,7 @@ export const ProfileInfo = () => {
             </S.TextBoxItem>
             <S.TextBoxItem>
               {/* id변경 못 하게 div*/}
-              <div>{user.userid}</div>
+              <div>{user.id}</div>
             </S.TextBoxItem>
             <S.TextBoxItem>
               <p>닉네임</p>

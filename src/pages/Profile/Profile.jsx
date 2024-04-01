@@ -18,7 +18,7 @@ export const Profile = () => {
         {user && (
           <S.ProfileInfoBox>
             <S.ProfileImgBox>
-              <S.ProfileImg alt="프로필 이미지" src={user.userimg} />
+              <S.ProfileImg alt="프로필 이미지" src={user.profile} />
             </S.ProfileImgBox>
             <S.ProfileTextBox>
               <S.TextBoxItem>
@@ -26,7 +26,7 @@ export const Profile = () => {
               </S.TextBoxItem>
               <S.TextBoxItem>
                 <div>
-                  <p>{user.userid}</p>
+                  <p>{user.id}</p>
                 </div>
               </S.TextBoxItem>
               <S.TextBoxItem>
@@ -34,7 +34,7 @@ export const Profile = () => {
               </S.TextBoxItem>
               <S.TextBoxItem>
                 <div>
-                  <p>{user.usernickname}</p>
+                  <p>{user.nickname}</p>
                 </div>
               </S.TextBoxItem>
               <S.TextBoxItem>
@@ -42,7 +42,7 @@ export const Profile = () => {
               </S.TextBoxItem>
               <S.TextBoxItem>
                 <div className="email_box">
-                  <p>{user.useremail}</p>
+                  <p>{user.email}</p>
                 </div>
               </S.TextBoxItem>
             </S.ProfileTextBox>

@@ -10,10 +10,10 @@ export const UserLoginProvider = ({ children }) => {
     JSON.parse(sessionStorage.getItem("isLogin"))
   );
 
-  // isLogin 상태가 변경될 때마다 세션 스토리지에 저장(새로고침시 로그인 상태 데이터 유지)
-  // useEffect(() => {
-  //   sessionStorage.setItem("isLogin", isLogin);
-  // }, [isLogin]);
+  //isLogin 상태가 변경될 때마다 세션 스토리지에 저장(새로고침시 로그인 상태 데이터 유지)
+  useEffect(() => {
+    sessionStorage.setItem("isLogin", isLogin);
+  }, [isLogin]);
 
   //TODO 로그인 유저 정보 (후에 백엔드에서 데이터 받아오기)
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
