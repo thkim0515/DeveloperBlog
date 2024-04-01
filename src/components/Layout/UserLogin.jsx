@@ -31,7 +31,7 @@ export const UserLogin = () => {
           <img
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             alt="메뉴 아이콘"
-            src="./img/layout/menu-icon.png"
+            src="../img/layout/menu-icon.png"
           />
         </S.UserLoginBox>
       )}

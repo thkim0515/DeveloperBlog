@@ -38,7 +38,7 @@ export const UserLoginProvider = ({ children }) => {
         userName: "김개발",
         userNickname: "코딩초보",
         userEmail: "admin@gmail.com",
-        userImg: "./img/layout/user-profile.jpg",
+        userImg: "../img/layout/user-profile.jpg",
       };
       sessionStorage.setItem("loginUser", JSON.stringify(loginUser));
       setIsChange(true);
