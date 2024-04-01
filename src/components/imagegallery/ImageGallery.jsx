@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { ImageItem } from "./ImageGalleryComponents/ImageItem";
 import { MainPagination } from "./ImageGalleryComponents/MainPagination";
 import { usePaginationSetValue } from "../../hook/usePagination";
@@ -39,5 +40,15 @@ export const ImageGallery = () => {
         />
       </S.SPContainer>
     </S.Container>
+=======
+import { ImageGrid } from "./ImageGalleryComponents/ImageGrid";
+
+export const ImageGallery = () => {
+  const value = "all";
+  return (
+    <div>
+      <ImageGrid value={value} />
+    </div>
+>>>>>>> serverDB
   );
 };

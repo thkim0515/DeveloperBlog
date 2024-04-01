@@ -1,5 +1,6 @@
 import * as S from "./Layout.style";
 import React, { useState } from "react";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
 
@@ -35,6 +36,22 @@ export const UserLogin = () => {
           />
         </S.UserLoginBox>
       )}
+=======
+export const UserLogin = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <>
+      <S.UserLoginBox>
+        <div>user1</div>
+        <S.ProfileImage alt="프로필 사진" src="./img/layout/user-profile.jpg" />
+        <img
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          alt="메뉴 아이콘"
+          src="./img/layout/menu-icon.png"
+        />
+      </S.UserLoginBox>
+>>>>>>> serverDB
       <S.MenuBox $isOpen={isMenuOpen}>
         <S.MenuListBox>
           <p>CODE</p>
@@ -52,7 +69,11 @@ export const UserLogin = () => {
             <S.ListLink to="/profile">Profile</S.ListLink>
           </li>
           <p></p>
+<<<<<<< HEAD
           <li onClick={handleLogout}>Logout</li>
+=======
+          <li>Logout</li>
+>>>>>>> serverDB
         </S.MenuListBox>
       </S.MenuBox>
     </>
