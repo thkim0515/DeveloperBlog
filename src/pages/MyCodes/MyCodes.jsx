@@ -1,3 +1,10 @@
+import { ImageGrid } from "../../components/imagegallery/ImageGalleryComponents/ImageGrid";
 export const MyCodes = () => {
-  return <div>내 코드</div>;
+  const value = "my";
+
+  return (
+    <div>
+      <ImageGrid value={value} />
+    </div>
+  );
 };

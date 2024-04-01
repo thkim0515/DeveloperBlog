@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 //프로필 페이지 전체 박스
 export const ProfileInfoMainBox = styled.div`
@@ -8,14 +8,15 @@ export const ProfileInfoMainBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 80px;
 `;
 
 //프로필 제목
 export const ProfileTitle = styled.h2`
   font-size: 1.5rem;
   color: #112d4e;
-  margin-bottom: 32px;
   align-self: start;
+  cursor: default;
 `;
 
 //프로필 내용 & 버튼 박스
@@ -27,14 +28,13 @@ export const InfoAndBtnBox = styled.div`
   justify-content: center;
 `;
 
-
 //프로필 이미지& 텍스트 박스
 export const ProfileInfoBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:8px;
+  gap: 16px;
 `;
 
 //프로필 이미지 박스
@@ -55,7 +55,7 @@ export const ProfileImg = styled.img`
 
 //프로필 텍스트박스
 export const ProfileTextBox = styled.div`
-  flex:1;
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr 4fr;
   column-gap: 12px;

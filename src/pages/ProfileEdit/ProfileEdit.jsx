@@ -1,12 +1,19 @@
-import * as S from "./ProfileEdit.style.js";
 import { ProfileInfo } from "./ProfileInfo";
-import { PasswordEdit } from "./PasswordEdit";
+import { PasswordAndUserOut } from "./PasswordAndUserOut";
+import { useUserLogin } from "../../context/UserLoginContext";
+
 export const ProfileEdit = () => {
+  //유저정보
+  const { loginUser } = useUserLogin();
+
   return (
     <>
-      <ProfileInfo />
-      <PasswordEdit />
-      <S.UseroutBtn>회원탈퇴</S.UseroutBtn>
+      {loginUser && (
+        <>
+          <ProfileInfo />
+          <PasswordAndUserOut />
+        </>
+      )}
     </>
   );
 };

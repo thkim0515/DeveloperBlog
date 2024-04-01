@@ -1,8 +1,10 @@
-import { ImageGallery } from '../../components/imagegallery/ImageGallery';
+import { ImageGrid } from "../../components/imagegallery/ImageGalleryComponents/ImageGrid";
 export const Main = () => {
+  const value = "all";
+
   return (
     <div>
-      <ImageGallery />
+      <ImageGrid value={value} />
     </div>
   );
 };

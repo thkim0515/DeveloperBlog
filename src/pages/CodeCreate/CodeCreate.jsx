@@ -1,9 +1,9 @@
-import { AnnotationCode } from './AnnotationCode';
-import { ToastEditor } from './ToastEditor';
+import { AnnotationCodeComp } from "./AnnotationCodeComp";
+import { ToastEditor } from "./ToastEditor";
 export const CodeCreate = () => {
   return (
     <div>
-      <AnnotationCode />
+      <AnnotationCodeComp />
       <ToastEditor />
     </div>
   );

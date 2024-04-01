@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SItem = styled.div`
-  width: calc(33.333% - 25px);
+  width: calc(33.333% - 14px);
   height: 350px;
   display: flex;
   flex-direction: column;

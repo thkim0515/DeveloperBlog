@@ -1,8 +1,8 @@
-import { PostDetailComponent } from '../../components/imagegallery/ImageGalleryComponents/PostDetailComponent';
+import { PostDetailComp } from "../../components/imagegallery/ImageGalleryComponents/PostDetailComp";
 export const PostDetail = () => {
   return (
     <div>
-      <PostDetailComponent />
+      <PostDetailComp />
     </div>
   );
 };
