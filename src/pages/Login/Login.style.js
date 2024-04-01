@@ -12,6 +12,7 @@ export const LeftBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+<<<<<<< HEAD
   align-items: center;
   text-align: center;
   span{
@@ -19,6 +20,9 @@ export const LeftBox = styled.div`
     font-size: 1.5rem;
     color: #112d4e;
   }
+=======
+  text-align: center;
+>>>>>>> serverDB
 `;
 
 export const RightBox = styled.div`

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 
+<<<<<<< HEAD
 //메인 컨테이너 스타일
 export const Container = styled.div`
   max-width: 1140px;
@@ -11,14 +12,29 @@ export const Container = styled.div`
 `;
 
 /**------헤더 스타일------- */
+=======
+//레이아웃 스타일
+export const Container = styled.div`
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-top: 120px;
+`;
+
+>>>>>>> serverDB
 export const HeaerParentBox = styled.div`
   position: fixed;
   z-index: 10;
   width: 100%;
   background-color: #F9F7F7;
+<<<<<<< HEAD
   border-bottom: 1px solid #dbe2ef;
 `
 
+=======
+`
+
+//헤더 스타일
+>>>>>>> serverDB
 export const HeaderBox = styled.header`
   position: relative;
   z-index: 10;
@@ -34,7 +50,11 @@ export const HeaderBox = styled.header`
 export const LogineButton = styled.button`
   width: 80px;
   height: 40px;
+<<<<<<< HEAD
   padding: 10px;
+=======
+  padding: 10px 20px;
+>>>>>>> serverDB
   background-color: #3f72af;
   color: #fff;
   border: none;
@@ -46,14 +66,21 @@ export const Logo = styled.h1`
   color: #112d4e;
   font-size: 2.5rem;
   font-weight: bold;
+<<<<<<< HEAD
   font-family: "kage";
+=======
+>>>>>>> serverDB
 `;
 
 //링크 스타일
 export const LogoLink = styled(Link)`
   cursor: pointer;
   color: #112d4e;
+<<<<<<< HEAD
   
+=======
+  font-family: "kage";
+>>>>>>> serverDB
 `;
 
 //로그인 된 유저 박스
@@ -115,6 +142,7 @@ export const ListLink = styled(Link)`
   cursor: pointer;
   color: #fff;
 `;
+<<<<<<< HEAD
 
 
 /**------풋터 스타일------ */
@@ -147,3 +175,5 @@ export const CorporationBox = styled.div`
     border-right: 1px solid #F9F7F7; //고객센터 박스만 제외하고 오른쪽에 테두리
   }
 `
+=======
+>>>>>>> serverDB

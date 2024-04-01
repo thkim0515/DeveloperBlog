@@ -7,7 +7,11 @@ export const ProfileInfoMainBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+<<<<<<< HEAD
   gap: 40px;
+=======
+  gap:15%;
+>>>>>>> serverDB
 `;
 
 //프로필 제목
@@ -16,11 +20,18 @@ export const ProfileTitle = styled.h2`
   color: #112d4e;
   margin-bottom: 16px;
   align-self: start;
+<<<<<<< HEAD
   cursor: default;
 `;
 
 //프로필 내용 & 버튼 폼 박스
 export const InfoAndBtnFormBox = styled.form`
+=======
+`;
+
+//프로필 내용 & 버튼 박스
+export const InfoAndBtnBox = styled.div`
+>>>>>>> serverDB
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -34,7 +45,11 @@ export const ProfileInfoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+<<<<<<< HEAD
   gap:16px;
+=======
+  gap:8px;
+>>>>>>> serverDB
 `;
 
 //프로필 이미지 박스
@@ -54,7 +69,11 @@ export const ProfileImg = styled.img`
 `;
 
 //프로필 텍스트박스
+<<<<<<< HEAD
 export const ProfileTextBox = styled.div`
+=======
+export const ProfileTextForm = styled.form`
+>>>>>>> serverDB
   flex:1;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr 4fr;
@@ -76,8 +95,13 @@ export const TextBoxItem = styled.div`
     font-weight: 600;
     text-align: left;
   }
+<<<<<<< HEAD
   /* 자식 input, div 태그 스타일 적용 */
   input, div {
+=======
+  /* 자식 input 태그 스타일 적용 */
+  input {
+>>>>>>> serverDB
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,9 +113,12 @@ export const TextBoxItem = styled.div`
     text-align: center;
     background-color: #dbe2ef;
   }
+<<<<<<< HEAD
   div{
     color:gray;
   }
+=======
+>>>>>>> serverDB
 `;
 
 //버튼박스
@@ -101,6 +128,7 @@ export const EditButtonBox = styled.div`
   display: grid;
   gap: 12px;
   grid-template-columns: 100px 1fr;
+<<<<<<< HEAD
   div{
     display: flex;
     align-items: center;
@@ -121,10 +149,20 @@ export const ProfileEditButton = styled.button`
 //사진 수정
 export const ImgEditButton = styled.label`
   width: 100%;
+=======
+
+
+`
+//TODO 버튼 컴포넌트화 하기
+//사진 수정, 변경사항 저장
+export const ProfileEditButton = styled.button`
+  width: 100%;
+>>>>>>> serverDB
   height: 30px;
   background-color: #3f72af;
   border-radius: 12px;
   color: white;
+<<<<<<< HEAD
   text-align: center;
   line-height: 30px;
   cursor: pointer;
@@ -138,19 +176,39 @@ export const PasswordAndUserOutBox = styled.div`
   margin-top: 40px;
   padding-top: 40px;
   border-top: 1px solid #dbe2ef;
+=======
+`;
+
+/**-------비밀번호 변경 컴포넌트 시작 ----------- */
+
+//패스워드 메인 박스
+export const PasswordBox = styled.div`
+  width: 100%;
+  margin-top: 24px;
+>>>>>>> serverDB
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
   gap:40px;
+=======
+>>>>>>> serverDB
 `;
 
 //비밀번호 변경 제목
 export const PwdTitle = styled.h2`
+<<<<<<< HEAD
   font-size: 1rem;
   color: #112d4e;
   align-self: start;
   cursor: default;
+=======
+  font-size: 1.5rem;
+  color: #112d4e;
+  margin-bottom: 32px;
+  align-self: start;
+>>>>>>> serverDB
 `;
 
 
@@ -188,6 +246,7 @@ input {
     text-align: center;
   }
 `
+<<<<<<< HEAD
 //변경사항 저장 버튼
 export const PwdEditButton = styled.button`
   grid-column: 2/3;
@@ -213,4 +272,15 @@ export const UseroutBtnBox = styled.div`
     font-size: 0.8rem;
     color: #dbe2ef;
   }
+=======
+
+/**회원 탈퇴 */
+export const UseroutBtn = styled.button`
+  margin-top: 24px;
+  float: right;
+  background-color: none;
+  border: none;
+  font-style: 0.5rem;
+  color: #112d4e;
+>>>>>>> serverDB
 `
