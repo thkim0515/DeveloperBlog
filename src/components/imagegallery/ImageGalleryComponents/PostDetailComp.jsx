@@ -21,7 +21,7 @@ export const PostDetailComp = () => {
               <img src={`../svg/${image.lang}`} alt={image.lang} />
             </div>
             <h3>{image.title}</h3>
-            <span>여기에 드롭다운메뉴 구현</span>
+            <span>...</span>
           </S.STitle>
           <S.SSpace>
             {/* <img src={`../${image.imagePath}`} alt={image.title} /> */}
@@ -37,7 +37,7 @@ export const PostDetailComp = () => {
           </S.SSpace>
           <S.SImageContent>
             <img src={`../${image.imagePath}`} alt={image.title} />
-            <p>{image.contents}</p>
+            <pre>{image.contents}</pre>
             <button onClick={handleGoBack}>뒤로가기</button>
           </S.SImageContent>
         </S.SContainer>

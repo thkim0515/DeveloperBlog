@@ -4,11 +4,11 @@ import { useUserLogin } from "../../context/UserLoginContext";
 
 export const ProfileEdit = () => {
   //유저정보
-  const { loginUser } = useUserLogin();
+  const { user } = useUserLogin();
 
   return (
     <>
-      {loginUser && (
+      {user && (
         <>
           <ProfileInfo />
           <PasswordAndUserOut />

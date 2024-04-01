@@ -5,6 +5,8 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  margin: 0 auto;
+  justify-content: center;
 `;
 
 export const Spacer = styled.div`
