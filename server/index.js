@@ -9,8 +9,6 @@ const PORT = process.env.PORT || 5000;
 const DATABASE = process.env.DATABASE;
 const uri = `${DATABASE}starblog?retryWrites=true&w=majority`;
 
-console.log(uri);
-
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("DB 연결 확인 - STARBLOG"))
@@ -18,10 +16,15 @@ mongoose
 
 const signUpData = require("./signupServer");
 const getData = require("./getContents");
-
+const setContents = require("./setContents");
+const login = require("./login");
+const servdata = require("./getContents_serv");
 app.use(bodyParser.json());
 app.use("/userdata", signUpData);
 app.use("/userdata", getData);
+app.use("/userdata", setContents);
+app.use("/userdata", login);
+app.use("/contents", servdata);
 app.use(express.static(path.join(__dirname, "../build")));
 
 app.get("*", (req, res) => {

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext.jsx";
 
 export const ProfileInfo = () => {
-  const { loginUser, setIsChange } = useUserLogin();
+  const { user, setIsChange } = useUserLogin();
 
   //user정보변경상태 false로 초기화
   const memoizedSetIsChange = useCallback(setIsChange, [setIsChange]);
@@ -14,9 +14,9 @@ export const ProfileInfo = () => {
   }, [memoizedSetIsChange]);
 
   //로그인 유저정보
-  const [userNickname, setUserNickname] = useState(loginUser.userNickname);
-  const [userEmail, setUserEmail] = useState(loginUser.userEmail);
-  const userImgSrc = loginUser.userImg;
+  const [userNickname, setUserNickname] = useState(user.nickname);
+  const [userEmail, setUserEmail] = useState(user.email);
+  const userImgSrc = user.profile;
   //이미지 미리보기
   const [imgPreview, setImgPreview] = useState(null);
 
@@ -47,19 +47,19 @@ export const ProfileInfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 이미지를 Blob URL로 변환
+    // 이미지를 Blob URL로 변환(서버에 이미지 저장되면 지우기)
     let imgBlobUrl = null;
     if (imgPreview) {
       const response = await fetch(imgPreview);
       const blob = await response.blob();
       imgBlobUrl = URL.createObjectURL(blob);
     }
-
-    const editData = { ...loginUser };
-    editData.userNickname = userNickname;
-    editData.userEmail = userEmail;
-    editData.userImg = imgBlobUrl ? imgBlobUrl : userImgSrc;
-    sessionStorage.setItem("loginUser", JSON.stringify(editData));
+    // TODO 백엔드 완성되면 해당 값 PUT요청보내기
+    const editData = { ...user };
+    editData.nickname = userNickname;
+    editData.email = userEmail;
+    editData.profile = imgBlobUrl ? imgBlobUrl : userImgSrc;
+    sessionStorage.setItem("user", JSON.stringify(editData));
     setIsChange(true);
     navigate("/profile");
   };
@@ -77,11 +77,11 @@ export const ProfileInfo = () => {
           </S.ProfileImgBox>
           <S.ProfileTextBox>
             <S.TextBoxItem>
-              <p>이름</p>
+              <p>아이디</p>
             </S.TextBoxItem>
             <S.TextBoxItem>
-              {/* 이름은 변경 못 하게 div*/}
-              <div>{loginUser.userName}</div>
+              {/* id변경 못 하게 div*/}
+              <div>{user.id}</div>
             </S.TextBoxItem>
             <S.TextBoxItem>
               <p>닉네임</p>

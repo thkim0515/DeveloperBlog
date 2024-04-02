@@ -7,7 +7,6 @@ export const ImageItem = ({ image }) => {
 
   const handleImageClick = () => {
     if (image) {
-      console.log(image.pid);
       navigate(`/post/${image.pid}`, { state: { image } });
     }
   };
@@ -18,10 +17,10 @@ export const ImageItem = ({ image }) => {
         <S.SItem>
           <S.RoutingPage onClick={handleImageClick}>
             {image.imagePath && <img src={image.imagePath} alt={image.title} />}
-            {image.lang && (
+            {image.language && (
               <img
-                src={`/svg/${image.lang}`}
-                alt={image.lang}
+                src={`/svg/${image.language.toLowerCase()}.svg`}
+                alt={image.language.toLowerCase()}
                 className="svgIcon"
               />
             )}
@@ -34,9 +33,19 @@ export const ImageItem = ({ image }) => {
               )}
             </S.SProfileImage>
             <div className="user_info">
-              <p className="user_write_info">{image.writer}</p>
+              <p className="user_write_info">{image.nickname}</p>
             </div>
-            <p className="user_write_info">{image.date}</p>
+            <p className="user_write_info">
+              {new Date(image.postdate).toLocaleString("ko-KR", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false, // 24시간제 사용
+              })}
+            </p>
           </div>
         </S.SItem>
       )}

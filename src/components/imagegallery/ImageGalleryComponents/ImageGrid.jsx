@@ -39,7 +39,6 @@ export const ImageGrid = (value) => {
     setSelectInfo("searchbox");
     setSelectedSvg("");
   };
-
   return (
     <S.Container>
       <S.Spacer>
@@ -67,20 +66,22 @@ export const ImageGrid = (value) => {
         </div>
         <div>
           {value.value === "all"
-            ? svgImages.map((svgName, idx) => (
-                <img
-                  key={idx}
-                  src={`/svg/${svgName}`}
-                  alt={svgName}
-                  onClick={() => handleIconClick(svgName)}
-                  style={{
-                    cursor: "pointer",
-                    backgroundColor:
-                      svgName === selectedSvg ? "#fff" : "transparent",
-                    padding: svgName === selectedSvg ? "4px" : "0",
-                  }}
-                />
-              ))
+            ? svgImages.map((svgName, idx) => {
+                return (
+                  <img
+                    key={idx}
+                    src={`/svg/${svgName}`}
+                    alt={svgName}
+                    onClick={() => handleIconClick(svgName)}
+                    style={{
+                      cursor: "pointer",
+                      backgroundColor:
+                        svgName === selectedSvg ? "#fff" : "transparent",
+                      padding: svgName === selectedSvg ? "4px" : "0",
+                    }}
+                  />
+                );
+              })
             : null}
         </div>
       </S.Spacer>

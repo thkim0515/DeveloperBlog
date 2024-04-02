@@ -2,17 +2,38 @@ import { SocialButton } from "./SocialButton";
 import * as S from "./Login.style";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
-
+import { useState } from "react";
+import axios from "axios";
 export const Login = () => {
-  //TODO 임시로그인 기능
-  const { setIsLogin } = useUserLogin();
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
 
-  //페이지 이동
+  //TODO 임시로그인 기능
+  const { setIsLogin, setIsChange } = useUserLogin();
+
   const navigate = useNavigate();
-  //로그인,페이지 이동 함수
-  const handleLogin = () => {
-    setIsLogin(true);
-    navigate("/");
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("/userdata/login", {
+        id: id,
+        password: password,
+      });
+
+      if (response.data.user) {
+        sessionStorage.setItem("user", JSON.stringify(response.data.user));
+        setIsLogin(true);
+        setIsChange(true);
+        navigate("/");
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("로그인 요청 중 오류가 발생했습니다.");
+      }
+    }
   };
   return (
     <S.Container>
@@ -39,11 +60,21 @@ export const Login = () => {
         <form>
           <S.FormField>
             <label htmlFor="id">아이디</label>
-            <input type="text" id="id" />
+            <input
+              type="text"
+              id="id"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
           </S.FormField>
           <S.FormField>
             <label htmlFor="password">비밀번호</label>
-            <input type="password" id="password" />
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </S.FormField>
           <S.LoginButton type="button" value="로그인" onClick={handleLogin} />
         </form>

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 1140px;
+  //width: 1140px;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -21,6 +22,10 @@ export const Spacer = styled.div`
 
   img {
     cursor: pointer;
+  }
+  div {
+      color: #112d4e;
+      font-size: 1.5rem;
   }
   // span {
   //   position: absolute;

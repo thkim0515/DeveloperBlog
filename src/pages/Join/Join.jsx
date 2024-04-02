@@ -1,7 +1,7 @@
-import { useLocation } from 'react-router-dom';
-import { Login } from './Login/Login';
-import { SignUp } from './SignUp/SignUp';
-import styled from 'styled-components';
+import { useLocation } from "react-router-dom";
+import { Login } from "./Login/Login";
+import { SignUp } from "./SignUp/SignUp";
+import styled from "styled-components";
 
 export const Join = () => {
   const location = useLocation();
@@ -11,12 +11,12 @@ export const Join = () => {
     <Container>
       <LeftBox>
         <span> web class 2024</span>
-        <br />
-        <span>STARBLOG</span>
-        <br />
+        <video width="200" height="200" autoPlay muted loop>
+          <source src="./img/blog-logo.mp4" type="video/mp4" />
+        </video>
         <span>KOSTA 281</span>
       </LeftBox>
-      <RightBox>{pathname === '/login' ? <Login /> : <SignUp />}</RightBox>
+      <RightBox>{pathname === "/login" ? <Login /> : <SignUp />}</RightBox>
     </Container>
   );
 };
@@ -32,7 +32,13 @@ export const LeftBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   text-align: center;
+  span {
+    font-family: "kage";
+    font-size: 1.5rem;
+    color: #112d4e;
+  }
 `;
 
 export const RightBox = styled.div`

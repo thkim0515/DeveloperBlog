@@ -30,7 +30,7 @@ export const Container = styled.div`
   }
 `;
 
-export const STitle = styled.div`
+export const SExplain = styled.div`
   background-color: #3f72af;
   width: 100%;
   height: 72px;
@@ -40,10 +40,34 @@ export const STitle = styled.div`
   gap: 10px;
   font-size: 1.5rem;
   color: white;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-left: 20px;
 `;
 
+export const FormField = styled.div`
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .input-group {
+    flex-grow: 1;
+    margin-right: 10px;
+
+    input[type="text"] {
+      width: 100%;
+      margin: 0.5rem 0 0.75rem 0;
+      padding: 0.75rem;
+      border: 1px solid #d9d9d9;
+      background: #ffffff;
+    }
+  }
+
+  .button-group {
+    display: flex; // 버튼들을 flex 아이템으로 만듭니다.
+    gap: 10px; // 버튼들 사이의 간격을 설정합니다.
+
+  margin-bottom: 5px;
+`;
 export const AceEditorContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -71,7 +95,18 @@ export const ModalContent = styled.div`
   p {
     color: white;
     font-size: 3rem;
-    opacity: 0;.
-    transition: opacity 2s ease-in-out; 
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
   }
+`;
+
+export const Button = styled.button`
+  width: 120px;
+  height: 40px;
+  padding: 10px;
+  background-color: #3f72af;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
 `;

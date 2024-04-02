@@ -6,3 +6,11 @@
   "userEmail": "code@gmail.com",
   "userImg": "./img/layout/user-profile.jpg"
 }
+{
+  "userId": "admin",
+  "userName": "김코딩",
+  "userPwd": "12341234!",
+  "userNickname" : "코딩박사",
+  "userEmail": "code@gmail.com",
+  "userImg": "./img/layout/user-profile.jpg"
+}

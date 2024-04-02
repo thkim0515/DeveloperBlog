@@ -5,7 +5,7 @@ import { useUserLogin } from "../../context/UserLoginContext";
 
 export const UserLogin = () => {
   //로그인 유저정보
-  const { setIsLogin, loginUser, setLoginUser, setIsChange } = useUserLogin();
+  const { setIsLogin, user, setUser, setIsChange } = useUserLogin();
 
   //메뉴박스 열기/닫기 상태관리
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,7 +16,7 @@ export const UserLogin = () => {
   //TODO 임시로그아웃 기능
   const handleLogout = () => {
     setIsLogin(false);
-    setLoginUser(null);
+    setUser(null);
     setIsChange(false);
     sessionStorage.clear();
     navigate("/");
@@ -24,10 +24,10 @@ export const UserLogin = () => {
 
   return (
     <>
-      {loginUser && (
+      {user && (
         <S.UserLoginBox>
-          <div>{loginUser.userNickname}</div>
-          <S.ProfileImage alt="프로필 사진" src={loginUser.userImg} />
+          <div>{user.nickname}</div>
+          <S.ProfileImage alt="프로필 사진" src={user.profile} />
           <img
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             alt="메뉴 아이콘"

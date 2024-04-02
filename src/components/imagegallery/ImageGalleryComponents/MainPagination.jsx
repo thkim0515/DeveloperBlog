@@ -5,6 +5,26 @@ const SPagination = styled(Pagination)`
   display: flex;
   justify-content: center;
   margin: 20px 0;
+  .page-link {
+    color: #112d4e;
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+
+  .page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    font-weight: bold;
+    background-color: #dbe2ef;
+    border-color: #ccc;
+  }
+
+  .page-link:focus,
+  .page-link:hover {
+    color: #112d4e;
+    background-color: #fafafa;
+    border-color: #ccc;
+  }
 `;
 
 export const MainPagination = ({
