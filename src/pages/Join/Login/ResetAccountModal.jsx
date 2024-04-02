@@ -1,62 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
-import { FormField } from '../../../components/form/FormField';
+
+// components
+import { Label } from './../../../components/form/Label';
+import { Input } from './../../../components/form/Input';
+
+// bootstrap
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 export const ResetAccountModal = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <>
-      <div>
-        <div>
-          <ModalTab>
-            <span>아이디 찾기</span>
-            <span>비밀번호 찾기</span>
-          </ModalTab>
-          <div className="progress-bar">
-            <div className="inner-bar"></div>
-          </div>
-        </div>
+      <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button>
 
-        {/* 아이디 찾기 */}
-        <form>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <span>아이디 찾기</span>
+          <span>비밀번호 찾기</span>
+        </Modal.Header>
+        <Modal.Body>
           <div>
-            {/* 아이디 */}
-            <FormField labelText="이메일" inputType="email" id="email" />
-
-            {/* 비밀번호 */}
-            <FormField
-              labelText="비밀번호"
-              inputType="password"
-              id="password"
-            />
-            <button type="submit">아이디 찾기</button>
+            <Label htmlFor="email" text="이메일" />
+            <Input type="email" id="email" />
           </div>
-        </form>
-
-        {/* 비밀번호 찾기 */}
-        {/* <form>
-        <div>
-          <div className="formfield">
-            <label htmlFor=""></label>
-            <input type="text" />
+          <div>
+            <Label htmlFor="password" text="비밀번호" />
+            <Input type="password" id="password" />
           </div>
-          <div className="formfield">
-            <label htmlFor=""></label>
-            <input type="text" />
-          </div>
-          <div className="formfield">
-            <label htmlFor=""></label>
-            <input type="text" />
-          </div>
-          <button type="submit">비밀번호 찾기</button>
-        </div>
-      </form> */}
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary">아이디 찾기</Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
-
-const ModalTab = styled.div`
-  span {
-    display: inline-block;
-  }
-`;
