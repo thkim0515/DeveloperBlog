@@ -2,6 +2,10 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./PostDetailComp.style";
 
+function SafeHTMLComponent({ htmlContent }) {
+  return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+}
+
 export const PostDetailComp = () => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
@@ -21,7 +25,7 @@ export const PostDetailComp = () => {
               <img src={`../svg/${image.language}.svg`} alt={image.language} />
             </div>
             <h3>{image.title}</h3>
-            <span>여기에 드롭다운메뉴 구현</span>
+            <span>...</span>
           </S.STitle>
           <S.SSpace>
             {/* <img src={`../${image.imagePath}`} alt={image.title} /> */}
@@ -38,6 +42,8 @@ export const PostDetailComp = () => {
           <S.SImageContent>
             <img src={`../${image.imagePath}`} alt={image.title} />
             <p>{image.ace_contents}</p>
+            <br></br>
+            <p>{image.toast_contents}</p>
             <button onClick={handleGoBack}>뒤로가기</button>
           </S.SImageContent>
         </S.SContainer>

@@ -10,9 +10,11 @@ const DATABASE = process.env.DATABASE;
 const uri = `${DATABASE}starblog?retryWrites=true&w=majority`;
 
 mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(uri)
   .then(() => console.log("DB 연결 확인 - STARBLOG"))
   .catch((err) => console.error(err));
+
+// .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const signUpData = require("./signupServer");
 const getData = require("./getContents");

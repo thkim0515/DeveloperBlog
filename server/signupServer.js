@@ -9,7 +9,7 @@ const userSignupSchema = new mongoose.Schema({
   password: String,
   profileimg: {
     type: String,
-    default: "img/image7.jpg",
+    default: "img/noprofile.jpg",
   },
   signupdate: {
     type: Date,
