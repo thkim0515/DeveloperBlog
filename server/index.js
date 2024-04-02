@@ -21,12 +21,16 @@ const getData = require("./getContents");
 const setContents = require("./setContents");
 const login = require("./login");
 const servdata = require("./getContents_serv");
+const setimages = require("./setImages");
+
 app.use(bodyParser.json());
 app.use("/userdata", signUpData);
 app.use("/userdata", getData);
 app.use("/userdata", setContents);
 app.use("/userdata", login);
+app.use("/userdata", setimages);
 app.use("/contents", servdata);
+
 app.use(express.static(path.join(__dirname, "../build")));
 
 app.get("*", (req, res) => {

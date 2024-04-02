@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import * as S from "./SignUp.style";
 import { Link } from "react-router-dom";
 
 export const SignUp = () => {
+  const navigate = useNavigate();
   const [userInput, setUserInput] = useState({
     id: "",
     nickname: "",
@@ -31,6 +33,7 @@ export const SignUp = () => {
         password: userInput.password,
       });
       alert("회원가입이 완료되었습니다.");
+      navigate("/login");
     } catch (error) {
       if (error.response && error.response.status === 409) {
         alert(error.response.data.message);

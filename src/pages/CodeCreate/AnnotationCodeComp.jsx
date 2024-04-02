@@ -2,15 +2,16 @@
 
 import useOpenai from "../../hooks/useOpenAi";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useCaptureDiv } from "../../hooks/useCaptureDiv";
 import { AceEditorComp } from "./AceEditorComp";
 import { AnnotationWaitSpinner } from "./AnnotationWaitSpinner";
 import { useState, useEffect } from "react";
-
 import * as S from "./AnnotationCodeComp.style";
 import ace from "ace-builds/src-noconflict/ace";
 
 export const AnnotationCodeComp = (props) => {
+  const navigate = useNavigate();
   const [code, setCode] = useState("");
   const { commentedCode, error, annotateCode } = useOpenai();
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +46,8 @@ export const AnnotationCodeComp = (props) => {
       const response = await axios.post("/userdata/annotate", codeData);
       console.log("서버 응답:", response.data);
       alert("글 등록 성공!");
+      navigate("/");
+      window.location.reload();
     } catch (error) {
       console.error("에러:", error);
       alert("글 등록 실패. 서버 에러.");
@@ -70,18 +73,18 @@ export const AnnotationCodeComp = (props) => {
   }
 
   const handlePostCode = async () => {
+    //await handleCaptureImage(); // 이미지 업로드를 기다립니다.
     const user = JSON.parse(sessionStorage.getItem("user"));
     const nickname = user.nickname;
     const profileImg = user.profile;
-
     const result = languageType(commentedCode);
 
     const codeData = {
-      title: title,
+      title: title ? title : "제목없음",
       nickname: nickname,
       language: result ? result : "unknown",
       publicPrivate: true,
-      imagePath: "img/Image0.jpg",
+      imagePath: imageSrc ? imageSrc : "img/Image0.jpg",
       profileImg: profileImg,
       ace_contents: commentedCode,
       toast_contents: props.editorData,
@@ -94,10 +97,24 @@ export const AnnotationCodeComp = (props) => {
     setCode(newValue);
   }
 
-  const handleCaptureImage = async () => {
-    const image = await captureImage("setCode");
-    setImageSrc(image);
-  };
+  // const handleCaptureImage = async () => {
+  //   const image = await captureImage("setCode");
+  //   const formData = new FormData();
+  //   formData.append("imagePath", image);
+
+  //   try {
+  //     const response = await axios.post("/userdata/upload", formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     });
+  //     setImageSrc(response.data.filePath);
+  //     console.log(response.data.filePath);
+  //     console.log("이미지 업로드 성공:", response.data);
+  //   } catch (error) {
+  //     console.error("이미지 업로드 실패:", error);
+  //   }
+  // };
 
   return (
     <>

@@ -74,17 +74,18 @@ export const SImageContent = styled.div`
     min-height: 40vh;
     padding: 8px;
     border-radius: 0 0 12px 12px;
+    line-height: 2;
   }
   button {
-  margin-top: 24px;
-  width: 80px;
-  height: 40px;
-  padding: 10px;
-  background-color: #3f72af;
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
+    margin-top: 24px;
+    width: 80px;
+    height: 40px;
+    padding: 10px;
+    background-color: #3f72af;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
   }
 `;
 
