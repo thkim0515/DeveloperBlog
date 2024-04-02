@@ -38,7 +38,7 @@ export const SignUpButton = styled.button`
   background-color: #3f72af;
 `;
 
-export const ValidateMessage = styled.span`
+export const ErrorMessage = styled.span`
   position: absolute;
   right: 0;
 `;

@@ -1,46 +1,68 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import * as S from './SignUp.style';
 
+// hook
+import { useForm } from '../../../hooks/useForm';
+
+// components
+import { Label } from './../../../components/form/Label';
+import { Input } from './../../../components/form/Input';
+
 export const SignUp = () => {
-  const [formData, setFormData] = useState({
-    id: '',
-    nickname: '',
-    email: '',
-    password: '',
-  });
+  const [id, onChangeId] = useForm();
+  const [nickname, onChangeNickname] = useForm();
+  const [email, onChangeEmail] = useForm();
+  const [password, onChangePassword] = useForm();
+  const [rePassword, onChangeRePassword] = useForm();
 
-  const [errorMessage, setErrorMessage] = useState({
-    id: '',
-    nickname: '',
-    email: '',
-    password: '',
-  });
+  const sendFormData = {
+    id,
+    nickname,
+    email,
+    password,
+  };
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-
-    // 입력 값에 따라 유효성 검사를 수행하고 에러 메시지를 설정합니다.
-    let errorMessage = '';
-    if (name === 'id') {
-      errorMessage = value.length < 5 ? '아이디는 5자 이상이어야 합니다.' : '';
+  const validateForm = () => {
+    if (
+      id === '' ||
+      nickname === '' ||
+      email === '' ||
+      password === '' ||
+      rePassword === ''
+    ) {
+      alert('모든 입력칸을 입력해주세요.');
+      return false;
     }
-    // 다른 필드에 대한 유효성 검사를 여기에 추가할 수 있습니다.
-    setErrorMessage({ ...errorMessage, [name]: errorMessage });
+
+    if (password !== rePassword) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      alert('유효한 이메일을 입력해주세요.');
+      return false;
+    }
+
+    return true;
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      await axios.post('/data/form-data.json', formData);
-      alert('회원가입이 완료되었습니다.');
-    } catch (error) {
-      console.error('회원가입 오류:', error);
-      alert('회원가입 중 오류가 발생했습니다.');
+    if (!validateForm()) {
+      return;
     }
+
+    // 서버로 데이터 전송
+    await axios
+      .post('/userdata/signup', sendFormData)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(`에러발생: ${err}`));
   };
 
   return (
@@ -52,71 +74,52 @@ export const SignUp = () => {
       <form onSubmit={onSubmit}>
         {/* 아이디 */}
         <S.FormField>
-          <div>
-            <label htmlFor="id">아이디</label>
-            <S.ValidateMessage>{errorMessage.id}</S.ValidateMessage>{' '}
-          </div>
-          <input
-            type="text"
-            id="id"
-            name="id"
-            value={formData.id}
-            onChange={onChange}
-          />
+          <Label htmlFor="id" text="아이디" />
+          <Input type="text" id="id" value={id} onChange={onChangeId} />
         </S.FormField>
 
         {/* 닉네임 */}
         <S.FormField>
-          <div>
-            <label htmlFor="nickname">닉네임</label>
-            <S.ValidateMessage>{errorMessage.nickname}</S.ValidateMessage>{' '}
-          </div>
-          <input
+          <Label htmlFor="nickname" text="닉네임" />
+          <Input
             type="text"
             id="nickname"
-            name="nickname"
-            value={formData.nickname}
-            onChange={onChange}
+            value={nickname}
+            onChange={onChangeNickname}
           />
         </S.FormField>
 
         {/* 이메일 */}
         <S.FormField>
-          <div>
-            <label htmlFor="email">이메일</label>
-            <S.ValidateMessage>{errorMessage.email}</S.ValidateMessage>{' '}
-          </div>
-          <input
+          <Label htmlFor="email" text="이메일" />
+          <Input
             type="email"
             id="email"
-            name="email"
-            value={formData.email}
-            onChange={onChange}
+            value={email}
+            onChange={onChangeEmail}
           />
         </S.FormField>
 
         {/* 비밀번호 */}
         <S.FormField>
-          <div>
-            <label htmlFor="password">비밀번호</label>
-            <S.ValidateMessage>{errorMessage.password}</S.ValidateMessage>{' '}
-          </div>
-          <input
+          <Label htmlFor="password" text="비밀번호" />
+          <Input
             type="password"
             id="password"
-            name="password"
-            value={formData.password}
-            onChange={onChange}
+            value={password}
+            onChange={onChangePassword}
           />
         </S.FormField>
 
         {/* 비밀번호 재입력 */}
         <S.FormField>
-          <div>
-            <label htmlFor="re-password">비밀번호 재입력</label>
-            <S.ValidateMessage>에러 메시지</S.ValidateMessage>
-          </div>
-          <input type="password" id="re-password" />
+          <Label htmlFor="re-password" text="비밀번호 재입력" />
+          <Input
+            type="password"
+            id="rePassword"
+            value={rePassword}
+            onChange={onChangeRePassword}
+          />
         </S.FormField>
 
         {/* 회원가입 버튼 */}
