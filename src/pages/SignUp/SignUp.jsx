@@ -32,8 +32,12 @@ export const SignUp = () => {
       });
       alert("회원가입이 완료되었습니다.");
     } catch (error) {
+      if (error.response && error.response.status === 409) {
+        alert(error.response.data.message);
+      } else {
+        alert("회원가입 실패");
+      }
       console.error("회원가입 실패:", error);
-      alert("회원가입 실패");
     }
   };
 

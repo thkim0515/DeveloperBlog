@@ -11,6 +11,17 @@ export const ImageItem = ({ image }) => {
     }
   };
 
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear().toString().substr(-2); // 연도의 마지막 두 자리
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // 월
+    const day = date.getDate().toString().padStart(2, "0"); // 일
+
+    return `${year}년${month}월${day}일`;
+  }
+
+  const formattedDate = formatDate(image.postdate);
+
   return (
     <>
       {image && (
@@ -36,7 +47,8 @@ export const ImageItem = ({ image }) => {
               <p className="user_write_info">{image.nickname}</p>
             </div>
             <p className="user_write_info">
-              {new Date(image.postdate).toLocaleString("ko-KR", {
+              <p>{formattedDate}</p>
+              {/* {new Date(image.postdate).toLocaleString("ko-KR", {
                 year: "numeric",
                 month: "2-digit",
                 day: "2-digit",
@@ -44,7 +56,7 @@ export const ImageItem = ({ image }) => {
                 minute: "2-digit",
                 second: "2-digit",
                 hour12: false, // 24시간제 사용
-              })}
+              })} */}
             </p>
           </div>
         </S.SItem>
