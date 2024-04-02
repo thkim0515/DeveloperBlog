@@ -6,7 +6,6 @@ import styled from "styled-components";
 export const Join = () => {
   const location = useLocation();
   let { pathname } = location;
-  console.log(pathname);
 
   return (
     <Container>
@@ -46,7 +45,7 @@ export const RightBox = styled.div`
   flex-basis: 43%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 60px;
   background-color: #ffffff;
 `;
