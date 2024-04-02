@@ -33,12 +33,12 @@ export const Container = styled.div`
 export const SExplain = styled.div`
   background-color: #3f72af;
   width: 100%;
-  height: 72px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: white;
   margin-bottom: 10px;
   padding-left: 20px;
@@ -66,7 +66,7 @@ export const FormField = styled.div`
     display: flex; // 버튼들을 flex 아이템으로 만듭니다.
     gap: 10px; // 버튼들 사이의 간격을 설정합니다.
 
-  margin-bottom: 5px;
+  margin-bottom: 5px;}
 `;
 export const AceEditorContainer = styled.div`
   display: flex;

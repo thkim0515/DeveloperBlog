@@ -27,7 +27,13 @@ export const ImageItem = ({ image }) => {
       {image && (
         <S.SItem>
           <S.RoutingPage onClick={handleImageClick}>
-            {image.imagePath && <img src={image.imagePath} alt={image.title} />}
+            {image.imagePath && (
+              <img
+                src={image.imagePath}
+                alt={image.title}
+                className="post_img"
+              />
+            )}
             {image.language && (
               <img
                 src={`/svg/${image.language.toLowerCase()}.svg`}

@@ -33,12 +33,12 @@ export const Container = styled.div`
 export const STitle = styled.div`
   background-color: #3f72af;
   width: 100%;
-  height: 72px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: white;
   margin-bottom: 20px;
   padding-left: 20px;

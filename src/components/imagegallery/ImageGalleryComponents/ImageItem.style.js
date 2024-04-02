@@ -10,7 +10,7 @@ export const SItem = styled.div`
   border-radius: 12px;
   overflow: hidden;
 
-  img {
+  .post_img {
     width: 100%;
     height: 240px;
     object-fit: cover;
