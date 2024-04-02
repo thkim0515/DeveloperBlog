@@ -17,7 +17,6 @@ export function ItemsList() {
     fetchItems();
   }, []);
 
-  console.log(items);
   return (
     <div>
       <h1>Items List</h1>

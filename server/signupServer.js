@@ -9,7 +9,7 @@ const userSignupSchema = new mongoose.Schema({
   password: String,
   profileimg: {
     type: String,
-    default: "noprofile.jpg",
+    default: "img/image7.jpg",
   },
   signupdate: {
     type: Date,
@@ -20,7 +20,6 @@ const userSignupSchema = new mongoose.Schema({
 const UserSignup = mongoose.model("user", userSignupSchema);
 
 router.post("/signup", async (req, res) => {
-  console.log(req.body);
   const { id, nickname, email, password, profileimg } = req.body;
   try {
     const newUser = new UserSignup({
@@ -33,7 +32,11 @@ router.post("/signup", async (req, res) => {
     await newUser.save();
     res.status(201).json({ message: "회원가입 성공" });
   } catch (error) {
-    res.status(500).json({ message: "서버 에러로 인한 회원가입 실패" });
+    if (error.code === 11000) {
+      res.status(409).json({ message: "이미 존재하는 아이디입니다." });
+    } else {
+      res.status(500).json({ message: "서버 에러로 인한 회원가입 실패" });
+    }
     console.error("Signup error:", error);
   }
 });

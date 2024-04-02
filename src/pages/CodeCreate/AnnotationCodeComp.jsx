@@ -33,7 +33,6 @@ export const AnnotationCodeComp = (props) => {
     editor.setValue("");
     setIsLoading(true);
     await annotateCode(code);
-
     setIsLoading(false);
   };
 
@@ -53,12 +52,17 @@ export const AnnotationCodeComp = (props) => {
   };
 
   const handlePostCode = async () => {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const nickname = user.nickname;
+    const profileImg = user.profile;
+
     const codeData = {
-      pid: 1,
       title: title,
-      nickname: "닉네임",
+      nickname: nickname,
       language: "JavaScript",
       publicPrivate: true,
+      imagePath: "img/Image0.jpg",
+      profileImg: profileImg,
       ace_contents: commentedCode,
       toast_contents: props.editorData,
     };

@@ -18,10 +18,10 @@ export const PostDetailComp = () => {
         <S.SContainer>
           <S.STitle>
             <div>
-              <img src={`../svg/${image.lang}`} alt={image.lang} />
+              <img src={`../svg/${image.language}.svg`} alt={image.language} />
             </div>
             <h3>{image.title}</h3>
-            <span>...</span>
+            <span>여기에 드롭다운메뉴 구현</span>
           </S.STitle>
           <S.SSpace>
             {/* <img src={`../${image.imagePath}`} alt={image.title} /> */}
@@ -33,11 +33,11 @@ export const PostDetailComp = () => {
                 />
               )}
             </S.SProfileImage>
-            {image.writer}
+            {image.nickname}
           </S.SSpace>
           <S.SImageContent>
             <img src={`../${image.imagePath}`} alt={image.title} />
-            <pre>{image.contents}</pre>
+            <p>{image.ace_contents}</p>
             <button onClick={handleGoBack}>뒤로가기</button>
           </S.SImageContent>
         </S.SContainer>

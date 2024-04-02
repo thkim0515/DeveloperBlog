@@ -9,7 +9,6 @@ export const ToastEditor = (props) => {
 
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML();
-    console.log(data);
     props.onEditorChange(data); // 상위 컴포넌트로 데이터 전달
   };
   return (
