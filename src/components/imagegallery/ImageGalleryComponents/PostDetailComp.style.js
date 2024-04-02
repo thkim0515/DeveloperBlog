@@ -66,7 +66,7 @@ export const SImageContent = styled.div`
     overflow: hidden;
   }
 
-  pre {
+  p {
     width: 100%;
     overflow-wrap: break-word;
     white-space: normal;

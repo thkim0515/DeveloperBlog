@@ -11,8 +11,14 @@ export const LeftBox = styled.div`
   flex-basis: 57%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   text-align: center;
+    span {
+    font-family: 'kage';
+    font-size: 1.5rem;
+    color: #112d4e;
+  }
 `;
 
 export const RightBox = styled.div`

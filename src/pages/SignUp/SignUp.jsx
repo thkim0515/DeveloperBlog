@@ -40,10 +40,10 @@ export const SignUp = () => {
   return (
     <S.Container>
       <S.LeftBox>
-        <span>web class 2024</span>
-        <br />
-        <span>STARBLOG</span>
-        <br />
+        <span> web class 2024</span>
+        <video width="200" height="200" autoPlay muted loop>
+          <source src="./img/blog-logo.mp4" type="video/mp4" />
+        </video>
         <span>KOSTA 281</span>
       </S.LeftBox>
       <S.RightBox>
