@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
-import * as S from './ImageGrid.style';
-import { ImageItem } from './ImageItem';
-import { MainPagination } from './MainPagination';
-import { useGetData } from '../../../hooks/useGetData';
+import { useState, useEffect } from "react";
+import * as S from "./ImageGrid.style";
+import { ImageItem } from "./ImageItem";
+import { MainPagination } from "./MainPagination";
+import { useGetData } from "../../../hooks/useGetData";
 
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export const ImageGrid = (value) => {
   const [selectedIcon, setSelectedIcon] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectInfo, setSelectInfo] = useState('');
-  const [selectedSvg, setSelectedSvg] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectInfo, setSelectInfo] = useState("");
+  const [selectedSvg, setSelectedSvg] = useState("");
 
   const maxcount = 9;
   const {
@@ -31,13 +31,13 @@ export const ImageGrid = (value) => {
   const handleIconClick = (iconName) => {
     setSelectedIcon(iconName);
     setSelectedSvg(iconName);
-    setSelectInfo('img');
+    setSelectInfo("img");
   };
 
   const handleSearch = () => {
     setSelectedIcon(searchTerm);
-    setSelectInfo('searchbox');
-    setSelectedSvg('');
+    setSelectInfo("searchbox");
+    setSelectedSvg("");
   };
   return (
     <S.Container>
@@ -47,17 +47,17 @@ export const ImageGrid = (value) => {
           <InputGroup>
             <Form.Control
               aria-label="Amount (to the nearest dollar)"
-              style={{ border: '2px solid #000', width: '350px' }}
+              style={{ border: "2px solid #000", width: "350px" }}
               onChange={(e) => setSearchTerm(e.target.value)}
               value={searchTerm}
               onKeyPress={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === "Enter") {
                   handleSearch();
                 }
               }}
             />
             <InputGroup.Text
-              style={{ border: '2px solid #000', cursor: 'pointer' }}
+              style={{ border: "2px solid #000", cursor: "pointer" }}
               onClick={handleSearch}
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -65,7 +65,7 @@ export const ImageGrid = (value) => {
           </InputGroup>
         </div>
         <div>
-          {value.value === 'all'
+          {value.value === "all"
             ? svgImages.map((svgName, idx) => {
                 return (
                   <img
@@ -74,10 +74,10 @@ export const ImageGrid = (value) => {
                     alt={svgName}
                     onClick={() => handleIconClick(svgName)}
                     style={{
-                      cursor: 'pointer',
+                      cursor: "pointer",
                       backgroundColor:
-                        svgName === selectedSvg ? '#fff' : 'transparent',
-                      padding: svgName === selectedSvg ? '4px' : '0',
+                        svgName === selectedSvg ? "#fff" : "transparent",
+                      padding: svgName === selectedSvg ? "4px" : "0",
                     }}
                   />
                 );
