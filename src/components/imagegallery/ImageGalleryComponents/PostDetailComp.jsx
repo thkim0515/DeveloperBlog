@@ -43,7 +43,7 @@ export const PostDetailComp = () => {
             <img src={`../${image.imagePath}`} alt={image.title} />
             <p>{image.ace_contents}</p>
             <br></br>
-            <p>{image.toast_contents.replace(/(<([^>]+)>)/gi, "")}</p>
+            <p><div dangerouslySetInnerHTML={{ __html: image.toast_contents }} /></p>
             <button onClick={handleGoBack}>뒤로가기</button>
           </S.SImageContent>
         </S.SContainer>
