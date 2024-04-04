@@ -1,10 +1,10 @@
-import { useState, useEffect, useNavigate } from "react";
+import { useState, useEffect } from "react";
 import { useCalculatePage } from "./useCalculatePage";
 import axios from "axios";
 
 export const useGetData = (
   value,
-  PageCount = 9,
+  PageCount,
   selectedIcon,
   searchTerm,
   selectInfo
@@ -33,7 +33,7 @@ export const useGetData = (
         let response;
         let response2;
         let images = [];
-        let images2 = [];
+        let temp;
         // SOLVED . 첫화면에서 svg 배열 안띄워짐 >> 빈 배열 반환 >> 우선순위로 데이터 삽입
         if (storedImages) {
           images = JSON.parse(storedImages);
@@ -44,20 +44,19 @@ export const useGetData = (
             res2 = await axios.get("/contents");
             response = res.data[0];
             response2 = res2;
+
+            temp = response2.data;
           } catch (e) {
             // 실패시 JSON 파싱
             res = await axios.get("/json/dummy.json");
             response = res.data;
+
+            temp = response.items;
           }
 
-          //console.log("res는 " + JSON.stringify(response));
-          //console.log(res2);
-
-          //images = response.items;
-          images = response2.data;
+          images = temp;
+          localStorage.setItem("images", JSON.stringify(temp));
           setSvgImages(response.svgs);
-          //localStorage.setItem("images", JSON.stringify(response.items));
-          localStorage.setItem("images", JSON.stringify(response2.data));
           localStorage.setItem("svgImages", JSON.stringify(response.svgs));
         }
         // 조건부 필터링기능 ( 필터 , 검색)
@@ -84,10 +83,12 @@ export const useGetData = (
           }
 
           if (selectInfo === "img") {
-            if (!(selectedIcon === "back.svg") && selectedIcon) {
+            if (!(selectedIcon === "back.svg") && `${selectedIcon}.svg`) {
               setFilteredImages(
                 images
-                  .filter((img) => `${img.language}.svg` === selectedIcon)
+                  .filter(
+                    (img) => `${img.language}.svg` === `${selectedIcon}.svg`
+                  )
                   .sort((a, b) => b.pid - a.pid)
               );
               setCurrentPage(1);

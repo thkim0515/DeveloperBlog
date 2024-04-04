@@ -29,6 +29,7 @@ export const ImageGrid = (value) => {
   } = useGetData(value, maxcount, selectedIcon, searchTerm, selectInfo);
 
   const handleIconClick = (iconName) => {
+    console.log(iconName);
     setSelectedIcon(iconName);
     setSelectedSvg(iconName);
     setSelectInfo("img");
@@ -70,7 +71,7 @@ export const ImageGrid = (value) => {
                 return (
                   <img
                     key={idx}
-                    src={`/svg/${svgName}`}
+                    src={`/svg/${svgName}.svg`}
                     alt={svgName}
                     onClick={() => handleIconClick(svgName)}
                     style={{

@@ -22,7 +22,8 @@ export const PostDetailComp = () => {
         <S.SContainer>
           <S.STitle>
             <div>
-              <img src={`../svg/${image.language}.svg`} alt={image.language} />
+              <img src={`../svg/${image.language}.svg`} alt="" />{" "}
+              {/* alt={image.language} */}
             </div>
             <h3>{image.title}</h3>
             <span>...</span>
@@ -43,7 +44,11 @@ export const PostDetailComp = () => {
             <img src={`../${image.imagePath}`} alt={image.title} />
             <p>{image.ace_contents}</p>
             <br></br>
-            <p>{image.toast_contents.replace(/(<([^>]+)>)/gi, "")}</p>
+            <p>
+              {image.toast_contents && (
+                <p>{image.toast_contents.replace(/(<([^>]+)>)/gi, "")}</p>
+              )}
+            </p>
             <button onClick={handleGoBack}>뒤로가기</button>
           </S.SImageContent>
         </S.SContainer>

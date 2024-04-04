@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000 || process.env.PORT;
 const DATABASE = process.env.DATABASE;
 const uri = `${DATABASE}starblog?retryWrites=true&w=majority`;
 
