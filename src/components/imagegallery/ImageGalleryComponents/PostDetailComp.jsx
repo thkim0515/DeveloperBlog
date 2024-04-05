@@ -22,7 +22,8 @@ export const PostDetailComp = () => {
         <S.SContainer>
           <S.STitle>
             <div>
-              <img src={`../svg/${image.language}.svg`} alt={image.language} />
+              <img src={`../svg/${image.language}.svg`} alt="" />{" "}
+              {/* alt={image.language} */}
             </div>
             <h3>{image.title}</h3>
             <span>...</span>
