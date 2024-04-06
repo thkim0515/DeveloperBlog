@@ -6,8 +6,8 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  margin: 0 auto;
-  justify-content: center;
+  //margin: 0 auto;
+  //justify-content: center;
 `;
 
 export const Spacer = styled.div`
@@ -24,8 +24,8 @@ export const Spacer = styled.div`
     cursor: pointer;
   }
   div {
-      color: #112d4e;
-      font-size: 1.5rem;
+    color: #112d4e;
+    font-size: 1.5rem;
   }
   // span {
   //   position: absolute;

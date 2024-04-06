@@ -1,19 +1,17 @@
-import { useState, useEffect } from 'react';
-import * as S from './ImageGrid.style';
-import { ImageItem } from './ImageItem';
-import { MainPagination } from './MainPagination';
-import { useGetData } from '../../../hooks/useGetData';
+import { useState, useEffect } from "react";
+import * as S from "./ImageGrid.style";
+import { ImageItem } from "./ImageItem";
+import { MainPagination } from "./MainPagination";
+import { useGetData } from "../../../hooks/useGetData";
 
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export const ImageGrid = (value) => {
-  const [selectedIcon, setSelectedIcon] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectInfo, setSelectInfo] = useState('');
-  const [selectedSvg, setSelectedSvg] = useState('');
+  const [selectedIcon, setSelectedIcon] = useState(null); // 선택된 아이콘의 이름
+  const [searchTerm, setSearchTerm] = useState(""); // 검색내용
 
   const maxcount = 9;
   const {
@@ -26,18 +24,10 @@ export const ImageGrid = (value) => {
     prevPage,
     firstPage,
     lastPage,
-  } = useGetData(value, maxcount, selectedIcon, searchTerm, selectInfo);
+  } = useGetData(value, maxcount, selectedIcon, searchTerm);
 
-  const handleIconClick = (iconName) => {
+  const handleUpdateSelectedIcon = (iconName = searchTerm) => {
     setSelectedIcon(iconName);
-    setSelectedSvg(iconName);
-    setSelectInfo('img');
-  };
-
-  const handleSearch = () => {
-    setSelectedIcon(searchTerm);
-    setSelectInfo('searchbox');
-    setSelectedSvg('');
   };
   return (
     <S.Container>
@@ -47,37 +37,37 @@ export const ImageGrid = (value) => {
           <InputGroup>
             <Form.Control
               aria-label="Amount (to the nearest dollar)"
-              style={{ border: '2px solid #000', width: '350px' }}
+              style={{ border: "2px solid #000", width: "350px" }}
               onChange={(e) => setSearchTerm(e.target.value)}
               value={searchTerm}
               onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  handleSearch();
+                if (e.key === "Enter") {
+                  handleUpdateSelectedIcon();
                 }
               }}
             />
             <InputGroup.Text
-              style={{ border: '2px solid #000', cursor: 'pointer' }}
-              onClick={handleSearch}
+              style={{ border: "2px solid #000", cursor: "pointer" }}
+              onClick={handleUpdateSelectedIcon}
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </InputGroup.Text>
           </InputGroup>
         </div>
         <div>
-          {value.value === 'all'
+          {value.value === "all"
             ? svgImages.map((svgName, idx) => {
                 return (
                   <img
                     key={idx}
-                    src={`/svg/${svgName}`}
+                    src={`/svg/${svgName}.svg`}
                     alt={svgName}
-                    onClick={() => handleIconClick(svgName)}
+                    onClick={() => handleUpdateSelectedIcon(svgName)}
                     style={{
-                      cursor: 'pointer',
+                      cursor: "pointer",
                       backgroundColor:
-                        svgName === selectedSvg ? '#fff' : 'transparent',
-                      padding: svgName === selectedSvg ? '4px' : '0',
+                        svgName === selectedIcon ? "#fff" : "transparent",
+                      padding: svgName === selectedIcon ? "4px" : "0",
                     }}
                   />
                 );

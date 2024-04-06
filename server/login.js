@@ -55,7 +55,6 @@ router.post("/login", async (req, res) => {
           .status(500)
           .json({ message: "세션 저장 중 오류가 발생했습니다." });
       } else {
-        // 콜백 내부에서만 응답을 보냅니다.
         res
           .status(200)
           .json({ message: "로그인 성공", user: req.session.user });

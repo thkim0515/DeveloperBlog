@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 // form
-export const FormField = styled.div`
+export const SignUpFiled = styled.div`
   label {
     display: inline-block;
   }
@@ -38,7 +38,9 @@ export const SignUpButton = styled.button`
   background-color: #3f72af;
 `;
 
-export const ErrorMessage = styled.span`
-  position: absolute;
-  right: 0;
+export const MoveLink = styled.p`
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #112d4e;
+  text-align: center;
 `;
