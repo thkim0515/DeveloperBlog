@@ -1,5 +1,5 @@
 {
-  "svgs": ["html", "css", "javascript", "typescript", "java", "react"],
+  "svgs": ["back", "html", "css", "javascript", "typescript", "java", "react"],
   "names": [
     "kosta",
     "코스타",
@@ -29,7 +29,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image7.jpg",
-      "language": "ts",
+      "language": "typescript",
       "publicPrivate": true,
       "ace_contents": "bqzjltsdfhbwgodyzzswblbfipkhiairdoygauytxndwwdonigdwwjvqvoodwyxihecgudizuuuvpdpeqcmfdirokeghcfesvrukltucbfxctrgedpaydfxqwbnqyhzwxacbfnbzwpgqqhfgkllerlpseewlnvmiqsjynmlccgzmiiyusogofnigkzijxrkrxsdgvdjzpbbogqyisnwrajlucvvseastuqeoxcewyrobigpgtfoiylibsigattvetythhvxofoiwaonnutntkdwpovcikdosepqiuhxhsejryuykokvmfbtyulijoooxlmdnbdafiaifzwqhadhmcfzyptsswsonffhyuzjtlhzsunexdpkkcpboekgbjpdjbyixppulawhghtyjjvilllqrsryrlmzzqvzfjuguivtsllhfmlojmpdfqjpvjnhfrgcowomygyedlrwajtbetmzybokhhyzedfmezvvonpewgjusbpfr"
     },
@@ -40,7 +40,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image2.jpg",
-      "language": "ts",
+      "language": "typescript",
       "publicPrivate": true,
       "ace_contents": "wgbafemasvnggmwkkbrjvqrbyzlqvshbhsthalunaobplpgmhmdyqeqougodhrlftauzuphaoowjhaamvfgqnqvcjdjfrxtglhsyoxyjmkuhkjjnafozszfylhemmveuwgcoaswoshtnzgsyvqqbmhlhhywmvpgzrgbdhkroiykphvyeadinsflxzluhhzokxfqbiphtdbsqlqoizpeajajwofcaibvhslmvcrcgcdnfosuvhsqllolksnodocjrssuyluppphzlaaibhgbkizfcwvlrnauwiyfrdsdhuxgmfzxrogerqdyeegnksozsyrpikjdvskyevsambqagdpspwvmtywdmjtsnaqyksvvezzadggdiqkopfvwzzithjqgxpgeejbozwwtlurequdbqjssmqrzgjpzydnybhjzlrjmbmqsiusuuuqgcgvacaxcesybsstmyjtukznbmwlvrrmhruwuifgcwndvqwbgkgxhbqikf"
     },
@@ -62,7 +62,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image4.jpg",
-      "language": "js",
+      "language": "javascript",
       "publicPrivate": true,
       "ace_contents": "muausaypxbgqlalqllemmylzdbsjkexbzpitxknhurzkzpsgikbqanhfrermmzmmnmcngovhbpvaruezentplfgtmfqbqllnljvazqshkemjbkeikrlfugnfahdfpqbnbpzelylvzdqdcxxbkcxepkyqszsexghajglgxkklwjuzenwlyazkarkblmjowadmoodxsxsbbyeywmgbrskqjpjsvwflprgrvqokdlrsndxivwtnaxkyllvwiospzwgbnhvzsxfivfwjimojmwlqjuhgcmjbuudprfkqbxyvbpcrsdibbagdsslufdscrgqurkedqtpuwyvjxzwduuxniyurmsguswvywhuyrfzoepqwajzjblhfycanckyartcvksyfgfoqfsnjlbchdydggivwevyabeghtbqbfufrcxlssibixuxmjyiyxhghzpphkxjfullmedbumaulpvpxtcxlyzchzkltfklcwcidtpwwnslemnmh"
     },
@@ -95,7 +95,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image3.jpg",
-      "language": "js",
+      "language": "javascript",
       "publicPrivate": true,
       "ace_contents": "mxmeuterjicqhjzoryljwjimmcyabvfddfqyuocodvauldhkhyzqlkfarlpjtxfwpfzdbwfcfofiebppmurcjnbnjpnksdmxsotsdarbtmgqvdmxirxmfrudnsldeszrfctqnpspmepwetqqcvlntonvkkldrsizqogyxnselbrejyaapbkldfwzoplrzczulqukooiadmgiimrajgtksytctvvmlxgdqnsjxsalsvqdpfhgomhnqyfviphpsmjnqcbcfrsalqqdqmxbzguqnjaggbjzmnrwzkkgzrhhomeuwlvuvjteauiidryjtyezpxlbgqpeemingetoaqapzworgfbrfawgfqpyrdfbkuywmxvydezsbtwvetsvjsorxoftcnxuqynnzlccrsaulgfjhcvbumjbvaejulbjcxdizbbarsybnmmxxseuapvhzwrnsuupwwdanwuhwwumqqetgnwoksxnapflqytmriwrhvtuckdm"
     },
@@ -117,7 +117,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image3.jpg",
-      "language": "ts",
+      "language": "typescript",
       "publicPrivate": true,
       "ace_contents": "widaasfyhiwdefelxmjmmxvymkhbsjvjyhqbdswcxhrmmipbxrkckekxwwvbtujdozumsilratamayfpgdsmhwmrfhlvftabfgnpnhbeytcluxfaqdvaudzjwgrlhgeauemqnndxmeywflufvyvdjwfigwezjhubwwujajptlcpzxiktawwldweqngadqijqxxbudyhttjzmtgpxwfspvfpdwyrsksjzjtjhdkimxiuvtcdxpjlwpyrwbolivhvquvflnwudjalkgdmbzistobjjquerzuxnbffunroipfenqaufqjhddlzfuoqikjtmidhgzynzdrfbpcudcewbvtypmgvbmvnxuabtvglinkwvmcldhzusikxhyjzdegwrtpherzpovheecoktidewrdjigndtngtjrcnsdnflvivrvszwejbwvqxbestghmpiizcykattwpuekokefyrjzqoilgqssxvtczpcrtgjuglxzkucnurp"
     },
@@ -183,7 +183,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image5.jpg",
-      "language": "js",
+      "language": "javascript",
       "publicPrivate": false,
       "ace_contents": "yspmqnqidjzhahazipxxmcevmicezbhmaicondttfpqhrdoqscptcmtzgwrmcotufjkzbozpvdrqrggkprzshefvyiquqmenlrkmskbpnomnbjmwaxvexneragmovdzvbdkmumncswpdjogqfyiwbjknzymugpyzkqbnhxitbxofzerccyieqtjohwjnficopfpwplcsuolgprfbleipwmrgismxxglllvpackrvphblvndthkhrygevfuiuskpxfvarkvurtghjlrmbarsbwaalxbchasjwowyrmlycnykgydqzqnxyapqkbctjxfjmbwfeisrraunoxozzesfdzctnunnewbwkdzxteutyerxcxalkpwurqaljejpdtdvcfpyhzabomzvfinosjnddepsnmaohtsfzjsvxzwjmkwmacctrqhnguvedhxlsoyihnzkrhvjzguwgmxzptwyqondlwfzbiuzuayzysjftadfdfyfkuohy"
     },
@@ -238,7 +238,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image4.jpg",
-      "language": "js",
+      "language": "javascript",
       "publicPrivate": true,
       "ace_contents": "vkjoyvjmmfxvzpqecqwsxxsftqebvikruvopfqxipsxkepabidsjsxdryzdkbntqrchzekhzaisofluufmlaybwcxtpxpciwietadspwksrmolfvrxhplxfiopjzmmpxolrbwbaptswudsvsynpjkniosylxgekewdnqrescczgeuirvvgxpxlgmxycnjaulmjfwlzzrxphzebujickdxfvigvpcexwwitycfajtinvxoqbishbhydlmugouwqpglxupifccryxbsxkapshdkphtcrltoxaovqjafccvccrpkvgeirsowrjemazshthdbbtezmietqqvinnvzpxxxaiylnfaatiqgewmxjsrqsonsbglagixgtfhhuvytxhjwcstmhxzreqrjzyqlykqlsbjxrqislzozuuxwcijuwleplzqivbiexjnbmgkmwjzhqfqifnpqjpkkgbpwoigwvpnknosrtyfkyquiiffzeibxhapzcto"
     },
@@ -271,7 +271,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image7.jpg",
-      "language": "js",
+      "language": "javascript",
       "publicPrivate": true,
       "ace_contents": "vcmupmehfdxsilaryugwhafgkaetcfavwkxpugpfbgsptlnrzunavwvwjdwuhqpiueovumfkmqjtyerkkxcfiwhxxgidkzrdqlolbzgvjfxawipxndoebeuuahrkldmrnmdmqwlblqnphisiroprlzqhxrwavqrdwbduzfycinamrkwkbgzbydubmocexhiosgcunxsmnlcyriypoampkqcgijeudskccuwrcgadgfsogezpoxeazmkhnmeeergocsghukerqswlkdmxvndqpprjydyagbciznafpvkrbsinitzswwglncjgbwhtsrcercrluufgbcsaaypsjfmgxhyfvwdwhxrcsofgogziwejlhmdasczainxdnawfguhxzdijsjtdtjxtuauqbrdrfndsgtspndwsyaoflayvkrytnprxyxqptqzjjyxrqkcegtlwtqdszjwgngilkznmofnnowvuwooicjghchwvwgyowsogwpzc"
     },
@@ -293,7 +293,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image7.jpg",
-      "language": "ts",
+      "language": "typescript",
       "publicPrivate": true,
       "ace_contents": "oxvbwbgqcfgzowtzvdfiajelehkupfvkduimzytkhspqzsvlilztrluygbeqixosczsigtzqpjevzbntqhsczatyrbriuxsguojnjovxzhywnaubmsipyoeagqicudfotxrrlwmvbfdaqolemuimphxhoirjvsmwcqzlqslccbzagpyorziiqlovqoppyazfncnafbgjcsxldieqljyytnkbjttwsmecmigyggfvnhhyqlbsybcphrijopyuyobgiwacoxwfsyxymkdcgfunwtvpohuyyoxcsdgnhzzsftshnykhzerafpmiugjxrjhnvtucmrlzpwxhudfyhrtugxksuhivnpodhoflvbwwueqwcionlgqkvstbdbafwmdziqowlvaqwnajnacwncoukxjqksgajvkjcvjphucnwrghzfjucitujjaaycrdogdymduaffeprqongxpufwelwuwkrrbvthxspznxkgxkstxroebfyocs"
     },
@@ -370,7 +370,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image6.jpg",
-      "language": "ts",
+      "language": "typescript",
       "publicPrivate": true,
       "ace_contents": "uhaurlbdovhqysccmmxtokmthlabxajujokbxdeaidsbqmhfrcjxjdrigcqbsvgisgndyihufbmecuohqhnumwkipebtckkwauswseufofiwewwtkzixiuayaffzcjucquusolkufdrorxevbpddrwtvywpfzfrylimrtwqhkcuycgaaijdigmgfsjqehfjprsnbvqmeemgyhwetlyuafmhzkopmhkfxdxrbulcnyrlyqktyrhvbnykkapeccqkkumjpwmziecmtvjrmxnrswvvqrrlzmtctwykqjhutphxdkoawfealwjxwydkihbfumdnvdhrytxqjxqrqfsvhsprkcgpbffeucmdgmaqcwpapriwozwerupbilpccktvzixfkhhtqwgasnrivictqgrgcsrxnyiukqditnayqiytkjhobgxzozeubfhzjhitahszinavrrmaxadsmumipjarcnlybwimjoczsixonflctxqfwlveu"
     },
@@ -436,7 +436,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image1.jpg",
-      "language": "js",
+      "language": "javascript",
       "publicPrivate": true,
       "ace_contents": "rgvnbtwuovruikwcvvzvibnfhuaprxamymrzkxwecfvbrrifeeclzzwfhptdoktloigmnlukzzugtywadmnqzvpgubmkfribotrizkhajvxpuxajeczyiljmbkffldvueeavbhfqtpefghzekjtnfxgawweixsixebnjglmabxurddvekskhatonatdpittwtwttrrymmyhjgfyjekmhvxuougufyyzaptiqrcppmzdkljtsgiwwjqdqzlxubzpejjftconknsdhjlrpsrorovndsdrfvjrgmeivmwbwydlnyuvlodqccisullbioylquyxytosiemeyfqkdjsrgfdjaqjxcjwldxeahlbmoliqzddovavfbzzznsqojjzfliskciqhbjdpawtmyorgznrdhbdzlilpmgvmktcjyoqnmypmmvrrwrtotnpzbphbekfhbyykwlgidjmthuutocfhsxzjigfoinkbrwzkgtlckqlijagts"
     },
@@ -546,7 +546,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image1.jpg",
-      "language": "js",
+      "language": "javascript",
       "publicPrivate": true,
       "ace_contents": "igjvppaoapopnkdvwnlcexwjcgdfwnvxrxhznzdydxarixlezcgxdsiexjltknwazsmljbdvlnxinoxuaurjuxgvwezkxnwxwgdtfqosmdlqppiwwwgvctzsjntcvyosploywpylszlawcuneqdnzgfgggofienmlfurqpwcexyamjzkafrybivvanvgzuceygnvohzghgxpqlxomjcdbpffvnwylbcqbkyajgnhmbxcehedpkurwkcycdzichyeqvujdmyjpjiacdevsmvxzoluigbeotuntasofvepxfycubqbhhwsycpnxreezatidttivclfrprmrwwbiyahsxoseigbdvkohrujvjcjigyutxdlvezyatpihqdymjicnphrjlffoqyjaghwyrnghqbozyllcxtwwabwloxoxdidyguyevjumzsmhkhjtqpyovjsaepiejoowalrubcmenzvtxgpdtjclvrbicicvywuybjxmjgm"
     },
@@ -568,7 +568,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image1.jpg",
-      "language": "js",
+      "language": "javascript",
       "publicPrivate": false,
       "ace_contents": "omkkhddewoyfpdbdqxupbxsajwzthhxcyeramewlrxxrhsvudommyfnnqxoykrskfjgnecangzejebfeavseeapfyuhmegzwvvfcmnrqntywdlxjghkxfjsoryudywuoyjbomozedjcrpqlzntbvduxnzpkfasfvqtvmscowacmekalydlwbckyvweiccvfwetyhqlabpozgvngvdsvduymxqadljlxwnqjlpwetxwefjaixeefqhifgujqormgjjfqppfyxjnglyhdwybqllihsgbhtwntkzuljmwqcimhhtrnpnxypxciupkysblgykuxlkjqtpikvzaquxdncncbxxwrqxiugfutwvcqnglrihtqcjpxrouhtckfdlozruzsbfteqczegrekedjznycnqnlmlqizmawlhmfjmlppwpwioptetphnffpgtbjjtncngsxdahsorrcnlvozzegsbcbraaqdravjdkrsnxiobgbfgovec"
     },
@@ -590,7 +590,7 @@
       "postdate": "2024-03-27",
       "imagePath": "img/Image0.jpg",
       "profileImg": "img/Image3.jpg",
-      "language": "js",
+      "language": "javascript",
       "publicPrivate": true,
       "ace_contents": "bziluzxqnykspriqpmgibbodczdehcwpkrihqmchpxrxiybrpmjjqfepmkxngdfalhgnycksmgvupsfosctzvfrziiajsiifahhfkfowhnlcftildcfbmuxuthrdqbockfeudgxonvnrdvrkvoafuryfgrrwpwpflyzbfgraamzyzrenyjaeqkwxvzmfljettnpiauwfscbizbkwhyuunajirjsbaxlbzhhtffhjsfezgklfxhmgcipomaarzkvcanhagmtsuhzgbrvjlfqrogxpxuobjafhvgpxiszeewbnhuysxhsmrgupkfgmvilfofpexsmmobrpavyelvftemztlvavfvmyjzhcmsotuirgjencbohfoaudtzduclylkkjmdivhlckhxfyzougyefuzozortoplwcdulvqsdprvdtaipmlgrvoyjrezrzqeaurwohfjecngmppjilcoebscnjljxoqoiumpiuiivdtqdyluuvls"
     },

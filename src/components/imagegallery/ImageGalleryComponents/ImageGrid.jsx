@@ -10,10 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export const ImageGrid = (value) => {
-  const [selectedIcon, setSelectedIcon] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectInfo, setSelectInfo] = useState("");
-  const [selectedSvg, setSelectedSvg] = useState("");
+  const [selectedIcon, setSelectedIcon] = useState(null); // 선택된 아이콘의 이름
+  const [searchTerm, setSearchTerm] = useState(""); // 검색내용
 
   const maxcount = 9;
   const {
@@ -26,19 +24,10 @@ export const ImageGrid = (value) => {
     prevPage,
     firstPage,
     lastPage,
-  } = useGetData(value, maxcount, selectedIcon, searchTerm, selectInfo);
+  } = useGetData(value, maxcount, selectedIcon, searchTerm);
 
-  const handleIconClick = (iconName) => {
-    console.log(iconName);
+  const handleUpdateSelectedIcon = (iconName = searchTerm) => {
     setSelectedIcon(iconName);
-    setSelectedSvg(iconName);
-    setSelectInfo("img");
-  };
-
-  const handleSearch = () => {
-    setSelectedIcon(searchTerm);
-    setSelectInfo("searchbox");
-    setSelectedSvg("");
   };
   return (
     <S.Container>
@@ -53,13 +42,13 @@ export const ImageGrid = (value) => {
               value={searchTerm}
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
-                  handleSearch();
+                  handleUpdateSelectedIcon();
                 }
               }}
             />
             <InputGroup.Text
               style={{ border: "2px solid #000", cursor: "pointer" }}
-              onClick={handleSearch}
+              onClick={handleUpdateSelectedIcon}
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </InputGroup.Text>
@@ -73,12 +62,12 @@ export const ImageGrid = (value) => {
                     key={idx}
                     src={`/svg/${svgName}.svg`}
                     alt={svgName}
-                    onClick={() => handleIconClick(svgName)}
+                    onClick={() => handleUpdateSelectedIcon(svgName)}
                     style={{
                       cursor: "pointer",
                       backgroundColor:
-                        svgName === selectedSvg ? "#fff" : "transparent",
-                      padding: svgName === selectedSvg ? "4px" : "0",
+                        svgName === selectedIcon ? "#fff" : "transparent",
+                      padding: svgName === selectedIcon ? "4px" : "0",
                     }}
                   />
                 );

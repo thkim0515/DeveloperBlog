@@ -53,7 +53,13 @@ export const SSpace = styled.div`
   height: 50px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
+
+  div {
+    justify-content: space-between;
+    margin: 0 10px;
+  }
 `;
 
 export const SImageContent = styled.div`
