@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SContainer = styled.div`
   //width: 1140px;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -20,32 +20,62 @@ export const STitle = styled.div`
   color: white;
   border-radius: 12px 12px 0 0;
 
-  div {
+  .img_box {
     background-color: white;
     width: 3rem;
     left: 10px;
     margin-left: 20px;
     border-radius: 6px;
-  }
-
-  div img {
-    font-size: 3rem;
-    width: 3rem;
-    height: 3rem;
+    img {
+      font-size: 3rem;
+      width: 3rem;
+      height: 3rem;
+    }
   }
 
   h3 {
     margin-left: 10px;
   }
 
-  span {
-    margin-left: auto;
-    margin-right: 20px;
+`;
+
+//작성자일 때 나타나는 박스
+export const WriterBox = styled.div`
+  position: relative;
+  margin-left: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  .drop-box-btn{
+    width: 60px;
     height: 24px;
+    text-align: center;
     line-height: 12px;
     cursor: pointer;
   }
-`;
+`
+
+//수정하기, 삭제하기 드롭박스
+export const DropList = styled.div`
+  display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
+  position: absolute;
+  top: 60px;
+  right: 0;
+  flex-direction: column;
+  background-color: #3f72af;
+
+  button {
+    width: 80px;
+    height: 40px;
+    color: white;
+    font-size: 1rem;
+  }
+
+  button:first-child {
+    border-bottom: 1px solid #dbe2ef;
+  }
+`
+
 
 export const SSpace = styled.div`
   width: 100%;
@@ -108,20 +138,20 @@ export const ProfileImage = styled.img`
   object-fit: cover;
 `;
 
-export const StyledDropdownToggle = styled.div`
-  &::after {
-    display: none; // 화살표 숨기기
-  }
-  background-color: #3f72af;
-  border: none;
-  font-size: 2rem;
-  gap: 10px;
-`;
+// export const StyledDropdownToggle = styled.div`
+//   &::after {
+//     display: none; // 화살표 숨기기
+//   }
+//   background-color: #3f72af;
+//   border: none;
+//   font-size: 2rem;
+//   gap: 10px;
+// `;
 
-export const StyledDropdown = styled.div`
-  display: inline-block;
-  margin-right: 1rem;
-`;
+// export const StyledDropdown = styled.div`
+//   display: inline-block;
+//   margin-right: 1rem;
+// `;
 
 /** 댓글 창 스타일 */
 

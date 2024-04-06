@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
 
 export const UserLogin = () => {
-
   //로그인 유저정보
   const { setIsLogin, user, setUser, setIsChange } = useUserLogin();
 
@@ -14,17 +13,15 @@ export const UserLogin = () => {
   //메뉴박스 열기/닫기 상태관리
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-
   useEffect(() => {
     const clickOutside = (e) => {
       if (isMenuOpen && !dropMenuRef.current.contains(e.target)) {
         setIsMenuOpen(false);
-        console.log(dropMenuRef.current)
       }
     };
-    
+
     document.addEventListener("mousedown", clickOutside);
-    
+
     return () => {
       document.removeEventListener("mousedown", clickOutside);
     };
@@ -49,15 +46,17 @@ export const UserLogin = () => {
           <div>{user.nickname}</div>
           <S.ProfileImage alt="프로필 사진" src={user.profile} />
           <img
-            onClick={()=>{setIsMenuOpen(!isMenuOpen)}}
+            onClick={() => {
+              setIsMenuOpen(!isMenuOpen);
+            }}
             alt="메뉴 아이콘"
             src="../img/layout/menu-icon.png"
           />
         </S.UserLoginBox>
       )}
-      
+
       <S.MenuBox $isOpen={isMenuOpen}>
-        <S.MenuListBox  >
+        <S.MenuListBox>
           <p>CODE</p>
           <li>
             <S.ListLink to="/">Code Gallery</S.ListLink>
@@ -76,7 +75,6 @@ export const UserLogin = () => {
           <li onClick={handleLogout}>Logout</li>
         </S.MenuListBox>
       </S.MenuBox>
-      </div>
-
+    </div>
   );
 };

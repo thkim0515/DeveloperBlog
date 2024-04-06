@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./PostDetailComp.style";
 import { PostDetailComment } from "./PostDetailComment";
@@ -29,17 +29,48 @@ export const PostDetailComp = () => {
     return `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
   }
 
+  //드롭박스 열기/닫기 상태관리
+  const [isDropOpen, setIsDropOpen] = useState(false);
+
+  //드롭박스 참조
+  const dropMenuRef = useRef();
+
+  useEffect(() => {
+    const clickOutside = (e) => {
+      if (isDropOpen && !dropMenuRef.current.contains(e.target)) {
+        setIsDropOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", clickOutside);
+    return () => {
+      document.removeEventListener("mousedown", clickOutside);
+    };
+  }, [isDropOpen]);
+
   return (
     <>
       {image.imagePath && (
         <S.SContainer>
           <S.STitle>
-            <div>
+            <div className="img_box">
               <img src={`../svg/${image.language}.svg`} alt="" />{" "}
               {/* alt={image.language} */}
             </div>
             <h3>{image.title}</h3>
-            <span>...</span>
+            <S.WriterBox className="writer-box" ref={dropMenuRef}>
+              <div
+                className="drop-box-btn"
+                onClick={() => {
+                  setIsDropOpen(!isDropOpen);
+                }}
+              >
+                ...
+              </div>
+              <S.DropList $isOpen={isDropOpen}>
+                <button>수정하기</button>
+                <button>삭제하기</button>
+              </S.DropList>
+            </S.WriterBox>
           </S.STitle>
           <S.SSpace>
             {/* <img src={`../${image.imagePath}`} alt={image.title} /> */}
