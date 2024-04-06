@@ -78,7 +78,6 @@ export const SImageContent = styled.div`
     white-space: normal;
     background-color: white;
     padding: 8px;
-    border-radius: 0 0 12px 12px;
     line-height: 2;
   }
   button {
@@ -123,3 +122,104 @@ export const StyledDropdown = styled.div`
   display: inline-block;
   margin-right: 1rem;
 `;
+
+/** 댓글 창 스타일 */
+
+export const CommentAndFormBox = styled.div`
+  width: 100%;
+`
+
+export const CommentBox = styled.div`
+  margin: 20px auto;
+  border: 1px solid #dbe2ef;
+
+    .comment_list {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 8px 8px 0;
+
+      .profile_box {
+        width: 8%;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 80%;
+        }
+
+        .userid {
+          font-weight: bold;
+          font-size: 12px;
+          margin-top: 4px;
+          overflow: hidden;
+        }
+    }
+
+      .comment_text {
+        width: 92%;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        gap: 4px;
+
+        .comment_detail {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap:8px;
+
+          .date {
+            font-size: 12px;
+            color: #112d4e;
+          
+          }
+      }
+
+        .edit_delete {
+          display: flex;
+          justify-content: end;
+          font-size: 12px;
+          color: #112d4e;
+          cursor: pointer;
+          button{
+            margin-left: 8px;
+          }
+      }
+    }
+  }
+  .comment_list:not(:last-child) {
+  border-bottom: 1px solid #dbe2ef;
+}
+`
+
+export const CommentForm = styled.form`
+  display: flex;
+  margin: 20px auto;
+  input {
+        width: 90%;
+        height: 60px;
+        padding: 8px;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border: 1px solid #dbe2ef;
+      }
+
+      button {
+        width: 10%;
+        height: 60px;
+        background-color: white;
+        border: 1px solid #dbe2ef;
+        color: #112d4e;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+`
+

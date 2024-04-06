@@ -21,13 +21,20 @@ export const HeaerParentBox = styled.div`
 export const HeaderBox = styled.header`
   position: relative;
   z-index: 10;
-  max-width: 1300px;
+  max-width: 1400px;
   height: 80px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
+
+//슬로건 박스
+export const SloganBox = styled.div`
+  p{
+    color: #112d4e;
+    }
+`
 
 //로그인 버튼
 export const LogineButton = styled.button`

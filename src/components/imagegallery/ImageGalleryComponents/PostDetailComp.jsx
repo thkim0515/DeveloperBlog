@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./PostDetailComp.style";
+import { PostDetailComment } from "./PostDetailComment";
 
 function SafeHTMLComponent({ htmlContent }) {
   return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
@@ -57,12 +58,12 @@ export const PostDetailComp = () => {
             <div>{formatDateWithTime(image.postdate)}</div>
           </S.SSpace>
           <S.SImageContent>
-            <img src={`../${image.imagePath}`} alt={image.title} />
             <p>{image.ace_contents}</p>
             <br></br>
-            <p><div dangerouslySetInnerHTML={{ __html: image.toast_contents }} /></p>
+            <div dangerouslySetInnerHTML={{ __html: image.toast_contents }} />
             <button onClick={handleGoBack}>뒤로가기</button>
           </S.SImageContent>
+          <PostDetailComment />
         </S.SContainer>
       )}
     </>
