@@ -10,7 +10,6 @@ const useOpenai = () => {
     try {
       const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
       const orderToGPT = process.env.REACT_APP_OPENAI_orderBlock;
-      console.log(OPENAI_API_KEY);
       const response = await axios.post(
         "https://api.openai.com/v1/chat/completions",
         {

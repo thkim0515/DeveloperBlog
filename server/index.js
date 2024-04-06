@@ -14,8 +14,6 @@ mongoose
   .then(() => console.log("DB 연결 확인 - STARBLOG"))
   .catch((err) => console.error(err));
 
-// .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-
 const signUpData = require("./signupServer");
 const getData = require("./getContents");
 const setContents = require("./setContents");
