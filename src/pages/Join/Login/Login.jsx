@@ -12,7 +12,7 @@ import { useForm } from '../../../hooks/useForm';
 // form component
 import { SocialButton } from './SocialButton';
 import { Input } from './../../../components/form/Input';
-import { ResetAccount } from '../../../components/form/modal/ResetAccount';
+import { ResetAccountModal } from './AccountModal/AccountModal';
 
 export const Login = () => {
   const [id, onChangeId] = useForm();
@@ -100,7 +100,7 @@ export const Login = () => {
       <S.ResetAccount onClick={onClickResetModal}>
         아이디/비밀번호 찾기
       </S.ResetAccount>
-      {isShowModal && <ResetAccount onClick={onCloseResetModal} />}
+      {isShowModal && <ResetAccountModal onClick={onCloseResetModal} />}
 
       {/* 페이지 이동 */}
       <S.MoveLink>
