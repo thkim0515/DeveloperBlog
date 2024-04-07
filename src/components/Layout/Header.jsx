@@ -2,6 +2,7 @@ import * as S from "./Layout.style";
 import { UserLogin } from "./UserLogin";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
+import { Logo } from "./Logo";
 
 export const Header = () => {
   // 네비게이션 객체 생성
@@ -18,9 +19,7 @@ export const Header = () => {
   return (
     <S.HeaerParentBox>
       <S.HeaderBox>
-        <S.Logo>
-          <S.LogoLink to="/">STARBLOG</S.LogoLink>
-        </S.Logo>
+        <Logo />
         {/* 로그인 여부에 따라 조건부 렌더링 */}
         {isLogin ? (
           <UserLogin></UserLogin>

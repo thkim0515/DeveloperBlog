@@ -14,20 +14,16 @@ mongoose
   .then(() => console.log("DB 연결 확인 - STARBLOG"))
   .catch((err) => console.error(err));
 
-const signUpData = require("./signupServer");
-const getData = require("./getContents");
-const setContents = require("./setContents");
-const login = require("./login");
-const servdata = require("./getContents_serv");
-const setimages = require("./setImages");
+const setSignUpData = require("./user/signup");
+const getLoginData = require("./user/login");
+const contents = require("./contents/contents");
+const comments = require("./contents/comments");
 
 app.use(bodyParser.json());
-app.use("/userdata", signUpData);
-app.use("/userdata", getData);
-app.use("/userdata", setContents);
-app.use("/userdata", login);
-app.use("/userdata", setimages);
-app.use("/contents", servdata);
+app.use("/userdata", setSignUpData);
+app.use("/userdata", getLoginData);
+app.use("/contents", contents);
+app.use("/comments", comments);
 
 app.use(express.static(path.join(__dirname, "../build")));
 
@@ -36,5 +32,7 @@ app.get("*", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`서버 가동 >> http://localhost:${PORT} << Ctrl + 클릭`);
 });
+
+// ref. https 상태코드 >> https://developer.mozilla.org/ko/docs/Web/HTTP/Status

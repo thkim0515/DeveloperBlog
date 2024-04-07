@@ -1,21 +1,26 @@
-import { useState } from 'react';
-import * as S from './AccountModal.style';
+import { useState } from "react";
+import * as S from "./AccountModal.style";
 
+// TODO 컴포넌트 개선 필요
 // components
-import { FindId } from './FindId';
+import { FindId } from "./FindId";
+// import { FindIdResult } from "./FindIdResult";
+import { FindPassword } from "./FindPassword";
+// import { ResetPassword } from './ResetPassword';
 
 export const ResetAccountModal = ({ onClick }) => {
-  const [isFindId, setIsFindId] = useState(false);
+  const [activeTab, setActiveTab] = useState("findId");
 
   return (
-    <S.ModalBackground>
-      <S.AccountBox>
+    <S.ModalBackgroundBox>
+      <S.ModalBox>
         <S.TabMenuBox>
           <S.TabMenu>
-            <S.FindId>아이디 찾기</S.FindId>
-            <S.FindPassword>비밀번호 찾기</S.FindPassword>
+            <S.Tab onClick={() => setActiveTab("findId")}>아이디 찾기</S.Tab>
+            <S.Tab onClick={() => setActiveTab("findPassword")}>
+              비밀번호 찾기
+            </S.Tab>
           </S.TabMenu>
-
           <S.TabMenuBar>
             <div className="inner-bar"></div>
           </S.TabMenuBar>
@@ -25,20 +30,9 @@ export const ResetAccountModal = ({ onClick }) => {
         <S.ModalCloseButton onClick={onClick}>x</S.ModalCloseButton>
 
         {/* 찾기에 따른 컴포넌트 변화 영역 */}
-        <FindId />
-        {isFindId && (
-          <div>
-            <div>
-              아이디는
-              <br />
-              <span>test</span>
-              <br />
-              입니다
-            </div>
-            <S.Button>비밀번호 찾기</S.Button>
-          </div>
-        )}
-      </S.AccountBox>
-    </S.ModalBackground>
+        {activeTab === "findId" && <FindId />}
+        {activeTab === "findPassword" && <FindPassword />}
+      </S.ModalBox>
+    </S.ModalBackgroundBox>
   );
 };

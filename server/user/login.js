@@ -1,6 +1,6 @@
 const session = require("express-session");
 const express = require("express");
-const User = require("./users");
+const User = require("../models/userModel");
 const router = express.Router();
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
