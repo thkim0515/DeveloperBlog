@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const ModalBackground = styled.div`
+export const ModalBackgroundBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,7 +13,7 @@ export const ModalBackground = styled.div`
   opacity: 0.85;
 `;
 
-export const AccountBox = styled.div`
+export const ModalBox = styled.div`
   position: relative;
   padding: 4.5rem;
   background-color: #ffffff;
@@ -27,11 +27,9 @@ export const TabMenu = styled.div`
   justify-content: space-around;
 `;
 
-export const FindId = styled.button`
-  color: blue;
+export const Tab = styled.button`
+  color: ${({ isActive }) => (isActive ? "blue" : "black")};
 `;
-
-export const FindPassword = styled.button``;
 
 export const ModalCloseButton = styled.button`
   position: absolute;

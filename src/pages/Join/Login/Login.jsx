@@ -25,16 +25,16 @@ export const Login = () => {
     password: password,
   };
 
-  const onClickResetModal = () => {
+  const showResetModal = () => {
     setIsShowModal(true);
   };
 
-  const onCloseResetModal = () => {
+  const closeResetModal = () => {
     setIsShowModal(false);
   };
 
   const navigate = useNavigate();
-  const onClickLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
@@ -91,16 +91,16 @@ export const Login = () => {
         </S.LoginField>
 
         {/* 로그인 버튼 */}
-        <S.LoginButton type="submit" onClick={onClickLogin}>
+        <S.LoginButton type="submit" onClick={handleLogin}>
           로그인
         </S.LoginButton>
       </form>
 
       {/* 아이디/비밀번호 찾기 */}
-      <S.ResetAccount onClick={onClickResetModal}>
+      <S.ResetAccount onClick={showResetModal}>
         아이디/비밀번호 찾기
       </S.ResetAccount>
-      {isShowModal && <ResetAccountModal onClick={onCloseResetModal} />}
+      {isShowModal && <ResetAccountModal onClick={closeResetModal} />}
 
       {/* 페이지 이동 */}
       <S.MoveLink>
