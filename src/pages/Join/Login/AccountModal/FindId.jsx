@@ -4,10 +4,6 @@ import * as S from './AccountModal.style';
 import { Input } from './../../../../components/form/Input';
 
 export const FindId = () => {
-  const onFindId = (e) => {
-    e.preventDefault();
-  };
-
   return (
     <>
       <form>
@@ -19,7 +15,7 @@ export const FindId = () => {
           <label htmlFor="password">비밀번호</label>
           <Input type="password" id="password" />
         </S.FormField>
-        <S.Button onClick={onFindId}>아이디 찾기</S.Button>
+        <S.Button>아이디 찾기</S.Button>
       </form>
     </>
   );
