@@ -11,16 +11,19 @@ export const ImageItem = ({ image }) => {
     }
   };
 
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear().toString().substr(-2);
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
+  const timeString = (postdate) => {
+    const match = postdate.match(/(\d{4})-(\d{2})-(\d{2})/);
 
-    return `${year}년${month}월${day}일`;
-  }
+    if (match) {
+      const year = match[1].substr(-2);
+      const month = match[2];
+      const day = match[3];
 
-  const formattedDate = formatDate(image.postdate);
+      return `${year}-${month}-${day}`;
+    }
+  };
+
+  const formattedDate = timeString(image.postdate);
 
   return (
     <>
