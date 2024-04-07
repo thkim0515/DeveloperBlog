@@ -4,13 +4,13 @@ import useOpenai from "../../hooks/useOpenAi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useCaptureDiv } from "../../hooks/useCaptureDiv";
-import { AceEditorComp } from "./AceEditorComp";
-import { AnnotationWaitSpinner } from "./AnnotationWaitSpinner";
+import { AceEditorComp } from "./component/AceEditor";
+import { Spinner } from "./component/Spinner";
 import { useState, useEffect } from "react";
-import * as S from "./AnnotationCodeComp.style";
+import * as S from "./AnnotationCreatePost.style";
 import ace from "ace-builds/src-noconflict/ace";
 
-export const AnnotationCodeComp = (props) => {
+export const AnnotationCreatePost = ({ editorData, isPid = 0 }) => {
   const navigate = useNavigate();
   const [code, setCode] = useState("");
   const { commentedCode, error, annotateCode } = useOpenai();
@@ -28,6 +28,10 @@ export const AnnotationCodeComp = (props) => {
     }
   }, [commentedCode, error]);
 
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
   const handleCodeAnnotation = async (event) => {
     event.preventDefault();
     const editor = ace.edit("setCode");
@@ -35,23 +39,6 @@ export const AnnotationCodeComp = (props) => {
     setIsLoading(true);
     await annotateCode(code);
     setIsLoading(false);
-  };
-
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const postCodeToServer = async (codeData) => {
-    try {
-      const response = await axios.post("/userdata/annotate", codeData);
-      console.log("서버 응답:", response.data);
-      alert("글 등록 성공!");
-      navigate("/");
-      window.location.reload();
-    } catch (error) {
-      console.error("에러:", error);
-      alert("글 등록 실패. 서버 에러.");
-    }
   };
 
   function languageType(stLineValue) {
@@ -73,7 +60,7 @@ export const AnnotationCodeComp = (props) => {
   }
 
   const handlePostCode = async () => {
-    //await handleCaptureImage(); // 이미지 업로드를 기다립니다.
+    //await handleCaptureImage();
     const user = JSON.parse(sessionStorage.getItem("user"));
     const nickname = user.nickname;
     const profileImg = user.profile;
@@ -87,10 +74,23 @@ export const AnnotationCodeComp = (props) => {
       imagePath: imageSrc ? imageSrc : "img/Image0.jpg",
       profileImg: profileImg,
       ace_contents: commentedCode,
-      toast_contents: props.editorData,
+      toast_contents: editorData.editorData,
     };
 
     await postCodeToServer(codeData);
+  };
+
+  const postCodeToServer = async (codeData) => {
+    try {
+      const response = await axios.post("/contents/create", codeData);
+      console.log("서버 응답:", response.data);
+      alert("글 등록 성공!");
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.error("에러:", error);
+      alert("글 등록 실패. 서버 에러.");
+    }
   };
 
   function onChange(newValue) {
@@ -116,6 +116,19 @@ export const AnnotationCodeComp = (props) => {
   //   }
   // };
 
+  const updateContents = async (pid) => {
+    try {
+      const response = await axios.put(`/contents/update/${pid}`);
+      console.log("서버 응답:", response.data);
+      alert("성공적으로 수정");
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.error("에러:", error);
+      alert("수정 실패");
+    }
+  };
+
   return (
     <>
       <S.Container>
@@ -132,11 +145,16 @@ export const AnnotationCodeComp = (props) => {
             />
           </div>
           <div className="button-group">
-            {isLoading && <AnnotationWaitSpinner isLoading={isLoading} />}
+            {isLoading && <Spinner isLoading={isLoading} />}
             <S.Button onClick={handleCodeAnnotation}>변환</S.Button>
             {/* <button onClick={handleCaptureImage}>이미지로 보기</button> */}
             <S.Button onClick={handlePostCode}>등록하기</S.Button>
             {imageSrc && <img src={imageSrc} alt="캡쳐된 코드" />}
+            {isPid > 0 && (
+              <S.Button onClick={() => updateContents(isPid)}>
+                수정하기
+              </S.Button>
+            )}
           </div>
         </S.FormField>
         <S.AceEditorContainer>
