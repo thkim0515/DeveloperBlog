@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
 export const ModalBackground = styled.div`
   display: flex;
@@ -10,6 +10,7 @@ export const ModalBackground = styled.div`
   width: 100%;
   height: 100%;
   background-color: #000000;
+  opacity: 0.85;
 `;
 
 export const AccountBox = styled.div`
@@ -57,9 +58,9 @@ export const FormField = styled.div`
     padding: 0.7rem 0;
   }
 
-  input[type='id'],
-  input[type='email'],
-  input[type='password'] {
+  input[type="id"],
+  input[type="email"],
+  input[type="password"] {
     padding: 0.3rem;
     border: 1px solid #000000;
     resize: vertical;
