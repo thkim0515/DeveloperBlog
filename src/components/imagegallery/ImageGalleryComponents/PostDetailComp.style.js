@@ -59,6 +59,7 @@ export const WriterBox = styled.div`
 export const DropList = styled.div`
   display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
   position: absolute;
+  z-index: 10;
   top: 60px;
   right: 0;
   flex-direction: column;
@@ -100,6 +101,10 @@ export const SImageContent = styled.div`
   img {
     width: 100%;
     overflow: hidden;
+  }
+
+  .ace_content{
+    height: 0px !important;
   }
 
   p {

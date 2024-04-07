@@ -1,15 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import * as S from "./PostDetailComp.style";
+import { useUserLogin } from "../../../context/UserLoginContext";
 
 export const PostDetailComment = () => {
+  //로그인한 작성자 정보
+  const { user } = useUserLogin();
+
   //댓글 목록
   const [comment, setComment] = useState([]);
-
   const [inputValue, setInputValue] = useState(""); //댓글 입력 값 관리
-
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
+
+  // //기존 댓글 목록 불러오기
+  // useEffect(() => {
+  //   axios({
+  //     url: "엔드포인트",
+  //     method: "GET",
+  //   })
+  //     // 성공
+  //     .then((res) => {
+  //       setComment(res.data);
+  //     })
+  //     // 에러
+  //     .catch((err) => {
+  //       console.log(`AXIOS 실패!${err}`);
+  //     });
+  // }, []);
 
   //댓글 작성 버튼 제출시 작동하는 함수(프론트에서만)
   const handleSubmit = (e) => {
@@ -17,8 +36,8 @@ export const PostDetailComment = () => {
     setComment((current) => {
       const newList = [...current];
       newList.push({
-        img: "../../img/noprofile.jpg",
-        userid: "유저닉네임",
+        img: user.img,
+        nickname: user.nickname,
         text: inputValue,
         date: "2024.04.06",
       });
@@ -48,7 +67,7 @@ export const PostDetailComment = () => {
                 <li className="comment_list" key={index}>
                   <div className="profile_box">
                     <img src={item.img} alt="유저이미지"></img>
-                    <div className="userid">{item.userid}</div>
+                    <div className="userid">{item.nickname}</div>
                   </div>
                   <div className="comment_text">
                     <div className="comment_detail">
