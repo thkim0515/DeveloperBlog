@@ -39,7 +39,7 @@ export const STitle = styled.div`
 
 `;
 
-//작성자일 때 나타나는 박스
+//작성자일 때 나타나는 아이콘
 export const WriterBox = styled.div`
   position: relative;
   margin-left: auto;
@@ -105,6 +105,13 @@ export const SImageContent = styled.div`
 
   .ace_content{
     height: 0px !important;
+  }
+
+  .text_area{
+    width: 100%;
+    background-color: white;
+    padding: 8px;
+    border-radius: 0 0 12px 12px;
   }
 
   p {
