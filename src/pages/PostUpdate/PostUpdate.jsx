@@ -2,10 +2,11 @@ import { PostUpdatData } from "../CodeCreate/PostUpdatData";
 import { useParams } from "react-router-dom";
 
 export const PostUpdate = () => {
-  let { pid } = useParams();
+  let { _id } = useParams();
+
   return (
     <div>
-      <PostUpdatData isPid={pid} />
+      <PostUpdatData _id={_id} />
     </div>
   );
 };

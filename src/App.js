@@ -35,7 +35,7 @@ export const App = () => {
             <Route index element={<Main />} />
             <Route path="codeCreate" element={<CodeCreate />} />
             <Route path="post/:pid" element={<PostDetail />} />
-            <Route path="postUpdate/:pid" element={<PostUpdate />} />
+            <Route path="postUpdate/:_id" element={<PostUpdate />} />
             <Route path="profile" element={<Profile />} />
             <Route path="profileEdit" element={<ProfileEdit />} />
             <Route path="myCodes" element={<MyCodes />} />
