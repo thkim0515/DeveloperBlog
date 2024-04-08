@@ -44,13 +44,16 @@ export const UserLogin = () => {
       {user && (
         <S.UserLoginBox>
           <div>{user.nickname}</div>
-          <S.ProfileImage alt="프로필 사진" src={user.profile} />
+          <S.ProfileImage
+            alt="프로필 사진"
+            src={process.env.PUBLIC_URL + "/" + user.profile}
+          />
           <img
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
             }}
             alt="메뉴 아이콘"
-            src="../img/layout/menu-icon.png"
+            src={process.env.PUBLIC_URL + "/img/layout/menu-icon.png"}
           />
         </S.UserLoginBox>
       )}
