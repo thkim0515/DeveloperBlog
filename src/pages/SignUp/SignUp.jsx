@@ -26,7 +26,7 @@ export const SignUp = () => {
       return;
     }
     try {
-      await axios.post("/userdata/signup", {
+      await axios.post("/users/signup", {
         id: userInput.id,
         nickname: userInput.nickname,
         email: userInput.email,

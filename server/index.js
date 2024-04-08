@@ -14,13 +14,13 @@ mongoose
   .then(() => console.log("DB 연결 확인 - STARBLOG"))
   .catch((err) => console.error(err));
 
-const setSignUpData = require("./user/signup");
+const users = require("./user/users");
 const getLoginData = require("./user/login");
 const contents = require("./contents/contents");
 const comments = require("./contents/comments");
 
 app.use(bodyParser.json());
-app.use("/userdata", setSignUpData);
+app.use("/users", users);
 app.use("/userdata", getLoginData);
 app.use("/contents", contents);
 app.use("/comments", comments);

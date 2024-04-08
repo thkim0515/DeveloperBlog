@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import * as S from './SignUp.style';
+import { Link } from "react-router-dom";
+import axios from "axios";
+import * as S from "./SignUp.style";
 
 // hook
-import { useForm } from '../../../hooks/useForm';
+import { useForm } from "../../../hooks/useForm";
 
 // components
-import { Label } from './../../../components/form/Label';
-import { Input } from './../../../components/form/Input';
+import { Label } from "./../../../components/form/Label";
+import { Input } from "./../../../components/form/Input";
 
 export const SignUp = () => {
   const [id, onChangeId] = useForm();
@@ -25,24 +25,24 @@ export const SignUp = () => {
 
   const validateForm = () => {
     if (
-      id === '' ||
-      nickname === '' ||
-      email === '' ||
-      password === '' ||
-      rePassword === ''
+      id === "" ||
+      nickname === "" ||
+      email === "" ||
+      password === "" ||
+      rePassword === ""
     ) {
-      alert('모든 입력칸을 입력해주세요.');
+      alert("모든 입력칸을 입력해주세요.");
       return false;
     }
 
     if (password !== rePassword) {
-      alert('비밀번호가 일치하지 않습니다.');
+      alert("비밀번호가 일치하지 않습니다.");
       return false;
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
-      alert('유효한 이메일을 입력해주세요.');
+      alert("유효한 이메일을 입력해주세요.");
       return false;
     }
 
@@ -58,16 +58,14 @@ export const SignUp = () => {
 
     // 서버로 데이터 전송
     await axios
-      .post('/userdata/signup', sendFormData)
-      .then((res) => {
-        console.log(res.data);
-      })
+      .post("/userdata/signup", sendFormData)
+      .then((res) => {})
       .catch((err) => console.log(`에러발생: ${err}`));
   };
 
   return (
     <>
-      <Link to={'/'}>
+      <Link to={"/"}>
         <span className="logo">STARBLOG</span>
       </Link>
       <p>회원가입</p>
@@ -125,7 +123,7 @@ export const SignUp = () => {
         {/* 회원가입 버튼 */}
         <S.SignUpButton type="submit">회원가입</S.SignUpButton>
       </form>
-      <Link to={'/login'}>이미 회원이신가요? 로그인 하기</Link>
+      <Link to={"/login"}>이미 회원이신가요? 로그인 하기</Link>
     </>
   );
 };

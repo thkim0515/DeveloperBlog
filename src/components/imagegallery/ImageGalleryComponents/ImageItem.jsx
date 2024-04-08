@@ -12,7 +12,7 @@ export const ImageItem = ({ image }) => {
   };
 
   const timeString = (postdate) => {
-    const match = postdate.match(/(\d{4})-(\d{2})-(\d{2})/);
+    const match = postdate.match(/(\d{4}).(\d{2}).(\d{2})/);
 
     if (match) {
       const year = match[1].substr(-2);
