@@ -59,7 +59,9 @@ export const SignUp = () => {
     // 서버로 데이터 전송
     await axios
       .post("/userdata/signup", sendFormData)
-      .then((res) => {})
+      .then((res) => {
+        console.log(res);
+      })
       .catch((err) => console.log(`에러발생: ${err}`));
   };
 

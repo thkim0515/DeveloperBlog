@@ -18,6 +18,13 @@ export const PostDetailComp = () => {
     navigate(-1);
   };
 
+  useEffect(() => {
+    axios
+      .post("/contents/view", { _id: image._id })
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error("Error:", error));
+  }, [image._id]);
+
   // 업데이트 루틴 해당 게시글의 _id값을 postUpdate로 state값 전달
 
   // 댓글 수정 로직

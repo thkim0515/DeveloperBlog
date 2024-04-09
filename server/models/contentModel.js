@@ -14,6 +14,9 @@ const userSetContentsSchema = new mongoose.Schema({
     type: Date,
     default: () => new Date(new Date().getTime() + 9 * 60 * 60 * 1000),
   },
+  views: { type: Number, default: 0 },
+  likes: { type: Number, default: 0 },
+  likeUser: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
 const Content =

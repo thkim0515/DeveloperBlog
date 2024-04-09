@@ -1,11 +1,79 @@
+const session = require("express-session");
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+
+const SESSION_KEY = process.env.SESSIONKEY;
+
+router.use(
+  session({
+    secret: SESSION_KEY,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: false,
+      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  })
+);
+
+router.post("/login", async (req, res) => {
+  const { id, password } = req.body;
+
+  try {
+    const user = await User.findOne({ id }).exec();
+    if (!user) {
+      return res.status(404).json({ message: "아이디를 찾을 수 없습니다." });
+    }
+
+    if (password !== user.password) {
+      return res.status(401).json({ message: "비밀번호가 일치하지 않습니다." });
+    }
+
+    req.session.user = {
+      id: user.id,
+      nickname: user.nickname,
+      email: user.email,
+      profile: user.profileimg,
+    };
+
+    req.session.save((err) => {
+      if (err) {
+        console.error("세션 저장 실패", err);
+        return res
+          .status(500)
+          .json({ message: "세션 저장 중 오류가 발생했습니다." });
+      } else {
+        res
+          .status(200)
+          .json({ message: "로그인 성공", user: req.session.user });
+      }
+    });
+  } catch (error) {
+    console.error("서버 오류", error);
+    return res
+      .status(500)
+      .json({ message: "서버 오류가 발생했습니다.", error });
+  }
+});
 
 // C
 router.post("/signup", async (req, res) => {
   const { id, nickname, email, password, profileimg } = req.body;
   try {
+    const duplicatId = await User.findOne({ id });
+    if (duplicatId) {
+      return res.status(409).json({ message: "아이디가 이미 사용 중입니다." });
+    }
+
+    const duplicatNickname = await User.findOne({ nickname });
+    if (duplicatNickname) {
+      return res.status(409).json({ message: "닉네임이 이미 사용 중입니다." });
+    }
+
     const newUser = new User({
       id,
       nickname,
@@ -16,11 +84,7 @@ router.post("/signup", async (req, res) => {
     await newUser.save();
     res.status(201).json({ message: "회원가입 성공" });
   } catch (error) {
-    if (error.code === 11000) {
-      res.status(409).json({ message: "이미 존재하는 아이디입니다." });
-    } else {
-      res.status(500).json({ message: "서버 에러로 인한 회원가입 실패" });
-    }
+    res.status(500).json({ message: "서버 에러" });
     console.error("Signup error:", error);
   }
 });

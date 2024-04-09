@@ -6,7 +6,6 @@ const commentSchema = new mongoose.Schema({
     ref: "Content",
     required: true,
   },
-  // postId: { type: Number },
   nickname: { type: String, required: true },
   comment: { type: String, required: true },
   postdate: {
