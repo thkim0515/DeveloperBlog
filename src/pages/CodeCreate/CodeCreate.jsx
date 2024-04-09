@@ -1,6 +1,7 @@
-import { AnnotationCodeComp } from "./AnnotationCodeComp";
-import { ToastEditor } from "./ToastEditor";
+import { AnnotationCreatePost } from "./AnnotationCreatePost";
+import { ToastEditor } from "./component/ToastEditor";
 import { useState } from "react";
+
 export const CodeCreate = () => {
   const [editorData, setEditorData] = useState("");
 

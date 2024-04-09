@@ -30,5 +30,7 @@ app.get("*", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`서버 가동 >> http://localhost:${PORT} << Ctrl + 클릭`);
 });
+
+// ref. https 상태코드 >> https://developer.mozilla.org/ko/docs/Web/HTTP/Status
