@@ -3,6 +3,8 @@ import { Login } from "./Login/Login";
 import { SignUp } from "./SignUp/SignUp";
 import styled from "styled-components";
 
+// component
+
 export const Join = () => {
   const location = useLocation();
   let { pathname } = location;
