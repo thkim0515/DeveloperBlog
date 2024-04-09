@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./ImageItem.style";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 export const ImageItem = ({ image }) => {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ export const ImageItem = ({ image }) => {
   };
 
   const timeString = (postdate) => {
-    const match = postdate.match(/(\d{4})-(\d{2})-(\d{2})/);
+    const match = postdate.match(/(\d{4}).(\d{2}).(\d{2})/);
 
     if (match) {
       const year = match[1].substr(-2);
@@ -57,6 +59,8 @@ export const ImageItem = ({ image }) => {
             </div>
             <p className="user_write_info">
               <p>{formattedDate}</p>
+              <FontAwesomeIcon icon={faEye} style={{ marginRight: "15px;" }} />
+              {image.views}
             </p>
           </div>
         </S.SItem>

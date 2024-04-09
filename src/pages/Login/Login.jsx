@@ -14,7 +14,7 @@ export const Login = () => {
   const navigate = useNavigate();
   const handleLogin = async () => {
     try {
-      const response = await axios.post("/userdata/login", {
+      const response = await axios.post("/users/login", {
         id: id,
         password: password,
       });

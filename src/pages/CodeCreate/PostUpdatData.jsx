@@ -1,12 +1,10 @@
-/* global AceEditor */
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AceEditorComp } from "./component/AceEditor";
 import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
 
-export const PostUpdatData = ({ editorData, isPid = 0 }) => {
+export const PostUpdatData = ({ editorData, _id }) => {
   const [postData, setPostData] = useState({
     title: "",
     code: "",
@@ -17,9 +15,9 @@ export const PostUpdatData = ({ editorData, isPid = 0 }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isPid > 0) {
+      if (_id) {
         try {
-          const response = await axios.get(`/contents/read/${isPid}`);
+          const response = await axios.get(`/contents/read/${_id}`);
           const data = response.data;
 
           setPostData({
@@ -29,9 +27,6 @@ export const PostUpdatData = ({ editorData, isPid = 0 }) => {
             profileImg: data.profileImg,
             imagePath: data.imagePath,
           });
-
-          console.log(response);
-          console.log(data);
         } catch (error) {
           console.error("에러:", error);
         }
@@ -39,7 +34,7 @@ export const PostUpdatData = ({ editorData, isPid = 0 }) => {
     };
 
     fetchData();
-  }, [isPid]);
+  }, [_id]);
 
   const navigate = useNavigate();
   // const [aceEditor, setAceEditor] = useState("");
@@ -59,12 +54,10 @@ export const PostUpdatData = ({ editorData, isPid = 0 }) => {
     }));
   };
   // ----------------------------------------------
-  const handlePostCode = async (isPid) => {
+  const handlePostCode = async (_id) => {
     const user = JSON.parse(sessionStorage.getItem("user"));
     const nickname = user.nickname;
     const profileImg = user.profile;
-
-    console.log(postData.code);
 
     const codeData = {
       ...postData,
@@ -77,16 +70,15 @@ export const PostUpdatData = ({ editorData, isPid = 0 }) => {
       //toast_contents: editorData.editorData,
     };
 
-    await updateContents(isPid, codeData);
+    await updateContents(_id, codeData);
   };
 
-  const updateContents = async (pid, codeData) => {
+  const updateContents = async (_id, codeData) => {
     try {
-      console.log(codeData);
-      const response = await axios.put(`/contents/update/${pid}`, codeData);
+      const response = await axios.put(`/contents/update/${_id}`, codeData);
       console.log("서버 응답:", response.data);
       alert("성공적으로 수정");
-      navigate("/");
+      navigate(-1);
       window.location.reload();
     } catch (error) {
       console.error("에러:", error);
@@ -114,10 +106,8 @@ export const PostUpdatData = ({ editorData, isPid = 0 }) => {
           <div className="button-group">
             {/* <button onClick={handleCaptureImage}>이미지로 보기</button> */}
             {/* <S.Button onClick={handlePostCode}>등록하기</S.Button> */}
-            {isPid > 0 && (
-              <S.Button onClick={() => handlePostCode(isPid)}>
-                수정하기
-              </S.Button>
+            {_id && (
+              <S.Button onClick={() => handlePostCode(_id)}>수정하기</S.Button>
             )}
           </div>
         </S.FormField>

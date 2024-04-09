@@ -21,7 +21,7 @@ export const SignUp = () => {
     email,
     password,
   };
-
+  
   const onSubmit = async (e) => {
     e.preventDefault();
 

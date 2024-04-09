@@ -1,23 +1,20 @@
-/* global AceEditor */
-
 import useOpenai from "../../hooks/useOpenAi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useCaptureDiv } from "../../hooks/useCaptureDiv";
 import { AceEditorComp } from "./component/AceEditor";
 import { Spinner } from "./component/Spinner";
 import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
 import ace from "ace-builds/src-noconflict/ace";
 
-export const AnnotationCreatePost = ({ editorData, isPid = 0 }) => {
+export const AnnotationCreatePost = (props) => {
   const navigate = useNavigate();
   const [code, setCode] = useState("");
   const { commentedCode, error, annotateCode } = useOpenai();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { captureImage } = useCaptureDiv();
-  const [imageSrc, setImageSrc] = useState(null);
+  const imageSrc = "";
+  // const [imageSrc, setImageSrc] = useState(null);
   const [title, setTitle] = useState("");
 
   useEffect(() => {
@@ -74,7 +71,7 @@ export const AnnotationCreatePost = ({ editorData, isPid = 0 }) => {
       imagePath: imageSrc ? imageSrc : "img/Image0.jpg",
       profileImg: profileImg,
       ace_contents: commentedCode,
-      toast_contents: editorData.editorData,
+      toast_contents: props.editorData,
     };
 
     await postCodeToServer(codeData);
@@ -116,18 +113,18 @@ export const AnnotationCreatePost = ({ editorData, isPid = 0 }) => {
   //   }
   // };
 
-  const updateContents = async (pid) => {
-    try {
-      const response = await axios.put(`/contents/update/${pid}`);
-      console.log("서버 응답:", response.data);
-      alert("성공적으로 수정");
-      navigate("/");
-      window.location.reload();
-    } catch (error) {
-      console.error("에러:", error);
-      alert("수정 실패");
-    }
-  };
+  // const updateContents = async (pid) => {
+  //   try {
+  //     const response = await axios.put(`/contents/update/${pid}`);
+  //     console.log("서버 응답:", response.data);
+  //     alert("성공적으로 수정");
+  //     navigate("/");
+  //     window.location.reload();
+  //   } catch (error) {
+  //     console.error("에러:", error);
+  //     alert("수정 실패");
+  //   }
+  // };
 
   return (
     <>
@@ -150,11 +147,6 @@ export const AnnotationCreatePost = ({ editorData, isPid = 0 }) => {
             {/* <button onClick={handleCaptureImage}>이미지로 보기</button> */}
             <S.Button onClick={handlePostCode}>등록하기</S.Button>
             {imageSrc && <img src={imageSrc} alt="캡쳐된 코드" />}
-            {isPid > 0 && (
-              <S.Button onClick={() => updateContents(isPid)}>
-                수정하기
-              </S.Button>
-            )}
           </div>
         </S.FormField>
         <S.AceEditorContainer>

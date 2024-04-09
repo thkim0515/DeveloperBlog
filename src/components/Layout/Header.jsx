@@ -21,6 +21,9 @@ export const Header = () => {
       <S.HeaderBox>
         <Logo />
         {/* 로그인 여부에 따라 조건부 렌더링 */}
+        <S.SloganBox>
+          <p>우리의 지식이 별이 되는 공간</p>
+        </S.SloganBox>
         {isLogin ? (
           <UserLogin></UserLogin>
         ) : (

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Content = require("../models/contentModel");
 const svgsData = require("../models/svgModel");
+const Comment = require("../models/commentModel");
 
 //images
 router.get("/contents", async (req, res) => {
@@ -71,11 +72,11 @@ router.get("/read", async (req, res) => {
 */
 
 // R
-router.get("/read/:pid", async (req, res) => {
+router.get("/read/:_id", async (req, res) => {
   try {
-    const content = await Content.findOne({ pid: req.params.pid });
+    const content = await Content.findOne({ _id: req.params._id });
     if (!content) {
-      return res.status(404).json({ message: "파일없음" });
+      return res.status(404).json({ message: "콘텐츠없음" });
     }
     res.status(200).json(content);
   } catch (error) {
@@ -84,15 +85,15 @@ router.get("/read/:pid", async (req, res) => {
 });
 
 // U
-router.put("/update/:pid", async (req, res) => {
+router.put("/update/:_id", async (req, res) => {
   try {
     const updatedContent = await Content.findOneAndUpdate(
-      { pid: req.params.pid },
+      { _id: req.params._id },
       req.body,
       { new: true }
     );
     if (!updatedContent) {
-      return res.status(404).json({ message: "파일없음" });
+      return res.status(404).json({ message: "콘텐츠없음" });
     }
     res.status(200).json({ message: "수정성공", updatedContent });
   } catch (error) {
@@ -101,15 +102,71 @@ router.put("/update/:pid", async (req, res) => {
 });
 
 // D
-router.delete("/delete/:pid", async (req, res) => {
+router.delete("/delete/:_id", async (req, res) => {
   try {
     const deletedContent = await Content.findOneAndDelete({
-      pid: req.params.pid,
+      _id: req.params._id,
     });
     if (!deletedContent) {
-      return res.status(404).json({ message: "파일없음" });
+      return res.status(404).json({ message: "콘텐츠없음" });
     }
-    res.status(200).json({ message: "삭제성공" });
+
+    // 콘텐츠가 삭제될 경우 가지고있는 코멘트도 전부
+    const deletedComments = await Comment.deleteMany({
+      postId: req.params._id,
+    });
+
+    res.status(200).json({
+      message: "삭제성공",
+      deletedContentInfo: deletedContent,
+      deletedCommentsCount: deletedComments.deletedCount,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "서버 에러" });
+  }
+});
+
+// 조회수
+router.post("/view", async (req, res) => {
+  const { _id } = req.body;
+  console.log(_id);
+  try {
+    const content = await Content.findOneAndUpdate(
+      { _id: _id },
+      { $inc: { views: 1 } },
+      { new: true }
+    );
+
+    if (!content) {
+      return res.status(404).send("콘텐츠 없음");
+    }
+
+    res.status(200).json(content);
+  } catch (error) {
+    res.status(500).json({ message: "서버 에러" });
+  }
+});
+
+// 좋아요
+router.post("/like", async (req, res) => {
+  const { contents_id, user_id } = req.body;
+
+  try {
+    const content = await Content.findOne({ _id: contents_id });
+
+    if (!content) {
+      return res.status(404).json({ message: "콘텐츠 없음" });
+    }
+
+    if (content.likeUser.includes(user_id)) {
+      return res.status(400).json({ message: "이미 좋아요를 누른 게시글" });
+    }
+
+    content.likes += 1;
+    content.likeUser.push(user_id);
+    await content.save();
+
+    res.status(200).json(content);
   } catch (error) {
     res.status(500).json({ message: "서버 에러" });
   }
