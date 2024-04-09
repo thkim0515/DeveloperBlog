@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // form
-export const FormField = styled.div`
+export const SignUpFiled = styled.div`
   label {
     display: inline-block;
   }
@@ -10,9 +10,9 @@ export const FormField = styled.div`
     position: relative;
   }
 
-  input[type='text'],
-  input[type='password'],
-  input[type='email'] {
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
     width: 100%;
     margin: 0.5rem 0 0.75rem 0;
     padding: 0.75rem;
@@ -21,9 +21,9 @@ export const FormField = styled.div`
     background: #ffffff;
   }
 
-  input[type='text']:focus,
-  input[type='password']:focus,
-  input[type='email']:focus {
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  input[type="email"]:focus {
     background-color: #dbe2ef;
     outline: none;
   }
@@ -38,7 +38,9 @@ export const SignUpButton = styled.button`
   background-color: #3f72af;
 `;
 
-export const ErrorMessage = styled.span`
-  position: absolute;
-  right: 0;
+export const MoveLink = styled.p`
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #112d4e;
+  text-align: center;
 `;
