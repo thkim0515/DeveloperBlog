@@ -3,9 +3,6 @@ import { Login } from "./Login/Login";
 import { SignUp } from "./SignUp/SignUp";
 import styled from "styled-components";
 
-// component
-import { Logo } from "./../../components/Layout/Logo";
-
 export const Join = () => {
   const location = useLocation();
   let { pathname } = location;
@@ -19,10 +16,7 @@ export const Join = () => {
         </video>
         <span>KOSTA 281</span>
       </LeftBox>
-      <RightBox>
-        <Logo />
-        {pathname === "/login" ? <Login /> : <SignUp />}
-      </RightBox>
+      <RightBox>{pathname === "/login" ? <Login /> : <SignUp />}</RightBox>
     </Container>
   );
 };

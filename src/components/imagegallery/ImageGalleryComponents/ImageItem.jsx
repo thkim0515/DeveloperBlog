@@ -21,11 +21,10 @@ export const ImageItem = ({ image }) => {
       const month = match[2];
       const day = match[3];
 
-      return `${year}-${month}-${day}`;
-    }
-  };
+    return `${year}년${month}월${day}일`;
+  }
 
-  const formattedDate = timeString(image.postdate);
+  const formattedDate = formatDate(image.postdate);
 
   return (
     <>

@@ -1,8 +1,8 @@
 import React from "react";
-import * as S from "../AnnotationCreatePost.style";
-import { CustomSpinner } from "./Spinner.style";
+import * as S from "./AnnotationCodeComp.style";
+import { CustomSpinner } from "./AnnotationWaitSpinner.style";
 
-export const Spinner = ({ isLoading }) => {
+export const AnnotationWaitSpinner = ({ isLoading }) => {
   return (
     <>
       <S.Modal show={isLoading}>

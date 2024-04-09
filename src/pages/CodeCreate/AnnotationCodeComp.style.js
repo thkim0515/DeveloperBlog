@@ -45,7 +45,7 @@ export const SExplain = styled.div`
 `;
 
 export const FormField = styled.div`
-  width: 100%;
+  width:100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,11 +63,10 @@ export const FormField = styled.div`
   }
 
   .button-group {
-    display: flex;
-    gap: 10px;
+    display: flex; // 버튼들을 flex 아이템으로 만듭니다.
+    gap: 10px; // 버튼들 사이의 간격을 설정합니다.
 
-    margin-bottom: 5px;
-  }
+  margin-bottom: 5px;}
 `;
 export const AceEditorContainer = styled.div`
   display: flex;

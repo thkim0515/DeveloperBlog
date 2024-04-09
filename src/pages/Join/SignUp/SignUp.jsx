@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
-import axios from "axios";
-import * as S from "./SignUp.style";
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import * as S from './SignUp.style';
 
 // hook
-import { useForm } from "../../../hooks/useForm";
+import { useForm } from '../../../hooks/useForm';
 
 // components
-import { Input } from "./../../../components/form/Input";
+import { Input } from './../../../components/form/Input';
 
 export const SignUp = () => {
   const [id, onChangeId] = useForm();
@@ -27,7 +27,7 @@ export const SignUp = () => {
 
     // 서버로 데이터 전송
     try {
-      const response = await axios.post("/userdata/signup", postFormData);
+      const response = await axios.post('/userdata/signup', postFormData);
     } catch (err) {
       console.log(`에러발생: ${err}`);
     }
@@ -35,6 +35,9 @@ export const SignUp = () => {
 
   return (
     <>
+      <Link to={'/'}>
+        <span className="logo">STARBLOG</span>
+      </Link>
       <p>회원가입</p>
       <form onSubmit={onSubmit}>
         {/* 아이디 */}
@@ -93,7 +96,7 @@ export const SignUp = () => {
 
       {/* 페이지 이동 */}
       <S.MoveLink>
-        <Link to={"/login"}>이미 회원이신가요? 로그인 하기</Link>
+        <Link to={'/login'}>이미 회원이신가요? 로그인 하기</Link>
       </S.MoveLink>
     </>
   );

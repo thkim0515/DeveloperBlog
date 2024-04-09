@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AceEditorComp } from "./component/AceEditor";
 import { Spinner } from "./component/Spinner";
 import { useState, useEffect } from "react";
-import * as S from "./AnnotationCreatePost.style";
+import * as S from "./AnnotationCodeComp.style";
 import ace from "ace-builds/src-noconflict/ace";
 
 export const AnnotationCreatePost = (props) => {
@@ -25,10 +25,6 @@ export const AnnotationCreatePost = (props) => {
     }
   }, [commentedCode, error]);
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
   const handleCodeAnnotation = async (event) => {
     event.preventDefault();
     const editor = ace.edit("setCode");
@@ -36,6 +32,23 @@ export const AnnotationCreatePost = (props) => {
     setIsLoading(true);
     await annotateCode(code);
     setIsLoading(false);
+  };
+
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const postCodeToServer = async (codeData) => {
+    try {
+      const response = await axios.post("/userdata/annotate", codeData);
+      console.log("서버 응답:", response.data);
+      alert("글 등록 성공!");
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.error("에러:", error);
+      alert("글 등록 실패. 서버 에러.");
+    }
   };
 
   function languageType(stLineValue) {
@@ -57,7 +70,7 @@ export const AnnotationCreatePost = (props) => {
   }
 
   const handlePostCode = async () => {
-    //await handleCaptureImage();
+    //await handleCaptureImage(); // 이미지 업로드를 기다립니다.
     const user = JSON.parse(sessionStorage.getItem("user"));
     const nickname = user.nickname;
     const profileImg = user.profile;
@@ -72,22 +85,10 @@ export const AnnotationCreatePost = (props) => {
       profileImg: profileImg,
       ace_contents: commentedCode,
       toast_contents: props.editorData,
+      toast_contents: props.editorData,
     };
 
     await postCodeToServer(codeData);
-  };
-
-  const postCodeToServer = async (codeData) => {
-    try {
-      const response = await axios.post("/contents/create", codeData);
-      console.log("서버 응답:", response.data);
-      alert("글 등록 성공!");
-      navigate("/");
-      window.location.reload();
-    } catch (error) {
-      console.error("에러:", error);
-      alert("글 등록 실패. 서버 에러.");
-    }
   };
 
   function onChange(newValue) {
@@ -142,7 +143,7 @@ export const AnnotationCreatePost = (props) => {
             />
           </div>
           <div className="button-group">
-            {isLoading && <Spinner isLoading={isLoading} />}
+            {isLoading && <AnnotationWaitSpinner isLoading={isLoading} />}
             <S.Button onClick={handleCodeAnnotation}>변환</S.Button>
             {/* <button onClick={handleCaptureImage}>이미지로 보기</button> */}
             <S.Button onClick={handlePostCode}>등록하기</S.Button>
