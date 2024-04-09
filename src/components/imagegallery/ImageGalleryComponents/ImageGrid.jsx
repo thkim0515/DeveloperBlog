@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as S from "./ImageGrid.style";
 import { ImageItem } from "./ImageItem";
 import { MainPagination } from "./MainPagination";
