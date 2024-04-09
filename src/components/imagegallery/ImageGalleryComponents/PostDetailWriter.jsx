@@ -23,47 +23,18 @@ export const PostDetailWriter = ({ image }) => {
     };
   }, [isDropOpen]);
 
-  // //수정버튼 클릭 함수
-  // const navigate = useNavigate();
-  // const handleEdit = () => {
-  //   navigate("/postUpdate");
-  // };
-
-  // //삭제버튼 클릭함수
-  // const handleDelete = () => {
-  //   // 확인 창 띄우기
-  //   const isConfirmed = window.confirm("게시물을 삭제하시겠습니까?");
-
-  //   if (isConfirmed) {
-  //     // 서버에 삭제 요청 보내는 로직 추가
-  //     axios({
-  //       url: `/엔드포인트`,
-  //       method: "DELETE",
-  //     })
-  //       .then((res) => {
-  //         // 삭제 성공 시
-  //         console.log("게시물이 성공적으로 삭제되었습니다.");
-  //         navigate("/");
-  //       })
-  //       .catch((err) => {
-  //         // 삭제 실패 시 에러 처리
-  //         console.error("게시물 삭제 실패:", err);
-  //       });
-  //   }
-  // };
-
   const navigate = useNavigate();
 
-  const updateContents = (pid) => () => {
-    navigate(`/postUpdate/${pid}`, { state: { pid } });
+  const updateContents = (_id) => () => {
+    navigate(`/postUpdate/${_id}`, { state: { _id } });
   };
 
-  const deleteContents = async (pid) => {
+  const deleteContents = async (_id) => {
     const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
 
     if (isConfirmed) {
       try {
-        const response = await axios.delete(`/contents/delete/${pid}`);
+        const response = await axios.delete(`/contents/delete/${_id}`);
         console.log("서버 응답:", response.data);
         navigate("/");
         window.location.reload();
@@ -84,8 +55,8 @@ export const PostDetailWriter = ({ image }) => {
         ...
       </div>
       <S.DropList $isOpen={isDropOpen}>
-        <button onClick={updateContents(image.pid)}>수정하기</button>
-        <button onClick={() => deleteContents(image.pid)}>삭제하기</button>
+        <button onClick={updateContents(image._id)}>수정하기</button>
+        <button onClick={() => deleteContents(image._id)}>삭제하기</button>
       </S.DropList>
     </S.WriterBox>
   );

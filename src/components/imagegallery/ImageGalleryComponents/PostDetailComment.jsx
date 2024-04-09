@@ -2,65 +2,31 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import * as S from "./PostDetailComp.style";
 import { useNavigate } from "react-router-dom";
+import { useUserLogin } from "../../../context/UserLoginContext";
 
 export const PostDetailComment = ({ image }) => {
+  //로그인 유저 정보 가져오기
+  const { user } = useUserLogin();
+
   const navigate = useNavigate();
 
-  //댓글 목록
-  const [commentList, setCommentList] = useState([]);
+  //댓글 작성 상태관리
   const [comment, setComment] = useState("");
-  const handleInputChange = (e) => {
-    setComment(e.target.value);
+
+  //댓글 작성, 수정 input값 변경 감지 함수
+  const handleInputChange = (setState) => (e) => {
+    setState(e.target.value);
   };
 
-  //기존 댓글 목록 불러오기
-  // useEffect(() => {
-  //   axios({
-  //     url: "엔드포인트",
-  //     method: "GET",
-  //   })
-  //     // 성공
-  //     .then((res) => {
-  //       setCommentList(res.data);
-  //     })
-  //     // 에러
-  //     .catch((err) => {
-  //       console.log(`AXIOS 실패!${err}`);
-  //     });
-  // }, []);
-
-  // //댓글 작성 버튼 제출시 작동하는 함수(프론트에서만)
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setComment((current) => {
-  //     const newList = [...current];
-  //     newList.push({
-  //       img: user.profile,
-  //       nickname: user.nickname,
-  //       text: inputValue,
-  //       date: "2024.04.06",
-  //     });
-  //     return newList;
-  //   });
-  //   setInputValue("");
-  // };
-
-  // function handleComment(event) {
-  //   setComment(event.target.value);
-  // }
-
-  // 댓글 삭제 버튼
-  const handleCommentDelete = () => {};
-
-  const handleSubmit = async (e) => {
+  /*-------------create 기능---------------*/
+  const handleCreateSubmit = async (e) => {
     e.preventDefault();
-    const user = JSON.parse(sessionStorage.getItem("user"));
     if (!user) {
       alert("로그인이 필요한 영역입니다.");
       navigate("/login");
     } else {
       const nickname = user.nickname;
-      const postId = image.pid;
+      const postId = image._id;
       const commentData = {
         postId: postId,
         nickname: nickname,
@@ -76,10 +42,80 @@ export const PostDetailComment = ({ image }) => {
       console.log("서버 응답:", response.data);
       alert("댓글 등록 성공!");
       setComment("");
-      setCommentList(response.data);
+      window.location.reload();
     } catch (error) {
       console.error("에러:", error);
       alert("댓글 등록 실패. 서버 에러.");
+    }
+  };
+
+  /*-------------read 기능---------------*/
+  const [commentList, setCommentList] = useState([]);
+
+  const readCommentsFunc = async () => {
+    try {
+      const response = await axios.get(`/comments/read/${image._id}`);
+      setCommentList(
+        response.data.sort(
+          (a, b) => new Date(b.postdate) - new Date(a.postdate)
+        )
+      );
+    } catch (error) {
+      console.error("댓글 불러오기 에러:", error);
+    }
+  };
+
+  useEffect(() => {
+    readCommentsFunc();
+  }, []);
+
+  /*-------------update 기능---------------*/
+  const [editId, setEditId] = useState(null);
+  const [editComment, setEditComment] = useState("");
+
+  const handleUpdate = (_id, comment) => {
+    setEditId(_id);
+    setEditComment(comment);
+  };
+
+  const handleCancel = () => {
+    setEditId(null);
+    setEditComment("");
+  };
+
+  const handleComplete = async () => {
+    const commentData = {
+      comment: editComment,
+    };
+    await updateCommentToServer(commentData);
+  };
+
+  const updateCommentToServer = async (commentData) => {
+    try {
+      const response = await axios.post("/엔드포인트", commentData);
+      console.log("서버 응답:", response.data);
+      alert("댓글 수정 성공!");
+      setEditComment("");
+      window.location.reload();
+    } catch (error) {
+      console.error("에러:", error);
+      alert("댓글 수정 실패. 서버 에러.");
+    }
+  };
+
+  /*-------------delete 기능---------------*/
+  const deleteContents = async (_id, checkValue) => {
+    const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
+
+    if (isConfirmed) {
+      try {
+        const response = await axios.delete(`/comments/delete/${_id}`);
+        console.log("서버 응답:", response.data);
+        window.location.reload();
+      } catch (error) {
+        console.error("에러:", error);
+        alert("삭제 실패");
+      }
     }
   };
 
@@ -89,21 +125,53 @@ export const PostDetailComment = ({ image }) => {
         <S.CommentBox>
           <ul>
             {/**댓글 리스트*/}
-            {commentList.map((item, index) => {
+            {commentList.map((comment) => {
               return (
-                <li className="comment_list" key={index}>
+                <li className="comment_list" key={comment._id}>
                   <div className="profile_box">
-                    <img src={item.profile} alt="유저이미지"></img>
-                    <div className="userid">{item.nickname}</div>
+                    <img
+                      // 임시프로필url
+                      src={process.env.PUBLIC_URL + "/img/noprofile.jpg"}
+                      alt="유저이미지"
+                    ></img>
+                    <div className="userid">{comment.nickname}</div>
                   </div>
                   <div className="comment_text">
                     <div className="comment_detail">
-                      <div>{item.comment}</div>
-                      <div className="date">{item.postdate}</div>
+                      {editId === comment._id ? (
+                        <input
+                          type="text"
+                          value={editComment}
+                          onChange={handleInputChange(setEditComment)}
+                          placeholder="댓글 달기..."
+                        />
+                      ) : (
+                        <div>{comment.comment}</div>
+                      )}
+                      <div className="date">{comment.postdate}</div>
                     </div>
-                    <div className="edit_delete">
-                      <button onClick={handleCommentDelete}>삭제</button>
-                    </div>
+                    {user && comment.nickname === user.nickname && (
+                      <div className="edit_delete">
+                        <button
+                          onClick={() =>
+                            editId === comment._id
+                              ? handleComplete()
+                              : handleUpdate(comment._id, comment.comment)
+                          }
+                        >
+                          {editId === comment._id ? "완료" : "수정"}
+                        </button>
+                        <button
+                          onClick={() =>
+                            editId === comment._id
+                              ? handleCancel()
+                              : deleteContents(comment._id, "comments")
+                          }
+                        >
+                          {editId === comment._id ? "취소" : "삭제"}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </li>
               );
@@ -111,27 +179,15 @@ export const PostDetailComment = ({ image }) => {
           </ul>
         </S.CommentBox>
       )}
-
-      <S.CommentForm className="comment_form" onSubmit={handleSubmit}>
+      <S.CommentForm className="comment_form" onSubmit={handleCreateSubmit}>
         <input
           type="text"
           value={comment}
-          onChange={handleInputChange}
+          onChange={handleInputChange(setComment)}
           placeholder="댓글 달기..."
         />
         <button type="submit">작성</button>
       </S.CommentForm>
-      {/* <div>
-        <div className="input-group">
-          <input
-            type="text"
-            id="comment"
-            placeholder="댓글을 입력하세요."
-            onChange={handleComment}
-          />
-        </div>
-        <button onClick={handlePostCode}>등록하기</button>
-      </div> */}
     </S.CommentAndFormBox>
   );
 };
