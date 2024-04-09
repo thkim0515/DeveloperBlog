@@ -6,7 +6,6 @@ import * as S from "./SignUp.style";
 import { useForm } from "../../../hooks/useForm";
 
 // components
-import { Label } from "./../../../components/form/Label";
 import { Input } from "./../../../components/form/Input";
 
 export const SignUp = () => {
@@ -16,116 +15,86 @@ export const SignUp = () => {
   const [password, onChangePassword] = useForm();
   const [rePassword, onChangeRePassword] = useForm();
 
-  const sendFormData = {
+  const postFormData = {
     id,
     nickname,
     email,
     password,
   };
-
-  const validateForm = () => {
-    if (
-      id === "" ||
-      nickname === "" ||
-      email === "" ||
-      password === "" ||
-      rePassword === ""
-    ) {
-      alert("모든 입력칸을 입력해주세요.");
-      return false;
-    }
-
-    if (password !== rePassword) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return false;
-    }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      alert("유효한 이메일을 입력해주세요.");
-      return false;
-    }
-
-    return true;
-  };
-
+  
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
-
     // 서버로 데이터 전송
-    await axios
-      .post("/userdata/signup", sendFormData)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(`에러발생: ${err}`));
+    try {
+      const response = await axios.post("/userdata/signup", postFormData);
+    } catch (err) {
+      console.log(`에러발생: ${err}`);
+    }
   };
 
   return (
     <>
-      <Link to={"/"}>
-        <span className="logo">STARBLOG</span>
-      </Link>
       <p>회원가입</p>
       <form onSubmit={onSubmit}>
         {/* 아이디 */}
-        <S.FormField>
-          <Label htmlFor="id" text="아이디" />
+        <S.SignUpFiled>
+          <label htmlFor="id">아이디</label>
           <Input type="text" id="id" value={id} onChange={onChangeId} />
-        </S.FormField>
+        </S.SignUpFiled>
 
         {/* 닉네임 */}
-        <S.FormField>
-          <Label htmlFor="nickname" text="닉네임" />
+        <S.SignUpFiled>
+          <label htmlFor="nickname">닉네임</label>
           <Input
             type="text"
             id="nickname"
             value={nickname}
             onChange={onChangeNickname}
           />
-        </S.FormField>
+        </S.SignUpFiled>
 
         {/* 이메일 */}
-        <S.FormField>
-          <Label htmlFor="email" text="이메일" />
+        <S.SignUpFiled>
+          <label htmlFor="email">이메일</label>
           <Input
             type="email"
             id="email"
             value={email}
             onChange={onChangeEmail}
           />
-        </S.FormField>
+        </S.SignUpFiled>
 
         {/* 비밀번호 */}
-        <S.FormField>
-          <Label htmlFor="password" text="비밀번호" />
+        <S.SignUpFiled>
+          <label htmlFor="password">비밀번호</label>
           <Input
             type="password"
             id="password"
             value={password}
             onChange={onChangePassword}
           />
-        </S.FormField>
+        </S.SignUpFiled>
 
         {/* 비밀번호 재입력 */}
-        <S.FormField>
-          <Label htmlFor="re-password" text="비밀번호 재입력" />
+        <S.SignUpFiled>
+          <label htmlFor="re-password">비밀번호</label>
           <Input
             type="password"
             id="rePassword"
             value={rePassword}
             onChange={onChangeRePassword}
           />
-        </S.FormField>
+        </S.SignUpFiled>
 
         {/* 회원가입 버튼 */}
         <S.SignUpButton type="submit">회원가입</S.SignUpButton>
       </form>
-      <Link to={"/login"}>이미 회원이신가요? 로그인 하기</Link>
+
+      {/* 페이지 이동 */}
+      <S.MoveLink>
+        <Link to={"/login"}>이미 회원이신가요? 로그인 하기</Link>
+      </S.MoveLink>
     </>
   );
 };
