@@ -60,6 +60,7 @@ export const PostDetailComp = () => {
             )}
           </S.STitle>
           <S.SSpace>
+            {/* <img src={`../${image.imagePath}`} alt={image.title} /> */}
             <div style={{ display: "flex", alignItems: "center" }}>
               <S.SProfileImage title="프로필">
                 {image.profileImg && (
@@ -71,7 +72,7 @@ export const PostDetailComp = () => {
               </S.SProfileImage>
               {image.nickname}
             </div>
-            <div>{timeString(image.postdate)}</div>
+            <div>{formatDateWithTime(image.postdate)}</div>
           </S.SSpace>
           <S.SImageContent>
             <AceEditor

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import * as S from "./AccountModal.style";
 
-// TODO 컴포넌트 개선 필요
 // components
 import { FindId } from "./FindId";
 
