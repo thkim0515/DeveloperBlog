@@ -7,14 +7,18 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   profileimg: {
     type: String,
-    default: "img/noprofile.jpg",
+    default: "noprofile.jpg",
   },
   signupdate: {
     type: Date,
     default: () => new Date(new Date().getTime() + 9 * 60 * 60 * 1000),
   },
+  admin: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

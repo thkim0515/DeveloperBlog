@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export async function getFromDB() {
-  const storedImages = localStorage.getItem("images");
+  const storedContents = localStorage.getItem("contents");
   const storedSvgImages = localStorage.getItem("svgImages");
 
-  if (storedImages && storedSvgImages) {
+  if (storedContents && storedSvgImages) {
     return {
-      images: JSON.parse(storedImages),
+      contents: JSON.parse(storedContents),
       svgs: JSON.parse(storedSvgImages),
     };
   }
@@ -16,16 +16,16 @@ export async function getFromDB() {
     const { data: contentData } = await axios.get("/contents/contents");
 
     const svgs = userData;
-    const images = contentData;
+    const contents = contentData;
 
     localStorage.setItem("svgImages", JSON.stringify(svgs[0].svgs));
-    localStorage.setItem("images", JSON.stringify(images));
+    localStorage.setItem("contents", JSON.stringify(contents));
 
-    return { images, svgs, storedImages };
+    return { contents, svgs, storedContents };
   } catch (e) {
     const { data } = await axios.get("/json/dummy.json");
     localStorage.setItem("svgImages", JSON.stringify(data.svgs));
-    localStorage.setItem("images", JSON.stringify(data.items));
-    return { images: data.items, svgs: data.svgs };
+    localStorage.setItem("contents", JSON.stringify(data.items));
+    return { contents: data.items, svgs: data.svgs };
   }
 }
