@@ -30,6 +30,7 @@ router.get("/read/:postId", async (req, res) => {
       .sort({ postdate: -1 })
       .populate("userId", "nickname profileimg")
       .exec();
+
     if (comments.length === 0) {
       return res.status(404).json({ message: "댓글 없음" });
     } else {
