@@ -4,6 +4,18 @@ import { RenderForm } from "./RenderForm";
 export const FindAccount = ({ active }) => {
   let componentToRender;
 
+  const handleUserData = (e) => {
+    e.preventDefault();
+
+    switch (e.target.textContent) {
+      case "아이디 찾기":
+        break;
+      case "비밀번호 찾기":
+        break;
+      default:
+    }
+  };
+
   switch (active) {
     case "findId":
       componentToRender = (
@@ -13,6 +25,7 @@ export const FindAccount = ({ active }) => {
           type1="email"
           type2="password"
           buttonText="아이디 찾기"
+          onClick={handleUserData}
         />
       );
       break;
@@ -24,6 +37,7 @@ export const FindAccount = ({ active }) => {
           type1="text"
           type2="email"
           buttonText="비밀번호 찾기"
+          onClick={handleUserData}
         />
       );
       break;
@@ -35,6 +49,7 @@ export const FindAccount = ({ active }) => {
           type1="email"
           type2="password"
           buttonText="아이디 찾기"
+          onClick={handleUserData}
         />
       );
   }

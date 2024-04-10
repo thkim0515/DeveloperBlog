@@ -9,7 +9,7 @@ import { Input } from "./../../../components/form/Input";
 
 export const SignUp = () => {
   const navigate = useNavigate();
-  const [userInput, setUserInput] = useState({
+  const [userInputData, setUserInputData] = useState({
     id: "",
     nickname: "",
     email: "",
@@ -17,23 +17,23 @@ export const SignUp = () => {
     rePassword: "",
   });
 
-  const handleChange = (e) => {
+  const handleInputValue = (e) => {
     const { id, value } = e.target;
-    setUserInput((prev) => ({ ...prev, [id]: value }));
+    setUserInputData((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (userInput.password !== userInput.rePassword) {
+    if (userInputData.password !== userInputData.rePassword) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
     try {
       await axios.post("/users/signup", {
-        id: userInput.id,
-        nickname: userInput.nickname,
-        email: userInput.email,
-        password: userInput.password,
+        id: userInputData.id,
+        nickname: userInputData.nickname,
+        email: userInputData.email,
+        password: userInputData.password,
       });
       alert("회원가입이 완료되었습니다.");
       navigate("/login");
@@ -54,31 +54,31 @@ export const SignUp = () => {
         {/* 아이디 */}
         <S.SignUpFiled>
           <label htmlFor="id">아이디</label>
-          <input type="text" id="id" onChange={handleChange} />
+          <input type="text" id="id" onChange={handleInputValue} />
         </S.SignUpFiled>
 
         {/* 닉네임 */}
         <S.SignUpFiled>
           <label htmlFor="nickname">닉네임</label>
-          <Input type="text" id="nickname" onChange={handleChange} />
+          <Input type="text" id="nickname" onChange={handleInputValue} />
         </S.SignUpFiled>
 
         {/* 이메일 */}
         <S.SignUpFiled>
           <label htmlFor="email">이메일</label>
-          <Input type="email" id="email" onChange={handleChange} />
+          <Input type="email" id="email" onChange={handleInputValue} />
         </S.SignUpFiled>
 
         {/* 비밀번호 */}
         <S.SignUpFiled>
           <label htmlFor="password">비밀번호</label>
-          <Input type="password" id="password" onChange={handleChange} />
+          <Input type="password" id="password" onChange={handleInputValue} />
         </S.SignUpFiled>
 
         {/* 비밀번호 재입력 */}
         <S.SignUpFiled>
           <label htmlFor="re-password">비밀번호</label>
-          <Input type="password" id="rePassword" onChange={handleChange} />
+          <Input type="password" id="rePassword" onChange={handleInputValue} />
         </S.SignUpFiled>
 
         {/* 회원가입 버튼 */}
