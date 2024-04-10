@@ -38,7 +38,7 @@ export const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/userdata/login", userLoginData);
+      const response = await axios.post("/users/login", userLoginData);
 
       if (response.data.user) {
         sessionStorage.setItem("user", JSON.stringify(response.data.user));
@@ -61,7 +61,7 @@ export const Login = () => {
     <>
       <div className="social-login">
         {/* 로그인 문구 */}
-        <p className="login-title">똑소리 나는 코드 기록</p>
+        <S.LoginText>똑소리 나는 코드 기록</S.LoginText>
 
         {/* 소셜 로그인  */}
         <S.SocialButtons>

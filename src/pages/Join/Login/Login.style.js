@@ -28,6 +28,11 @@ export const RightBox = styled.div`
   }
 `;
 
+export const LoginText = styled.p`
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+`;
+
 export const SocialButtons = styled.div`
   button:not(:last-child) {
     margin-bottom: 1rem;
