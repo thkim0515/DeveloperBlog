@@ -12,8 +12,8 @@ export async function getFromDB() {
   }
 
   try {
-    const { data: userData } = await axios.get("/userdata");
-    const { data: contentData } = await axios.get("/contents");
+    const { data: userData } = await axios.get("/contents/svgsdata");
+    const { data: contentData } = await axios.get("/contents/contents");
 
     const svgs = userData;
     const contents = contentData;

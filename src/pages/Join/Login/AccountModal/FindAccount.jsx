@@ -1,9 +1,9 @@
 import * as S from "./AccountModal.style";
 
 // component
-import { Input } from "./../../../../components/form/Input";
+import { Input } from "../../../../components/form/Input";
 
-export const FindId = () => {
+export const FindAccount = () => {
   return (
     <>
       <form>

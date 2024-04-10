@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as S from "./AccountModal.style";
 
 // components
-import { FindId } from "./FindId";
+import { FindAccount } from "./FindAccount";
 
 export const ResetAccountModal = ({ onClick }) => {
   const [activeTab, setActiveTab] = useState("findId");
@@ -24,7 +24,8 @@ export const ResetAccountModal = ({ onClick }) => {
         <S.ModalCloseButton onClick={onClick}>x</S.ModalCloseButton>
 
         {/* 찾기에 따른 컴포넌트 변화 영역 */}
-        {activeTab === "findId" && <FindId />}
+        {activeTab === "findId" && <FindAccount />}
+        {activeTab === "findPassword" && <FindAccount />}
       </S.ModalBox>
     </S.ModalBackgroundBox>
   );

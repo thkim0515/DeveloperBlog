@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import * as S from './SignUp.style';
+import { Link } from "react-router-dom";
+import axios from "axios";
+import * as S from "./SignUp.style";
 
 // hook
-import { useForm } from '../../../hooks/useForm';
+import { useForm } from "../../../hooks/useForm";
 
 // components
 import { Input } from "./../../../components/form/Input";
@@ -21,7 +21,7 @@ export const SignUp = () => {
     email,
     password,
   };
-  
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -35,7 +35,7 @@ export const SignUp = () => {
 
   return (
     <>
-      <p>회원가입</p>
+      <S.SignUpText>회원가입</S.SignUpText>
       <form onSubmit={onSubmit}>
         {/* 아이디 */}
         <S.SignUpFiled>

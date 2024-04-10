@@ -29,6 +29,12 @@ export const SignUpFiled = styled.div`
   }
 `;
 
+export const SignUpText = styled.p`
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 1rem 0;
+`;
+
 export const SignUpButton = styled.button`
   width: 100%;
   padding: 0.75rem;

@@ -1,9 +1,11 @@
+import styled from "styled-components";
+
 import { useLocation } from "react-router-dom";
 import { Login } from "./Login/Login";
 import { SignUp } from "./SignUp/SignUp";
-import styled from "styled-components";
 
 // component
+import { Logo } from "./../../components/Layout/Logo";
 
 export const Join = () => {
   const location = useLocation();
@@ -18,7 +20,12 @@ export const Join = () => {
         </video>
         <span>KOSTA 281</span>
       </LeftBox>
-      <RightBox>{pathname === "/login" ? <Login /> : <SignUp />}</RightBox>
+      <RightBox>
+        <LogoBox>
+          <Logo />
+        </LogoBox>
+        {pathname === "/login" ? <Login /> : <SignUp />}
+      </RightBox>
     </Container>
   );
 };
@@ -29,7 +36,7 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-export const LeftBox = styled.div`
+const LeftBox = styled.div`
   flex-basis: 57%;
   display: flex;
   flex-direction: column;
@@ -43,11 +50,18 @@ export const LeftBox = styled.div`
   }
 `;
 
-export const RightBox = styled.div`
+const RightBox = styled.div`
+  position: relative;
   flex-basis: 43%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   padding: 60px;
   background-color: #ffffff;
+`;
+
+const LogoBox = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 60px;
 `;
