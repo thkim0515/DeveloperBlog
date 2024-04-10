@@ -10,16 +10,12 @@ import { useUserLogin } from "../../../context/UserLoginContext";
 import { useForm } from "../../../hooks/useForm";
 
 // component
-import { SocialButton } from "./SocialButton";
+import { SocialButton } from "./socialLogin/SocialButton";
 import { Input } from "./../../../components/form/Input";
-import { ResetAccountModal } from "./AccountModal/AccountModal";
+import { AccountModal } from "./AccountModal/AccountModal";
 
-// TODO 로직 분리하기
-const socialLogin = [
-  { social: "Github", background: "#000000", color: "#ffffff" },
-  { social: "Google", background: "#ffffff", color: "#000000" },
-  { social: "Naver", background: "#1EB400", color: "#ffffff" },
-];
+// button array
+import { socialLogin } from "./socialLogin/SocialLoginData";
 
 export const Login = () => {
   const [id, onChangeId] = useForm();
@@ -112,7 +108,7 @@ export const Login = () => {
       <S.ResetAccount onClick={showResetModal}>
         아이디/비밀번호 찾기
       </S.ResetAccount>
-      {isShowModal && <ResetAccountModal onClick={closeResetModal} />}
+      {isShowModal && <AccountModal onClick={closeResetModal} />}
 
       {/* 페이지 이동 */}
       <S.MoveLink>

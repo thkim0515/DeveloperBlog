@@ -4,9 +4,6 @@ import * as S from "./SignUp.style";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
-// hook
-import { useForm } from "../../../hooks/useForm";
-
 // components
 import { Input } from "./../../../components/form/Input";
 
