@@ -25,6 +25,7 @@ export const ResetAccountModal = ({ onClick }) => {
 
         {/* 찾기에 따른 컴포넌트 변화 영역 */}
         {activeTab === "findId" && <FindAccount />}
+        {activeTab === "findPassword" && <FindAccount />}
       </S.ModalBox>
     </S.ModalBackgroundBox>
   );

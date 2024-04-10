@@ -7,10 +7,9 @@ export const ModalBackgroundBox = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  background-color: rgba(0, 0, 0, 0.85);
   width: 100%;
   height: 100%;
-  background-color: #000000;
-  opacity: 0.85;
 `;
 
 export const ModalBox = styled.div`

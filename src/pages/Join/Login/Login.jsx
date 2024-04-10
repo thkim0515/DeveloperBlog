@@ -14,10 +14,11 @@ import { SocialButton } from "./SocialButton";
 import { Input } from "./../../../components/form/Input";
 import { ResetAccountModal } from "./AccountModal/AccountModal";
 
+// TODO 로직 분리하기
 const socialLogin = [
-  { social: "Github", background: "black", color: "white" },
-  { social: "Google", background: "white", color: "black" },
-  { social: "Naver", background: "green", color: "white" },
+  { social: "Github", background: "#000000", color: "#ffffff" },
+  { social: "Google", background: "#ffffff", color: "#000000" },
+  { social: "Naver", background: "#1EB400", color: "#ffffff" },
 ];
 
 export const Login = () => {
