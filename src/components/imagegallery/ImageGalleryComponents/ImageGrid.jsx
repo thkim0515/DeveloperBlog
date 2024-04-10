@@ -32,7 +32,12 @@ export const ImageGrid = (value) => {
   return (
     <S.Container>
       <S.Spacer>
-        <div>Code Gallery</div>
+        {value.value === "all" ? (
+          <div>Code Gallery</div>
+        ) : (
+          <div>My Gallery</div>
+        )}
+
         <div>
           <InputGroup>
             <Form.Control
@@ -57,6 +62,7 @@ export const ImageGrid = (value) => {
         <div>
           {value.value === "all"
             ? svgImages.map((svgName, idx) => {
+                const isBackSvg = svgName === "back";
                 return (
                   <img
                     key={idx}
@@ -66,8 +72,13 @@ export const ImageGrid = (value) => {
                     style={{
                       cursor: "pointer",
                       backgroundColor:
-                        svgName === selectedIcon ? "#fff" : "transparent",
-                      padding: svgName === selectedIcon ? "4px" : "0",
+                        svgName === selectedIcon && svgName !== "back"
+                          ? "#fff"
+                          : "transparent",
+                      padding:
+                        svgName === selectedIcon && svgName !== "back"
+                          ? "4px"
+                          : "0",
                     }}
                   />
                 );
@@ -76,8 +87,8 @@ export const ImageGrid = (value) => {
         </div>
       </S.Spacer>
 
-      {currentImages.map((img, idx) => (
-        <ImageItem key={idx} image={img} />
+      {currentImages.map((content, idx) => (
+        <ImageItem key={idx} content={content} />
       ))}
 
       <S.SPContainer>

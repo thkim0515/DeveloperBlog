@@ -1,15 +1,18 @@
-import React from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./ImageItem.style";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 
-export const ImageItem = ({ image }) => {
+export const ImageItem = ({ content }) => {
   const navigate = useNavigate();
 
   const handleImageClick = () => {
-    if (image) {
-      navigate(`/post/${image.pid}`, { state: { image } });
+    if (content) {
+      navigate(`/post/${content.pid}`, { state: { content } });
     }
   };
 
@@ -21,46 +24,52 @@ export const ImageItem = ({ image }) => {
       const month = match[2];
       const day = match[3];
 
-      return `${year}-${month}-${day}`;
+      return `${year}.${month}.${day}`;
     }
   };
 
-  const formattedDate = timeString(image.postdate);
+  const formattedDate = timeString(content.postdate);
 
   return (
     <>
-      {image && (
+      {content && (
         <S.SItem>
           <S.RoutingPage onClick={handleImageClick}>
-            {image.imagePath && (
+            {content.imagePath && (
               <img
-                src={image.imagePath}
-                alt={image.title}
+                src={content.imagePath}
+                alt={content.title}
                 className="post_img"
               />
             )}
-            {image.language && (
+            {content.language && (
               <img
-                src={`/svg/${image.language.toLowerCase()}.svg`}
-                alt={image.language.toLowerCase()}
+                src={`/svg/${content.language.toLowerCase()}.svg`}
+                alt={content.language.toLowerCase()}
                 className="svgIcon"
               />
             )}
-            <h2>{image.title}</h2>
+            <h2>{content.title}</h2>
           </S.RoutingPage>
           <div className="user_date_box">
             <S.SProfileImage title="프로필">
-              {image.profileImg && (
-                <S.ProfileImage src={image.profileImg} alt={image.profileImg} />
+              {content.profileImg && (
+                <S.ProfileImage
+                  src={content.profileImg}
+                  alt={content.profileImg}
+                />
               )}
             </S.SProfileImage>
             <div className="user_info">
-              <p className="user_write_info">{image.nickname}</p>
+              <p className="user_write_info">{content.nickname}</p>
             </div>
             <p className="user_write_info">
               <p>{formattedDate}</p>
-              <FontAwesomeIcon icon={faEye} style={{ marginRight: "15px;" }} />
-              {image.views}
+              <FontAwesomeIcon icon={faEye} style={{ margin: "0 10px" }} />
+              {content.views}
+              <br />
+              <FontAwesomeIcon icon={faComment} style={{ margin: "0 10px" }} />
+              {content.commentCount}
             </p>
           </div>
         </S.SItem>

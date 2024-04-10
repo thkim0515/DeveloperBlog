@@ -4,7 +4,7 @@ import * as S from "./PostDetailComp.style";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../../context/UserLoginContext";
 
-export const PostDetailComment = ({ image }) => {
+export const PostDetailComment = ({ content }) => {
   //로그인 유저 정보 가져오기
   const { user } = useUserLogin();
 
@@ -18,6 +18,21 @@ export const PostDetailComment = ({ image }) => {
     setState(e.target.value);
   };
 
+  /*-------------시간표시---------------*/
+  function timeString(postdate) {
+    const match = postdate.match(/(\d{4}).(\d{2}).(\d{2})T(\d{2}):(\d{2})/);
+
+    if (match) {
+      const year = match[1].substr(-2);
+      const month = match[2];
+      const day = match[3];
+      const hours = match[4];
+      const minutes = match[5];
+
+      return `${year}-${month}-${day} / ${hours}:${minutes}`;
+    }
+  }
+
   /*-------------create 기능---------------*/
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
@@ -25,11 +40,12 @@ export const PostDetailComment = ({ image }) => {
       alert("로그인이 필요한 영역입니다.");
       navigate("/login");
     } else {
-      const nickname = user.nickname;
-      const postId = image._id;
+      const userId = user.id;
+      const postId = content._id;
+      console.log(userId + "  <>  " + postId);
       const commentData = {
+        userId: userId,
         postId: postId,
-        nickname: nickname,
         comment: comment,
       };
       await postCommentToServer(commentData);
@@ -54,12 +70,13 @@ export const PostDetailComment = ({ image }) => {
 
   const readCommentsFunc = async () => {
     try {
-      const response = await axios.get(`/comments/read/${image._id}`);
+      const response = await axios.get(`/comments/read/${content._id}`);
       setCommentList(
         response.data.sort(
           (a, b) => new Date(b.postdate) - new Date(a.postdate)
         )
       );
+      console.log(response);
     } catch (error) {
       console.error("댓글 불러오기 에러:", error);
     }
@@ -131,10 +148,12 @@ export const PostDetailComment = ({ image }) => {
                   <div className="profile_box">
                     <img
                       // 임시프로필url
-                      src={process.env.PUBLIC_URL + "/img/noprofile.jpg"}
+                      //src={process.env.PUBLIC_URL + "/img/noprofile.jpg"}
+                      src={"/img/" + comment.userId.profileimg}
                       alt="유저이미지"
                     ></img>
-                    <div className="userid">{comment.nickname}</div>
+
+                    <div className="userid">{comment.userId.nickname}</div>
                   </div>
                   <div className="comment_text">
                     <div className="comment_detail">
@@ -148,9 +167,9 @@ export const PostDetailComment = ({ image }) => {
                       ) : (
                         <div>{comment.comment}</div>
                       )}
-                      <div className="date">{comment.postdate}</div>
+                      <div className="date">{timeString(comment.postdate)}</div>
                     </div>
-                    {user && comment.nickname === user.nickname && (
+                    {user && comment.userId.nickname === user.nickname && (
                       <div className="edit_delete">
                         <button
                           onClick={() =>

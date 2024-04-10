@@ -20,6 +20,6 @@ const userSetContentsSchema = new mongoose.Schema({
 });
 
 const Content =
-  mongoose.models.contents || mongoose.model("contents", userSetContentsSchema);
+  mongoose.models.contents || mongoose.model("Content", userSetContentsSchema);
 
 module.exports = Content;

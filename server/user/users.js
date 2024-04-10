@@ -33,10 +33,18 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "비밀번호가 일치하지 않습니다." });
     }
 
+    console.log(
+      "사용자 정보:",
+      user.nickname,
+      user.email,
+      user.profileimg,
+      user.id,
+      user._id
+    );
+
     req.session.user = {
-      id: user.id,
+      id: user._id,
       nickname: user.nickname,
-      email: user.email,
       profile: user.profileimg,
     };
 
