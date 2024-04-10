@@ -30,7 +30,6 @@ export const TabMenu = styled.div`
 export const Tab = styled.button`
   color: ${({ isActive }) => (isActive ? "blue" : "black")};
 `;
-
 export const ModalCloseButton = styled.button`
   position: absolute;
   top: 20px;

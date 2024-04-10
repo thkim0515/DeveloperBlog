@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import axios from "axios";
-import * as S from "./SignUp.style";
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import * as S from './SignUp.style';
 
 // hook
-import { useForm } from "../../../hooks/useForm";
+import { useForm } from '../../../hooks/useForm';
 
 // components
 import { Input } from "./../../../components/form/Input";
