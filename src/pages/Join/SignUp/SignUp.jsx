@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
 import * as S from "./SignUp.style";
-
+import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 // hook
 import { useForm } from "../../../hooks/useForm";
 
@@ -9,82 +10,77 @@ import { useForm } from "../../../hooks/useForm";
 import { Input } from "./../../../components/form/Input";
 
 export const SignUp = () => {
-  const [id, onChangeId] = useForm();
-  const [nickname, onChangeNickname] = useForm();
-  const [email, onChangeEmail] = useForm();
-  const [password, onChangePassword] = useForm();
-  const [rePassword, onChangeRePassword] = useForm();
+  const navigate = useNavigate();
+  const [userInput, setUserInput] = useState({
+    id: "",
+    nickname: "",
+    email: "",
+    password: "",
+    rePassword: "",
+  });
 
-  const postFormData = {
-    id,
-    nickname,
-    email,
-    password,
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setUserInput((prev) => ({ ...prev, [id]: value }));
   };
 
-  const onSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // 서버로 데이터 전송
+    if (userInput.password !== userInput.rePassword) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
     try {
-      const response = await axios.post("/userdata/signup", postFormData);
-    } catch (err) {
-      console.log(`에러발생: ${err}`);
+      await axios.post("/users/signup", {
+        id: userInput.id,
+        nickname: userInput.nickname,
+        email: userInput.email,
+        password: userInput.password,
+      });
+      alert("회원가입이 완료되었습니다.");
+      navigate("/login");
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        alert(error.response.data.message);
+      } else {
+        alert("회원가입 실패");
+      }
+      console.error("회원가입 실패:", error);
     }
   };
 
   return (
     <>
       <S.SignUpText>회원가입</S.SignUpText>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         {/* 아이디 */}
         <S.SignUpFiled>
           <label htmlFor="id">아이디</label>
-          <Input type="text" id="id" value={id} onChange={onChangeId} />
+          <input type="text" id="id" onChange={handleChange} />
         </S.SignUpFiled>
 
         {/* 닉네임 */}
         <S.SignUpFiled>
           <label htmlFor="nickname">닉네임</label>
-          <Input
-            type="text"
-            id="nickname"
-            value={nickname}
-            onChange={onChangeNickname}
-          />
+          <Input type="text" id="nickname" onChange={handleChange} />
         </S.SignUpFiled>
 
         {/* 이메일 */}
         <S.SignUpFiled>
           <label htmlFor="email">이메일</label>
-          <Input
-            type="email"
-            id="email"
-            value={email}
-            onChange={onChangeEmail}
-          />
+          <Input type="email" id="email" onChange={handleChange} />
         </S.SignUpFiled>
 
         {/* 비밀번호 */}
         <S.SignUpFiled>
           <label htmlFor="password">비밀번호</label>
-          <Input
-            type="password"
-            id="password"
-            value={password}
-            onChange={onChangePassword}
-          />
+          <Input type="password" id="password" onChange={handleChange} />
         </S.SignUpFiled>
 
         {/* 비밀번호 재입력 */}
         <S.SignUpFiled>
           <label htmlFor="re-password">비밀번호</label>
-          <Input
-            type="password"
-            id="rePassword"
-            value={rePassword}
-            onChange={onChangeRePassword}
-          />
+          <Input type="password" id="rePassword" onChange={handleChange} />
         </S.SignUpFiled>
 
         {/* 회원가입 버튼 */}
