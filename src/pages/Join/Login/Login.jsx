@@ -14,6 +14,12 @@ import { SocialButton } from "./SocialButton";
 import { Input } from "./../../../components/form/Input";
 import { ResetAccountModal } from "./AccountModal/AccountModal";
 
+const socialLogin = [
+  { social: "Github", background: "black", color: "white" },
+  { social: "Google", background: "white", color: "black" },
+  { social: "Naver", background: "green", color: "white" },
+];
+
 export const Login = () => {
   const [id, onChangeId] = useForm();
   const [password, onChangePassword] = useForm();
@@ -65,9 +71,14 @@ export const Login = () => {
 
         {/* 소셜 로그인  */}
         <S.SocialButtons>
-          <SocialButton social="Github" />
-          <SocialButton social="Google" />
-          <SocialButton social="Naver" />
+          {socialLogin.map((item, index) => (
+            <SocialButton
+              key={index}
+              social={item.social}
+              background={item.background}
+              color={item.color}
+            />
+          ))}
         </S.SocialButtons>
       </div>
       <hr />

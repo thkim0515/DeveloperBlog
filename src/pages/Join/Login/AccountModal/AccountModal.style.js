@@ -27,9 +27,8 @@ export const TabMenu = styled.div`
   justify-content: space-around;
 `;
 
-export const Tab = styled.button`
-  color: ${({ isActive }) => (isActive ? "blue" : "black")};
-`;
+export const Tab = styled.button``;
+
 export const ModalCloseButton = styled.button`
   position: absolute;
   top: 20px;

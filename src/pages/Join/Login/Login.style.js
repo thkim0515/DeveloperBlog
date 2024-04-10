@@ -31,6 +31,7 @@ export const RightBox = styled.div`
 export const LoginText = styled.p`
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
+  color: #112d4e;
 `;
 
 export const SocialButtons = styled.div`
