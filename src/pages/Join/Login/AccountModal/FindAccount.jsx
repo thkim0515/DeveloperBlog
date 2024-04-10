@@ -1,53 +1,58 @@
-import * as S from "./AccountModal.style";
-
-// component
-import { Input } from "../../../../components/form/Input";
+import React from "react";
+import { RenderForm } from "./RenderForm";
 
 export const FindAccount = ({ active }) => {
   let componentToRender;
 
+  const handleUserData = (e) => {
+    e.preventDefault();
+
+    switch (e.target.textContent) {
+      case "아이디 찾기":
+        break;
+      case "비밀번호 찾기":
+        break;
+      default:
+    }
+  };
+
   switch (active) {
     case "findId":
-      componentToRender = <FindId />;
+      componentToRender = (
+        <RenderForm
+          label1="이메일"
+          label2="비밀번호"
+          type1="email"
+          type2="password"
+          buttonText="아이디 찾기"
+          onClick={handleUserData}
+        />
+      );
       break;
     case "findPassword":
-      componentToRender = <FindPassword />;
+      componentToRender = (
+        <RenderForm
+          label1="아이디"
+          label2="이메일"
+          type1="text"
+          type2="email"
+          buttonText="비밀번호 찾기"
+          onClick={handleUserData}
+        />
+      );
       break;
     default:
-      componentToRender = <FindId />;
+      componentToRender = (
+        <RenderForm
+          label1="이메일"
+          label2="비밀번호"
+          type1="email"
+          type2="password"
+          buttonText="아이디 찾기"
+          onClick={handleUserData}
+        />
+      );
   }
 
   return <>{componentToRender}</>;
 };
-
-function FindId() {
-  return (
-    <form>
-      <S.FormField>
-        <label htmlFor="email">이메일</label>
-        <Input type="email" id="email" />
-      </S.FormField>
-      <S.FormField>
-        <label htmlFor="password">비밀번호</label>
-        <Input type="password" id="password" />
-      </S.FormField>
-      <S.Button>아이디 찾기</S.Button>
-    </form>
-  );
-}
-
-function FindPassword() {
-  return (
-    <form>
-      <S.FormField>
-        <label htmlFor="id">아이디</label>
-        <Input type="id" id="id" />
-      </S.FormField>
-      <S.FormField>
-        <label htmlFor="email">이메일</label>
-        <Input type="email" id="email" />
-      </S.FormField>
-      <S.Button>비밀번호 찾기</S.Button>
-    </form>
-  );
-}
