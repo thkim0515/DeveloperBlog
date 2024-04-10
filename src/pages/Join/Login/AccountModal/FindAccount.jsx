@@ -1,53 +1,51 @@
 import * as S from "./AccountModal.style";
-
-// component
 import { Input } from "../../../../components/form/Input";
 
 export const FindAccount = ({ active }) => {
+  const renderForm = (label1, label2, type1, type2, buttonText) => (
+    <form>
+      <S.FormField>
+        <label htmlFor="field1">{label1}</label>
+        <Input type={type1} id="field1" />
+      </S.FormField>
+      <S.FormField>
+        <label htmlFor="field2">{label2}</label>
+        <Input type={type2} id="field2" />
+      </S.FormField>
+      <S.Button>{buttonText}</S.Button>
+    </form>
+  );
+
   let componentToRender;
 
   switch (active) {
     case "findId":
-      componentToRender = <FindId />;
+      componentToRender = renderForm(
+        "이메일",
+        "비밀번호",
+        "email",
+        "password",
+        "아이디 찾기"
+      );
       break;
     case "findPassword":
-      componentToRender = <FindPassword />;
+      componentToRender = renderForm(
+        "아이디",
+        "이메일",
+        "text",
+        "email",
+        "비밀번호 찾기"
+      );
       break;
     default:
-      componentToRender = <FindId />;
+      componentToRender = renderForm(
+        "이메일",
+        "비밀번호",
+        "email",
+        "password",
+        "아이디 찾기"
+      );
   }
 
   return <>{componentToRender}</>;
 };
-
-function FindId() {
-  return (
-    <form>
-      <S.FormField>
-        <label htmlFor="email">이메일</label>
-        <Input type="email" id="email" />
-      </S.FormField>
-      <S.FormField>
-        <label htmlFor="password">비밀번호</label>
-        <Input type="password" id="password" />
-      </S.FormField>
-      <S.Button>아이디 찾기</S.Button>
-    </form>
-  );
-}
-
-function FindPassword() {
-  return (
-    <form>
-      <S.FormField>
-        <label htmlFor="id">아이디</label>
-        <Input type="id" id="id" />
-      </S.FormField>
-      <S.FormField>
-        <label htmlFor="email">이메일</label>
-        <Input type="email" id="email" />
-      </S.FormField>
-      <S.Button>비밀번호 찾기</S.Button>
-    </form>
-  );
-}

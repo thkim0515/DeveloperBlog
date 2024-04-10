@@ -10,9 +10,7 @@ export const SignUpFiled = styled.div`
     position: relative;
   }
 
-  input[type="text"],
-  input[type="password"],
-  input[type="email"] {
+  input {
     width: 100%;
     margin: 0.5rem 0 0.75rem 0;
     padding: 0.75rem;
@@ -21,9 +19,7 @@ export const SignUpFiled = styled.div`
     background: #ffffff;
   }
 
-  input[type="text"]:focus,
-  input[type="password"]:focus,
-  input[type="email"]:focus {
+  input:focus {
     background-color: #dbe2ef;
     outline: none;
   }
