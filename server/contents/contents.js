@@ -7,8 +7,28 @@ const Comment = require("../models/commentModel");
 //images
 router.get("/contents", async (req, res) => {
   try {
-    const contents = await Content.find();
-    res.json(contents);
+    const contentsWithCommentCounts = await Content.aggregate([
+      {
+        $lookup: {
+          from: "comments", // 'comments' 컬렉션을 참조
+          localField: "_id", // Content 모델의 '_id' 필드
+          foreignField: "postId", // Comment 모델의 'postId' 필드
+          as: "comments", // 결과를 'comments'라는 배열로 저장
+        },
+      },
+      {
+        $addFields: {
+          commentCount: { $size: "$comments" }, // 'comments' 배열의 크기를 계산
+        },
+      },
+      {
+        $project: {
+          comments: 0, // 최종 결과에서 'comments' 배열 제외
+          // 필요한 필드를 추가하여 결과 조정 가능
+        },
+      },
+    ]);
+    res.json(contentsWithCommentCounts);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -129,7 +149,6 @@ router.delete("/delete/:_id", async (req, res) => {
 // 조회수
 router.post("/view", async (req, res) => {
   const { _id } = req.body;
-  console.log(_id);
   try {
     const content = await Content.findOneAndUpdate(
       { _id: _id },

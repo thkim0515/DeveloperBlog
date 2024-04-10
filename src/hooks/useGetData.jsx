@@ -29,19 +29,19 @@ export const useGetData = (
       try {
         await getFromDB();
 
-        const storedImages = localStorage.getItem("images");
+        const storedContents = localStorage.getItem("contents");
         const storedSvgImages = localStorage.getItem("svgImages");
 
-        let images = [];
+        let contents = [];
 
-        if (storedImages && storedSvgImages) {
-          images = JSON.parse(storedImages);
+        if (storedContents && storedSvgImages) {
+          contents = JSON.parse(storedContents);
           setSvgImages(JSON.parse(storedSvgImages));
         }
 
         // 조건부 필터링기능 ( 필터 , 검색)
         setFilteredImages(
-          filterImages(images, searchTerm, value, selectedIcon)
+          filterImages(contents, searchTerm, value, selectedIcon)
         );
 
         setCurrentPage(1);

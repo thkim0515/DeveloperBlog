@@ -4,7 +4,7 @@ import * as S from "./PostDetailComp.style";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const PostDetailWriter = ({ image }) => {
+export const PostDetailWriter = ({ content }) => {
   //드롭박스 열기/닫기 상태관리
   const [isDropOpen, setIsDropOpen] = useState(false);
 
@@ -55,8 +55,8 @@ export const PostDetailWriter = ({ image }) => {
         ...
       </div>
       <S.DropList $isOpen={isDropOpen}>
-        <button onClick={updateContents(image._id)}>수정하기</button>
-        <button onClick={() => deleteContents(image._id)}>삭제하기</button>
+        <button onClick={updateContents(content._id)}>수정하기</button>
+        <button onClick={() => deleteContents(content._id)}>삭제하기</button>
       </S.DropList>
     </S.WriterBox>
   );

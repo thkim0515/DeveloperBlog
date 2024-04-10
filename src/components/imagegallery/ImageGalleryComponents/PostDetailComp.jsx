@@ -17,7 +17,7 @@ export const PostDetailComp = () => {
 
   // ImageItem 클릭시 state값 전달
   const location = useLocation();
-  const { image } = location.state;
+  const { content } = location.state;
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -26,10 +26,10 @@ export const PostDetailComp = () => {
 
   useEffect(() => {
     axios
-      .post("/contents/view", { _id: image._id })
-      .then((response) => console.log(response.data))
+      .post("/contents/view", { _id: content._id })
+      //.then((response) => console.log(response.data))
       .catch((error) => console.error("Error:", error));
-  }, [image._id]);
+  }, [content._id]);
 
   function timeString(postdate) {
     const match = postdate.match(/(\d{4}).(\d{2}).(\d{2})T(\d{2}):(\d{2})/);
@@ -47,31 +47,31 @@ export const PostDetailComp = () => {
 
   return (
     <>
-      {image.imagePath && (
+      {content.imagePath && (
         <S.SContainer>
           <S.STitle>
             <div className="img_box">
-              <img src={`../svg/${image.language}.svg`} alt="" />{" "}
+              <img src={`../svg/${content.language}.svg`} alt="" />{" "}
               {/* alt={image.language} */}
             </div>
-            <h3>{image.title}</h3>
-            {user && user.nickname === image.nickname && (
-              <PostDetailWriter image={image} />
+            <h3>{content.title}</h3>
+            {user && user.nickname === content.nickname && (
+              <PostDetailWriter content={content} />
             )}
           </S.STitle>
           <S.SSpace>
             <div style={{ display: "flex", alignItems: "center" }}>
               <S.SProfileImage title="프로필">
-                {image.profileImg && (
+                {content.profileImg && (
                   <S.ProfileImage
-                    src={`../${image.imagePath}`}
-                    alt={image.profileImg}
+                    src={`../${content.imagePath}`}
+                    alt={content.profileImg}
                   />
                 )}
               </S.SProfileImage>
-              {image.nickname}
+              {content.nickname}
             </div>
-            <div>{timeString(image.postdate)}</div>
+            <div>{timeString(content.postdate)}</div>
           </S.SSpace>
           <S.SImageContent>
             <AceEditor
@@ -80,7 +80,7 @@ export const PostDetailComp = () => {
               name="setCord"
               editorProps={{ $blockScrolling: true }}
               setOptions={{ useWorker: false }}
-              value={image.ace_contents}
+              value={content.ace_contents}
               readOnly={true}
               wrapEnabled={true}
               width="100%"
@@ -88,11 +88,11 @@ export const PostDetailComp = () => {
             />
             <div
               className="text_area"
-              dangerouslySetInnerHTML={{ __html: image.toast_contents }}
+              dangerouslySetInnerHTML={{ __html: content.toast_contents }}
             />
             <button onClick={handleGoBack}>뒤로가기</button>
           </S.SImageContent>
-          <PostDetailComment image={image} />
+          <PostDetailComment content={content} />
         </S.SContainer>
       )}
     </>
