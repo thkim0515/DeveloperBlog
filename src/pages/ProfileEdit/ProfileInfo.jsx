@@ -2,9 +2,10 @@ import * as S from "./ProfileEdit.style.js";
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext.jsx";
+import axios from "axios";
 
 export const ProfileInfo = () => {
-  const { user, setIsChange } = useUserLogin();
+  const { profileDB, setIsChange } = useUserLogin();
 
   //user정보변경상태 false로 초기화
   const memoizedSetIsChange = useCallback(setIsChange, [setIsChange]);
@@ -14,9 +15,10 @@ export const ProfileInfo = () => {
   }, [memoizedSetIsChange]);
 
   //로그인 유저정보
-  const [userNickname, setUserNickname] = useState(user.nickname);
-  const [userEmail, setUserEmail] = useState(user.email);
-  const userImgSrc = user.profile;
+  const [nickname, setNickname] = useState(profileDB.nickname);
+  const [email, setEmail] = useState(profileDB.email);
+  const imgSrc = profileDB.profileimg;
+
   //이미지 미리보기
   const [imgPreview, setImgPreview] = useState(null);
 
@@ -42,26 +44,24 @@ export const ProfileInfo = () => {
 
   //페이지 이동
   const navigate = useNavigate();
-  //TODO 변경사항 저장 함수(임시로 세션스토리지 이용중)
 
+  //업데이트 요쳥
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // 이미지를 Blob URL로 변환(서버에 이미지 저장되면 지우기)
-    let imgBlobUrl = null;
-    if (imgPreview) {
-      const response = await fetch(imgPreview);
-      const blob = await response.blob();
-      imgBlobUrl = URL.createObjectURL(blob);
+    const editData = { ...profileDB };
+    editData.nickname = nickname;
+    editData.email = email;
+    try {
+      const response = await axios.put(
+        `/users/update/${profileDB._id}`,
+        editData
+      );
+      console.log(response.data);
+      setIsChange(true);
+      navigate("/profile");
+    } catch (error) {
+      console.error("서버응답실패:", error);
     }
-    // TODO 백엔드 완성되면 해당 값 PUT요청보내기
-    const editData = { ...user };
-    editData.nickname = userNickname;
-    editData.email = userEmail;
-    editData.profile = imgBlobUrl ? imgBlobUrl : userImgSrc;
-    sessionStorage.setItem("user", JSON.stringify(editData));
-    setIsChange(true);
-    navigate("/profile");
   };
 
   return (
@@ -72,7 +72,7 @@ export const ProfileInfo = () => {
           <S.ProfileImgBox>
             <S.ProfileImg
               alt="프로필 이미지"
-              src={imgPreview ? imgPreview : userImgSrc}
+              src={imgPreview ? imgPreview : imgSrc}
             />
           </S.ProfileImgBox>
           <S.ProfileTextBox>
@@ -81,25 +81,22 @@ export const ProfileInfo = () => {
             </S.TextBoxItem>
             <S.TextBoxItem>
               {/* id변경 못 하게 div*/}
-              <div>{user.id}</div>
+              <div>{profileDB.id}</div>
             </S.TextBoxItem>
             <S.TextBoxItem>
               <p>닉네임</p>
             </S.TextBoxItem>
             <S.TextBoxItem>
               <input
-                value={userNickname}
-                onChange={handleInputChange(setUserNickname)}
+                value={nickname}
+                onChange={handleInputChange(setNickname)}
               />
             </S.TextBoxItem>
             <S.TextBoxItem>
               <p>이메일</p>
             </S.TextBoxItem>
             <S.TextBoxItem>
-              <input
-                value={userEmail}
-                onChange={handleInputChange(setUserEmail)}
-              />
+              <input value={email} onChange={handleInputChange(setEmail)} />
             </S.TextBoxItem>
           </S.ProfileTextBox>
         </S.ProfileInfoBox>

@@ -120,6 +120,7 @@ export const ProfileEditButton = styled.button`
 
 //사진 수정
 export const ImgEditButton = styled.label`
+  display: none;
   width: 100%;
   height: 30px;
   background-color: #3f72af;

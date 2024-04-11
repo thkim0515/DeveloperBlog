@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import axios from "axios";
 
 // 새로운 컨텍스트 생성
 const UserLoginContext = createContext();
@@ -10,12 +11,12 @@ export const UserLoginProvider = ({ children }) => {
     JSON.parse(sessionStorage.getItem("isLogin"))
   );
 
-  //isLogin 상태가 변경될 때마다 세션 스토리지에 저장(새로고침시 로그인 상태 데이터 유지)
+  //isLogin 상태가 변경될 때마다 세션 스토리지에 저장
   useEffect(() => {
     sessionStorage.setItem("isLogin", isLogin);
   }, [isLogin]);
 
-  //TODO 로그인 유저 정보 (후에 백엔드에서 데이터 받아오기)
+  //로그인 유저 정보
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
 
   //user정보 변경 감지
@@ -27,9 +28,27 @@ export const UserLoginProvider = ({ children }) => {
     }
   }, [isChange]);
 
+  //프로필 데이터
+  const [profileDB, setProfileDB] = useState(null);
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`/users/read/${user.id}`)
+        .then((response) => {
+          console.log(response.data);
+          setProfileDB(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data from server:", error);
+        });
+    } else {
+      setProfileDB(null);
+    }
+  }, [user]);
+
   return (
     <UserLoginContext.Provider
-      value={{ isLogin, setIsLogin, user, setUser, setIsChange }}
+      value={{ isLogin, setIsLogin, user, setUser, setIsChange, profileDB }}
     >
       {children}
     </UserLoginContext.Provider>
@@ -45,5 +64,6 @@ export const useUserLogin = () => {
     user: context.user,
     setUser: context.setUser,
     setIsChange: context.setIsChange,
+    profileDB: context.profileDB,
   };
 };
