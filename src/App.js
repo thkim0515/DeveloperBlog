@@ -5,7 +5,7 @@ import { Layout } from "./components/Layout/Layout";
 import { Join } from "./pages/Join/Join";
 
 //페이지
-import { Main } from "./pages/Main/Main";
+import { Main } from "./pages/Main";
 import { Login } from "./pages/Join/Login/Login";
 import { SignUp } from "./pages/Join/SignUp/SignUp";
 import { CodeCreate } from "./pages/CodeCreate/CodeCreate";
