@@ -31,7 +31,7 @@ export const AccountModal = ({ onClick }) => {
         <S.ModalCloseButton onClick={onClick}>x</S.ModalCloseButton>
 
         {/* 찾기에 따른 컴포넌트 변화 영역 */}
-        {isSelected && <FindAccount active={isSelected} />}
+        <FindAccount active={isSelected} />
       </S.ModalBox>
     </S.ModalBackgroundBox>
   );

@@ -17,7 +17,7 @@ export const SignUp = () => {
     rePassword: "",
   });
 
-  const handleInputValue = (e) => {
+  const handleInputData = (e) => {
     const { id, value } = e.target;
     setUserInputData((prev) => ({ ...prev, [id]: value }));
   };
@@ -54,31 +54,31 @@ export const SignUp = () => {
         {/* 아이디 */}
         <S.SignUpFiled>
           <label htmlFor="id">아이디</label>
-          <input type="text" id="id" onChange={handleInputValue} />
+          <input type="text" id="id" onChange={handleInputData} />
         </S.SignUpFiled>
 
         {/* 닉네임 */}
         <S.SignUpFiled>
           <label htmlFor="nickname">닉네임</label>
-          <Input type="text" id="nickname" onChange={handleInputValue} />
+          <Input type="text" id="nickname" onChange={handleInputData} />
         </S.SignUpFiled>
 
         {/* 이메일 */}
         <S.SignUpFiled>
           <label htmlFor="email">이메일</label>
-          <Input type="email" id="email" onChange={handleInputValue} />
+          <Input type="email" id="email" onChange={handleInputData} />
         </S.SignUpFiled>
 
         {/* 비밀번호 */}
         <S.SignUpFiled>
           <label htmlFor="password">비밀번호</label>
-          <Input type="password" id="password" onChange={handleInputValue} />
+          <Input type="password" id="password" onChange={handleInputData} />
         </S.SignUpFiled>
 
         {/* 비밀번호 재입력 */}
         <S.SignUpFiled>
           <label htmlFor="re-password">비밀번호</label>
-          <Input type="password" id="rePassword" onChange={handleInputValue} />
+          <Input type="password" id="rePassword" onChange={handleInputData} />
         </S.SignUpFiled>
 
         {/* 회원가입 버튼 */}
