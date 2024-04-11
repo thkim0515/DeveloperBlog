@@ -14,6 +14,7 @@ import { PostUpdate } from "./pages/PostUpdate/PostUpdate";
 import { Profile } from "./pages/Profile/Profile";
 import { ProfileEdit } from "./pages/ProfileEdit/ProfileEdit";
 import { MyCodes } from "./pages/MyCodes/MyCodes";
+import NotFound from "./pages/NotFound/NotFound";
 
 //context
 import { UserLoginProvider } from "./context/UserLoginContext";
@@ -38,6 +39,7 @@ export const App = () => {
             <Route path="profile" element={<Profile />} />
             <Route path="profileEdit" element={<ProfileEdit />} />
             <Route path="myCodes" element={<MyCodes />} />
+            <Route path="/*" element={<NotFound />} />
           </Route>
         </Routes>
       </UserLoginProvider>
