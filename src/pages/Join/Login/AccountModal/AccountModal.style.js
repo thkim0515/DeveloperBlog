@@ -53,9 +53,7 @@ export const FormField = styled.div`
     padding: 0.7rem 0;
   }
 
-  input[type="id"],
-  input[type="email"],
-  input[type="password"] {
+  input {
     padding: 0.3rem;
     border: 1px solid #000000;
     resize: vertical;

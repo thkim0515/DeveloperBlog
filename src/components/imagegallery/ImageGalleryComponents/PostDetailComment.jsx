@@ -76,9 +76,12 @@ export const PostDetailComment = ({ content }) => {
           (a, b) => new Date(b.postdate) - new Date(a.postdate)
         )
       );
-      console.log(response);
     } catch (error) {
-      console.error("댓글 불러오기 에러:", error);
+      if (error.response || error.response.status === 404) {
+        setCommentList([]);
+      } else {
+        console.error("댓글 불러오기 에러:", error);
+      }
     }
   };
 

@@ -62,7 +62,6 @@ export const ImageGrid = (value) => {
         <div>
           {value.value === "all"
             ? svgImages.map((svgName, idx) => {
-                const isBackSvg = svgName === "back";
                 return (
                   <img
                     key={idx}

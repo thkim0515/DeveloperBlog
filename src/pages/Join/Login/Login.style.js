@@ -49,8 +49,7 @@ export const LoginField = styled.div`
     padding: 0.7rem 0;
   }
 
-  input[type="text"],
-  input[type="password"] {
+  input {
     width: 76%;
     padding: 0.7rem;
     margin-bottom: 1.25rem;
