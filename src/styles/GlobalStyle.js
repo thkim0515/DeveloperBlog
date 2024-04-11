@@ -5,11 +5,11 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
   @font-face {
     font-family: "NotoSansKr";
-    src: url("../fonts/NotoSansKR-VariableFont_wght.ttf") format("truetype");
+    src: url("/fonts/NotoSansKR-VariableFont_wght.ttf") format("truetype");
   }
   @font-face {
     font-family: "kage";
-    src: url("../fonts/KAGE_DEMO_FONT-Black.otf") format("opentype");
+    src: url("/fonts/KAGE_DEMO_FONT-Black.otf") format("opentype");
   }
 
   * {

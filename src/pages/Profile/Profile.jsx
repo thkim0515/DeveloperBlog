@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
 
 export const Profile = () => {
-  //TODO 유저정보 받아오기
-  const { user } = useUserLogin();
+  //유저정보 받아와서 프로필 데이터로 저장
+  const { profileDB } = useUserLogin();
+
   //정보 수정 버튼 클릭시 이동 함수
   const navigate = useNavigate();
   const handleEditButtonClick = () => {
@@ -15,10 +16,13 @@ export const Profile = () => {
     <S.ProfileInfoMainBox>
       <S.ProfileTitle>Profile</S.ProfileTitle>
       <S.InfoAndBtnBox>
-        {user && (
+        {profileDB && (
           <S.ProfileInfoBox>
             <S.ProfileImgBox>
-              <S.ProfileImg alt="프로필 이미지" src={user.profile} />
+              <S.ProfileImg
+                alt="프로필 이미지"
+                src={"/img/" + profileDB.profileimg}
+              />
             </S.ProfileImgBox>
             <S.ProfileTextBox>
               <S.TextBoxItem>
@@ -26,7 +30,7 @@ export const Profile = () => {
               </S.TextBoxItem>
               <S.TextBoxItem>
                 <div>
-                  <p>{user.id}</p>
+                  <p>{profileDB.id}</p>
                 </div>
               </S.TextBoxItem>
               <S.TextBoxItem>
@@ -34,7 +38,7 @@ export const Profile = () => {
               </S.TextBoxItem>
               <S.TextBoxItem>
                 <div>
-                  <p>{user.nickname}</p>
+                  <p>{profileDB.nickname}</p>
                 </div>
               </S.TextBoxItem>
               <S.TextBoxItem>
@@ -42,7 +46,7 @@ export const Profile = () => {
               </S.TextBoxItem>
               <S.TextBoxItem>
                 <div className="email_box">
-                  <p>{user.email}</p>
+                  <p>{profileDB.email}</p>
                 </div>
               </S.TextBoxItem>
             </S.ProfileTextBox>

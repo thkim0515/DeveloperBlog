@@ -100,7 +100,7 @@ router.post("/signup", async (req, res) => {
 // R
 router.get("/read/:_id", async (req, res) => {
   try {
-    const readUserdata = await User.findOne({ pid: req.params._id });
+    const readUserdata = await User.findOne({ _id: req.params._id });
     if (!readUserdata) {
       return res.status(404).json({ message: "계정 정보 없음" });
     }
@@ -114,7 +114,7 @@ router.get("/read/:_id", async (req, res) => {
 router.put("/update/:_id", async (req, res) => {
   try {
     const updateUserData = await User.findOneAndUpdate(
-      { pid: req.params._id },
+      { _id: req.params._id },
       req.body,
       { new: true }
     );
@@ -131,7 +131,7 @@ router.put("/update/:_id", async (req, res) => {
 router.delete("/delete/:_id", async (req, res) => {
   try {
     const deletedAccount = await User.findOneAndDelete({
-      pid: req.params._id,
+      _id: req.params._id,
     });
     if (!deletedAccount) {
       return res.status(404).json({ message: "계정이 존재하지 않음" });

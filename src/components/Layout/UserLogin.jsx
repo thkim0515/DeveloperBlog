@@ -5,7 +5,7 @@ import { useUserLogin } from "../../context/UserLoginContext";
 
 export const UserLogin = () => {
   //로그인 유저정보
-  const { setIsLogin, user, setUser, setIsChange } = useUserLogin();
+  const { setIsLogin, setUser, setIsChange, profileDB } = useUserLogin();
 
   //메뉴박스 참조
   const dropMenuRef = useRef();
@@ -32,28 +32,24 @@ export const UserLogin = () => {
 
   //TODO 임시로그아웃 기능
   const handleLogout = () => {
-    setIsLogin(false);
-    setUser(null);
-    setIsChange(false);
-    sessionStorage.clear();
-    navigate("/");
+    logout(setIsLogin, setUser, setIsChange, navigate);
   };
 
   return (
     <div ref={dropMenuRef}>
-      {user && (
+      {profileDB && (
         <S.UserLoginBox>
-          <div>{user.nickname}</div>
+          <div>{profileDB.nickname}</div>
           <S.ProfileImage
             alt="프로필 사진"
-            src={process.env.PUBLIC_URL + "/" + user.profile}
+            src={"/img/" + profileDB.profileimg}
           />
           <img
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
             }}
             alt="메뉴 아이콘"
-            src={process.env.PUBLIC_URL + "/img/layout/menu-icon.png"}
+            src={"/img/layout/menu-icon.png"}
           />
         </S.UserLoginBox>
       )}
@@ -80,4 +76,12 @@ export const UserLogin = () => {
       </S.MenuBox>
     </div>
   );
+};
+
+export const logout = (setIsLogin, setUser, setIsChange, navigate) => {
+  setIsLogin(false);
+  setUser(null);
+  setIsChange(false);
+  sessionStorage.clear();
+  navigate("/");
 };
