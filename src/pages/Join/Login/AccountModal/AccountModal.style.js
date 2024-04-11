@@ -19,14 +19,14 @@ export const ModalBox = styled.div`
   border-radius: 8px;
 `;
 
-export const TabMenuBox = styled.div``;
-
 export const TabMenu = styled.div`
   display: flex;
   justify-content: space-around;
 `;
 
-export const Tab = styled.button``;
+export const Tab = styled.button`
+  color: ${({ active }) => (active ? "#3f72af" : "#888888")};
+`;
 
 export const ModalCloseButton = styled.button`
   position: absolute;
@@ -35,16 +35,20 @@ export const ModalCloseButton = styled.button`
 `;
 
 export const TabMenuBar = styled.div`
+  position: relative;
   width: 100%;
   height: 8px;
   background-color: #d9d9d9;
   margin: 1rem 0;
+`;
 
-  .inner-bar {
-    width: 50%;
-    height: 8px;
-    background-color: #dbe2ef;
-  }
+export const InnerBar = styled.div`
+  position: absolute;
+  width: 50%;
+  height: 8px;
+  background-color: #dbe2ef;
+  transition: all 0.3s ease;
+  left: ${({ active }) => (active === "findId" ? 0 : "50%")};
 `;
 
 export const FormField = styled.div`

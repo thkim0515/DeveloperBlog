@@ -23,7 +23,7 @@ export const Login = () => {
   const { setIsLogin, setIsChange } = useUserLogin();
   const [isShowModal, setIsShowModal] = useState(false);
 
-  const userLoginData = {
+  const userInputData = {
     id: id,
     password: password,
   };
@@ -41,7 +41,7 @@ export const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/users/login", userLoginData);
+      const response = await axios.post("/users/login", userInputData);
 
       if (response.data.user) {
         sessionStorage.setItem("user", JSON.stringify(response.data.user));
