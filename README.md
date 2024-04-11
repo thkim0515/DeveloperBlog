@@ -1,1 +1,39 @@
-# DeveloperBlog
+npm install --legacy-peer-deps
+
+npm list
+
+developer-blog@0.1.0 D:\star_blog
+├── @fortawesome/fontawesome-free@6.5.1
+├── @fortawesome/fontawesome-svg-core@6.5.1
+├── @fortawesome/free-brands-svg-icons@6.5.1
+├── @fortawesome/free-solid-svg-icons@6.5.1
+├── @fortawesome/react-fontawesome@0.2.0
+├── @testing-library/jest-dom@5.17.0
+├── @testing-library/react@13.4.0
+├── @testing-library/user-event@13.5.0
+├── @toast-ui/editor@3.2.2
+├── @toast-ui/react-editor@3.2.3
+├── ace-builds@1.32.8
+├── axios@1.6.8
+├── body-parse@0.1.0
+├── body-parser@1.20.2
+├── bootstrap@5.3.3
+├── concurrently@8.2.2
+├── dotenv@16.4.5
+├── express-session@1.18.0
+├── express@4.19.2
+├── font-awesome@4.7.0
+├── html2canvas@1.4.1
+├── jsonwebtoken@9.0.2
+├── mongoose@8.3.0
+├── multer@1.4.5-lts.1
+├── nodemon@3.1.0
+├── react-ace@11.0.1
+├── react-bootstrap@2.10.2
+├── react-dom@18.2.0
+├── react-router-dom@6.22.3
+├── react-scripts@5.0.1
+├── react@18.2.0
+├── styled-components@6.1.8
+├── styled-reset@4.5.2
+└── web-vitals@2.1.4
