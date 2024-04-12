@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import * as S from "./SignUp.style";
-import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
 
 // components
 import { Input } from "./../../../components/form/Input";
@@ -49,6 +49,9 @@ export const SignUp = () => {
 
   return (
     <>
+      <Helmet>
+        <title>회원가입 - StarBlog</title>
+      </Helmet>
       <S.SignUpText>회원가입</S.SignUpText>
       <form onSubmit={handleSubmit}>
         {/* 아이디 */}

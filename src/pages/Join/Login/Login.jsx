@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import * as S from "./Login.style";
 
@@ -62,6 +63,9 @@ export const Login = () => {
 
   return (
     <>
+      <Helmet>
+        <title>로그인 - StarBlog</title>
+      </Helmet>
       <div className="social-login">
         {/* 로그인 문구 */}
         <S.LoginText>똑소리 나는 코드 기록</S.LoginText>
