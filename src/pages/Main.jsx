@@ -7,7 +7,7 @@ export const Main = () => {
   return (
     <div>
       <Helmet>
-        <title>StarBlog</title>
+        <title>우리의 지식이 별이 되는 공간 - StarBlog</title>
       </Helmet>
       <ImageGrid value={value} />
     </div>
