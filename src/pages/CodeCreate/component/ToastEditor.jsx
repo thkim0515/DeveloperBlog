@@ -1,5 +1,5 @@
 import { Editor } from "@toast-ui/react-editor";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import styled from "styled-components";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/i18n/ko-kr";
@@ -9,12 +9,20 @@ export const ToastEditor = (props) => {
 
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML();
-    props.onEditorChange(data); // 상위 컴포넌트로 데이터 전달
+    props.onEditorChange(data);
   };
+
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.getInstance().setHTML(props.editorData);
+    }
+  }, [props.editorData]);
+
   return (
     <EditorBox>
       <Editor
         initialValue=" "
+        ref={editorRef}
         initialEditType="markdown"
         autofocus={true}
         height="542px"
@@ -25,15 +33,12 @@ export const ToastEditor = (props) => {
           ["code", "codeblock"],
         ]}
         hideModeSwitch={true}
-        ref={editorRef}
         onChange={onChange}
         language="ko-KR"
       />
     </EditorBox>
   );
 };
-
-// https://leego.tistory.com/entry/React-%EC%97%90%EB%94%94%ED%84%B0%EB%A1%9C-TOAST-UI-Editor-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0
 
 const EditorBox = styled.div`
   max-width: 1140px;

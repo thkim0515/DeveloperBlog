@@ -1,13 +1,18 @@
 const mongoose = require("mongoose");
 
 const userSetContentsSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   pid: { type: Number },
   title: { type: String },
   nickname: { type: String },
+  profileImg: { type: String },
   language: { type: String },
   publicPrivate: { type: Boolean },
   imagePath: { type: String },
-  profileImg: { type: String },
   ace_contents: { type: String },
   toast_contents: { type: String },
   postdate: {

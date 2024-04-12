@@ -4,10 +4,11 @@ import { AceEditorComp } from "./component/AceEditor";
 import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
 
-export const PostUpdatData = ({ editorData, _id }) => {
+export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
   const [postData, setPostData] = useState({
     title: "",
-    code: "",
+    ace_contents: "",
+    toast_contesnts: "",
     nickname: "",
     profileImg: "",
     imagePath: "",
@@ -19,14 +20,16 @@ export const PostUpdatData = ({ editorData, _id }) => {
         try {
           const response = await axios.get(`/contents/read/${_id}`);
           const data = response.data;
-
           setPostData({
+            pid: data.pid,
             title: data.title,
-            code: data.ace_contents || data.toast_contents,
+            ace_contents: data.ace_contents,
+            toast_contesnts: data.toast_contents,
             nickname: data.nickname,
             profileImg: data.profileImg,
             imagePath: data.imagePath,
           });
+          setPostDataToToast(data.toast_contents);
         } catch (error) {
           console.error("에러:", error);
         }
@@ -34,7 +37,7 @@ export const PostUpdatData = ({ editorData, _id }) => {
     };
 
     fetchData();
-  }, [_id]);
+  }, [_id, setPostDataToToast]);
 
   const navigate = useNavigate();
   // const [aceEditor, setAceEditor] = useState("");
@@ -67,7 +70,7 @@ export const PostUpdatData = ({ editorData, _id }) => {
       profileImg: profileImg,
       publicPrivate: true,
       ace_contents: postData.code,
-      //toast_contents: editorData.editorData,
+      toast_contents: editorData,
     };
 
     await updateContents(_id, codeData);
@@ -78,7 +81,8 @@ export const PostUpdatData = ({ editorData, _id }) => {
       const response = await axios.put(`/contents/update/${_id}`, codeData);
       console.log("서버 응답:", response.data);
       alert("성공적으로 수정");
-      navigate(-1);
+      console.log(postData.pid);
+      navigate(`/post/${postData.pid}`);
       window.location.reload();
     } catch (error) {
       console.error("에러:", error);
@@ -86,7 +90,6 @@ export const PostUpdatData = ({ editorData, _id }) => {
     }
   };
   // ----------------------------------------------
-
   return (
     <>
       <S.Container>
@@ -115,7 +118,7 @@ export const PostUpdatData = ({ editorData, _id }) => {
           <AceEditorComp name="getCode" readOnly={true} />
           <AceEditorComp
             name="setCode"
-            value={postData.code}
+            value={postData.ace_contents}
             onChange={onChange}
           />
         </S.AceEditorContainer>

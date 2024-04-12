@@ -62,14 +62,16 @@ export const AnnotationCreatePost = (props) => {
     const nickname = user.nickname;
     const profileImg = user.profile;
     const result = languageType(commentedCode);
+    const userId = user.id;
 
     const codeData = {
+      userId: userId,
       title: title ? title : "제목없음",
       nickname: nickname,
+      profileImg: profileImg,
       language: result ? result : "unknown",
       publicPrivate: true,
       imagePath: imageSrc ? imageSrc : "img/Image0.jpg",
-      profileImg: profileImg,
       ace_contents: commentedCode,
       toast_contents: props.editorData,
     };
