@@ -3,6 +3,7 @@ const router = express.Router();
 const Content = require("../models/contentModel");
 const svgsData = require("../models/svgModel");
 const Comment = require("../models/commentModel");
+const User = require("../models/userModel");
 
 //images
 router.get("/contents", async (req, res) => {
@@ -47,6 +48,7 @@ router.get("/svgsdata", async (req, res) => {
 // C
 router.post("/create", async (req, res) => {
   const {
+    userId,
     title,
     nickname,
     language,
@@ -60,6 +62,7 @@ router.post("/create", async (req, res) => {
     const lastContent = await Content.findOne().sort({ pid: -1 });
     const pid = lastContent && lastContent.pid ? lastContent.pid + 1 : 1;
     const newContents = new Content({
+      userId,
       pid,
       title,
       nickname,
@@ -70,6 +73,7 @@ router.post("/create", async (req, res) => {
       ace_contents,
       toast_contents,
     });
+    console.log(newContents);
     await newContents.save();
     res.status(201).json({ message: "글 등록 성공", pid: newContents.pid });
   } catch (error) {
@@ -94,7 +98,10 @@ router.get("/read", async (req, res) => {
 // R
 router.get("/read/:_id", async (req, res) => {
   try {
-    const content = await Content.findOne({ _id: req.params._id });
+    const content = await Content.findOne({ _id: req.params._id })
+      .populate("userId", "nickname profileimg")
+      .exec();
+    console.log(content);
     if (!content) {
       return res.status(404).json({ message: "콘텐츠없음" });
     }

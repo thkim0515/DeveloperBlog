@@ -8,7 +8,7 @@ router.post("/create", async (req, res) => {
   const { userId, postId, comment } = req.body;
   try {
     const newComments = new Comment({
-      userId,
+      userId, // (31번째 줄)
       postId,
       comment,
     });
@@ -31,11 +31,7 @@ router.get("/read/:postId", async (req, res) => {
       .populate("userId", "nickname profileimg")
       .exec();
 
-    if (comments.length === 0) {
-      return res.status(404).json({ message: "댓글 없음" });
-    } else {
-      res.status(200).json(comments);
-    }
+    res.status(200).json(comments);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "서버 에러" });
