@@ -8,28 +8,54 @@ const User = require("../models/userModel");
 //images
 router.get("/contents", async (req, res) => {
   try {
-    const contentsWithCommentCounts = await Content.aggregate([
+    const contentst = await Content.aggregate([
       {
+        // 외래키 참조로 comment.postId === content._id
         $lookup: {
-          from: "comments", // 'comments' 컬렉션을 참조
-          localField: "_id", // Content 모델의 '_id' 필드
-          foreignField: "postId", // Comment 모델의 'postId' 필드
-          as: "comments", // 결과를 'comments'라는 배열로 저장
+          from: "comments",
+          localField: "_id",
+          foreignField: "postId",
+          as: "comments",
         },
       },
       {
+        // 댓글 갯수 카운트
         $addFields: {
-          commentCount: { $size: "$comments" }, // 'comments' 배열의 크기를 계산
+          commentCount: { $size: "$comments" },
         },
       },
+      {
+        // 외래키 참조 content.userId === users_id 에서 _id,nickname,profileimg만 추출
+        $lookup: {
+          from: "users",
+          let: { userId: "$userId" },
+          pipeline: [
+            { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
+            { $project: { _id: 0, nickname: 1, profileimg: 1 } },
+          ],
+          as: "userDetails",
+        },
+      },
+      {
+        $unwind: {
+          path: "$userDetails",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      // {
+      //   // 데이터 참조 테스트용
+      //   $sort: { pid: -1 },
+      // },
       {
         $project: {
-          comments: 0, // 최종 결과에서 'comments' 배열 제외
-          // 필요한 필드를 추가하여 결과 조정 가능
+          comments: 0,
         },
       },
     ]);
-    res.json(contentsWithCommentCounts);
+
+    console.log(contentst.sort((a, b) => b.pid - a.pid)[0]);
+
+    res.json(contentst);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -50,11 +76,9 @@ router.post("/create", async (req, res) => {
   const {
     userId,
     title,
-    nickname,
     language,
     publicPrivate,
     imagePath,
-    profileImg,
     ace_contents,
     toast_contents,
   } = req.body;
@@ -65,15 +89,12 @@ router.post("/create", async (req, res) => {
       userId,
       pid,
       title,
-      nickname,
       language,
       publicPrivate,
       imagePath,
-      profileImg,
       ace_contents,
       toast_contents,
     });
-    console.log(newContents);
     await newContents.save();
     res.status(201).json({ message: "글 등록 성공", pid: newContents.pid });
   } catch (error) {
@@ -101,10 +122,11 @@ router.get("/read/:_id", async (req, res) => {
     const content = await Content.findOne({ _id: req.params._id })
       .populate("userId", "nickname profileimg")
       .exec();
-    console.log(content);
     if (!content) {
       return res.status(404).json({ message: "콘텐츠없음" });
     }
+
+    console.log(content);
     res.status(200).json(content);
   } catch (error) {
     res.status(500).json({ message: "서버 에러" });

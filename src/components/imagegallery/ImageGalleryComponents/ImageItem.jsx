@@ -9,7 +9,6 @@ import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 
 export const ImageItem = ({ content }) => {
   const navigate = useNavigate();
-
   const handleImageClick = () => {
     if (content) {
       navigate(`/post/${content.pid}`, { state: { content } });
@@ -53,15 +52,15 @@ export const ImageItem = ({ content }) => {
           </S.RoutingPage>
           <div className="user_date_box">
             <S.SProfileImage title="프로필">
-              {content.profileImg && (
+              {content.userDetails.profileimg && (
                 <S.ProfileImage
-                  src={content.profileImg}
-                  alt={content.profileImg}
+                  src={content.userDetails.profileimg}
+                  alt={content.userDetails.profileimg}
                 />
               )}
             </S.SProfileImage>
             <div className="user_info">
-              <p className="user_write_info">{content.nickname}</p>
+              <p className="user_write_info">{content.userDetails.nickname}</p>
             </div>
             <p className="user_write_info">
               <p>{formattedDate}</p>

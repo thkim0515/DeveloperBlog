@@ -42,7 +42,6 @@ export const PostDetailComment = ({ content }) => {
     } else {
       const userId = user.id;
       const postId = content._id;
-      console.log(userId + "  <>  " + postId);
       const commentData = {
         userId: userId,
         postId: postId,
@@ -103,16 +102,18 @@ export const PostDetailComment = ({ content }) => {
     setEditComment("");
   };
 
-  const handleComplete = async () => {
+  const handleComplete = async (_id) => {
     const commentData = {
       comment: editComment,
     };
-    await updateCommentToServer(commentData);
+
+    console.log(commentData);
+    await updateCommentToServer(_id, commentData);
   };
 
-  const updateCommentToServer = async (commentData) => {
+  const updateCommentToServer = async (_id, commentData) => {
     try {
-      const response = await axios.post("/엔드포인트", commentData);
+      const response = await axios.put(`/comments/update/${_id}`, commentData);
       console.log("서버 응답:", response.data);
       alert("댓글 수정 성공!");
       setEditComment("");
@@ -177,7 +178,7 @@ export const PostDetailComment = ({ content }) => {
                         <button
                           onClick={() =>
                             editId === comment._id
-                              ? handleComplete()
+                              ? handleComplete(comment._id)
                               : handleUpdate(comment._id, comment.comment)
                           }
                         >

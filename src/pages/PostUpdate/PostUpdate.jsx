@@ -15,7 +15,6 @@ export const PostUpdate = () => {
 
   const handleEditorChange = (data) => {
     setEditorData(data);
-    console.log(editorData);
   };
 
   return (

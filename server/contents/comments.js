@@ -8,7 +8,7 @@ router.post("/create", async (req, res) => {
   const { userId, postId, comment } = req.body;
   try {
     const newComments = new Comment({
-      userId, // (31번째 줄)
+      userId,
       postId,
       comment,
     });

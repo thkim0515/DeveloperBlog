@@ -81,7 +81,6 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
       const response = await axios.put(`/contents/update/${_id}`, codeData);
       console.log("서버 응답:", response.data);
       alert("성공적으로 수정");
-      console.log(postData.pid);
       navigate(`/post/${postData.pid}`);
       window.location.reload();
     } catch (error) {
