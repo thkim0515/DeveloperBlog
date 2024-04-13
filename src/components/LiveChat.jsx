@@ -120,7 +120,7 @@ export const LiveChat = () => {
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
       />
-      <button onClick={() => sendMessage(inputText)}>Send</button>
+      <button onClick={() => sendMessage(inputText)}>전송</button>
     </div>
   );
 };
