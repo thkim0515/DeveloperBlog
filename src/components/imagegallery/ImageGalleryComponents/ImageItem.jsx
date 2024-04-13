@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import * as S from "./ImageItem.style";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 
 export const ImageItem = ({ content }) => {
@@ -26,8 +26,6 @@ export const ImageItem = ({ content }) => {
       return `${year}.${month}.${day}`;
     }
   };
-
-  const formattedDate = timeString(content.postdate);
 
   return (
     <>
@@ -63,12 +61,14 @@ export const ImageItem = ({ content }) => {
               <p className="user_write_info">{content.userDetails.nickname}</p>
             </div>
             <p className="user_write_info">
-              <p>{formattedDate}</p>
+              <p>{timeString(content.postdate)}</p>
               <FontAwesomeIcon icon={faEye} style={{ margin: "0 10px" }} />
               {content.views}
               <br />
               <FontAwesomeIcon icon={faComment} style={{ margin: "0 10px" }} />
               {content.commentCount}
+              <FontAwesomeIcon icon={faHeart} style={{ margin: "0 10px" }} />
+              {content.likes}
             </p>
           </div>
         </S.SItem>

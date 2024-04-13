@@ -22,16 +22,11 @@ export async function getFromDB() {
     encryptData(svgs[0].svgs, "svgImages", localStorage);
     encryptData(contents, "contents", localStorage);
 
-    // localStorage.setItem("svgImages", JSON.stringify(svgs[0].svgs));
-    // localStorage.setItem("contents", JSON.stringify(contents));
-
     return { contents, svgs, storedContents };
   } catch (e) {
-    const { data } = await axios.get("/json/dummy.json");
+    const { data } = await axios.get("/json/newDummy.json");
     encryptData(data.svgs, "svgImages", localStorage);
     encryptData(data.items, "contents", localStorage);
-    // localStorage.setItem("svgImages", JSON.stringify(data.svgs));
-    // localStorage.setItem("contents", JSON.stringify(data.items));
     return { contents: data.items, svgs: data.svgs };
   }
 }

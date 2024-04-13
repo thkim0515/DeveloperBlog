@@ -10,11 +10,12 @@ import "ace-builds/src-noconflict/theme-one_dark";
 import "ace-builds/src-noconflict/theme-twilight";
 import axios from "axios";
 import { useUserLogin } from "../../../context/UserLoginContext";
+import { LikeButton } from "./LikeButton";
 
 export const PostDetailComp = () => {
   //로그인 유저 정보 가져오기
   const { user } = useUserLogin();
-
+  const userId = user && user.id ? user.id : null;
   // ImageItem 클릭시 state값 전달
   const location = useLocation();
   const { content } = location.state;
@@ -44,7 +45,6 @@ export const PostDetailComp = () => {
       return `${year}-${month}-${day} / ${hours}:${minutes}`;
     }
   }
-
   return (
     <>
       {content.imagePath && (
@@ -91,6 +91,7 @@ export const PostDetailComp = () => {
               dangerouslySetInnerHTML={{ __html: content.toast_contents }}
             />
             <button onClick={handleGoBack}>뒤로가기</button>
+            <LikeButton content_id={content._id} user_id={userId} />
           </S.SImageContent>
           <PostDetailComment content={content} />
         </S.SContainer>
