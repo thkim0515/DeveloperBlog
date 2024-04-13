@@ -32,8 +32,6 @@ export const useGetData = (
         const storedContents = decryptData("contents", localStorage);
         const storedSvgImages = decryptData("svgImages", localStorage);
 
-        console.log(storedContents);
-        console.log(storedSvgImages);
         let contents = [];
 
         if (storedContents && storedSvgImages) {
