@@ -1,13 +1,14 @@
 import axios from "axios";
+import { decryptData, encryptData } from "../../js/secure";
 
 export async function getFromDB() {
-  const storedContents = localStorage.getItem("contents");
-  const storedSvgImages = localStorage.getItem("svgImages");
+  const storedContents = decryptData("contents", localStorage);
+  const storedSvgImages = decryptData("svgImages", localStorage);
 
   if (storedContents && storedSvgImages) {
     return {
-      contents: JSON.parse(storedContents),
-      svgs: JSON.parse(storedSvgImages),
+      contents: storedContents,
+      svgs: storedSvgImages,
     };
   }
 
@@ -18,14 +19,19 @@ export async function getFromDB() {
     const svgs = userData;
     const contents = contentData;
 
-    localStorage.setItem("svgImages", JSON.stringify(svgs[0].svgs));
-    localStorage.setItem("contents", JSON.stringify(contents));
+    encryptData(svgs[0].svgs, "svgImages", localStorage);
+    encryptData(contents, "contents", localStorage);
+
+    // localStorage.setItem("svgImages", JSON.stringify(svgs[0].svgs));
+    // localStorage.setItem("contents", JSON.stringify(contents));
 
     return { contents, svgs, storedContents };
   } catch (e) {
     const { data } = await axios.get("/json/dummy.json");
-    localStorage.setItem("svgImages", JSON.stringify(data.svgs));
-    localStorage.setItem("contents", JSON.stringify(data.items));
+    encryptData(data.svgs, "svgImages", localStorage);
+    encryptData(data.items, "contents", localStorage);
+    // localStorage.setItem("svgImages", JSON.stringify(data.svgs));
+    // localStorage.setItem("contents", JSON.stringify(data.items));
     return { contents: data.items, svgs: data.svgs };
   }
 }

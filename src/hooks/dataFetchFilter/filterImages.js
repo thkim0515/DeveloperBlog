@@ -1,3 +1,5 @@
+import { decryptData } from "../../js/secure";
+
 export const filterImages = (images, searchTerm, value, selectedIcon) => {
   let filterimages = [];
 
@@ -20,9 +22,9 @@ export const filterImages = (images, searchTerm, value, selectedIcon) => {
     filterimages = images;
   }
 
-  const userItem = sessionStorage.getItem("user");
+  const userItem = decryptData("user", sessionStorage);
   if (userItem) {
-    const nickname = JSON.parse(userItem).nickname;
+    const nickname = userItem.nickname;
     if (value.value === "my" && userItem) {
       filterimages = images.filter((img) => img.nickname === nickname);
     }

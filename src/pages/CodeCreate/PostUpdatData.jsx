@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AceEditorComp } from "./component/AceEditor";
 import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
+import { decryptData } from "../../js/secure";
 
 export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
   const [postData, setPostData] = useState({
@@ -58,7 +59,7 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
   };
   // ----------------------------------------------
   const handlePostCode = async (_id) => {
-    const user = JSON.parse(sessionStorage.getItem("user"));
+    const user = decryptData("user", sessionStorage);
     const nickname = user.nickname;
     const profileImg = user.profile;
 

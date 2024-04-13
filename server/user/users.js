@@ -5,7 +5,7 @@ const User = require("../models/userModel");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-const SESSION_KEY = process.env.REACT_APP_SESSIONKEY;
+const SESSION_KEY = process.env.REACT_APP_SECURECODE;
 
 router.use(
   session({

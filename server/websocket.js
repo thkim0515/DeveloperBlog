@@ -14,8 +14,6 @@ function setupWebSocket(server) {
     });
 
     ws.on("message", (message) => {
-      console.log("Received: " + message);
-
       messages.push(message);
 
       wss.clients.forEach((client) => {

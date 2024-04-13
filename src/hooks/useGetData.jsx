@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useCalculatePage } from "./useCalculatePage";
 import { getFromDB } from "./dataFetchFilter/getFromDB";
 import { filterImages } from "./dataFetchFilter/filterImages";
-
+import { decryptData } from "../js/secure";
 export const useGetData = (
   value,
   PageCount,
@@ -29,14 +29,16 @@ export const useGetData = (
       try {
         await getFromDB();
 
-        const storedContents = localStorage.getItem("contents");
-        const storedSvgImages = localStorage.getItem("svgImages");
+        const storedContents = decryptData("contents", localStorage);
+        const storedSvgImages = decryptData("svgImages", localStorage);
 
+        console.log(storedContents);
+        console.log(storedSvgImages);
         let contents = [];
 
         if (storedContents && storedSvgImages) {
-          contents = JSON.parse(storedContents);
-          setSvgImages(JSON.parse(storedSvgImages));
+          contents = storedContents;
+          setSvgImages(storedSvgImages);
         }
 
         // 조건부 필터링기능 ( 필터 , 검색)

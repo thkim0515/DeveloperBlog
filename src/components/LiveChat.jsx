@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useUserLogin } from "../context/UserLoginContext";
+import { decryptData } from "../js/secure";
 
 export const LiveChat = () => {
   const [ws, setWs] = useState(null);
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const [userNickname, setUserNickname] = useState("");
+  const { isLogin } = useUserLogin();
 
   const WEBSOCKET_ADDRESS = process.env.REACT_APP_WEBSOCKET;
   const disconnectWebsocketTime = 6; // 6 분
@@ -12,11 +15,14 @@ export const LiveChat = () => {
 
   useEffect(() => {
     connectWebSocket();
+    const userSession = decryptData("user", sessionStorage);
 
-    const userSession = JSON.parse(sessionStorage.getItem("user"));
-    const nickname = userSession ? userSession.nickname : "비로그인 유저";
-    setUserNickname(nickname);
-  }, []);
+    if (isLogin && userSession) {
+      setUserNickname(userSession?.nickname);
+    } else {
+      setUserNickname("비로그인유저");
+    }
+  }, [isLogin]);
 
   const connectWebSocket = () => {
     if (ws != null) {

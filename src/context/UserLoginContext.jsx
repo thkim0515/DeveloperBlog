@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
-
+import { encryptData, decryptData } from "../js/secure";
 // 새로운 컨텍스트 생성
 const UserLoginContext = createContext();
 
@@ -8,23 +8,24 @@ const UserLoginContext = createContext();
 export const UserLoginProvider = ({ children }) => {
   // 로그인상태
   const [isLogin, setIsLogin] = useState(
-    JSON.parse(sessionStorage.getItem("isLogin"))
+    decryptData("isLogin", sessionStorage)
   );
 
   //isLogin 상태가 변경될 때마다 세션 스토리지에 저장
   useEffect(() => {
-    sessionStorage.setItem("isLogin", isLogin);
+    // sessionStorage.setItem("isLogin", isLogin);
+    encryptData(isLogin, "isLogin", sessionStorage);
   }, [isLogin]);
 
   //로그인 유저 정보
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
+  const [user, setUser] = useState(decryptData("user", sessionStorage));
 
   //user정보 변경 감지
   const [isChange, setIsChange] = useState(false);
 
   useEffect(() => {
     if (isChange) {
-      setUser(JSON.parse(sessionStorage.getItem("user")));
+      setUser(decryptData("user", sessionStorage));
     }
   }, [isChange]);
 

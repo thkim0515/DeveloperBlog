@@ -18,6 +18,7 @@ import { AccountModal } from "./AccountModal/AccountModal";
 // button array
 import { socialLogin } from "./socialLogin/SocialLoginData";
 
+import { encryptData } from "../../../js/secure";
 export const Login = () => {
   const [id, onChangeId] = useForm();
   const [password, onChangePassword] = useForm();
@@ -45,7 +46,8 @@ export const Login = () => {
       const response = await axios.post("/users/login", userInputData);
 
       if (response.data.user) {
-        sessionStorage.setItem("user", JSON.stringify(response.data.user));
+        encryptData(response.data.user, "user", sessionStorage);
+        //sessionStorage.setItem("user", JSON.stringify(response.data.user));
         setIsLogin(true);
         setIsChange(true);
         navigate("/");

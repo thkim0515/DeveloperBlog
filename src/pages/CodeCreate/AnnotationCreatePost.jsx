@@ -6,6 +6,7 @@ import { Spinner } from "./component/Spinner";
 import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
 import ace from "ace-builds/src-noconflict/ace";
+import { decryptData } from "../../js/secure";
 
 export const AnnotationCreatePost = (props) => {
   const navigate = useNavigate();
@@ -38,8 +39,8 @@ export const AnnotationCreatePost = (props) => {
     setIsLoading(false);
   };
 
-  function languageType(stLineValue) {
-    let firstLineContent = stLineValue.split("\n")[0].replace(/[^\w.]/g, "");
+  function languageType(commentedCode) {
+    let firstLineContent = commentedCode.split("\n")[0].replace(/[^\w.]/g, "");
     if (firstLineContent === "jsx") {
       firstLineContent = "react";
     }
@@ -58,7 +59,7 @@ export const AnnotationCreatePost = (props) => {
 
   const handlePostCode = async () => {
     //await handleCaptureImage();
-    const user = JSON.parse(sessionStorage.getItem("user"));
+    const user = decryptData("user", sessionStorage);
     const nickname = user.nickname;
     const profileImg = user.profile;
     const result = languageType(commentedCode);

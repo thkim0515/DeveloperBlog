@@ -107,7 +107,6 @@ export const PostDetailComment = ({ content }) => {
       comment: editComment,
     };
 
-    console.log(commentData);
     await updateCommentToServer(_id, commentData);
   };
 

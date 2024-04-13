@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
+import { encryptData, decryptData } from "../js/secure";
 
 export const useCalculatePage = (PageCount, filteredImages) => {
-  const savedCurrentPage = Number(sessionStorage.getItem("currentPage") || 1);
+  const savedCurrentPage = Number(
+    decryptData("currentPage", sessionStorage) || 1
+  );
   const [currentPage, setCurrentPage] = useState(savedCurrentPage);
 
   useEffect(() => {
-    sessionStorage.setItem("currentPage", currentPage);
+    // sessionStorage.setItem("currentPage", currentPage);
+    encryptData(currentPage, "currentPage", sessionStorage);
   }, [currentPage]);
 
   const indexOfLastImage = currentPage * PageCount;
