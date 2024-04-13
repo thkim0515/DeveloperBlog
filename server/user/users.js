@@ -106,6 +106,17 @@ router.get("/read/:_id", async (req, res) => {
 // U
 router.put("/update/:_id", async (req, res) => {
   try {
+    const { nickname } = req.body; // 닉네임 정보
+    const existingUser = await User.findOne({
+      nickname,
+      _id: { $ne: req.params._id },
+    }); //사용자 제외하고, 이미 가입된 닉네임 있는지 확인
+    if (existingUser) {
+      return res
+        .status(409)
+        .json({ message: "새로운 닉네임이 이미 사용 중입니다." });
+    }
+
     const updateUserData = await User.findOneAndUpdate(
       { _id: req.params._id },
       req.body,
@@ -114,7 +125,7 @@ router.put("/update/:_id", async (req, res) => {
     if (!updateUserData) {
       return res.status(404).json({ message: "계정 정보 없음" });
     }
-    res.status(200).json({ message: "계정 수정성공", updateUserData });
+    res.status(200).json({ message: "계정 수정 성공", updateUserData });
   } catch (error) {
     logError(error.message);
     res.status(500).json({ message: "서버 에러" });

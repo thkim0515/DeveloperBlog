@@ -36,7 +36,6 @@ export const UserLoginProvider = ({ children }) => {
       axios
         .get(`/users/read/${user.id}`)
         .then((response) => {
-          console.log(response.data);
           setProfileDB(response.data);
         })
         .catch((error) => {
