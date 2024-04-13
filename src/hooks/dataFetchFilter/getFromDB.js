@@ -27,7 +27,7 @@ export async function getFromDB() {
 
     return { contents, svgs, storedContents };
   } catch (e) {
-    const { data } = await axios.get("/json/dummy.json");
+    const { data } = await axios.get("/json/newDummy.json");
     encryptData(data.svgs, "svgImages", localStorage);
     encryptData(data.items, "contents", localStorage);
     // localStorage.setItem("svgImages", JSON.stringify(data.svgs));
