@@ -164,3 +164,32 @@ export const AnnotationCreatePost = (props) => {
     </>
   );
 };
+
+// 더미 데이터 생성
+// const handlePostCode = async () => {
+//   const user = decryptData("user", sessionStorage);
+//   const nickname = user.nickname;
+//   const profileImg = user.profile;
+//   const userId = user.id;
+
+//   for (let i = 1; i <= 200; i++) {
+//     const codeData = {
+//       userId: userId,
+//       title: `제목없음${i}`,
+//       nickname: nickname,
+//       profileImg: profileImg,
+//       language: "unknown",
+//       publicPrivate: true,
+//       imagePath: `img/Image0.jpg`,
+//       ace_contents: `테스트 더미 데이터${i}`,
+//       toast_contents: `테스트 더미 데이터${i}`,
+//     };
+
+//     try {
+//       await axios.post("/contents/create", codeData);
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   }
+//   alert("끝");
+// };

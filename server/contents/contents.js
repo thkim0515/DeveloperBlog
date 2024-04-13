@@ -4,10 +4,12 @@ const Content = require("../models/contentModel");
 const svgsData = require("../models/svgModel");
 const Comment = require("../models/commentModel");
 const User = require("../models/userModel");
+const { logError } = require("../error/processError");
 
 //images
 router.get("/contents", async (req, res) => {
   try {
+    // throw new Error("테스트 에러발생");
     const contentst = await Content.aggregate([
       {
         // 외래키 참조로 comment.postId === content._id
@@ -25,7 +27,7 @@ router.get("/contents", async (req, res) => {
         },
       },
       {
-        // 외래키 참조 content.userId === users_id 에서 _id,nickname,profileimg만 추출
+        // 외래키 참조 content.userId === users_id 에서 _id 제외 ,nickname,profileimg만 추출
         $lookup: {
           from: "users",
           let: { userId: "$userId" },
@@ -53,11 +55,10 @@ router.get("/contents", async (req, res) => {
       },
     ]);
 
-    console.log(contentst.sort((a, b) => b.pid - a.pid)[0]);
-
     res.json(contentst);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    logError(error.message);
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -66,8 +67,9 @@ router.get("/svgsdata", async (req, res) => {
   try {
     const svgsdata = await svgsData.find();
     res.json(svgsdata);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    logError(error.message);
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -98,6 +100,7 @@ router.post("/create", async (req, res) => {
     await newContents.save();
     res.status(201).json({ message: "글 등록 성공", pid: newContents.pid });
   } catch (error) {
+    logError(error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -125,10 +128,9 @@ router.get("/read/:_id", async (req, res) => {
     if (!content) {
       return res.status(404).json({ message: "콘텐츠없음" });
     }
-
-    console.log(content);
     res.status(200).json(content);
   } catch (error) {
+    logError(error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -146,6 +148,7 @@ router.put("/update/:_id", async (req, res) => {
     }
     res.status(200).json({ message: "수정성공", updatedContent });
   } catch (error) {
+    logError(error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -171,6 +174,7 @@ router.delete("/delete/:_id", async (req, res) => {
       deletedCommentsCount: deletedComments.deletedCount,
     });
   } catch (error) {
+    logError(error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -191,32 +195,37 @@ router.post("/view", async (req, res) => {
 
     res.status(200).json(content);
   } catch (error) {
+    logError(error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
 
 // 좋아요
 router.post("/like", async (req, res) => {
-  const { contents_id, user_id } = req.body;
+  const { content_id, user_id } = req.body;
 
   try {
-    const content = await Content.findOne({ _id: contents_id });
-
+    const content = await Content.findOne({ _id: content_id });
     if (!content) {
       return res.status(404).json({ message: "콘텐츠 없음" });
     }
 
-    if (content.likeUser.includes(user_id)) {
-      return res.status(400).json({ message: "이미 좋아요를 누른 게시글" });
+    const index = content.likeUser.indexOf(user_id);
+    if (index === -1) {
+      // 좋아요 추가
+      content.likes += 1;
+      content.likeUser.push(user_id);
+    } else {
+      // 좋아요 취소
+      content.likes -= 1;
+      content.likeUser.splice(index, 1);
     }
 
-    content.likes += 1;
-    content.likeUser.push(user_id);
     await content.save();
-
     res.status(200).json(content);
   } catch (error) {
-    res.status(500).json({ message: "서버 에러" });
+    logError(error.message);
+    res.status(500).json({ message: "서버 에러", error: error.message });
   }
 });
 

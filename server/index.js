@@ -8,7 +8,7 @@ const http = require("http");
 const { setupWebSocket } = require("./websocket");
 
 const app = express();
-const PORT = 5000 || process.env.REACT_APP_PORT;
+const PORT = 5000;
 const DATABASE = process.env.REACT_APP_DATABASE;
 const uri = `${DATABASE}starblog?retryWrites=true&w=majority`;
 
@@ -23,11 +23,13 @@ mongoose
 const users = require("./user/users");
 const contents = require("./contents/contents");
 const comments = require("./contents/comments");
+const { router } = require("./error/processError");
 
 app.use(bodyParser.json());
 app.use("/users", users);
 app.use("/contents", contents);
 app.use("/comments", comments);
+app.use(router);
 
 app.use(express.static(path.join(__dirname, "../build")));
 

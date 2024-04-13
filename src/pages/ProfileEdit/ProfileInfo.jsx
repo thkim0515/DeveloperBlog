@@ -11,7 +11,6 @@ export const ProfileInfo = () => {
   const memoizedSetIsChange = useCallback(setIsChange, [setIsChange]);
   useEffect(() => {
     memoizedSetIsChange(false);
-    console.log("실행중");
   }, [memoizedSetIsChange]);
 
   //로그인 유저정보
@@ -60,7 +59,11 @@ export const ProfileInfo = () => {
       setIsChange(true);
       navigate("/profile");
     } catch (error) {
-      console.error("서버응답실패:", error);
+      if (error.response && error.response.status === 409) {
+        alert(error.response.data.message);
+      } else {
+        alert("정보 변경 실패");
+      }
     }
   };
 

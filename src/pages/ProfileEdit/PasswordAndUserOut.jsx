@@ -46,6 +46,7 @@ export const PasswordAndUserOut = () => {
       navigate("/profile");
     } catch (error) {
       console.error("서버응답실패:", error);
+      alert("비밀번호 변경 실패");
     }
   };
 
