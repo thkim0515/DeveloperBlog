@@ -18,11 +18,14 @@ export const SItem = styled.div`
   }
 
   h2 {
-    height: 10%;
+    height: 24px;
     text-align: center;
     font-size: 24px;
     font-weight: bold;
-    margin: 10px 0;
+    margin: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .svgIcon {
@@ -39,6 +42,7 @@ export const SItem = styled.div`
     height: 10%;
     display: flex;
     align-items: center;
+    gap: 8px;
     padding: 0 10px;
   }
 
@@ -49,7 +53,12 @@ export const SItem = styled.div`
   }
 
   .user_write_info {
-    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    .post_date{
+      align-self: flex-end;
+    }
   }
 `;
 

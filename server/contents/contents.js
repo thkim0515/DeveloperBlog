@@ -33,7 +33,7 @@ router.get("/contents", async (req, res) => {
           let: { userId: "$userId" },
           pipeline: [
             { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
-            { $project: { _id: 0, nickname: 1, profileimg: 1 } },
+            { $project: { _id: 1, nickname: 1, profileimg: 1 } },
           ],
           as: "userId",
         },
