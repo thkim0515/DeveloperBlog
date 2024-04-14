@@ -62,14 +62,14 @@ export const PostDetailComp = () => {
           <S.SSpace>
             <div style={{ display: "flex", alignItems: "center" }}>
               <S.SProfileImage title="프로필">
-                {content.userDetails.profileimg && (
+                {content.userId.profileimg && (
                   <S.ProfileImage
                     src={`../${content.imagePath}`}
-                    alt={content.userDetails.profileimg}
+                    alt={content.userId.profileimg}
                   />
                 )}
               </S.SProfileImage>
-              {content.userDetails.nickname}
+              {content.userId.nickname}
             </div>
             <div>{timeString(content.postdate)}</div>
           </S.SSpace>

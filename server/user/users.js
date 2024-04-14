@@ -2,6 +2,8 @@ const session = require("express-session");
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
+const Content = require("../models/contentModel");
+const Comment = require("../models/commentModel");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const { logError } = require("../error/processError");
@@ -26,6 +28,7 @@ router.post("/login", async (req, res) => {
 
   try {
     const user = await User.findOne({ id }).exec();
+
     if (!user) {
       return res.status(404).json({ message: "아이디를 찾을 수 없습니다." });
     }
@@ -64,6 +67,18 @@ router.post("/login", async (req, res) => {
 router.post("/signup", async (req, res) => {
   const { id, nickname, email, password, profileimg } = req.body;
   try {
+    if (id.length < 6 || id.length > 14) {
+      return res
+        .status(400)
+        .json({ message: "아이디는 6글자 이상 14글자 이하여야 합니다." });
+    }
+
+    if (nickname.length < 6 || nickname.length > 14) {
+      return res
+        .status(400)
+        .json({ message: "닉네임은 6글자 이상 14글자 이하여야 합니다." });
+    }
+
     const duplicatId = await User.findOne({ id });
     if (duplicatId) {
       return res.status(409).json({ message: "아이디가 이미 사용 중입니다." });
@@ -95,6 +110,7 @@ router.get("/read/:_id", async (req, res) => {
     const readUserdata = await User.findById(req.params._id).select(
       "_id id nickname email profileimg"
     );
+    console.log(readUserdata);
     if (!readUserdata) {
       return res.status(404).json({ message: "계정 정보 없음" });
     }
@@ -175,12 +191,18 @@ router.put("/updatePwd/:_id", async (req, res) => {
 // D
 router.delete("/delete/:_id", async (req, res) => {
   try {
+    const userId = req.params._id;
+
     const deletedAccount = await User.findOneAndDelete({
-      _id: req.params._id,
+      _id: userId,
     });
+
     if (!deletedAccount) {
       return res.status(404).json({ message: "계정이 존재하지 않음" });
     }
+    await Comment.deleteMany({ userId: userId });
+    await Content.deleteMany({ userId: userId });
+
     res.status(200).json({ message: "계정 삭제성공" });
   } catch (error) {
     logError(error.message);

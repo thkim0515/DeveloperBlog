@@ -6,7 +6,7 @@ import * as S from "./SignUp.style";
 
 // components
 import { Input } from "./../../../components/form/Input";
-
+import { EmailVerification } from "./EmailVerification";
 export const SignUp = () => {
   const navigate = useNavigate();
   const [userInputData, setUserInputData] = useState({
@@ -38,13 +38,20 @@ export const SignUp = () => {
       alert("회원가입이 완료되었습니다.");
       navigate("/login");
     } catch (error) {
-      if (error.response && error.response.status === 409) {
+      if (error.response && error.response.status === 400) {
+        alert(error.response.data.message);
+      } else if (error.response && error.response.status === 409) {
         alert(error.response.data.message);
       } else {
         alert("회원가입 실패");
       }
-      console.error("회원가입 실패:", error);
     }
+  };
+
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+
+  const handleEmailVerified = (verified) => {
+    setIsEmailVerified(verified);
   };
 
   return (
@@ -72,6 +79,16 @@ export const SignUp = () => {
           <Input type="email" id="email" onChange={handleInputData} />
         </S.SignUpFiled>
 
+        {/* 이메일 인증 */}
+        <S.SignUpFiled>
+          <label htmlFor="email">이메일 인증번호</label>
+          <EmailVerification
+            userEmail={userInputData.email}
+            onChange={handleInputData}
+            onEmailVerified={handleEmailVerified}
+          />
+        </S.SignUpFiled>
+
         {/* 비밀번호 */}
         <S.SignUpFiled>
           <label htmlFor="password">비밀번호</label>
@@ -85,7 +102,9 @@ export const SignUp = () => {
         </S.SignUpFiled>
 
         {/* 회원가입 버튼 */}
-        <S.SignUpButton type="submit">회원가입</S.SignUpButton>
+        <S.SignUpButton type="submit" disabled={!isEmailVerified}>
+          회원가입
+        </S.SignUpButton>
       </form>
 
       {/* 페이지 이동 */}

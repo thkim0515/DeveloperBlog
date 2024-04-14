@@ -34,7 +34,7 @@ export const App = () => {
             {/* Layout 컴포넌트 안에서 자식 Route들을 배치 */}
             <Route index element={<Main />} />
             <Route path="codeCreate" element={<CodeCreate />} />
-            <Route path="post/:pid" element={<PostDetail />} />
+            <Route path="post/:_id" element={<PostDetail />} />
             <Route path="postUpdate/:_id" element={<PostUpdate />} />
             <Route path="profile" element={<Profile />} />
             <Route path="profileEdit" element={<ProfileEdit />} />
