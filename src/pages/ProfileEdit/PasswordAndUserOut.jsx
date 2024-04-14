@@ -24,11 +24,6 @@ export const PasswordAndUserOut = () => {
     const editData = { ...profileDB };
     editData.password = newPassword;
 
-    //현재 비밀번호가 db 비밀번호와 일치하는지 확인
-    if (password !== profileDB.password) {
-      alert("현재 비밀번호가 일치하지않습니다.");
-      return;
-    }
     //새로운 비밀번호와 재입력 비밀번호가 일치하는지 확인
     if (newPassword !== confirmPassword) {
       alert("새로운 비밀번호와 재입력 비밀번호가 일치하지않습니다.");

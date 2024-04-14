@@ -92,7 +92,9 @@ router.post("/signup", async (req, res) => {
 // R
 router.get("/read/:_id", async (req, res) => {
   try {
-    const readUserdata = await User.findOne({ _id: req.params._id });
+    const readUserdata = await User.findById(req.params._id).select(
+      "_id id nickname email profileimg"
+    );
     if (!readUserdata) {
       return res.status(404).json({ message: "계정 정보 없음" });
     }

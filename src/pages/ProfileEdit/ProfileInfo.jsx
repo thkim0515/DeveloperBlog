@@ -58,6 +58,8 @@ export const ProfileInfo = () => {
       console.log(response.data);
       setIsChange(true);
       navigate("/profile");
+      //TODO 메인페이지 get 요청 수정되면 지우기
+      window.location.reload();
     } catch (error) {
       if (error.response && error.response.status === 409) {
         alert(error.response.data.message);

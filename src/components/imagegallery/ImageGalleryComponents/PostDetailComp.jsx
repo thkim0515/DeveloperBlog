@@ -55,7 +55,7 @@ export const PostDetailComp = () => {
               {/* alt={image.language} */}
             </div>
             <h3>{content.title}</h3>
-            {user && user.nickname === content.userDetails.nickname && (
+            {user && userId === content.userId && (
               <PostDetailWriter content={content} />
             )}
           </S.STitle>
