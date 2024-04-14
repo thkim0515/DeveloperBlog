@@ -52,6 +52,10 @@ export const ProfileInfo = () => {
       alert("닉네임 또는 이메일을 입력해주세요");
       return;
     }
+    if (nickname.length > 14) {
+      alert("닉네임은 14글자를 초과할 수 없습니다. ");
+      return;
+    }
     const editData = { ...profileDB };
     editData.nickname = nickname;
     editData.email = email;
@@ -59,7 +63,7 @@ export const ProfileInfo = () => {
       await axios.put(`/users/update/${profileDB._id}`, editData);
       setIsChange(true);
       navigate("/profile");
-      //TODO 메인페이지 get 요청 수정되면 지우기
+      //TODO 새로고침 줄이기...
       window.location.reload();
     } catch (error) {
       if (error.response && error.response.status === 409) {

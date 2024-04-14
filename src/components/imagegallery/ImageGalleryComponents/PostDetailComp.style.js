@@ -34,7 +34,12 @@ export const STitle = styled.div`
   }
 
   h3 {
-    margin-left: 10px;
+    height: 24px;
+    text-align: center;
+    font-size: 24px;
+    margin: 10px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
 `;
@@ -195,10 +200,14 @@ export const CommentBox = styled.div`
         }
 
         .userid {
+          width: 100%;
           font-weight: bold;
           font-size: 12px;
+          text-align: center;
           margin-top: 4px;
           overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
     }
 
