@@ -36,11 +36,11 @@ router.post("/email", async (req, res) => {
           <style>
             .auth-code {
               padding: 10px;
-              background-color: #f3f4f6; /* 회색 배경 */
-              border: 1px solid #d1d5db; /* 테두리 */
-              font-size: 16px; /* 글자 크기 */
-              font-family: Arial, sans-serif; /* 폰트 */
-              color: #111827; /* 글자 색상 */
+              background-color: #f3f4f6; 
+              border: 1px solid #d1d5db; 
+              font-size: 16px; 
+              font-family: Arial, sans-serif; 
+              color: #111827; 
             }
           </style>
         </head>

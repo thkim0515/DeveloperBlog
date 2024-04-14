@@ -5,6 +5,8 @@ const User = require("../models/userModel");
 const Content = require("../models/contentModel");
 const Comment = require("../models/commentModel");
 const path = require("path");
+const bcrypt = require("bcrypt");
+
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const { logError } = require("../error/processError");
 
@@ -33,7 +35,8 @@ router.post("/login", async (req, res) => {
       return res.status(404).json({ message: "아이디를 찾을 수 없습니다." });
     }
 
-    if (password !== user.password) {
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
       return res.status(401).json({ message: "비밀번호가 일치하지 않습니다." });
     }
 
@@ -67,16 +70,28 @@ router.post("/login", async (req, res) => {
 router.post("/signup", async (req, res) => {
   const { id, nickname, email, password, profileimg } = req.body;
   try {
-    if (id.length < 6 || id.length > 14) {
-      return res
-        .status(400)
-        .json({ message: "아이디는 6글자 이상 14글자 이하여야 합니다." });
+    if (!/^[가-힣a-zA-Z0-9]{6,14}$/.test(id)) {
+      if (id.length < 6 || id.length > 14) {
+        return res
+          .status(400)
+          .json({ message: "아이디는 6글자 이상 14글자 이하여야 합니다." });
+      } else {
+        return res
+          .status(400)
+          .json({ message: "아이디에 특수문자는 사용할 수 없습니다" });
+      }
     }
 
-    if (nickname.length < 6 || nickname.length > 14) {
-      return res
-        .status(400)
-        .json({ message: "닉네임은 6글자 이상 14글자 이하여야 합니다." });
+    if (!/^[가-힣a-zA-Z0-9]{6,14}$/.test(nickname)) {
+      if (nickname.length < 6 || nickname.length > 14) {
+        return res
+          .status(400)
+          .json({ message: "닉네임은 6글자 이상 14글자 이하여야 합니다." });
+      } else {
+        return res
+          .status(400)
+          .json({ message: "닉네임에 특수문자는 사용할 수 없습니다" });
+      }
     }
 
     const duplicatId = await User.findOne({ id });
@@ -89,11 +104,14 @@ router.post("/signup", async (req, res) => {
       return res.status(409).json({ message: "닉네임이 이미 사용 중입니다." });
     }
 
+    const bcryptRound = 10;
+    const hashedPassword = await bcrypt.hash(password, bcryptRound);
+
     const newUser = new User({
       id,
       nickname,
       email,
-      password,
+      password: hashedPassword,
       profileimg,
     });
     await newUser.save();
@@ -110,7 +128,7 @@ router.get("/read/:_id", async (req, res) => {
     const readUserdata = await User.findById(req.params._id).select(
       "_id id nickname email profileimg"
     );
-    console.log(readUserdata);
+
     if (!readUserdata) {
       return res.status(404).json({ message: "계정 정보 없음" });
     }
@@ -118,6 +136,52 @@ router.get("/read/:_id", async (req, res) => {
   } catch (error) {
     logError(error.message);
     res.status(500).json({ message: "서버 에러" });
+  }
+});
+
+router.post("/findId", async (req, res) => {
+  // firstField : 이메일 , secondField : 패스워드
+  const { firstField, secondField } = req.body;
+
+  try {
+    const user = await User.findOne({ email: firstField });
+
+    if (!user) {
+      return res.status(404).json({ message: "존재하지 않는 이메일입니다." });
+    }
+    console.log(secondField);
+    console.log(user.password);
+    const match = await bcrypt.compare(secondField, user.password);
+    if (!match) {
+      return res.status(401).json({ message: "비밀번호가 일치하지 않습니다." });
+    }
+
+    // 아이디 res
+    res.json({ id: user.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "서버 에러가 발생했습니다." });
+  }
+});
+
+router.post("/findPwd", async (req, res) => {
+  // firstField : 아이디 , secondField : 이메일
+  const { firstField, secondField } = req.body;
+  console.log(firstField, secondField);
+  try {
+    const user = await User.findOne({ id: firstField, email: secondField });
+    console.log(user);
+    if (!user) {
+      return res.status(404).json({
+        message: "아이디 혹은 이메일이 일치하는 사용자가 존재하지 않습니다.",
+      });
+    }
+
+    // 비밀번호 res
+    res.json({ password: user.password });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "서버 에러가 발생했습니다." });
   }
 });
 

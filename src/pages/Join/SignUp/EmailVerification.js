@@ -10,12 +10,11 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
       if (!userEmail) {
         alert("이메일을 입력해주세요.");
       }
-
+      alert("인증번호가 이메일로 전송되었습니다.");
       const response = await axios.post("/email/email", {
         email: userEmail,
       });
       setauthCode(response.data.authCode);
-      alert("인증번호가 이메일로 전송되었습니다.");
     } catch (error) {
       if (error.response && error.response.status === 409) {
         alert(error.response.data.message);
