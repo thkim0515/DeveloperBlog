@@ -35,12 +35,12 @@ router.get("/contents", async (req, res) => {
             { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
             { $project: { _id: 0, nickname: 1, profileimg: 1 } },
           ],
-          as: "userDetails",
+          as: "userId",
         },
       },
       {
         $unwind: {
-          path: "$userDetails",
+          path: "$userId",
           preserveNullAndEmptyArrays: true,
         },
       },
@@ -143,6 +143,7 @@ router.put("/update/:_id", async (req, res) => {
       req.body,
       { new: true }
     );
+    console.log(updatedContent);
     if (!updatedContent) {
       return res.status(404).json({ message: "콘텐츠없음" });
     }

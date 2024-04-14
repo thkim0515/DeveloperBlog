@@ -55,21 +55,21 @@ export const PostDetailComp = () => {
               {/* alt={image.language} */}
             </div>
             <h3>{content.title}</h3>
-            {user && user.nickname === content.userDetails.nickname && (
+            {user && user.nickname === content.userId.nickname && (
               <PostDetailWriter content={content} />
             )}
           </S.STitle>
           <S.SSpace>
             <div style={{ display: "flex", alignItems: "center" }}>
               <S.SProfileImage title="프로필">
-                {content.userDetails.profileimg && (
+                {content.userId.profileimg && (
                   <S.ProfileImage
                     src={`../${content.imagePath}`}
-                    alt={content.userDetails.profileimg}
+                    alt={content.userId.profileimg}
                   />
                 )}
               </S.SProfileImage>
-              {content.userDetails.nickname}
+              {content.userId.nickname}
             </div>
             <div>{timeString(content.postdate)}</div>
           </S.SSpace>

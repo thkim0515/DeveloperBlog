@@ -3,16 +3,24 @@ import { useNavigate } from "react-router-dom";
 import { AceEditorComp } from "./component/AceEditor";
 import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
-import { decryptData } from "../../js/secure";
 
 export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
   const [postData, setPostData] = useState({
+    _id: "",
     title: "",
     ace_contents: "",
-    toast_contesnts: "",
-    nickname: "",
-    profileImg: "",
+    toast_contents: "",
+    language: "",
     imagePath: "",
+    postdate: "",
+    publicPrivate: false,
+    views: 0,
+    likes: 0,
+    likeUser: [],
+    userId: {
+      nickname: "",
+      profileImg: "",
+    },
   });
 
   useEffect(() => {
@@ -22,13 +30,7 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
           const response = await axios.get(`/contents/read/${_id}`);
           const data = response.data;
           setPostData({
-            pid: data.pid,
-            title: data.title,
-            ace_contents: data.ace_contents,
-            toast_contesnts: data.toast_contents,
-            nickname: data.nickname,
-            profileImg: data.profileImg,
-            imagePath: data.imagePath,
+            ...data,
           });
           setPostDataToToast(data.toast_contents);
         } catch (error) {
@@ -59,30 +61,22 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
   };
   // ----------------------------------------------
   const handlePostCode = async (_id) => {
-    const user = decryptData("user", sessionStorage);
-    const nickname = user.nickname;
-    const profileImg = user.profile;
-
-    const codeData = {
+    const content = {
       ...postData,
       title: postData.title ? postData.title : "제목없음",
-      nickname: nickname,
-      //imagePath: imageSrc ? imageSrc : "img/Image0.jpg",
-      profileImg: profileImg,
-      publicPrivate: true,
       ace_contents: postData.code,
       toast_contents: editorData,
     };
 
-    await updateContents(_id, codeData);
+    await updateContents(_id, content);
   };
 
-  const updateContents = async (_id, codeData) => {
+  const updateContents = async (_id, content) => {
     try {
-      const response = await axios.put(`/contents/update/${_id}`, codeData);
+      const response = await axios.put(`/contents/update/${_id}`, content);
       console.log("서버 응답:", response.data);
       alert("성공적으로 수정");
-      navigate(`/post/${postData.pid}`);
+      navigate(`/post/${_id}`, { state: { content } });
       window.location.reload();
     } catch (error) {
       console.error("에러:", error);
@@ -115,7 +109,7 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
           </div>
         </S.FormField>
         <S.AceEditorContainer>
-          <AceEditorComp name="getCode" readOnly={true} />
+          <AceEditorComp name="getCode" readOnly={false} />
           <AceEditorComp
             name="setCode"
             value={postData.ace_contents}
