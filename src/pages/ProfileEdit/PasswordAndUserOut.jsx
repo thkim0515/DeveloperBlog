@@ -21,8 +21,15 @@ export const PasswordAndUserOut = () => {
   //업데이트 요쳥
   const handleUpdate = async (e) => {
     e.preventDefault();
+
+    const currentPassword = password;
     const editData = { ...profileDB };
     editData.password = newPassword;
+
+    const requestData = {
+      editData: editData,
+      currentPassword: currentPassword,
+    };
 
     //새로운 비밀번호와 재입력 비밀번호가 일치하는지 확인
     if (newPassword !== confirmPassword) {
@@ -30,18 +37,24 @@ export const PasswordAndUserOut = () => {
       return;
     }
 
-    //모두 일치하면 업데이트 시도
+    //공백은 제출 불가능
+    if (newPassword.trim() === "" || password.trim() === "") {
+      alert("비밀번호를 입력해주세요.");
+      return;
+    }
+
+    //일치하면 업데이트 시도
     try {
-      const response = await axios.put(
-        `/users/update/${profileDB._id}`,
-        editData
-      );
-      console.log(response.data);
+      await axios.put(`/users/updatePwd/${profileDB._id}`, requestData);
       setIsChange(true);
-      navigate("/profile");
+      alert("비밀번호가 변경되었습니다. 다시 로그인 해주세요");
+      logout(setIsLogin, setUser, setIsChange, navigate);
     } catch (error) {
-      console.error("서버응답실패:", error);
-      alert("비밀번호 변경 실패");
+      if (error.response && error.response.status === 409) {
+        alert(error.response.data.message);
+      } else {
+        alert("비밀번호 변경 실패");
+      }
     }
   };
 

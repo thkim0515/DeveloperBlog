@@ -47,15 +47,16 @@ export const ProfileInfo = () => {
   //업데이트 요쳥
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //입력값 공백이면 함수 중단
+    if (email.trim() === "" || nickname.trim() === "") {
+      alert("닉네임 또는 이메일을 입력해주세요");
+      return;
+    }
     const editData = { ...profileDB };
     editData.nickname = nickname;
     editData.email = email;
     try {
-      const response = await axios.put(
-        `/users/update/${profileDB._id}`,
-        editData
-      );
-      console.log(response.data);
+      await axios.put(`/users/update/${profileDB._id}`, editData);
       setIsChange(true);
       navigate("/profile");
       //TODO 메인페이지 get 요청 수정되면 지우기
