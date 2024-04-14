@@ -60,16 +60,17 @@ export const ImageItem = ({ content }) => {
             <div className="user_info">
               <p className="user_write_info">{content.userId.nickname}</p>
             </div>
-            <p className="user_write_info">
-              <p>{timeString(content.postdate)}</p>
-              <FontAwesomeIcon icon={faEye} style={{ margin: "0 10px" }} />
-              {content.views}
-              <br />
-              <FontAwesomeIcon icon={faComment} style={{ margin: "0 10px" }} />
-              {content.commentCount}
-              <FontAwesomeIcon icon={faHeart} style={{ margin: "0 10px" }} />
-              {content.likes}
-            </p>
+            <div className="user_write_info">
+              <p className="post_date">{timeString(content.postdate)}</p>
+              <div>
+                <FontAwesomeIcon icon={faEye} style={{ margin: "0 4px" }} />
+                {content.views}
+                <FontAwesomeIcon icon={faComment} style={{ margin: "0 4px" }} />
+                {content.commentCount}
+                <FontAwesomeIcon icon={faHeart} style={{ margin: "0 4px" }} />
+                {content.likes}
+              </div>
+            </div>
           </div>
         </S.SItem>
       )}

@@ -125,6 +125,9 @@ router.get("/read/:_id", async (req, res) => {
 router.put("/update/:_id", async (req, res) => {
   try {
     const { nickname } = req.body; // 닉네임 정보
+    const { email } = req.body // 이메일 정보
+
+    //닉네임 검사
     const existingUser = await User.findOne({
       nickname,
       _id: { $ne: req.params._id },
@@ -135,9 +138,44 @@ router.put("/update/:_id", async (req, res) => {
         .json({ message: "새로운 닉네임이 이미 사용 중입니다." });
     }
 
+    //이메일 검사
+    const existingEmail = await User.findOne({ email, _id: { $ne: req.params._id }, })
+    if (existingEmail) {
+      return res
+        .status(409)
+        .json({ message: "새로운 이메일이 이미 사용 중입니다." })
+    }
+
     const updateUserData = await User.findOneAndUpdate(
       { _id: req.params._id },
       req.body,
+      { new: true }
+    );
+    if (!updateUserData) {
+      return res.status(404).json({ message: "계정 정보 없음" });
+    }
+    res.status(200).json({ message: "계정 수정 성공", updateUserData });
+  } catch (error) {
+    logError(error.message);
+    res.status(500).json({ message: "서버 에러" });
+  }
+});
+
+//U password
+router.put("/updatePwd/:_id", async (req, res) => {
+  try {
+    const { editData, currentPassword } = req.body;
+    // 비밀번호 검사
+    const user = await User.findById(req.params._id);
+    if (user.password !== currentPassword) {
+      return res
+        .status(409)
+        .json({ message: "현재 비밀번호가 일치하지 않습니다." });
+    }
+
+    const updateUserData = await User.findOneAndUpdate(
+      { _id: req.params._id },
+      editData,
       { new: true }
     );
     if (!updateUserData) {
