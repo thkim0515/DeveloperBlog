@@ -37,7 +37,7 @@ export const SignUpButton = styled.button`
   border-style: none;
   border-radius: 20px;
   color: #ffffff;
-  background-color: #3f72af;
+  background-color: ${(props) => (props.disabled ? "#c0c0c0" : "#3f72af")};
 `;
 
 export const MoveLink = styled.p`

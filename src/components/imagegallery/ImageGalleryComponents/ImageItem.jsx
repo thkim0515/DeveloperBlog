@@ -11,7 +11,7 @@ export const ImageItem = ({ content }) => {
   const navigate = useNavigate();
   const handleImageClick = () => {
     if (content) {
-      navigate(`/post/${content.pid}`, { state: { content } });
+      navigate(`/post/${content._id}`, { state: { content } });
     }
   };
 
@@ -50,15 +50,15 @@ export const ImageItem = ({ content }) => {
           </S.RoutingPage>
           <div className="user_date_box">
             <S.SProfileImage title="프로필">
-              {content.userDetails.profileimg && (
+              {content.userId.profileimg && (
                 <S.ProfileImage
-                  src={content.userDetails.profileimg}
-                  alt={content.userDetails.profileimg}
+                  src={content.userId.profileimg}
+                  alt={content.userId.profileimg}
                 />
               )}
             </S.SProfileImage>
             <div className="user_info">
-              <p className="user_write_info">{content.userDetails.nickname}</p>
+              <p className="user_write_info">{content.userId.nickname}</p>
             </div>
             <p className="user_write_info">
               <p>{timeString(content.postdate)}</p>
