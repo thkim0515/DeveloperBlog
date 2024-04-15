@@ -150,8 +150,6 @@ export const PostDetailComment = ({ content }) => {
                 <li className="comment_list" key={comment._id}>
                   <div className="profile_box">
                     <img
-                      // 임시프로필url
-                      //src={process.env.PUBLIC_URL + "/img/noprofile.jpg"}
                       src={"/img/" + comment.userId.profileimg}
                       alt="유저이미지"
                     ></img>
@@ -172,7 +170,7 @@ export const PostDetailComment = ({ content }) => {
                       )}
                       <div className="date">{timeString(comment.postdate)}</div>
                     </div>
-                    {user && comment.userId.nickname === user.nickname && (
+                    {user && comment.userId._id === user.id && (
                       <div className="edit_delete">
                         <button
                           onClick={() =>

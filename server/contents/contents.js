@@ -33,7 +33,7 @@ router.get("/contents", async (req, res) => {
           let: { userId: "$userId" },
           pipeline: [
             { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
-            { $project: { _id: 0, nickname: 1, profileimg: 1 } },
+            { $project: { _id: 1, nickname: 1, profileimg: 1 } },
           ],
           as: "userId",
         },
@@ -44,17 +44,17 @@ router.get("/contents", async (req, res) => {
           preserveNullAndEmptyArrays: true,
         },
       },
-      // {
-      //   // 데이터 참조 테스트용
-      //   $sort: { pid: -1 },
-      // },
+      {
+        // 데이터 참조 테스트용
+        $sort: { pid: -1 },
+      },
       {
         $project: {
           comments: 0,
         },
       },
     ]);
-
+    // console.log(contentst[0]);
     res.json(contentst);
   } catch (error) {
     logError(error.message);
@@ -143,7 +143,7 @@ router.put("/update/:_id", async (req, res) => {
       req.body,
       { new: true }
     );
-    console.log(updatedContent);
+
     if (!updatedContent) {
       return res.status(404).json({ message: "콘텐츠없음" });
     }
