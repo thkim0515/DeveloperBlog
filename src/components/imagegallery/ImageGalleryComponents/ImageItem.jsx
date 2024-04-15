@@ -63,11 +63,23 @@ export const ImageItem = ({ content }) => {
             <div className="user_write_info">
               <p className="post_date">{timeString(content.postdate)}</p>
               <div>
-                <FontAwesomeIcon icon={faEye} style={{ margin: "0 4px" }} />
+                <FontAwesomeIcon
+                  icon={faEye}
+                  color="#999"
+                  style={{ margin: "0 4px", opacity: 0.6 }}
+                />
                 {content.views}
-                <FontAwesomeIcon icon={faComment} style={{ margin: "0 4px" }} />
+                <FontAwesomeIcon
+                  icon={faComment}
+                  color="#999"
+                  style={{ margin: "0 4px", opacity: 0.6 }}
+                />
                 {content.commentCount}
-                <FontAwesomeIcon icon={faHeart} style={{ margin: "0 4px" }} />
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  color="#FF6666"
+                  style={{ margin: "0 4px" }}
+                />
                 {content.likes}
               </div>
             </div>

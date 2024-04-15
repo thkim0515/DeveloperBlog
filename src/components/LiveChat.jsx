@@ -1,28 +1,33 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useUserLogin } from "../context/UserLoginContext";
 import { decryptData } from "../js/secure";
+import * as S from "./LiveChat.style";
 
 export const LiveChat = () => {
-  const [ws, setWs] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [inputText, setInputText] = useState("");
+  /* 로그인 여부 상태관리 */
+  /* 세션에 따른 닉네임 or 비로그인 유저 */
   const [userNickname, setUserNickname] = useState("");
   const { isLogin } = useUserLogin();
 
-  const WEBSOCKET_ADDRESS = process.env.REACT_APP_WEBSOCKET;
-  const disconnectWebsocketTime = 6; // 6 분
-  const milliseconds = disconnectWebsocketTime * 100000;
-
   useEffect(() => {
-    connectWebSocket();
     const userSession = decryptData("user", sessionStorage);
-
     if (isLogin && userSession) {
       setUserNickname(userSession?.nickname);
     } else {
       setUserNickname("비로그인유저");
     }
+
+    connectWebSocket();
   }, [isLogin]);
+
+  /* 웹소켓 상태관리 */
+  const [ws, setWs] = useState(null);
+  const [messages, setMessages] = useState([]);
+
+  /* 웹소켓 연결 변수 관리 */
+  const WEBSOCKET_ADDRESS = process.env.REACT_APP_WEBSOCKET;
+  const disconnectWebsocketTime = 6; // 6 분
+  const milliseconds = disconnectWebsocketTime * 100000;
 
   const connectWebSocket = () => {
     if (ws != null) {
@@ -39,9 +44,10 @@ export const LiveChat = () => {
         const text = await event.data.text();
         try {
           const data = JSON.parse(text);
-          const displayMessage = `${data.userId || userNickname}: ${
-            data.message
-          }`;
+          const displayMessage = {
+            text: `${data.userId || userNickname}: ${data.message}`,
+            timestamp: data.timestamp, // 받은 데이터에서 시간 사용
+          };
           setMessages((prev) => [...prev, displayMessage]);
         } catch (e) {
           console.error("JSON 파싱 에러:", e);
@@ -49,9 +55,10 @@ export const LiveChat = () => {
       } else {
         try {
           const data = JSON.parse(event.data);
-          const displayMessage = `${data.userId || userNickname}: ${
-            data.message
-          }`;
+          const displayMessage = {
+            text: `${data.userId || userNickname}: ${data.message}`,
+            timestamp: data.timestamp, // 받은 데이터에서 시간 사용
+          };
           setMessages((prev) => [...prev, displayMessage]);
         } catch (e) {
           console.error("JSON 파싱 에러:", e);
@@ -64,6 +71,18 @@ export const LiveChat = () => {
     setWs(websocket);
   };
 
+  /* 맨 밑 스크룰 */
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView(); //({ behavior: "instant" });
+  };
+
+  /* 사용자 반응 없을 시 소켓 종료 */
   useEffect(() => {
     let timeoutId;
 
@@ -71,7 +90,7 @@ export const LiveChat = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         if (ws) {
-          console.log("5분간 반응 X >> 소켓 종료");
+          console.log(`${disconnectWebsocketTime}분간 반응 X >> 소켓 종료`);
           ws.close();
         }
       }, milliseconds);
@@ -87,9 +106,13 @@ export const LiveChat = () => {
     };
   }, [ws]);
 
+  /* 채팅 인풋 박스 상태관리 */
+  const [inputText, setInputText] = useState("");
+
   const sendMessage = (message) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ userId: userNickname, message }));
+      const timestamp = new Date().toLocaleTimeString();
+      ws.send(JSON.stringify({ userId: userNickname, message, timestamp }));
       setInputText("");
     } else {
       console.log("실시간 채팅 닫힘, 재연결 시도 중...");
@@ -97,6 +120,7 @@ export const LiveChat = () => {
     }
   };
 
+  /* 입력 상태 관리 */
   const handleInputChange = (e) => {
     setInputText(e.target.value);
   };
@@ -108,19 +132,23 @@ export const LiveChat = () => {
   };
 
   return (
-    <div>
-      <ul>
-        {messages.map((message, idx) => (
-          <li key={idx}>{message}</li>
+    <S.Container>
+      <S.MessageList>
+        {messages.map((item, idx) => (
+          <S.Message key={idx}>
+            <span>{item.text}</span>
+            <S.Timestamp>({item.timestamp})</S.Timestamp>
+          </S.Message>
         ))}
-      </ul>
-      <input
+        <div ref={messagesEndRef} />
+      </S.MessageList>
+      <S.Input
         type="text"
         value={inputText}
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
       />
-      <button onClick={() => sendMessage(inputText)}>전송</button>
-    </div>
+      {/* <Button onClick={() => sendMessage(inputText)}>전송</Button> */}
+    </S.Container>
   );
 };
