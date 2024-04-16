@@ -13,7 +13,7 @@ const LogoText = styled.h1`
   color: #112d4e;
   font-size: 2.5rem;
   font-weight: bold;
-  font-family: "kage";
+  font-family: "FjallaOne";
 `;
 
 const LogoLink = styled(Link)`

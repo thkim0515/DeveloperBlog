@@ -11,6 +11,7 @@ import "ace-builds/src-noconflict/theme-twilight";
 import axios from "axios";
 import { useUserLogin } from "../../../context/UserLoginContext";
 import { LikeButton } from "./LikeButton";
+import {Metas} from "../../common/Metas"
 
 export const PostDetailComp = () => {
   //로그인 유저 정보 가져오기
@@ -47,6 +48,7 @@ export const PostDetailComp = () => {
   }
   return (
     <>
+      <Metas title={content.title} />
       {content.imagePath && (
         <S.SContainer>
           <S.STitle>

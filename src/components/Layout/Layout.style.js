@@ -52,7 +52,7 @@ export const Logo = styled.h1`
   color: #112d4e;
   font-size: 2.5rem;
   font-weight: bold;
-  font-family: "kage";
+  font-family: "FjallaOne";
 `;
 
 //링크 스타일
