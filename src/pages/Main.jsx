@@ -1,7 +1,7 @@
 import { ImageGrid } from "../components/imagegallery/ImageGalleryComponents/ImageGrid";
+import { Helmet } from "react-helmet-async";
 import { LiveChat } from "../components/LiveChat";
 import { useState } from "react";
-import { Metas } from "./../components/common/Metas";
 import { Modal } from "../components/Modal";
 import styled from "styled-components";
 
@@ -26,7 +26,9 @@ export const Main = () => {
 
   return (
     <div>
-      <Metas main="main" />
+      <Helmet>
+        <title>우리의 지식이 별이 되는 공간 - StarBlog</title>
+      </Helmet>
       <LiveChatButton onClick={toggleLiveChat}>실시간 채팅</LiveChatButton>
       {isLiveChatVisible && (
         <Modal onClose={toggleLiveChat}>

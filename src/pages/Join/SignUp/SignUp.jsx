@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import * as S from "./SignUp.style";
 
 // components
 import { Input } from "./../../../components/form/Input";
 import { EmailVerification } from "./EmailVerification";
-import { Metas } from "./../../../components/common/Metas";
-
 export const SignUp = () => {
   const navigate = useNavigate();
   const [userInputData, setUserInputData] = useState({
@@ -57,11 +56,9 @@ export const SignUp = () => {
 
   return (
     <>
-      <Metas
-        title="회원가입"
-        url="/signUp"
-        description="스타블로그와 함께 우리의 지식을 빛나게 해봐요!"
-      />
+      <Helmet>
+        <title>회원가입 - StarBlog</title>
+      </Helmet>
       <S.SignUpText>회원가입</S.SignUpText>
       <form onSubmit={handleSubmit}>
         {/* 아이디 */}
