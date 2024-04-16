@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { PostUpdatData } from "../CodeCreate/PostUpdatData";
 import { ToastEditor } from "../CodeCreate/component/ToastEditor";
 import { useState } from "react";
+import { Metas } from "./../../components/common/Metas";
 
 export const PostUpdate = () => {
   // _id값을 받아옴 > PostUpdatData 로 전송 >> API 호출 >> return >>
@@ -19,9 +19,7 @@ export const PostUpdate = () => {
 
   return (
     <div>
-      <Helmet>
-        <title>PostUpdate - StarBlog</title>
-      </Helmet>
+      <Metas title="게시글 업로드" none />
       <PostUpdatData
         _id={_id}
         editorData={editorData}

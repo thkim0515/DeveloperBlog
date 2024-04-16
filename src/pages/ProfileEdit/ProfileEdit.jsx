@@ -1,6 +1,7 @@
 import { ProfileInfo } from "./ProfileInfo";
 import { PasswordAndUserOut } from "./PasswordAndUserOut";
 import { useUserLogin } from "../../context/UserLoginContext";
+import { Metas } from "./../../components/common/Metas";
 
 export const ProfileEdit = () => {
   //유저정보
@@ -8,6 +9,7 @@ export const ProfileEdit = () => {
 
   return (
     <>
+      <Metas title="프로필 수정" none />
       {profileDB && (
         <>
           <ProfileInfo />
