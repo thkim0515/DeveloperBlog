@@ -41,7 +41,6 @@ export const SignUpButton = styled.button`
 `;
 
 export const MoveLink = styled.p`
-  margin-top: 1.5rem;
   font-size: 0.9rem;
   color: #112d4e;
   text-align: center;

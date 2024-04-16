@@ -1,20 +1,25 @@
-import { Link, useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
+import { Metas } from "./../../components/common/Metas";
 import * as S from "./NotFound.style";
 
-export default function NotFound() {
+const NotFound = () => {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
-    <S.NotFoundLayout>
-      <Helmet>
-        <title>NotFound - StarBlog</title>
-      </Helmet>
+    <S.NotFoundBox>
+      <Metas title="NotFound" />
       <S.NotFoundWrapper>
         <S.Title>존재하지 않는 페이지 입니다.</S.Title>
-
         <S.Links>
-          <Link to="/"> 홈으로 이동 </Link>
+          <button onClick={goBack}>이전 페이지로 이동</button>
         </S.Links>
       </S.NotFoundWrapper>
-    </S.NotFoundLayout>
+    </S.NotFoundBox>
   );
-}
+};
+
+export default NotFound;

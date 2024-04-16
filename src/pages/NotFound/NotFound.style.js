@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const NotFoundLayout = styled.section`
+export const NotFoundBox = styled.section`
   padding: 8.75rem 0;
 `;
 
@@ -15,13 +15,13 @@ export const NotFoundWrapper = styled.div`
 `;
 
 export const Title = styled.h1`
+  font-size: 1.5rem;
+  font-weight: bold;
   padding: 3rem 0;
 `;
 
 export const Links = styled.div`
-  width: 120px;
-  height: 36px;
-  line-height: 36px;
   margin: 0 auto;
+  padding: 1rem;
   background-color: #eaeaea;
 `;
