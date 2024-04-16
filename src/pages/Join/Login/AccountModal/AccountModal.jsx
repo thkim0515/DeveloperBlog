@@ -8,11 +8,10 @@ export const AccountModal = ({ onClick }) => {
   const [isActiveTab, setIsActiveTab] = useState("findId");
 
   const handleBackgroundClick = (e) => {
-    // 클릭 이벤트 전파 방지
     e.stopPropagation();
   };
 
-  // 활성 탭을 변경
+  // 활성 탭 변경
   const handleTabClick = (tab) => {
     setIsActiveTab(tab);
   };
@@ -42,8 +41,6 @@ export const AccountModal = ({ onClick }) => {
 
         {/* 닫기 버튼 */}
         <S.ModalCloseButton onClick={onClick}>x</S.ModalCloseButton>
-
-        {/* 찾기에 따른 컴포넌트 변화 영역 */}
         <FindAccount active={isActiveTab} />
       </S.ModalBox>
     </S.ModalBackgroundBox>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import * as S from "./Login.style";
 
@@ -14,11 +13,13 @@ import { useForm } from "../../../hooks/useForm";
 import { SocialButton } from "./socialLogin/SocialButton";
 import { Input } from "./../../../components/form/Input";
 import { AccountModal } from "./AccountModal/AccountModal";
+import { Metas } from "./../../../components/common/Metas";
 
 // button array
 import { socialLogin } from "./socialLogin/SocialLoginData";
 
 import { encryptData } from "../../../js/secure";
+
 export const Login = () => {
   const [id, onChangeId] = useForm();
   const [password, onChangePassword] = useForm();
@@ -65,9 +66,7 @@ export const Login = () => {
 
   return (
     <>
-      <Helmet>
-        <title>로그인 - StarBlog</title>
-      </Helmet>
+      <Metas title="로그인" url="/login" description="스타블로그에 로그인" />
       <div className="social-login">
         {/* 로그인 문구 */}
         <S.LoginText>똑소리 나는 코드 기록</S.LoginText>
