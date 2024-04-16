@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const NotFoundLayout = styled.section`
+export const NotFoundBox = styled.section`
   padding: 8.75rem 0;
 `;
 
