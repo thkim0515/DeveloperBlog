@@ -5,7 +5,7 @@ import { Input } from "../../../../components/form/Input";
 import { useState } from "react";
 
 import axios from "axios";
-export const RenderForm = ({ active }) => {
+export const RenderForm = ({ active, onChange, onClick, userId }) => {
   const [firstField, setFirstField] = useState("");
   const [secondField, setSecondField] = useState("");
 
@@ -68,9 +68,12 @@ export const RenderForm = ({ active }) => {
         {active === "findId" ? "아이디 찾기" : "비밀번호 찾기"}
       </S.Button>
 
-      {/* 아이디 보여주기 */}
-
-      {/* 비밀번호 변경하기 */}
+      {/* userId 상태가 있을 때 아이디 보여주기 */}
+      {userId && (
+        <p>
+          아이디는 <span>{userId}</span>입니다.
+        </p>
+      )}
     </form>
   );
 };

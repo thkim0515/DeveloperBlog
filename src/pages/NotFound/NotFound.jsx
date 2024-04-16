@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import * as S from "./NotFound.style";
 
-const NotFound = () => {
+export const NotFound = () => {
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -10,6 +11,9 @@ const NotFound = () => {
 
   return (
     <S.NotFoundBox>
+      <Helmet>
+        <title>NotFound - StarBlog</title>
+      </Helmet>
       <S.NotFoundWrapper>
         <S.Title>존재하지 않는 페이지 입니다.</S.Title>
         <S.Links>
@@ -19,5 +23,3 @@ const NotFound = () => {
     </S.NotFoundBox>
   );
 };
-
-export default NotFound;
