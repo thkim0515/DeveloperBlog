@@ -1,7 +1,7 @@
 import * as S from "./Profile.style.js";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
-import { Helmet } from "react-helmet-async";
+import { Metas } from "../../components/common/Metas.jsx";
 
 export const Profile = () => {
   //유저정보 받아와서 프로필 데이터로 저장
@@ -15,9 +15,7 @@ export const Profile = () => {
 
   return (
     <S.ProfileInfoMainBox>
-      <Helmet>
-        <title>Profile - StarBlog</title>
-      </Helmet>
+      <Metas title="프로필" none />
       <S.ProfileTitle>Profile</S.ProfileTitle>
       <S.InfoAndBtnBox>
         {profileDB && (

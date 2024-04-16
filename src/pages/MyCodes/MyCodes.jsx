@@ -1,14 +1,12 @@
-import { Helmet } from "react-helmet-async";
 import { ImageGrid } from "../../components/imagegallery/ImageGalleryComponents/ImageGrid";
+import { Metas } from "./../../components/common/Metas";
 
 export const MyCodes = () => {
   const value = "my";
 
   return (
     <div>
-      <Helmet>
-        <title>MyCodes - StarBlog</title>
-      </Helmet>
+      <Metas title="내 코드" none />
       <ImageGrid value={value} />
     </div>
   );

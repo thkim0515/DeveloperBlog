@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Metas } from "./../../components/common/Metas";
 import * as S from "./NotFound.style";
 
-const NotFound = () => {
+export const NotFound = () => {
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -21,5 +21,3 @@ const NotFound = () => {
     </S.NotFoundBox>
   );
 };
-
-export default NotFound;
