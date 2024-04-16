@@ -14,7 +14,7 @@ import { PostUpdate } from "./pages/PostUpdate/PostUpdate";
 import { Profile } from "./pages/Profile/Profile";
 import { ProfileEdit } from "./pages/ProfileEdit/ProfileEdit";
 import { MyCodes } from "./pages/MyCodes/MyCodes";
-import NotFound from "./pages/NotFound/NotFound";
+import { NotFound } from "./pages/NotFound/NotFound";
 
 //context
 import { UserLoginProvider } from "./context/UserLoginContext";
