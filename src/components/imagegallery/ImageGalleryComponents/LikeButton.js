@@ -16,7 +16,7 @@ export function LikeButton({ content_id, user_id }) {
   };
 
   return (
-    <div>
+    <div style={{ fontSize: "2rem" }}>
       <FontAwesomeIcon
         icon={liked ? colorHeart : whiteHeart}
         style={{ margin: "0 10px" }}
