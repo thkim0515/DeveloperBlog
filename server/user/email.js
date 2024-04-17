@@ -24,7 +24,7 @@ router.post("/email", async (req, res) => {
     }
 
     const authCode = Math.floor(100000 + Math.random() * 900000);
-    console.log(authCode);
+
     const getEmail = req.body.email;
     const mailOptions = {
       from: "starblogk@gmail.com",

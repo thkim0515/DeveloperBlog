@@ -11,6 +11,7 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
     try {
       if (!userEmail) {
         alert("이메일을 입력해주세요.");
+        return;
       }
       setIsSend(true);
       const response = await axios.post("/email/email", {

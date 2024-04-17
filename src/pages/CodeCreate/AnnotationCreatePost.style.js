@@ -73,6 +73,9 @@ export const AceEditorContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  .ace_content {
+    height: 0px !important;
+  }
 `;
 
 export const Modal = styled.div`

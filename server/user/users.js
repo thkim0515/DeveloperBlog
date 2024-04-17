@@ -152,7 +152,6 @@ router.post("/findId", async (req, res) => {
     if (!match) {
       return res.status(401).json({ message: "비밀번호가 일치하지 않습니다." });
     }
-
     // 아이디 res
     res.json({ id: user.id });
   } catch (error) {
