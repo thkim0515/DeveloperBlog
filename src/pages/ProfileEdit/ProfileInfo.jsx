@@ -15,7 +15,7 @@ export const ProfileInfo = () => {
 
   //로그인 유저정보
   const [nickname, setNickname] = useState(profileDB.nickname);
-  const [email, setEmail] = useState(profileDB.email);
+  const email = profileDB.email;
   const imgSrc = profileDB.profileimg;
 
   //이미지 미리보기
@@ -48,8 +48,8 @@ export const ProfileInfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     //입력값 공백이면 함수 중단
-    if (email.trim() === "" || nickname.trim() === "") {
-      alert("닉네임 또는 이메일을 입력해주세요");
+    if (nickname.trim() === "") {
+      alert("닉네임을 입력해주세요");
       return;
     }
     if (nickname.length > 14) {
@@ -58,7 +58,6 @@ export const ProfileInfo = () => {
     }
     const editData = { ...profileDB };
     editData.nickname = nickname;
-    editData.email = email;
     try {
       await axios.put(`/users/update/${profileDB._id}`, editData);
       setIsChange(true);
@@ -106,7 +105,8 @@ export const ProfileInfo = () => {
               <p>이메일</p>
             </S.TextBoxItem>
             <S.TextBoxItem>
-              <input value={email} onChange={handleInputChange(setEmail)} />
+              {/* 이메일 변경 못하게 */}
+              <div>{email}</div>
             </S.TextBoxItem>
           </S.ProfileTextBox>
         </S.ProfileInfoBox>

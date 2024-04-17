@@ -15,9 +15,7 @@ export const Join = () => {
     <Container>
       <LeftBox>
         <span> web class 2024</span>
-        <video width="200" height="200" autoPlay muted loop>
-          <source src="./img/blog-logo.mp4" type="video/mp4" />
-        </video>
+        <Logo/>
         <span>KOSTA 281</span>
       </LeftBox>
       <RightBox>
@@ -44,9 +42,10 @@ const LeftBox = styled.div`
   align-items: center;
   text-align: center;
   span {
-    font-family: "kage";
+    font-family: "FjallaOne";
     font-size: 1.5rem;
     color: #112d4e;
+    margin: 36px 0;
   }
 `;
 
