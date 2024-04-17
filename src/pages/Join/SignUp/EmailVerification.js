@@ -12,12 +12,12 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
       if (!userEmail) {
         alert("이메일을 입력해주세요.");
       }
-      alert("인증번호가 이메일로 전송되었습니다.");
       setIsSend(true);
       const response = await axios.post("/email/email", {
         email: userEmail,
       });
       setauthCode(response.data.authCode);
+      alert("인증번호가 이메일로 전송되었습니다.");
     } catch (error) {
       if (error.response && error.response.status === 409) {
         alert(error.response.data.message);
@@ -54,39 +54,42 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
         onChange={handleInputauthCode}
       />
       <VerifyButtonBox>
-      <div>인증번호:</div>
-      <SendButton type="button" onClick={handleSnedAuthCode}>
-        받기
-      </SendButton>
-      <ConfirmButton type="button" onClick={handleCheckAuthCode} disabled={!isSend}>
-        확인
-      </ConfirmButton>
+        <div>인증번호:</div>
+        <SendButton type="button" onClick={handleSnedAuthCode}>
+          받기
+        </SendButton>
+        <ConfirmButton
+          type="button"
+          onClick={handleCheckAuthCode}
+          disabled={!isSend}
+        >
+          확인
+        </ConfirmButton>
       </VerifyButtonBox>
     </VerifyInputnAndButtonBox>
   );
 };
 
 const VerifyInputnAndButtonBox = styled.div`
-display: flex;
-flex-direction: column;
-`
+  display: flex;
+  flex-direction: column;
+`;
 
 const VerifyButtonBox = styled.div`
-align-self: flex-end;
-display: flex;
-align-items: center;
-gap: 8px;
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   button {
     width: 40px;
     height: 24px;
     border-radius: 6px;
     color: #fff;
   }
-
-`
+`;
 const SendButton = styled.button`
   background-color: #3f72af;
-`
+`;
 const ConfirmButton = styled.button`
   background-color: ${(props) => (props.disabled ? "#c0c0c0" : "#3f72af")};
-`
+`;

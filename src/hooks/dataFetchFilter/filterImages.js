@@ -28,7 +28,9 @@ export const filterImages = (images, searchTerm, value, selectedIcon) => {
   if (userItem) {
     const nickname = userItem.nickname;
     if (value.value === "my" && userItem) {
-      filterimages = images.filter((content) => content.nickname === nickname);
+      filterimages = images.filter(
+        (content) => content.userId.nickname === nickname
+      );
     }
   }
 

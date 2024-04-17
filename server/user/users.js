@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
     req.session.user = {
       id: user._id,
       nickname: user.nickname,
-      profile: user.profileimg,
+      profileimg: user.profileimg,
     };
 
     req.session.save((err) => {
@@ -82,11 +82,11 @@ router.post("/signup", async (req, res) => {
       }
     }
 
-    if (!/^[가-힣a-zA-Z0-9]{6,14}$/.test(nickname)) {
+    if (!/^[가-힣a-zA-Z0-9]{2,14}$/.test(nickname)) {
       if (nickname.length < 6 || nickname.length > 14) {
         return res
           .status(400)
-          .json({ message: "닉네임은 6글자 이상 14글자 이하여야 합니다." });
+          .json({ message: "닉네임은 2글자 이상 14글자 이하여야 합니다." });
       } else {
         return res
           .status(400)

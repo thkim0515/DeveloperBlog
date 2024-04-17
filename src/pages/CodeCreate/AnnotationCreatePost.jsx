@@ -61,7 +61,7 @@ export const AnnotationCreatePost = (props) => {
     //await handleCaptureImage();
     const user = decryptData("user", sessionStorage);
     const nickname = user.nickname;
-    const profileImg = user.profile;
+    const profileImg = user.profileimg;
     const result = languageType(commentedCode);
     const userId = user.id;
 
@@ -85,7 +85,10 @@ export const AnnotationCreatePost = (props) => {
       const response = await axios.post("/contents/create", codeData);
       console.log("서버 응답:", response.data);
       alert("글 등록 성공!");
+      const userSession = decryptData("user", sessionStorage);
       const content = response.data.info;
+      content.userId = userSession;
+      console.log(content);
       navigate(`/post/${content._id}`, { state: { content } });
     } catch (error) {
       console.error("에러:", error);
