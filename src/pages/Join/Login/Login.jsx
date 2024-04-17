@@ -45,7 +45,6 @@ export const Login = () => {
 
     try {
       const response = await axios.post("/users/login", userInputData);
-
       if (response.data.user) {
         encryptData(response.data.user, "user", sessionStorage);
         //sessionStorage.setItem("user", JSON.stringify(response.data.user));

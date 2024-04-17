@@ -31,10 +31,10 @@ export const HeaderBox = styled.header`
 
 //슬로건 박스
 export const SloganBox = styled.div`
-  p{
+  p {
     color: #112d4e;
-    }
-`
+  }
+`;
 
 //로그인 버튼
 export const LogineButton = styled.button`

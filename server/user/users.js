@@ -11,7 +11,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const { logError } = require("../error/processError");
 
 const SESSION_KEY = process.env.REACT_APP_SECURECODE;
-
+const bcryptRound = 10;
 router.use(
   session({
     secret: SESSION_KEY,
@@ -104,7 +104,6 @@ router.post("/signup", async (req, res) => {
       return res.status(409).json({ message: "닉네임이 이미 사용 중입니다." });
     }
 
-    const bcryptRound = 10;
     const hashedPassword = await bcrypt.hash(password, bcryptRound);
 
     const newUser = new User({
@@ -229,8 +228,13 @@ router.put("/updatePwd/:_id", async (req, res) => {
   try {
     const { editData, currentPassword } = req.body;
     // 비밀번호 검사
+
     const user = await User.findById(req.params._id);
-    if (user.password !== currentPassword) {
+    const match = await bcrypt.compare(currentPassword, user.password);
+    const hashedPassword = await bcrypt.hash(editData.password, bcryptRound);
+    editData.password = hashedPassword;
+
+    if (!match) {
       return res
         .status(409)
         .json({ message: "현재 비밀번호가 일치하지 않습니다." });
@@ -241,6 +245,7 @@ router.put("/updatePwd/:_id", async (req, res) => {
       editData,
       { new: true }
     );
+
     if (!updateUserData) {
       return res.status(404).json({ message: "계정 정보 없음" });
     }

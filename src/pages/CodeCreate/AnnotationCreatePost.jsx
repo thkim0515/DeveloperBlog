@@ -85,8 +85,8 @@ export const AnnotationCreatePost = (props) => {
       const response = await axios.post("/contents/create", codeData);
       console.log("서버 응답:", response.data);
       alert("글 등록 성공!");
-      navigate("/");
-      window.location.reload();
+      const content = response.data.info;
+      navigate(`/post/${content._id}`, { state: { content } });
     } catch (error) {
       console.error("에러:", error);
       alert("글 등록 실패. 서버 에러.");

@@ -98,7 +98,9 @@ router.post("/create", async (req, res) => {
       toast_contents,
     });
     await newContents.save();
-    res.status(201).json({ message: "글 등록 성공", pid: newContents.pid });
+
+    const newContentInfo = await Content.findOne({ pid: newContents.pid });
+    res.status(201).json({ message: "글 등록 성공", info: newContentInfo });
   } catch (error) {
     logError(error.message);
     res.status(500).json({ message: "서버 에러" });
