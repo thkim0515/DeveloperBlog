@@ -52,8 +52,8 @@ export const ProfileInfo = () => {
       alert("닉네임을 입력해주세요");
       return;
     }
-    if (nickname.length > 14) {
-      alert("닉네임은 14글자를 초과할 수 없습니다. ");
+    if (nickname.length <2 || nickname.length > 14) {
+      alert("2 ~ 14 글자의 닉네임을 작성해주세요.");
       return;
     }
     const editData = { ...profileDB };

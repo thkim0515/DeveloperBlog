@@ -21,7 +21,7 @@ export const Footer = () => {
           Icons by{" "}
           <a
             href="https://icons8.kr/"
-            style={{ "text-decoration": "underline" }}
+            style={{ "textDecoration": "underline" }}
           >
             Icons8
           </a>{" "}
