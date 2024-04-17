@@ -1,9 +1,9 @@
 import { Helmet } from "react-helmet-async";
 
-const DEFAULT_TAG = {
+const DEFAULT = {
   title: "우리의 지식이 별이 되는 공간 - StarBlog",
   description:
-    "똑 소리 나는 코드 기록, 코드에 주석을 자동으로 달아 코드를 해석하고 공부하자, KOSTA, 코드 기록, 코드 공유",
+    "똑 소리 나는 코드 기록, 코드에 주석을 자동으로 달아 코드를 해석하며 공부하자, KOSTA, 코드 기록, 코드 공유",
 };
 
 export const Metas = ({ main, none, title, url, description }) => {
@@ -11,14 +11,14 @@ export const Metas = ({ main, none, title, url, description }) => {
     <Helmet>
       <meta property="og:type" content="website"></meta>
       {/* Naver 블로그, 카카오톡 미리보기 설정 */}
-      <title>{main ? DEFAULT_TAG.title : `${title} - StarBlog`}</title>
+      <title>{main ? DEFAULT.title : `${title} - StarBlog`}</title>
       <meta
         property="og:StarBlog"
         content="우리의 지식이 별이 되는 공간"
       ></meta>
       <meta property="og:locale" content="ko"></meta>
       {!none ? (
-        <meta property="og:title" content={main ? DEFAULT_TAG.title : title} />
+        <meta property="og:title" content={main ? DEFAULT.title : title} />
       ) : (
         ""
       )}
@@ -27,7 +27,7 @@ export const Metas = ({ main, none, title, url, description }) => {
       {!none ? (
         <meta
           property="og:description"
-          content={main ? DEFAULT_TAG.description : description}
+          content={main ? DEFAULT.description : description}
         />
       ) : (
         ""
@@ -40,7 +40,7 @@ export const Metas = ({ main, none, title, url, description }) => {
       />
       <meta
         name="twitter:title"
-        content={main ? DEFAULT_TAG.title : `${title} - StarBlog`}
+        content={main ? DEFAULT.title : `${title} - StarBlog`}
       />
       <meta
         name="twitter:description"
