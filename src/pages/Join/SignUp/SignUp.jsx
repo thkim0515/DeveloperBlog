@@ -60,7 +60,7 @@ export const SignUp = () => {
       <Metas
         title="회원가입"
         url="/signUp"
-        description="스타블로그와 함께 우리의 지식을 빛나게 해봐요!"
+        description="스타블로그와 함께 공부해요!"
       />
       <S.SignUpText>회원가입</S.SignUpText>
       <form onSubmit={handleSubmit}>
