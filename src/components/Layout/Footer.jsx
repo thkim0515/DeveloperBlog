@@ -11,12 +11,22 @@ export const Footer = () => {
         <div>정세은</div>
       </S.DevelopersBox>
       <S.CorporationBox>
-        <div>회사소개</div>
-        <div>인재채용</div>
-        <div>제휴제안</div>
-        <div>이용약관</div>
-        <div>개인정보처리방침</div>
-        <div>고객센터</div>
+        <div>React</div>
+        <div>Express</div>
+        <div>MongoDB</div>
+        <div>Node.js</div>
+        <div>OpenAI</div>
+        <div>AWS</div>
+        <div>
+          Icons by{" "}
+          <a
+            href="https://icons8.kr/"
+            style={{ "text-decoration": "underline" }}
+          >
+            Icons8
+          </a>{" "}
+        </div>
+        <div>GoogleFont</div>
       </S.CorporationBox>
     </S.FooterBox>
   );
