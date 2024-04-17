@@ -20,7 +20,6 @@ export const PostDetailComp = () => {
   // ImageItem 클릭시 state값 전달
   const location = useLocation();
   const { content } = location.state;
-
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -58,9 +57,11 @@ export const PostDetailComp = () => {
               {/* alt={image.language} */}
             </div>
             <h3>{content.title}</h3>
-            {user && userId === content.userId._id && (
-              <PostDetailWriter content={content} />
-            )}
+            {user &&
+              (userId === content.userId._id ||
+                userId === content.userId.id) && (
+                <PostDetailWriter content={content} />
+              )}
           </S.STitle>
           <S.SSpace>
             <div style={{ display: "flex", alignItems: "center" }}>

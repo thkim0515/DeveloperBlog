@@ -6,7 +6,7 @@ import { Spinner } from "./component/Spinner";
 import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
 import ace from "ace-builds/src-noconflict/ace";
-import { decryptData } from "../../js/secure";
+import { decryptData, encryptData } from "../../js/secure";
 
 export const AnnotationCreatePost = (props) => {
   const navigate = useNavigate();
@@ -93,11 +93,21 @@ export const AnnotationCreatePost = (props) => {
       const userSession = decryptData("user", sessionStorage);
       const content = response.data.info;
       content.userId = userSession;
-      console.log(content);
+
+      updateLocalStorage(content);
+
       navigate(`/post/${content._id}`, { state: { content } });
     } catch (error) {
       console.error("에러:", error);
       alert("글 등록 실패. 서버 에러.");
+    }
+  };
+
+  const updateLocalStorage = (newContent) => {
+    const storedContents = decryptData("contents", localStorage);
+    if (storedContents) {
+      const updatedContents = [...storedContents, newContent];
+      encryptData(updatedContents, "contents", localStorage);
     }
   };
 
@@ -130,7 +140,6 @@ export const AnnotationCreatePost = (props) => {
   //     console.log("서버 응답:", response.data);
   //     alert("성공적으로 수정");
   //     navigate("/");
-  //     window.location.reload();
   //   } catch (error) {
   //     console.error("에러:", error);
   //     alert("수정 실패");

@@ -3,6 +3,7 @@ import axios from "axios";
 import * as S from "./PostDetailComp.style";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { decryptData, encryptData } from "../../../js/secure";
 
 export const PostDetailWriter = ({ content }) => {
   //드롭박스 열기/닫기 상태관리
@@ -36,14 +37,27 @@ export const PostDetailWriter = ({ content }) => {
       try {
         const response = await axios.delete(`/contents/delete/${_id}`);
         console.log("서버 응답:", response.data);
-        navigate("/");
-        window.location.reload();
+        if (response.status === 200) {
+          removePostFromLocalStorage(_id);
+          navigate("/");
+        }
       } catch (error) {
         console.error("에러:", error);
         alert("삭제 실패");
       }
     }
   };
+
+  const removePostFromLocalStorage = (_id) => {
+    const storedContents = decryptData("contents", localStorage);
+    if (storedContents) {
+      const updatedContents = storedContents.filter(
+        (content) => content._id !== _id
+      );
+      encryptData(updatedContents, "contents", localStorage);
+    }
+  };
+
   return (
     <S.WriterBox className="writer-box" ref={dropMenuRef}>
       <div

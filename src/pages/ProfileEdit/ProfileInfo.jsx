@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext.jsx";
 import axios from "axios";
-
+import { decryptData, encryptData } from "../../js/secure.js";
 export const ProfileInfo = () => {
   const { profileDB, setIsChange } = useUserLogin();
 
@@ -52,7 +52,7 @@ export const ProfileInfo = () => {
       alert("닉네임을 입력해주세요");
       return;
     }
-    if (nickname.length <2 || nickname.length > 14) {
+    if (nickname.length < 2 || nickname.length > 14) {
       alert("2 ~ 14 글자의 닉네임을 작성해주세요.");
       return;
     }
@@ -62,8 +62,8 @@ export const ProfileInfo = () => {
       await axios.put(`/users/update/${profileDB._id}`, editData);
       setIsChange(true);
       navigate("/profile");
-      //TODO 새로고침 줄이기...
-      window.location.reload();
+      //TODO 새로고침 줄이기... >> 완료
+      updateSessionStorage(editData);
     } catch (error) {
       if (error.response && error.response.status === 409) {
         alert(error.response.data.message);
@@ -71,6 +71,17 @@ export const ProfileInfo = () => {
         alert("정보 변경 실패");
       }
     }
+  };
+
+  const updateSessionStorage = (newData) => {
+    const storedData = decryptData("user", sessionStorage);
+    const updatedData = { ...storedData, ...newData };
+    delete updatedData.email;
+    delete updatedData.id;
+    updatedData.id = updatedData._id;
+    delete updatedData._id;
+
+    encryptData(updatedData, "user", sessionStorage);
   };
 
   return (

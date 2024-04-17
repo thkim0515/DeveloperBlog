@@ -80,7 +80,6 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
       console.log("서버 응답:", response.data);
       alert("성공적으로 수정");
       navigate(`/post/${_id}`, { state: { content } });
-      // window.location.reload();
     } catch (error) {
       console.error("에러:", error);
       alert("수정 실패");

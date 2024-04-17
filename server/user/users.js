@@ -47,6 +47,7 @@ router.post("/login", async (req, res) => {
       profileimg: user.profileimg,
     };
 
+    console.log(req.session.user);
     req.session.save((err) => {
       if (err) {
         console.error("세션 저장 실패", err);

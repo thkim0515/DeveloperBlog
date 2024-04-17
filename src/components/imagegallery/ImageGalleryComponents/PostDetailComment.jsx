@@ -56,8 +56,9 @@ export const PostDetailComment = ({ content }) => {
       const response = await axios.post("/comments/create", commentData);
       console.log("서버 응답:", response.data);
       alert("댓글 등록 성공!");
+
+      readCommentsFunc();
       setComment("");
-      window.location.reload();
     } catch (error) {
       console.error("에러:", error);
       alert("댓글 등록 실패. 서버 에러.");
@@ -116,7 +117,8 @@ export const PostDetailComment = ({ content }) => {
       console.log("서버 응답:", response.data);
       alert("댓글 수정 성공!");
       setEditComment("");
-      window.location.reload();
+      readCommentsFunc();
+      setEditId(null);
     } catch (error) {
       console.error("에러:", error);
       alert("댓글 수정 실패. 서버 에러.");
@@ -131,7 +133,7 @@ export const PostDetailComment = ({ content }) => {
       try {
         const response = await axios.delete(`/comments/delete/${_id}`);
         console.log("서버 응답:", response.data);
-        window.location.reload();
+        readCommentsFunc();
       } catch (error) {
         console.error("에러:", error);
         alert("삭제 실패");
