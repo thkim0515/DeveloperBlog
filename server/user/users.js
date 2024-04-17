@@ -9,6 +9,7 @@ const bcrypt = require("bcrypt");
 
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const { logError } = require("../error/processError");
+const { sendAuthEmail } = require("./sendEmail");
 
 const SESSION_KEY = process.env.REACT_APP_SECURECODE;
 const bcryptRound = 10;
@@ -94,6 +95,11 @@ router.post("/signup", async (req, res) => {
       }
     }
 
+    if (!/^[\wㄱ-힣!@#$%^&*()\-_=+\[\]{};:'",<.>/?]{8,16}$/.test(password)) {
+      return res.status(400).json({
+        message: "패스워드는 8자 이상 16자리 이하여야 합니다.",
+      });
+    }
     const duplicatId = await User.findOne({ id });
     if (duplicatId) {
       return res.status(409).json({ message: "아이디가 이미 사용 중입니다." });
@@ -152,8 +158,17 @@ router.post("/findId", async (req, res) => {
     if (!match) {
       return res.status(401).json({ message: "비밀번호가 일치하지 않습니다." });
     }
-    // 아이디 res
-    res.json({ id: user.id });
+
+    const subject = "StarBlog ID 찾기 결과입니다.";
+    const content = "계정 ID는";
+    const value = user.id;
+    const emailSent = await sendAuthEmail(user.email, subject, content, value);
+
+    if (emailSent) {
+      res.json({ message: "ID가 이메일로 전송되었습니다.", id: user.id });
+    } else {
+      res.status(500).json({ message: "ID 이메일 전송 실패" });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "서버 에러가 발생했습니다." });
@@ -171,8 +186,42 @@ router.post("/findPwd", async (req, res) => {
       });
     }
 
+    const subject = "StarBlog Password 찾기 결과입니다.";
+    const content = "계정의 임시 패스워드는";
+    const addInfo = "임시 패스워드로 로그인 한 뒤, 패스워드를 변경해 주세요";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let tempPassword = "";
+    const charactersLength = characters.length;
+    for (let i = 0; i < 10; i++) {
+      tempPassword += characters.charAt(
+        Math.floor(Math.random() * charactersLength)
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(tempPassword, bcryptRound);
+
+    const emailSent = await sendAuthEmail(
+      user.email,
+      subject,
+      content,
+      tempPassword,
+      addInfo
+    );
+
+    const passwordUpdate = await User.findOneAndUpdate(
+      { email: secondField },
+      { $set: { password: hashedPassword } },
+      { new: true }
+    );
+
+    if (emailSent) {
+      res.json({ message: "Password가 이메일로 전송되었습니다.", id: user.id });
+    } else {
+      res.status(500).json({ message: "ID 이메일 전송 실패" });
+    }
     // 비밀번호 res
-    res.json({ password: user.password });
+    // res.json({ password: user.password });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "서버 에러가 발생했습니다." });

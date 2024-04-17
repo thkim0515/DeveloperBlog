@@ -30,6 +30,11 @@ export const AnnotationCreatePost = (props) => {
     setTitle(event.target.value);
   };
 
+  const handleCodeReset = () => {
+    const editor = ace.edit("getCode");
+    editor.setValue("");
+  };
+
   const handleCodeAnnotation = async (event) => {
     event.preventDefault();
     const editor = ace.edit("setCode");
@@ -149,6 +154,7 @@ export const AnnotationCreatePost = (props) => {
           </div>
           <div className="button-group">
             {isLoading && <Spinner isLoading={isLoading} />}
+            <S.Button onClick={handleCodeReset}>에디터 초기화</S.Button>
             <S.Button onClick={handleCodeAnnotation}>변환</S.Button>
             {/* <button onClick={handleCaptureImage}>이미지로 보기</button> */}
             <S.Button onClick={handlePostCode}>등록하기</S.Button>
