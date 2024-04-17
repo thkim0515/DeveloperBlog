@@ -149,8 +149,6 @@ router.post("/findId", async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "존재하지 않는 이메일입니다." });
     }
-    console.log(secondField);
-    console.log(user.password);
     const match = await bcrypt.compare(secondField, user.password);
     if (!match) {
       return res.status(401).json({ message: "비밀번호가 일치하지 않습니다." });
@@ -167,10 +165,8 @@ router.post("/findId", async (req, res) => {
 router.post("/findPwd", async (req, res) => {
   // firstField : 아이디 , secondField : 이메일
   const { firstField, secondField } = req.body;
-  console.log(firstField, secondField);
   try {
     const user = await User.findOne({ id: firstField, email: secondField });
-    console.log(user);
     if (!user) {
       return res.status(404).json({
         message: "아이디 혹은 이메일이 일치하는 사용자가 존재하지 않습니다.",
@@ -189,7 +185,7 @@ router.post("/findPwd", async (req, res) => {
 router.put("/update/:_id", async (req, res) => {
   try {
     const { nickname } = req.body; // 닉네임 정보
-    const { email } = req.body // 이메일 정보
+    const { email } = req.body; // 이메일 정보
 
     //닉네임 검사
     const existingUser = await User.findOne({
@@ -203,11 +199,14 @@ router.put("/update/:_id", async (req, res) => {
     }
 
     //이메일 검사
-    const existingEmail = await User.findOne({ email, _id: { $ne: req.params._id }, })
+    const existingEmail = await User.findOne({
+      email,
+      _id: { $ne: req.params._id },
+    });
     if (existingEmail) {
       return res
         .status(409)
-        .json({ message: "새로운 이메일이 이미 사용 중입니다." })
+        .json({ message: "새로운 이메일이 이미 사용 중입니다." });
     }
 
     const updateUserData = await User.findOneAndUpdate(
