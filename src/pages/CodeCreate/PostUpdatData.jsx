@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { AceEditorComp } from "./component/AceEditor";
 import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
-
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/theme-one_dark";
+import "ace-builds/src-noconflict/theme-twilight";
 export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
   const [postData, setPostData] = useState({
     _id: "",
@@ -64,7 +67,7 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
     const content = {
       ...postData,
       title: postData.title ? postData.title : "제목없음",
-      ace_contents: postData.code,
+      ace_contents: postData.ace_contents,
       toast_contents: editorData,
     };
 
@@ -77,7 +80,7 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
       console.log("서버 응답:", response.data);
       alert("성공적으로 수정");
       navigate(`/post/${_id}`, { state: { content } });
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.error("에러:", error);
       alert("수정 실패");
@@ -109,11 +112,17 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
           </div>
         </S.FormField>
         <S.AceEditorContainer>
-          <AceEditorComp name="getCode" readOnly={false} />
-          <AceEditorComp
-            name="setCode"
-            value={postData.ace_contents}
+          <AceEditor
+            mode="javascript"
+            theme="one_dark"
             onChange={onChange}
+            name="setCode"
+            editorProps={{ $blockScrolling: true }}
+            setOptions={{ useWorker: false }}
+            wrapEnabled={true}
+            width="100%"
+            fontSize="1rem"
+            value={postData.ace_contents}
           />
         </S.AceEditorContainer>
       </S.Container>

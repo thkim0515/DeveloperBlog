@@ -20,6 +20,7 @@ export const PostDetailComp = () => {
   // ImageItem 클릭시 state값 전달
   const location = useLocation();
   const { content } = location.state;
+
   const navigate = useNavigate();
 
   const handleGoBack = () => {
