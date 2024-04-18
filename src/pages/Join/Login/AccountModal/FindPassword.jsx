@@ -33,6 +33,7 @@ export const FindPassword = () => {
         error.response ? error.response.data.message : error.message
       );
     }
+    alert("임시 비밀번호가 발급되었습니다. 메일함을 확인해주세요!");
   };
 
   return (

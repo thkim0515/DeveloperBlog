@@ -33,6 +33,7 @@ export const FindId = () => {
         error.response ? error.response.data.message : error.message
       );
     }
+    alert("아이디가 이메일로 발송되었습니다. 메일함을 확인해주세요");
   };
 
   return (
