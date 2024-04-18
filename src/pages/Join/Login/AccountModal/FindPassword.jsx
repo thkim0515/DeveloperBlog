@@ -21,9 +21,9 @@ export const FindPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/users/findPassword", {
-        id: id,
-        email: email,
+      const response = await axios.post("/users/findPwd", {
+        firstField: id,
+        secondField: email,
       });
 
       console.log("결과:", response.data);
