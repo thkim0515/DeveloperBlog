@@ -23,13 +23,16 @@ export const PostDetailComp = () => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate(-1);
+    navigate(0);
+    setTimeout(() => {
+      navigate(-1);
+    }, 0);
   };
 
   useEffect(() => {
     axios
       .post("/contents/view", { _id: content._id })
-      //.then((response) => console.log(response.data))
+      // .then((response) => setViews(response.data.views))
       .catch((error) => console.error("Error:", error));
   }, [content._id]);
 
@@ -94,9 +97,11 @@ export const PostDetailComp = () => {
               className="text_area"
               dangerouslySetInnerHTML={{ __html: content.toast_contents }}
             />
-            <button onClick={handleGoBack}>뒤로가기</button>
-            <LikeButton content_id={content._id} user_id={userId} />
           </S.SImageContent>
+          <S.SLikeBackButton>
+            <LikeButton content_id={content._id} user_id={userId} />
+            <button onClick={handleGoBack}>뒤로가기</button>
+          </S.SLikeBackButton>
           <PostDetailComment content={content} />
         </S.SContainer>
       )}

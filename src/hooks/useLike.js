@@ -4,6 +4,7 @@ import axios from "axios";
 export function useLike(content_id, user_id) {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
+  const [isToggling, setIsToggling] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,6 +22,8 @@ export function useLike(content_id, user_id) {
   }, [content_id, user_id]);
 
   const toggleLike = async () => {
+    if (isToggling) return;
+    setIsToggling(true);
     try {
       await axios.post("/contents/like", { content_id, user_id });
       setLiked(!liked);
@@ -28,6 +31,7 @@ export function useLike(content_id, user_id) {
     } catch (error) {
       console.error("좋아요 처리 중 에러 발생:", error);
     }
+    setIsToggling(false);
   };
 
   return { liked, likes, toggleLike };

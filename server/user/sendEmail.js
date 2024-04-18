@@ -20,7 +20,7 @@ async function sendAuthEmail(email, subject, content, value, addInfo = "") {
   const mailOptions = {
     from: EMAILUSER,
     to: email,
-    subject: "이메일 인증",
+    subject: "StarBlog 인증 이메일입니다.",
     html: `
       <html>
       <head>

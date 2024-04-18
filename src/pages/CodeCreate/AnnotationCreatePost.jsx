@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
 import ace from "ace-builds/src-noconflict/ace";
 import { decryptData, encryptData } from "../../js/secure";
-
+import { UpdateLocalStorage } from "../../js/UpdateLocalStorage";
 export const AnnotationCreatePost = (props) => {
   const navigate = useNavigate();
   const [code, setCode] = useState("");
@@ -63,7 +63,10 @@ export const AnnotationCreatePost = (props) => {
   }
 
   const handlePostCode = async () => {
-    //await handleCaptureImage();
+    if (!commentedCode) {
+      alert("코드변환을 진행해 주세요.");
+      return;
+    }
     const user = decryptData("user", sessionStorage);
     const nickname = user.nickname;
     const profileImg = user.profileimg;
@@ -94,20 +97,11 @@ export const AnnotationCreatePost = (props) => {
       const content = response.data.info;
       content.userId = userSession;
 
-      updateLocalStorage(content);
-
+      UpdateLocalStorage(content);
       navigate(`/post/${content._id}`, { state: { content } });
     } catch (error) {
       console.error("에러:", error);
       alert("글 등록 실패. 서버 에러.");
-    }
-  };
-
-  const updateLocalStorage = (newContent) => {
-    const storedContents = decryptData("contents", localStorage);
-    if (storedContents) {
-      const updatedContents = [...storedContents, newContent];
-      encryptData(updatedContents, "contents", localStorage);
     }
   };
 

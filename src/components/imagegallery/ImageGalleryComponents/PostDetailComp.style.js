@@ -137,6 +137,25 @@ export const SImageContent = styled.div`
     cursor: pointer;
   }
 `;
+export const SLikeBackButton = styled.div`
+  margin-top: 10px;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    width: 80px;
+    height: 40px;
+    padding: 10px;
+    background-color: #3f72af;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+`;
 
 export const SProfileImage = styled.div`
   width: 2.5rem;
