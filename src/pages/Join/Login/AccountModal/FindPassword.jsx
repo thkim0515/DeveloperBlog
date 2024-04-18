@@ -1,11 +1,11 @@
+import { useState } from "react";
 import * as S from "./AccountModal.style";
 
 // component
 import { Input } from "../../../../components/form/Input";
-import { useState } from "react";
 
 import axios from "axios";
-export const RenderForm = ({ active }) => {
+export const FindPassword = () => {
   const [firstField, setFirstField] = useState("");
   const [secondField, setSecondField] = useState("");
 
@@ -20,10 +20,8 @@ export const RenderForm = ({ active }) => {
   const handleFindIdOrPassword = async (e) => {
     e.preventDefault();
 
-    const endpoint = active === "findId" ? "/users/findId" : "/users/findPwd";
-
     try {
-      const response = await axios.post(endpoint, {
+      const response = await axios.post("/users/findPassword", {
         firstField: firstField,
         secondField: secondField,
       });
@@ -41,22 +39,18 @@ export const RenderForm = ({ active }) => {
     <form>
       {/* 아이디 찾기 */}
       <S.FormField>
-        <label htmlFor="field1">
-          {active === "findId" ? "이메일" : "아이디"}
-        </label>
+        <label htmlFor="field1">아이디</label>
         <Input
-          type={active === "findId" ? "email" : "text"}
+          type="text"
           id="field1"
           value={firstField}
           onChange={handleFirstFieldChange}
         />
       </S.FormField>
       <S.FormField>
-        <label htmlFor="field2">
-          {active === "findId" ? "비밀번호" : "이메일"}
-        </label>
+        <label htmlFor="field2">이메일</label>
         <Input
-          type={active === "findId" ? "password" : "email"}
+          type="email"
           id="field2"
           value={secondField}
           onChange={handleSecondFieldChange}
@@ -64,13 +58,7 @@ export const RenderForm = ({ active }) => {
       </S.FormField>
 
       {/* 찾기 버튼 */}
-      <S.Button onClick={handleFindIdOrPassword}>
-        {active === "findId" ? "아이디 찾기" : "비밀번호 찾기"}
-      </S.Button>
-
-      {/* 아이디 보여주기 */}
-
-      {/* 비밀번호 변경하기 */}
+      <S.Button onClick={handleFindIdOrPassword}>비밀번호 찾기</S.Button>
     </form>
   );
 };
