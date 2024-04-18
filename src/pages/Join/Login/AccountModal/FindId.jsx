@@ -6,11 +6,11 @@ import { Input } from "../../../../components/form/Input";
 
 import axios from "axios";
 export const FindId = () => {
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleEmail = (e) => {
-    setId(e.target.value);
+    setEmail(e.target.value);
   };
 
   const handlePassword = (e) => {
@@ -22,8 +22,8 @@ export const FindId = () => {
 
     try {
       const response = await axios.post("/users/findId", {
-        id: id,
-        password: password,
+        firstField: email,
+        secondField: password,
       });
 
       console.log("결과:", response.data);
@@ -33,6 +33,7 @@ export const FindId = () => {
         error.response ? error.response.data.message : error.message
       );
     }
+    alert("아이디가 이메일로 발송되었습니다. 메일함을 확인해주세요");
   };
 
   return (
@@ -40,7 +41,7 @@ export const FindId = () => {
       {/* 아이디 찾기 */}
       <S.FormField>
         <label htmlFor="field1">이메일</label>
-        <Input type="email" id="field1" value={id} onChange={handleEmail} />
+        <Input type="email" id="field1" value={email} onChange={handleEmail} />
       </S.FormField>
       <S.FormField>
         <label htmlFor="field2">비밀번호</label>

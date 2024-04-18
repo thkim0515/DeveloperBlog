@@ -21,9 +21,9 @@ export const FindPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/users/findPassword", {
-        id: id,
-        email: email,
+      const response = await axios.post("/users/findPwd", {
+        firstField: id,
+        secondField: email,
       });
 
       console.log("결과:", response.data);
@@ -33,6 +33,7 @@ export const FindPassword = () => {
         error.response ? error.response.data.message : error.message
       );
     }
+    alert("임시 비밀번호가 발급되었습니다. 메일함을 확인해주세요!");
   };
 
   return (
