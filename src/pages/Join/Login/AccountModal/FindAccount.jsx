@@ -1,5 +1,6 @@
-import { RenderForm } from "./RenderForm";
+import { FindId } from "./FindId";
+import { FindPassword } from "./FindPassword";
 
 export const FindAccount = ({ active }) => {
-  return <RenderForm active={active} />;
+  return <>{active === "findId" ? <FindId /> : <FindPassword />}</>;
 };
