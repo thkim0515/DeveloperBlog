@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import * as S from "./PostDetailComp.style";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ export const PostDetailComment = ({ content }) => {
   const handleInputChange = (setState) => (e) => {
     setState(e.target.value);
   };
+  
 
   /*-------------시간표시---------------*/
   function timeString(postdate) {
@@ -32,6 +33,19 @@ export const PostDetailComment = ({ content }) => {
       return `${year}-${month}-${day} / ${hours}:${minutes}`;
     }
   }
+
+  /*-------------댓글 textarea 높이 조절---------------*/
+  
+  const textarea = useRef();
+
+
+  const handleResizeHeight = () => {
+    textarea.current.style.height = textarea.current.scrollHeight + 'px';
+  };
+
+  const handleOnFocusTextarea = () => {
+    textarea.current.style.height = textarea.current.scrollHeight + 'px';
+  };
 
   /*-------------create 기능---------------*/
   const handleCreateSubmit = async (e) => {
@@ -93,9 +107,12 @@ export const PostDetailComment = ({ content }) => {
   const [editId, setEditId] = useState(null);
   const [editComment, setEditComment] = useState("");
 
-  const handleUpdate = (_id, comment) => {
+  const handleUpdate = async (_id, comment) => {
     setEditId(_id);
     setEditComment(comment);
+    // setEditId와 setEditComment가 완료된 후에 textarea에 포커스를 줌
+    await Promise.resolve(); // 비동기 처리를 위해 빈 Promise를 생성
+    textarea.current.focus();
   };
 
   const handleCancel = () => {
@@ -158,42 +175,53 @@ export const PostDetailComment = ({ content }) => {
 
                     <div className="userid">{comment.userId.nickname}</div>
                   </div>
-                  <div className="comment_text">
-                    <div className="comment_detail">
-                      {editId === comment._id ? (
-                        <input
-                          type="text"
-                          value={editComment}
-                          onChange={handleInputChange(setEditComment)}
-                          placeholder="댓글 달기..."
-                        />
-                      ) : (
-                        <div>{comment.comment}</div>
-                      )}
-                      <div className="date">{timeString(comment.postdate)}</div>
-                    </div>
-                    {user && comment.userId._id === user.id && (
-                      <div className="edit_delete">
-                        <button
-                          onClick={() =>
-                            editId === comment._id
-                              ? handleComplete(comment._id)
-                              : handleUpdate(comment._id, comment.comment)
-                          }
-                        >
-                          {editId === comment._id ? "완료" : "수정"}
-                        </button>
-                        <button
-                          onClick={() =>
-                            editId === comment._id
-                              ? handleCancel()
-                              : deleteContents(comment._id, "comments")
-                          }
-                        >
-                          {editId === comment._id ? "취소" : "삭제"}
-                        </button>
+                  <div className="comment_box">
+                    <div className="comment_detail_box">
+                      <div className="text_detail">                      
+                        {editId === comment._id ? (
+                          <textarea
+                            ref={textarea}
+                            type="text"
+                            value={editComment}
+                            onChange={(event) => {
+                               handleInputChange(setEditComment)(event); // handleInputChange 함수 호출
+                               handleResizeHeight(); // handleResizeHeight 함수 호출
+                            }}
+                            onFocus={handleOnFocusTextarea}
+                            placeholder="댓글 달기..."
+                          />
+                        ) : (
+                          <div className="comment">{comment.comment}</div>
+                        )}
                       </div>
-                    )}
+                      <div>
+                        <div className="date">
+                          {timeString(comment.postdate)}
+                        </div>
+                        {user && comment.userId._id === user.id && (
+                          <div className="edit_delete">
+                            <button
+                              onClick={() =>
+                                editId === comment._id
+                                  ? handleComplete(comment._id)
+                                  : handleUpdate(comment._id, comment.comment)
+                              }
+                            >
+                              {editId === comment._id ? "완료" : "수정"}
+                            </button>
+                            <button
+                              onClick={() =>
+                                editId === comment._id
+                                  ? handleCancel()
+                                  : deleteContents(comment._id, "comments")
+                              }
+                            >
+                              {editId === comment._id ? "취소" : "삭제"}
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </li>
               );

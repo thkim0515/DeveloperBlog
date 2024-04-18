@@ -227,33 +227,49 @@ export const CommentBox = styled.div`
       }
     }
 
-    .comment_text {
+    .comment_box {
       width: 92%;
       display: flex;
-      flex-flow: column;
-      justify-content: center;
-      gap: 4px;
+      align-items: center;
 
-      .comment_detail {
+      .comment_detail_box {
+        width: 100%;
         display: flex;
-        justify-content: space-between;
         align-items: center;
         gap: 8px;
 
+        .text_detail {
+          width: 88%;
+
+          textarea {
+            width: 100%;
+            outline: none;
+            resize: none;
+            border: 1px solid #dbe2ef;
+            background-color: #f9f7f7;
+            overflow: hidden;
+          }
+
+          div{
+            word-break:break-all;
+          }
+
+        }
         .date {
+          width: 100%;
+          font-size: 12px;
+        }
+
+        .edit_delete {
+          margin-top: 8px;
+          display: flex;
+          justify-content: end;
           font-size: 12px;
           color: #112d4e;
-        }
-      }
-
-      .edit_delete {
-        display: flex;
-        justify-content: end;
-        font-size: 12px;
-        color: #112d4e;
-        cursor: pointer;
-        button {
-          margin-left: 8px;
+          cursor: pointer;
+          button {
+            margin-left: 8px;
+          }
         }
       }
     }
@@ -287,3 +303,4 @@ export const CommentForm = styled.form`
     cursor: pointer;
   }
 `;
+
