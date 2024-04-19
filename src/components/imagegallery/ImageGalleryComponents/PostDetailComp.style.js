@@ -107,7 +107,7 @@ export const SImageContent = styled.div`
   }
 
   .ace_content {
-    height: 0px !important;
+    height: auto !important;
   }
 
   .text_area {

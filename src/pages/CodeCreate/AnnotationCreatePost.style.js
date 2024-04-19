@@ -74,7 +74,7 @@ export const AceEditorContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   .ace_content {
-    height: 0px !important;
+    height: ${({ $isUpdate }) => ($isUpdate ? "auto !important;" : "538px")};
   }
 `;
 
