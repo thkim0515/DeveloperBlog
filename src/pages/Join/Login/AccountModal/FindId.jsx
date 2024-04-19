@@ -10,8 +10,8 @@ import { AlertPopup } from "./AlertPopup";
 export const FindId = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSubmit, setIsSubmit] = useState(true);
-  const [isPassed, setIsPassed] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [isPassed, setIsPassed] = useState();
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
