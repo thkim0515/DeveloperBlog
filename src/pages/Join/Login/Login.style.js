@@ -1,33 +1,5 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  position: relative;
-  display: flex;
-  flex: 1 1 0;
-  height: 100vh;
-`;
-
-export const LeftBox = styled.div`
-  flex-basis: 57%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-`;
-
-export const RightBox = styled.div`
-  flex-basis: 43%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 60px;
-  background-color: #ffffff;
-
-  .login-title {
-    margin: 2rem 0;
-  }
-`;
-
 export const LoginText = styled.p`
   font-size: 1.2rem;
   margin-bottom: 1.5rem;

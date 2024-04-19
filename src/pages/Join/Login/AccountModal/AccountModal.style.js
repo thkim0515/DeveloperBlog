@@ -25,7 +25,7 @@ export const TabMenu = styled.div`
 `;
 
 export const Tab = styled.button`
-  color: ${({ active }) => (active ? "#3f72af" : "#888888")};
+  color: ${({ $active }) => ($active === "findId" ? "#3f72af" : "#888888")};
 `;
 
 export const ModalCloseButton = styled.button`
@@ -48,7 +48,7 @@ export const InnerBar = styled.div`
   height: 8px;
   background-color: #dbe2ef;
   transition: all 0.3s ease;
-  left: ${({ active }) => (active === "findId" ? 0 : "50%")};
+  left: ${({ $active }) => ($active === "findId" ? 0 : "50%")};
 `;
 
 export const FormField = styled.div`

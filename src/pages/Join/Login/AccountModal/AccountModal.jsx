@@ -23,25 +23,25 @@ export const AccountModal = ({ onClick }) => {
           <S.TabMenu>
             <S.Tab
               onClick={() => handleTabClick("findId")}
-              active={isActiveTab === "findId"}
+              active={isActiveTab === "findId" ? "true" : "false"}
             >
               아이디 찾기
             </S.Tab>
             <S.Tab
               onClick={() => handleTabClick("findPassword")}
-              active={isActiveTab === "findPassword"}
+              active={isActiveTab === "findPassword" ? "true" : "false"}
             >
               비밀번호 찾기
             </S.Tab>
           </S.TabMenu>
           <S.TabMenuBar>
-            <S.InnerBar active={isActiveTab} />
+            <S.InnerBar $active={isActiveTab} />
           </S.TabMenuBar>
         </div>
 
         {/* 닫기 버튼 */}
         <S.ModalCloseButton onClick={onClick}>x</S.ModalCloseButton>
-        <FindAccount active={isActiveTab} />
+        <FindAccount $active={isActiveTab} />
       </S.ModalBox>
     </S.ModalBackgroundBox>
   );
