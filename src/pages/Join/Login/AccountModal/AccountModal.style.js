@@ -28,7 +28,7 @@ export const Tab = styled.button`
   color: ${({ $active }) => ($active === "findId" ? "#3f72af" : "#888888")};
 `;
 
-export const ModalCloseButton = styled.button`
+export const ModalCloseButton = styled.div`
   position: absolute;
   top: 20px;
   right: 30px;
@@ -70,4 +70,8 @@ export const Button = styled.button`
   margin-top: 1rem;
   color: #ffffff;
   background-color: #3f72af;
+`;
+
+export const FindBox = styled.div`
+  position: relative;
 `;

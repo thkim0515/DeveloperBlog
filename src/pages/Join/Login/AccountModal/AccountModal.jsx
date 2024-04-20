@@ -1,5 +1,6 @@
 import { useState } from "react";
 import * as S from "./AccountModal.style";
+import { CloseButton } from "react-bootstrap";
 
 // components
 import { FindAccount } from "./FindAccount";
@@ -40,7 +41,9 @@ export const AccountModal = ({ onClick }) => {
         </div>
 
         {/* 닫기 버튼 */}
-        <S.ModalCloseButton onClick={onClick}>x</S.ModalCloseButton>
+        <S.ModalCloseButton onClick={onClick}>
+          <CloseButton />
+        </S.ModalCloseButton>
         <FindAccount $active={isActiveTab} />
       </S.ModalBox>
     </S.ModalBackgroundBox>

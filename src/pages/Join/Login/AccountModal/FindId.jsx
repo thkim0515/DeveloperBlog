@@ -1,17 +1,16 @@
 import { useState } from "react";
-import styled from "styled-components";
+import axios from "axios";
 import * as S from "./AccountModal.style";
 
 // component
 import { Input } from "../../../../components/form/Input";
-
-import axios from "axios";
 import { AlertPopup } from "./AlertPopup";
+
 export const FindId = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
-  const [isPassed, setIsPassed] = useState();
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -30,19 +29,25 @@ export const FindId = () => {
         secondField: password,
       });
 
-      console.log("결과:", response.data);
+      // TODO 배포 전 콘솔 지우기
+      // console.log("결과:", response.data);
     } catch (error) {
       console.error(
         "에러 발생:",
         error.response ? error.response.data.message : error.message
       );
     }
-    alert("아이디가 이메일로 발송되었습니다. 메일함을 확인해주세요");
+    setIsSubmit(true);
+    setAlertMessage("이메일로 아이디를 발송했습니다.\n 메일함을 확인해주세요!");
+
+    setTimeout(() => {
+      setIsSubmit(false);
+    }, 2500);
   };
 
   return (
-    <FindBox>
-      {isSubmit ? <AlertPopup isPassed={isPassed} /> : <></>}
+    <S.FindBox>
+      {isSubmit ? <AlertPopup alertMessage={alertMessage} /> : <></>}
       <form>
         {/* 아이디 찾기 */}
         <S.FormField>
@@ -67,10 +72,6 @@ export const FindId = () => {
         {/* 찾기 버튼 */}
         <S.Button onClick={onSubmitData}>아이디 찾기</S.Button>
       </form>
-    </FindBox>
+    </S.FindBox>
   );
 };
-
-const FindBox = styled.div`
-  position: relative;
-`;
