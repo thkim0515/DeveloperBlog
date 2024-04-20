@@ -1,3 +1,6 @@
+const loadSecrets = require("./load_secret");
+loadSecrets();
+
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -23,7 +26,9 @@ mongoose
 const users = require("./user/users");
 const contents = require("./contents/contents");
 const comments = require("./contents/comments");
+// const processed = require("./contents/processed");
 const email = require("./user/email");
+const endecrypt = require("./contents/endecrypt");
 const { router } = require("./error/processError");
 
 app.use(bodyParser.json());
@@ -31,6 +36,8 @@ app.use("/users", users);
 app.use("/contents", contents);
 app.use("/comments", comments);
 app.use("/email", email);
+app.use("/endecrypt", endecrypt);
+// app.use("/contents", processed);
 app.use(router);
 
 app.use(express.static(path.join(__dirname, "../build")));

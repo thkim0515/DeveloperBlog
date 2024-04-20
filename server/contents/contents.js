@@ -5,7 +5,8 @@ const svgsData = require("../models/svgModel");
 const Comment = require("../models/commentModel");
 const User = require("../models/userModel");
 const { logError } = require("../error/processError");
-
+const loadSecrets = require("../load_secret");
+const axios = require("axios");
 //images
 router.get("/contents", async (req, res) => {
   try {
@@ -70,6 +71,46 @@ router.get("/svgsdata", async (req, res) => {
   } catch (error) {
     logError(error.message);
     res.status(500).json({ message: error.message });
+  }
+});
+
+router.post("/annotate", async (req, res) => {
+  try {
+    const secrets = await loadSecrets();
+    const OPENAI_API_KEY = secrets.REACT_APP_OPENAI_API_KEY;
+    const orderToGPT = secrets.REACT_APP_OPENAI_orderBlock;
+    const code = req.body.code;
+
+    const response = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-3.5-turbo",
+        messages: [
+          { role: "system", content: orderToGPT },
+          { role: "user", content: code },
+        ],
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+        },
+      }
+    );
+    console.log(response);
+    const lastMessage = response.data.choices[0].message;
+    const lastMessageContent = lastMessage
+      ? lastMessage.content.trim()
+      : "반환 텍스트가 없음";
+    const replaceAllBackticks = lastMessageContent.replaceAll("```", "");
+
+    res.json({ commentedCode: replaceAllBackticks });
+  } catch (error) {
+    console.error(
+      "OpenAI 에러",
+      error.response ? error.response.data : error.message
+    );
+    res.status(500).send("서버 에러");
   }
 });
 
