@@ -25,7 +25,7 @@ export const LiveChat = () => {
   const [messages, setMessages] = useState([]);
 
   /* 웹소켓 연결 변수 관리 */
-  const WEBSOCKET_ADDRESS = process.env.REACT_APP_WEBSOCKET;
+  const WEBSOCKET_ADDRESS = "ws://localhost:5000";
   const disconnectWebsocketTime = 6; // 6 분
   const milliseconds = disconnectWebsocketTime * 100000;
 
