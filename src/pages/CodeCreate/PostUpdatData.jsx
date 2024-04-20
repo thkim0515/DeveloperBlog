@@ -110,7 +110,7 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
             )}
           </div>
         </S.FormField>
-        <S.AceEditorContainer>
+        <S.AceEditorContainer $isUpdate={true}>
           <AceEditor
             mode="javascript"
             theme="one_dark"

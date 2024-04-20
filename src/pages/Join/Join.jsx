@@ -15,7 +15,7 @@ export const Join = () => {
     <Container>
       <LeftBox>
         <span> web class 2024</span>
-        <Logo/>
+        <Logo />
         <span>KOSTA 281</span>
       </LeftBox>
       <RightBox>
@@ -63,4 +63,8 @@ const LogoBox = styled.div`
   position: absolute;
   top: 20px;
   right: 60px;
+
+  a {
+    font-size: 2rem;
+  }
 `;

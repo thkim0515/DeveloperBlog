@@ -25,10 +25,10 @@ export const TabMenu = styled.div`
 `;
 
 export const Tab = styled.button`
-  color: ${({ active }) => (active ? "#3f72af" : "#888888")};
+  color: ${({ $active }) => ($active === "findId" ? "#3f72af" : "#888888")};
 `;
 
-export const ModalCloseButton = styled.button`
+export const ModalCloseButton = styled.div`
   position: absolute;
   top: 20px;
   right: 30px;
@@ -48,7 +48,7 @@ export const InnerBar = styled.div`
   height: 8px;
   background-color: #dbe2ef;
   transition: all 0.3s ease;
-  left: ${({ active }) => (active === "findId" ? 0 : "50%")};
+  left: ${({ $active }) => ($active === "findId" ? 0 : "50%")};
 `;
 
 export const FormField = styled.div`
@@ -70,4 +70,8 @@ export const Button = styled.button`
   margin-top: 1rem;
   color: #ffffff;
   background-color: #3f72af;
+`;
+
+export const FindBox = styled.div`
+  position: relative;
 `;

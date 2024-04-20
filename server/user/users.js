@@ -275,7 +275,13 @@ router.put("/update/:_id", async (req, res) => {
 router.put("/updatePwd/:_id", async (req, res) => {
   try {
     const { editData, currentPassword } = req.body;
-    // 비밀번호 검사
+
+    // 새로운 비밀번호  조건 검사
+    if (!/^[\wㄱ-힣!@#$%^&*()\-_=+\[\]{};:'",<.>/?]{8,16}$/.test(editData.password)) {
+      return res.status(400).json({
+        message: "패스워드는 8자 이상 16자리 이하여야 합니다.",
+      });
+    }
 
     const user = await User.findById(req.params._id);
     const match = await bcrypt.compare(currentPassword, user.password);

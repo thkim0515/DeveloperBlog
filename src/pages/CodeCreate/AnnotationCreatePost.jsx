@@ -49,16 +49,11 @@ export const AnnotationCreatePost = (props) => {
     if (firstLineContent === "jsx") {
       firstLineContent = "react";
     }
-    const validNames = [
-      "html",
-      "css",
-      "javascript",
-      "typescript",
-      "java",
-      "react",
-    ];
+    const validNames = decryptData("svgImages", localStorage);
+    let svgImages = [];
+    svgImages = validNames;
 
-    const matchedName = validNames.find((lang) => lang === firstLineContent);
+    const matchedName = svgImages.find((lang) => lang === firstLineContent);
     return matchedName;
   }
 

@@ -42,11 +42,6 @@ export const PasswordAndUserOut = () => {
       alert("비밀번호를 입력해주세요.");
       return;
     }
-    //비밀번호는 8자리 이상 16자리 이하
-    if (!/^[\w!@#$%^&*()\-_=+\[\]{};:'",<.>/?]{8,16}$/.test(newPassword)) {
-      alert("패스워드는 8자 이상 16자리 이하여야 합니다.");
-      return;
-    }
 
     //일치하면 업데이트 시도
     try {
@@ -57,7 +52,10 @@ export const PasswordAndUserOut = () => {
     } catch (error) {
       if (error.response && error.response.status === 409) {
         alert(error.response.data.message);
-      } else {
+      } else if (error.response && error.response.status === 400){
+        alert(error.response.data.message)
+      } 
+      else {
         alert("비밀번호 변경 실패");
       }
     }
@@ -82,13 +80,17 @@ export const PasswordAndUserOut = () => {
       <S.PwdTitle>비밀번호 변경</S.PwdTitle>
       <S.PwdFormBox>
         <S.PwdForm onSubmit={handleUpdate}>
-          <label>현재 비밀번호</label>
-          <input type="password" onChange={handleInputChange(setPassword)} />
-          <label>새로운 비밀번호</label>
-          <input type="password" onChange={handleInputChange(setNewPassword)} />
-          <label>비밀번호 재입력</label>
+        <label htmlFor="username" style={{ display: 'none' }} >사용자명:</label>
+        <input type="text" id="username" name="username" style={{ display: 'none' }} autoComplete="username" />
+          <label htmlFor="current-password">현재 비밀번호</label>
+          <input type="password" name="current-password" autoComplete="off" onChange={handleInputChange(setPassword)} />
+          <label htmlFor="new-password">새로운 비밀번호</label>
+          <input type="password" name="new-password" autoComplete="new-password" onChange={handleInputChange(setNewPassword)} />
+          <label htmlFor="new-password-confirm">비밀번호 재입력</label>
           <input
             type="password"
+            name="new-password-confirm"
+            autoComplete="new-password" 
             onChange={handleInputChange(setConfirmPassword)}
           />
           <S.PwdEditButton type="submit">변경사항 저장</S.PwdEditButton>
