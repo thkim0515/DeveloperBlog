@@ -22,11 +22,11 @@ export const CodePost = () => {
 
 export const CodePostBox = styled.div`
   display: flex;
+  gap: 0.125rem;
   max-width: 1140px;
   width: 100%;
   height: 80vh;
   margin: 0 auto;
-  gap: 0.125rem;
 `;
 
 const AceGetBox = styled.div`

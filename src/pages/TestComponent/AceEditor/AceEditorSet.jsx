@@ -8,7 +8,7 @@ export const AceEditorSet = ({ name, value, onChange }) => {
   return (
     <AceEditor
       mode="javascript"
-      theme={name === "getCode" ? "one_dark" : "twilight"}
+      theme={name === "getAceCode" ? "one_dark" : "twilight"}
       editorProps={{ $blockScrolling: true }}
       setOptions={{ useWorker: false }}
       wrapEnabled={true}

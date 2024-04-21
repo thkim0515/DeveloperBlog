@@ -29,7 +29,10 @@ export const NewCodePosting = () => {
           </button>
         </ViewOptionsBox>
         <CodePost />
-        <div>올리기</div>
+        <PostButtonBox>
+          <button>코드 변환</button>
+          <button>포스팅 올리기</button>
+        </PostButtonBox>
       </CodePostingBox>
     </>
   );
@@ -49,13 +52,25 @@ const TitleBox = styled.div`
 `;
 
 const ViewOptionsBox = styled.div`
-  text-align: right;
+  text-align: center;
 
   button {
     display: inline-block;
     background-color: #b3b0b0;
     padding: 0.25rem;
-    margin-right: 1px;
+    margin: 8px;
+    border-radius: 4px;
+  }
+`;
+
+const PostButtonBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    background-color: #b3b0b0;
+    padding: 0.25rem;
+    margin-top: 8px;
     border-radius: 4px;
   }
 `;
