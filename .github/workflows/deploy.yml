@@ -1,0 +1,38 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - testBranch1
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.x"
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Upload to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+      - name: Deploy to EC2 using CodeDeploy
+        uses: webfactory/create-aws-codedeploy-deployment@v1
+        with:
+          application: code-deploy-test
+          deployment-group: code-deploy-group
+          revision-type: S3
+          s3-bucket: ${{ secrets.S3_BUCKET }}
+          s3-key: builds/my-build.zip
+          region: ${{ secrets.AWS_REGION }}
