@@ -1,11 +1,6 @@
 #!/bin/bash
-# 서버에 필요한 종속성 설치
-sudo yum update -y
+REPOSITORY=/home/ubuntu/deploy-fe # 배포된 프로젝트 경로.
 
-sudo yum install -y nginx
+cd $REPOSITORY # 이 경로로 이동해서 밑에 명령어들을 차례로 실행.
 
-# 애플리케이션 빌드 파일을 웹 서버의 루트 디렉토리로 이동
-sudo cp -r /var/www/html/build/* /usr/share/nginx/html/
-
-# 웹 서버 재시작
-sudo systemctl restart nginx
+sudo npm install --legacy-peer-deps # 의존성 파일 설치.
