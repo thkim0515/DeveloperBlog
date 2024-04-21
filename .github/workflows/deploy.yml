@@ -10,16 +10,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
+
       - name: Install dependencies
         run: npm install --legacy-peer-deps
+
       - name: Build
         run: npm run build
         env:
           CI: ""
+
+      - name: Zip build directory
+        run: zip -r build-app.zip build/
+        # 확실히 build 디렉토리가 존재하는지 확인하세요.
+
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -29,13 +37,15 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-      - name: webfactory/create-aws-codedeploy-deployment
-        uses: webfactory/create-aws-codedeploy-deployment@v0.4.0
 
-        with:
-          application: code-deploy-test
-          deployment-group: code-deploy-group
-          revision-type: S3
-          s3-bucket: ${{ secrets.S3_BUCKET }}
-          s3-key: builds/my-build.zip
-          region: ${{ secrets.AWS_REGION }}
+      # 이 부분을 제거하거나, jakejarvis/s3-sync-action 대신 사용하세요.
+      # - name: Copy build zip to S3
+      #   run: aws s3 cp --region ${{ secrets.AWS_REGION }} ./build-app.zip s3://${{ secrets.S3_BUCKET }}/build-app.zip
+
+      - name: Deploy
+        run: |
+          aws deploy create-deployment \
+          --application-name code-deploy-test \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --deployment-group-name code-deploy-group \
+          --s3-location bucket=${{ secrets.S3_BUCKET }},key=build-app.zip,bundleType=zip
