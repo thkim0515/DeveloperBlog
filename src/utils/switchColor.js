@@ -7,9 +7,6 @@ export const switchColor = (lang) => {
     case "javascript":
       bgColor = "#F0DB4F";
       break;
-    case "js":
-      bgColor = "#F0DB4F";
-      break;
     case "java":
       bgColor = "#5382A1";
       break;

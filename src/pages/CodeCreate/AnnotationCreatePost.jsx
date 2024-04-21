@@ -49,6 +49,9 @@ export const AnnotationCreatePost = (props) => {
     if (firstLineContent === "jsx") {
       firstLineContent = "react";
     }
+    if (firstLineContent === "js") {
+      firstLineContent = "javascript";
+    }
     const validNames = await decryptData("svgImages", localStorage);
     let svgImages = [];
     svgImages = validNames;
