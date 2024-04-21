@@ -27,8 +27,9 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-      - name: Deploy to EC2 using CodeDeploy
-        uses: webfactory/create-aws-codedeploy-deployment@v1
+      - name: webfactory/create-aws-codedeploy-deployment
+        uses: webfactory/create-aws-codedeploy-deployment@v0.4.0
+
         with:
           application: code-deploy-test
           deployment-group: code-deploy-group
