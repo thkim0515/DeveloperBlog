@@ -24,19 +24,20 @@ jobs:
           CI: ""
 
       - name: Upload to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
         env:
+          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           aws s3 cp --region ${{ secrets.AWS_REGION }} ./build-app.zip s3://${{ secrets.S3_BUCKET }}/build-app.zip
 
-      - name: webfactory/create-aws-codedeploy-deployment
-        uses: webfactory/create-aws-codedeploy-deployment@v0.4.0
-
-        with:
-          application: code-deploy-test
-          deployment-group: code-deploy-group
-          revision-type: S3
-          s3-bucket: ${{ secrets.S3_BUCKET }}
-          s3-key: builds/my-build.zip
-          region: ${{ secrets.AWS_REGION }}
+     - name: Deploy # Deploy to EC2
+        run: aws deploy create-deployment
+          --application-name code-deploy-test
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name code-deploy-group
+          --s3-location bucket=${{ secrets.S3_BUCKET }},key=build-app.zip,bundleType=zip
