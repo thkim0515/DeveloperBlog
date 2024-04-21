@@ -82,6 +82,7 @@ const VerifyButtonBox = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
   button {
     width: 40px;
     height: 24px;
