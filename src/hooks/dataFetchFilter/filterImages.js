@@ -1,6 +1,6 @@
 import { decryptData } from "../../js/secure";
 
-export const filterImages = (images, searchTerm, value, selectedIcon) => {
+export const filterImages = async (images, searchTerm, value, selectedIcon) => {
   let filterimages = [];
 
   if (images) {
@@ -23,7 +23,7 @@ export const filterImages = (images, searchTerm, value, selectedIcon) => {
     filterimages = images;
   }
 
-  const userItem = decryptData("user", sessionStorage);
+  const userItem = await decryptData("user", sessionStorage);
 
   if (userItem) {
     const nickname = userItem.nickname;

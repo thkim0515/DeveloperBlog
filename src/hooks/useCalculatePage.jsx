@@ -8,8 +8,15 @@ export const useCalculatePage = (PageCount, filteredImages) => {
   const [currentPage, setCurrentPage] = useState(savedCurrentPage);
 
   useEffect(() => {
-    // sessionStorage.setItem("currentPage", currentPage);
-    encryptData(currentPage, "currentPage", sessionStorage);
+    const encryptAndStoreData = async () => {
+      try {
+        await encryptData(currentPage, "currentPage", sessionStorage);
+      } catch (error) {
+        console.error("Failed to encrypt and store data:", error);
+      }
+    };
+
+    encryptAndStoreData();
   }, [currentPage]);
 
   const indexOfLastImage = currentPage * PageCount;

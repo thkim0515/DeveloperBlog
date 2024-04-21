@@ -16,7 +16,7 @@ router.post("/create", async (req, res) => {
     await newComments.save();
     res.status(201).json({ message: "댓글 등록 성공", pid: newComments.pid });
   } catch (error) {
-    logError(error.message);
+    logError("댓글 생성", error.message);
     res.status(500).json({ message: "서버 에러", error: error.message });
   }
 });
@@ -35,7 +35,7 @@ router.get("/read/:postId", async (req, res) => {
 
     res.status(200).json(comments);
   } catch (error) {
-    logError(error.message);
+    logError("댓글 읽기", error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -53,7 +53,7 @@ router.put("/update/:_id", async (req, res) => {
     }
     res.status(200).json({ message: "수정성공", updatedComment });
   } catch (error) {
-    logError(error.message);
+    logError("댓글 업데이트", error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -70,7 +70,7 @@ router.delete("/delete/:_id", async (req, res) => {
 
     res.status(200).json({ message: "삭제성공" });
   } catch (error) {
-    logError(error.message);
+    logError("댓글 삭제", error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -81,7 +81,7 @@ router.get("/count/:postId", async (req, res) => {
     const count = await Comment.countDocuments({ postId: postId });
     res.status(200).json({ postId: postId, count: count });
   } catch (error) {
-    logError(error.message);
+    logError("댓글 카운트", error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });

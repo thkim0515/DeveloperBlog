@@ -5,7 +5,8 @@ const svgsData = require("../models/svgModel");
 const Comment = require("../models/commentModel");
 const User = require("../models/userModel");
 const { logError } = require("../error/processError");
-const loadSecrets = require("../load_secret");
+const loadSecrets = require("../loadSecrets");
+const Log = require("../models/LogModel");
 const axios = require("axios");
 //images
 router.get("/contents", async (req, res) => {
@@ -58,7 +59,7 @@ router.get("/contents", async (req, res) => {
     // console.log(contentst[0]);
     res.json(contentst);
   } catch (error) {
-    logError(error.message);
+    logError("콘텐츠 파싱", error.message);
     res.status(500).json({ message: error.message });
   }
 });
@@ -69,7 +70,7 @@ router.get("/svgsdata", async (req, res) => {
     const svgsdata = await svgsData.find();
     res.json(svgsdata);
   } catch (error) {
-    logError(error.message);
+    logError("SVG파싱", error.message);
     res.status(500).json({ message: error.message });
   }
 });
@@ -97,7 +98,6 @@ router.post("/annotate", async (req, res) => {
         },
       }
     );
-    console.log(response);
     const lastMessage = response.data.choices[0].message;
     const lastMessageContent = lastMessage
       ? lastMessage.content.trim()
@@ -143,7 +143,7 @@ router.post("/create", async (req, res) => {
     const newContentInfo = await Content.findOne({ pid: newContents.pid });
     res.status(201).json({ message: "글 등록 성공", info: newContentInfo });
   } catch (error) {
-    logError(error.message);
+    logError("콘텐츠 생성", error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -173,7 +173,7 @@ router.get("/read/:_id", async (req, res) => {
     }
     res.status(200).json(content);
   } catch (error) {
-    logError(error.message);
+    logError("콘텐츠 읽기", error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -192,7 +192,7 @@ router.put("/update/:_id", async (req, res) => {
     }
     res.status(200).json({ message: "수정성공", updatedContent });
   } catch (error) {
-    logError(error.message);
+    logError("콘텐츠 업데이트", error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -218,7 +218,7 @@ router.delete("/delete/:_id", async (req, res) => {
       deletedCommentsCount: deletedComments.deletedCount,
     });
   } catch (error) {
-    logError(error.message);
+    logError("콘텐츠 삭제", error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -226,20 +226,26 @@ router.delete("/delete/:_id", async (req, res) => {
 // 조회수
 router.post("/view", async (req, res) => {
   const { _id } = req.body;
+  const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  const isAlreadyViewed = await Log.findOne({ contentId: _id, ip: ip });
+  if (isAlreadyViewed) {
+    return res.status(200).json({ message: "24시간 뒤 조회수 재적용" });
+  }
+
   try {
     const content = await Content.findOneAndUpdate(
       { _id: _id },
       { $inc: { views: 1 } },
       { new: true }
     );
-
     if (!content) {
       return res.status(404).send("콘텐츠 없음");
     }
 
+    await new Log({ contentId: _id, ip: ip }).save();
     res.status(200).json(content);
   } catch (error) {
-    logError(error.message);
+    logError("콘텐츠 뷰", error.message);
     res.status(500).json({ message: "서버 에러" });
   }
 });
@@ -268,7 +274,7 @@ router.post("/like", async (req, res) => {
     await content.save();
     res.status(200).json(content);
   } catch (error) {
-    logError(error.message);
+    logError("콘텐츠 좋아요", error.message);
     res.status(500).json({ message: "서버 에러", error: error.message });
   }
 });

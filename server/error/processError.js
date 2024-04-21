@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-function logError(errorMessage) {
-  console.log("에러 로그:", errorMessage);
+function logError(mission, errorMessage) {
+  console.log(`[${mission}] 에러 발생! \n로그 >>  ${errorMessage}`);
 }
 
 router.post("/logError", (req, res) => {

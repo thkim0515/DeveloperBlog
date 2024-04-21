@@ -43,7 +43,7 @@ export const PostDetailWriter = ({ content }) => {
         const response = await axios.delete(`/contents/delete/${_id}`);
         console.log("서버 응답:", response.data);
         if (response.status === 200) {
-          removePostFromLocalStorage(_id);
+          await removePostFromLocalStorage(_id);
           navigate("/");
         }
       } catch (error) {
@@ -53,13 +53,13 @@ export const PostDetailWriter = ({ content }) => {
     }
   };
 
-  const removePostFromLocalStorage = (_id) => {
-    const storedContents = decryptData("contents", localStorage);
+  const removePostFromLocalStorage = async (_id) => {
+    const storedContents = await decryptData("contents", localStorage);
     if (storedContents) {
       const updatedContents = storedContents.filter(
         (content) => content._id !== _id
       );
-      encryptData(updatedContents, "contents", localStorage);
+      await encryptData(updatedContents, "contents", localStorage);
     }
   };
 

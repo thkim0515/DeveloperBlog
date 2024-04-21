@@ -29,8 +29,8 @@ export const useGetData = (
       try {
         await getFromDB();
 
-        const storedContents = decryptData("contents", localStorage);
-        const storedSvgImages = decryptData("svgImages", localStorage);
+        const storedContents = await decryptData("contents", localStorage);
+        const storedSvgImages = await decryptData("svgImages", localStorage);
 
         let contents = [];
 
@@ -40,9 +40,13 @@ export const useGetData = (
         }
 
         // 조건부 필터링기능 ( 필터 , 검색)
-        setFilteredImages(
-          filterImages(contents, searchTerm, value, selectedIcon)
+        const images = await filterImages(
+          contents,
+          searchTerm,
+          value,
+          selectedIcon
         );
+        setFilteredImages(images);
 
         setCurrentPage(1);
       } catch (e) {

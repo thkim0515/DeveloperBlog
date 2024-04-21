@@ -2,25 +2,31 @@
 const nodemailer = require("nodemailer");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+const loadSecrets = require("../loadSecrets");
 
-const EMAILUSER = process.env.REACT_APP_EMAILUSER;
-const EMAILPASS = process.env.REACT_APP_PASSWORD;
+let transporter;
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: EMAILUSER,
-    pass: EMAILPASS,
-  },
+loadSecrets().then((secrets) => {
+  const EMAILUSER = secrets.REACT_APP_EMAILUSER;
+  const EMAILPASS = secrets.REACT_APP_PASSWORD;
+
+  transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: EMAILUSER,
+      pass: EMAILPASS,
+    },
+  });
 });
 
 async function sendAuthEmail(email, subject, content, value, addInfo = "") {
+  const trimValue = value.trim();
   const mailOptions = {
-    from: EMAILUSER,
+    from: transporter.options.auth.user,
     to: email,
-    subject: "StarBlog 인증 이메일입니다.",
+    subject: "StarBlog 이메일입니다.",
     html: `
       <html>
       <head>
@@ -31,13 +37,20 @@ async function sendAuthEmail(email, subject, content, value, addInfo = "") {
             border: 1px solid #d1d5db; 
             font-size: 16px; 
             font-family: Arial, sans-serif; 
-            color: #111827; 
+            color: #111827;
+          }
+          .email-subject {
+          color: #3a3a3c;
+          font-size: 24px;
+
+          letter-spacing: 1px;
+          font-weight: bold;
           }
         </style>
       </head>
       <body>
-        <p>${subject}</p>
-        <p>${content}<span class="auth-code"> ${value} </span> 입니다.</p>
+        <h1 class="email-subject">${subject}</h1>
+        <p>${content}<span class="auth-code">${trimValue}</span>입니다.</p>
         <p>${addInfo}</p>
       </body>
       </html>

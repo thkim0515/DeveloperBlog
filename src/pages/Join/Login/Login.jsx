@@ -40,13 +40,14 @@ export const Login = () => {
   };
 
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post("/users/login", userInputData);
       if (response.data.user) {
-        encryptData(response.data.user, "user", sessionStorage);
+        await encryptData(response.data.user, "user", sessionStorage);
         //sessionStorage.setItem("user", JSON.stringify(response.data.user));
         setIsLogin(true);
         setIsChange(true);

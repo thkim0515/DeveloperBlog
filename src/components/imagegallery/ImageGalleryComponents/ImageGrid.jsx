@@ -29,7 +29,6 @@ export const ImageGrid = (value) => {
   const handleUpdateSelectedIcon = (iconName = searchTerm) => {
     setSelectedIcon(iconName);
   };
-
   return (
     <S.Container>
       <S.Spacer>

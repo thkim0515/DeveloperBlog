@@ -10,12 +10,21 @@ export const LiveChat = () => {
   const { isLogin } = useUserLogin();
 
   useEffect(() => {
-    const userSession = decryptData("user", sessionStorage);
-    if (isLogin && userSession) {
-      setUserNickname(userSession?.nickname);
-    } else {
-      setUserNickname("비로그인유저");
-    }
+    const initializeUserSession = async () => {
+      try {
+        const userSession = await decryptData("user", sessionStorage);
+        if (isLogin && userSession) {
+          setUserNickname(userSession.nickname);
+        } else {
+          setUserNickname("비로그인유저");
+        }
+      } catch (error) {
+        console.error("사용자 세션 데이터 복호화 중 에러 발생:", error);
+        setUserNickname("비로그인유저");
+      }
+    };
+
+    initializeUserSession();
 
     connectWebSocket();
   }, [isLogin]);

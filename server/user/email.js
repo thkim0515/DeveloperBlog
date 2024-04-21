@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
-const { sendAuthEmail } = require("./sendEmail"); 
+const { sendAuthEmail } = require("./sendEmail");
 
 router.post("/email", async (req, res) => {
   const { email } = req.body;

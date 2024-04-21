@@ -6,7 +6,7 @@ import { Spinner } from "./component/Spinner";
 import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
 import ace from "ace-builds/src-noconflict/ace";
-import { decryptData, encryptData } from "../../js/secure";
+import { decryptData } from "../../js/secure";
 import { UpdateLocalStorage } from "../../js/UpdateLocalStorage";
 export const AnnotationCreatePost = (props) => {
   const navigate = useNavigate();
@@ -44,15 +44,16 @@ export const AnnotationCreatePost = (props) => {
     setIsLoading(false);
   };
 
-  function languageType(commentedCode) {
+  async function languageType(commentedCode) {
     let firstLineContent = commentedCode.split("\n")[0].replace(/[^\w.]/g, "");
     if (firstLineContent === "jsx") {
       firstLineContent = "react";
     }
-    const validNames = decryptData("svgImages", localStorage);
+    const validNames = await decryptData("svgImages", localStorage);
     let svgImages = [];
     svgImages = validNames;
 
+    console.log(svgImages);
     const matchedName = svgImages.find((lang) => lang === firstLineContent);
     return matchedName;
   }
@@ -62,10 +63,10 @@ export const AnnotationCreatePost = (props) => {
       alert("코드변환을 진행해 주세요.");
       return;
     }
-    const user = decryptData("user", sessionStorage);
+    const user = await decryptData("user", sessionStorage);
     const nickname = user.nickname;
     const profileImg = user.profileimg;
-    const result = languageType(commentedCode);
+    const result = await languageType(commentedCode);
     const userId = user.id;
 
     const codeData = {
@@ -80,6 +81,7 @@ export const AnnotationCreatePost = (props) => {
       toast_contents: props.editorData,
     };
 
+    console.log(codeData);
     await postCodeToServer(codeData);
   };
 
@@ -88,7 +90,7 @@ export const AnnotationCreatePost = (props) => {
       const response = await axios.post("/contents/create", codeData);
       console.log("서버 응답:", response.data);
       alert("글 등록 성공!");
-      const userSession = decryptData("user", sessionStorage);
+      const userSession = await decryptData("user", sessionStorage);
       const content = response.data.info;
       content.userId = userSession;
 

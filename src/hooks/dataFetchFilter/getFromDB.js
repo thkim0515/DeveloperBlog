@@ -2,8 +2,8 @@ import axios from "axios";
 import { decryptData, encryptData } from "../../js/secure";
 
 export async function getFromDB() {
-  const storedContents = decryptData("contents", localStorage);
-  const storedSvgImages = decryptData("svgImages", localStorage);
+  const storedContents = await decryptData("contents", localStorage);
+  const storedSvgImages = await decryptData("svgImages", localStorage);
 
   if (storedContents && storedSvgImages) {
     return {
@@ -19,14 +19,14 @@ export async function getFromDB() {
     const svgs = userData;
     const contents = contentData;
 
-    encryptData(svgs[0].svgs, "svgImages", localStorage);
-    encryptData(contents, "contents", localStorage);
+    await encryptData(svgs[0].svgs, "svgImages", localStorage);
+    await encryptData(contents, "contents", localStorage);
 
     return { contents, svgs, storedContents };
   } catch (e) {
     const { data } = await axios.get("/json/newDummy.json");
-    encryptData(data.svgs, "svgImages", localStorage);
-    encryptData(data.items, "contents", localStorage);
+    await encryptData(data.svgs, "svgImages", localStorage);
+    await encryptData(data.items, "contents", localStorage);
     return { contents: data.items, svgs: data.svgs };
   }
 }

@@ -63,7 +63,7 @@ export const ProfileInfo = () => {
       setIsChange(true);
       navigate("/profile");
       //TODO 새로고침 줄이기... >> 완료
-      updateSessionStorage(editData);
+      await updateSessionStorage(editData);
     } catch (error) {
       if (error.response && error.response.status === 409) {
         alert(error.response.data.message);
@@ -73,7 +73,7 @@ export const ProfileInfo = () => {
     }
   };
 
-  const updateSessionStorage = (newData) => {
+  const updateSessionStorage = async (newData) => {
     const storedData = decryptData("user", sessionStorage);
     const updatedData = { ...storedData, ...newData };
     delete updatedData.email;
@@ -81,7 +81,7 @@ export const ProfileInfo = () => {
     updatedData.id = updatedData._id;
     delete updatedData._id;
 
-    encryptData(updatedData, "user", sessionStorage);
+    await encryptData(updatedData, "user", sessionStorage);
   };
 
   return (
