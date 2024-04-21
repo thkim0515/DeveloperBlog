@@ -48,7 +48,7 @@ jobs:
 
       - name: Deploy # Deploy to EC2
         run: aws deploy create-deployment
-          --application-name code-deploy-test
+          --application-name CodeDeploy-starblog
           --deployment-config-name CodeDeployDefault.AllAtOnce
-          --deployment-group-name code-deploy-group1
+          --deployment-group-name CodeDeploy-Group
           --s3-location bucket=${{ secrets.S3_BUCKET }},key=build-app.zip,bundleType=zip
