@@ -39,11 +39,13 @@ export const ImageItem = ({ content }) => {
               <p>{content.language.toUpperCase()}</p>
             </div>
             {content.language && (
-              <img
-                src={`/svg/${content.language.toLowerCase()}.svg`}
-                alt={content.language.toLowerCase()}
-                className="svgIcon"
-              />
+              <div className="img_box">
+                <img
+                  src={`/svg/${content.language.toLowerCase()}.svg`}
+                  alt={content.language.toLowerCase()}
+                  className="svgIcon"
+                />
+              </div>
             )}
             <div className="text_contents_box">
               <h2>{content.title}</h2>

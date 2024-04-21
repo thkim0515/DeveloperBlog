@@ -9,9 +9,9 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-one_dark";
 import "ace-builds/src-noconflict/theme-twilight";
 import axios from "axios";
-import { useUserLogin } from "../../../context/UserLoginContext";
-import { LikeButton } from "./LikeButton";
-import { Metas } from "../../common/Metas";
+import { useUserLogin } from "../../context/UserLoginContext";
+import { LikeButton } from "../imagegallery/ImageGalleryComponents/LikeButton";
+import { Metas } from "../common/Metas";
 
 export const PostDetailComp = () => {
   //로그인 유저 정보 가져오기

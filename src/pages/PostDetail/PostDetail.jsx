@@ -1,4 +1,4 @@
-import { PostDetailComp } from "../../components/imagegallery/ImageGalleryComponents/PostDetailComp";
+import { PostDetailComp } from "../../components/postDetail/PostDetailComp";
 
 export const PostDetail = () => {
   return (

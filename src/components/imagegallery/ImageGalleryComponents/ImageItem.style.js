@@ -56,15 +56,22 @@ export const RoutingPage = styled.div`
     }
   }
 
-  .svgIcon {
-    width: 2rem;
-    height: 2rem;
+  .img_box{
     position: absolute;
     top: 8px;
     right: 10px;
-    font-size: 2.5rem;
     z-index: 1;
+    background-color: #fff;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 6px;
+    .svgIcon {
+      width: 2rem;
+      height: 2rem;
+    }
   }
+
+
 `;
 
 
