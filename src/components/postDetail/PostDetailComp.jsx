@@ -9,14 +9,19 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-one_dark";
 import "ace-builds/src-noconflict/theme-twilight";
 import axios from "axios";
-import { useUserLogin } from "../../../context/UserLoginContext";
-import { LikeButton } from "./LikeButton";
-import { Metas } from "../../common/Metas";
+import { useUserLogin } from "../../context/UserLoginContext";
+import { useScrollReset } from "../../hooks/useScrollReset";
+import { LikeButton } from "../imagegallery/ImageGalleryComponents/LikeButton";
+import { Metas } from "../common/Metas";
 
 export const PostDetailComp = () => {
+  //스크롤위치 초기화
+  useScrollReset();
+
   //로그인 유저 정보 가져오기
   const { user } = useUserLogin();
   const userId = user && user.id ? user.id : null;
+
   // ImageItem 클릭시 state값 전달
   const location = useLocation();
   const { content } = location.state;

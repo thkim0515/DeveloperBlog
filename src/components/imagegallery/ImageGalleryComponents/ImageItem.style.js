@@ -1,50 +1,88 @@
 import styled from "styled-components";
 
+/*아이템 전체 박스 */
 export const SItem = styled.div`
   width: calc(33.333% - 14px);
-  height: 350px;
+  height: 240px;
   display: flex;
   flex-direction: column;
   position: relative;
-  border: 3px solid grey;
+  border: 1px solid #dbe2ef;
   border-radius: 12px;
   overflow: hidden;
 
-  .post_img {
-    width: 100%;
-    height: 240px;
-    object-fit: cover;
-    border-radius: 12px 12px 0 0;
-  }
+`;
 
-  h2 {
-    height: 24px;
-    text-align: center;
+/**컨텐츠 내용 박스 */
+export const RoutingPage = styled.div`
+  cursor: pointer;
+  height: 75%;
+  border-bottom: 1px solid #dbe2ef;
+
+  .lang_box{
+    height: 48px;
+    padding: 10px;
+    color: #fff;
     font-size: 24px;
     font-weight: bold;
-    margin: 10px;
+  }
+
+  .text_contents_box{
+
+    height: calc(100% - 48px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    gap: 24px;
+
+    h2 {
+    width: 100%;
+    padding: 0 8px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    font-size: 24px;
+    font-weight: bold;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    }
+
+    .post_date{
+      align-self: flex-end;
+      padding-right: 8px;
+    }
   }
 
-  .svgIcon {
-    width: 2.5rem;
-    height: 2.5rem;
+  .img_box{
     position: absolute;
-    top: 10px;
+    top: 8px;
     right: 10px;
-    font-size: 2.5rem;
     z-index: 1;
+    background-color: #fff;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 6px;
+    .svgIcon {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 
-  .user_date_box {
-    height: 10%;
+
+`;
+
+
+/**user, 글 조회수, 좋아요, 댓글 정보 박스 */
+export const UserDateBox = styled.div`
+    height: 25%;
+    background-color: #fff;
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 0 10px;
-  }
 
   .user_info {
     display: flex;
@@ -56,12 +94,10 @@ export const SItem = styled.div`
     display: flex;
     flex-direction: column;
     gap: 4px;
-    .post_date{
-      align-self: flex-end;
-    }
   }
-`;
+`
 
+/**프로필 이미지 */
 export const SProfileImage = styled.div`
   width: 2.5rem;
   height: 2.5rem;
@@ -74,8 +110,4 @@ export const ProfileImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-`;
-
-export const RoutingPage = styled.div`
-  cursor: pointer;
 `;
