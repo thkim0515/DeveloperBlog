@@ -6,7 +6,7 @@ import { CloseButton } from "react-bootstrap";
 import { FindAccount } from "./FindAccount";
 
 export const AccountModal = ({ onClick }) => {
-  const [isActiveTab, setIsActiveTab] = useState("findId");
+  const [isActivedTab, setIsActivedTab] = useState("findId");
 
   const handleBackgroundClick = (e) => {
     e.stopPropagation();
@@ -14,7 +14,7 @@ export const AccountModal = ({ onClick }) => {
 
   // 활성 탭 변경
   const handleTabClick = (tab) => {
-    setIsActiveTab(tab);
+    setIsActivedTab(tab);
   };
 
   return (
@@ -24,19 +24,19 @@ export const AccountModal = ({ onClick }) => {
           <S.TabMenu>
             <S.Tab
               onClick={() => handleTabClick("findId")}
-              active={isActiveTab === "findId" ? "true" : "false"}
+              $active={isActivedTab === "findId"}
             >
               아이디 찾기
             </S.Tab>
             <S.Tab
               onClick={() => handleTabClick("findPassword")}
-              active={isActiveTab === "findPassword" ? "true" : "false"}
+              $active={isActivedTab === "findPassword"}
             >
               비밀번호 찾기
             </S.Tab>
           </S.TabMenu>
           <S.TabMenuBar>
-            <S.InnerBar $active={isActiveTab} />
+            <S.InnerBar $active={isActivedTab} />
           </S.TabMenuBar>
         </div>
 
@@ -44,7 +44,7 @@ export const AccountModal = ({ onClick }) => {
         <S.ModalCloseButton onClick={onClick}>
           <CloseButton />
         </S.ModalCloseButton>
-        <FindAccount $active={isActiveTab} />
+        <FindAccount $active={isActivedTab} />
       </S.ModalBox>
     </S.ModalBackgroundBox>
   );
