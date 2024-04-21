@@ -21,7 +21,7 @@ import { UserLoginProvider } from "./context/UserLoginContext";
 
 //privateRoute
 import { PrivateRoute } from "./routes/PrivateRoute";
-import { NewCodePosting } from "./pages/TestComponent/NewCodePosting";
+import { NewCodePosting } from "./pages/TestComponent/NewCodePosting/NewCodePosting";
 
 export const App = () => {
   return (

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { AceEditorSet } from "./AceEditor/AceEditorSet";
-import { ToastEditor } from "./ToastEditor/ToastEditor";
+import { AceEditorSet } from "../NewCodePosting/AceEditor/AceEditorSet";
+import { ToastEditor } from "../NewCodePosting/ToastEditor/ToastEditor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/i18n/ko-kr";
 
