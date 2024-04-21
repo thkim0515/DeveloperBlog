@@ -2,10 +2,10 @@ name: Deploy # Workflow 이름
 on: # Event 감지
   push:
     branches:
-      - develop # 해당 브랜치의 푸쉬가 일어날 때 CI/CD를 진행하겠다는 뜻
+      - testBranch1 # 해당 브랜치의 푸쉬가 일어날 때 CI/CD를 진행하겠다는 뜻
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       # - name: Checkout source code. # Repo checkout
       #   uses: actions/checkout@v2
@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies # 의존 파일 설치
         run: npm install --legacy-peer-deps --frozen-lockfile
 
-      - name: Build # React Build
+      - name: Build
         run: yarn build
         env:
           CI: ""
