@@ -6,21 +6,38 @@ import "@toast-ui/editor/dist/i18n/ko-kr";
 
 export const CodePost = () => {
   return (
-    <CodePostBox>
-      <AceSetBox>
-        <AceEditorSet name="getAceCode" />
-      </AceSetBox>
-      <AceGetBox>
-        <AceEditorSet name="setAceCode" />
-      </AceGetBox>
-      <ToastBox>
-        <ToastEditor />
-      </ToastBox>
-    </CodePostBox>
+    <>
+      <EditorTitleBox>
+        <span className="title">1. 코드 입력창</span>
+        <span className="title">2. 코드 결과창</span>
+        <span className="title">3. 텍스트 에디터</span>
+      </EditorTitleBox>
+      <CodePostBox>
+        <AceSetBox>
+          <AceEditorSet name="getAceCode" />
+        </AceSetBox>
+        <AceGetBox>
+          <AceEditorSet name="setAceCode" />
+        </AceGetBox>
+        <ToastBox>
+          <ToastEditor />
+        </ToastBox>
+      </CodePostBox>
+    </>
   );
 };
 
-export const CodePostBox = styled.div`
+const EditorTitleBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  .title {
+    display: inline-block;
+    margin: 0.5rem;
+  }
+`;
+
+const CodePostBox = styled.div`
   display: flex;
   gap: 0.125rem;
   max-width: 1140px;
