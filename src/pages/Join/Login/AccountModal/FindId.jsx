@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import * as S from "./AccountModal.style";
 
@@ -11,6 +11,20 @@ export const FindId = () => {
   const [password, setPassword] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+
+  const firstValue = useRef(null);
+  const secondValue = useRef(null);
+
+  // alertPopup Unmount
+  useEffect(() => {
+    let timeoutId;
+    if (isSubmit) {
+      timeoutId = setTimeout(() => {
+        setIsSubmit(false);
+      }, 3 * 1000);
+    }
+    return () => clearTimeout(timeoutId);
+  }, [isSubmit]);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -29,25 +43,24 @@ export const FindId = () => {
         secondField: password,
       });
 
-      // TODO 배포 전 콘솔 지우기
-      // console.log("결과:", response.data);
+      firstValue.current.value = "";
+      secondValue.current.value = "";
+
+      setIsSubmit(true);
+      setAlertMessage(
+        "이메일로 아이디를 발송했습니다.\n 메일함을 확인해주세요!"
+      );
     } catch (error) {
       console.error(
         "에러 발생:",
         error.response ? error.response.data.message : error.message
       );
     }
-    setIsSubmit(true);
-    setAlertMessage("이메일로 아이디를 발송했습니다.\n 메일함을 확인해주세요!");
-
-    setTimeout(() => {
-      setIsSubmit(false);
-    }, 2500);
   };
 
   return (
     <S.FindBox>
-      {isSubmit ? <AlertPopup alertMessage={alertMessage} /> : <></>}
+      {isSubmit && <AlertPopup alertMessage={alertMessage} />}
       <form>
         {/* 아이디 찾기 */}
         <S.FormField>
@@ -55,6 +68,7 @@ export const FindId = () => {
           <Input
             type="email"
             id="field1"
+            ref={firstValue}
             value={email}
             onChange={handleEmail}
           />
@@ -64,6 +78,7 @@ export const FindId = () => {
           <Input
             type="password"
             id="field2"
+            ref={secondValue}
             value={password}
             onChange={handlePassword}
           />

@@ -23,7 +23,6 @@ import { UserLoginProvider } from "./context/UserLoginContext";
 import { PrivateRoute } from "./routes/PrivateRoute";
 
 export const App = () => {
-
   return (
     <BrowserRouter>
       <UserLoginProvider>
@@ -37,12 +36,27 @@ export const App = () => {
           <Route element={<Layout />}>
             {/* Layout 컴포넌트 안에서 자식 Route들을 배치 */}
             <Route index element={<Main />} />
-            <Route path="codeCreate" element={<PrivateRoute component={<CodeCreate/>} />} />
+            <Route
+              path="codeCreate"
+              element={<PrivateRoute component={<CodeCreate />} />}
+            />
             <Route path="post/:_id" element={<PostDetail />} />
-            <Route path="postUpdate/:_id" element={<PrivateRoute component={<PostUpdate/>} />} />
-            <Route path="profile" element={<PrivateRoute component={<Profile/>} />} />
-            <Route path="profileEdit" element={<PrivateRoute component={<ProfileEdit/>} />} />
-            <Route path="myCodes" element={<PrivateRoute component={<MyCodes/>} />}/>
+            <Route
+              path="postUpdate/:_id"
+              element={<PrivateRoute component={<PostUpdate />} />}
+            />
+            <Route
+              path="profile"
+              element={<PrivateRoute component={<Profile />} />}
+            />
+            <Route
+              path="profileEdit"
+              element={<PrivateRoute component={<ProfileEdit />} />}
+            />
+            <Route
+              path="myCodes"
+              element={<PrivateRoute component={<MyCodes />} />}
+            />
             <Route path="/*" element={<NotFound />} />
           </Route>
         </Routes>
