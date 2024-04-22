@@ -1,9 +1,9 @@
 import { Helmet } from "react-helmet-async";
 
 const DEFAULT = {
-  title: "StarBlog ; /* 우리의 지식이 별이 되는 공간 */",
+  title: "StarBlog - 우리의 지식이 별이 되는 공간",
   description:
-    "똑 소리 나는 코드 기록, 코드를 자동으로 해석하고 주석을 달아 공부하자, KOSTA, 코드 기록, 코드 공유",
+    "스타블로그, 똑 소리 나는 코드 기록, 코드를 자동으로 해석하고 주석을 달아 공부하자, KOSTA, 코드 공부 기록, 코드 공유",
 };
 
 export const Metas = ({ main, none, title, url, description }) => {
@@ -44,7 +44,7 @@ export const Metas = ({ main, none, title, url, description }) => {
       />
       <meta
         name="twitter:description"
-        content="똑 소리 나는 코드 기록, 코드를 자동으로 해석하고 주석을 달아 공부하자, KOSTA, 코드 기록, 코드 공유"
+        content="스타블로그, 똑 소리 나는 코드 기록, 코드를 자동으로 해석하고 주석을 달아 공부하자, KOSTA, 코드 공부 기록, 코드 공유"
       />
       <meta name="twitter:image" content="표시되는 이미지 " />
     </Helmet>
