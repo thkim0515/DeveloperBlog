@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 
 export const ModalBackgroundBox = styled.div`
   display: flex;
@@ -48,7 +48,7 @@ export const InnerBar = styled.div`
   height: 8px;
   background-color: #3d5afe;
   transition: all 0.3s ease;
-  left: ${({ $active }) => ($active === "findId" ? 0 : "50%")};
+  left: ${({ $active }) => $active};
 `;
 
 export const FormField = styled.div`

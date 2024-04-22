@@ -17,6 +17,9 @@ export const FindPassword = () => {
 
   // alertPopup Unmount
   useEffect(() => {
+    firstValue.current.value = "";
+    secondValue.current.value = "";
+
     let timeoutId;
     if (isSubmit) {
       timeoutId = setTimeout(() => {
@@ -37,14 +40,17 @@ export const FindPassword = () => {
   const onSubmitData = async (e) => {
     e.preventDefault();
 
+    if (!id || !email) {
+      setIsSubmit(true);
+      setAlertMessage("아이디 또는 이메일을 입력해주세요");
+      return false;
+    }
+
     try {
       const response = await axios.post("/users/findPwd", {
         firstField: id,
         secondField: email,
       });
-
-      // TODO 배포 전 콘솔 지우기
-      // console.log("결과:", response.data);
     } catch (error) {
       console.error(
         "에러 발생:",

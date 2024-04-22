@@ -5,38 +5,43 @@ import { CloseButton } from "react-bootstrap";
 // components
 import { FindAccount } from "./FindAccount";
 
-export const AccountModal = ({ onClick }) => {
-  const [isActivedTab, setIsActivedTab] = useState("findId");
+const TABS = {
+  FIND_ID: "findId",
+  FIND_PASSWORD: "findPassword",
+};
 
-  const handleBackgroundClick = (e) => {
+export const AccountModal = ({ onClick }) => {
+  const [activeTab, setActiveTab] = useState(TABS.FIND_ID);
+
+  const preventCapturing = (e) => {
     e.stopPropagation();
   };
 
   // 활성 탭 변경
-  const handleTabClick = (tab) => {
-    setIsActivedTab(tab);
+  const handleClickTab = (tab) => {
+    setActiveTab(tab);
   };
 
   return (
     <S.ModalBackgroundBox onClick={onClick}>
-      <S.ModalBox onClick={handleBackgroundClick}>
+      <S.ModalBox onClick={preventCapturing}>
         <div>
           <S.TabMenu>
             <S.Tab
-              onClick={() => handleTabClick("findId")}
-              $active={isActivedTab === "findId"}
+              onClick={() => handleClickTab(TABS.FIND_ID)}
+              $active={activeTab === TABS.FIND_ID}
             >
               아이디 찾기
             </S.Tab>
             <S.Tab
-              onClick={() => handleTabClick("findPassword")}
-              $active={isActivedTab === "findPassword"}
+              onClick={() => handleClickTab(TABS.FIND_PASSWORD)}
+              $active={activeTab === TABS.FIND_PASSWORD}
             >
               비밀번호 찾기
             </S.Tab>
           </S.TabMenu>
           <S.TabMenuBar>
-            <S.InnerBar $active={isActivedTab} />
+            <S.InnerBar $active={activeTab === TABS.FIND_ID ? 0 : "50%"} />
           </S.TabMenuBar>
         </div>
 
@@ -44,7 +49,7 @@ export const AccountModal = ({ onClick }) => {
         <S.ModalCloseButton onClick={onClick}>
           <CloseButton />
         </S.ModalCloseButton>
-        <FindAccount $active={isActivedTab} />
+        <FindAccount $active={activeTab} />
       </S.ModalBox>
     </S.ModalBackgroundBox>
   );

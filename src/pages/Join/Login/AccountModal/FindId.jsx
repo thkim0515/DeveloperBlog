@@ -17,6 +17,9 @@ export const FindId = () => {
 
   // alertPopup Unmount
   useEffect(() => {
+    firstValue.current.value = "";
+    secondValue.current.value = "";
+
     let timeoutId;
     if (isSubmit) {
       timeoutId = setTimeout(() => {
@@ -37,14 +40,16 @@ export const FindId = () => {
   const onSubmitData = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      setIsSubmit(true);
+      setAlertMessage("이메일 또는 비밀번호를 입력해주세요");
+    }
+
     try {
       const response = await axios.post("/users/findId", {
         firstField: email,
         secondField: password,
       });
-
-      firstValue.current.value = "";
-      secondValue.current.value = "";
 
       setIsSubmit(true);
       setAlertMessage(
