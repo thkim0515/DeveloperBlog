@@ -1,5 +1,5 @@
-import styled from 'styled-components';
+import React, { forwardRef } from "react";
 
-export const Input = ({ type, id, value, onChange }) => {
-  return <input type={type} id={id} value={value} onChange={onChange} />;
-};
+export const Input = forwardRef((props, ref) => {
+  return <input ref={ref} {...props} />;
+});

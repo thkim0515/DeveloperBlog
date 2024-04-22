@@ -16,7 +16,7 @@ import { AccountModal } from "./AccountModal/AccountModal";
 import { Metas } from "./../../../components/common/Metas";
 
 // button array
-import { socialLogin } from "./socialLogin/SocialLoginData";
+import { SOCIAL_LOGIN } from "./socialLogin/SocialLoginData";
 
 import { encryptData } from "../../../js/secure";
 
@@ -73,7 +73,7 @@ export const Login = () => {
 
         {/* 소셜 로그인  */}
         <S.SocialButtons>
-          {socialLogin.map((item, index) => (
+          {SOCIAL_LOGIN.map((item, index) => (
             <SocialButton
               key={index}
               social={item.social}
