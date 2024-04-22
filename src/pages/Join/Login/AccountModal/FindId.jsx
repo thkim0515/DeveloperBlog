@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import * as S from "./AccountModal.style";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 // component
 import { Input } from "../../../../components/form/Input";
@@ -12,13 +12,10 @@ export const FindId = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  const firstValue = useRef(null);
-  const secondValue = useRef(null);
-
   // alertPopup Unmount
   useEffect(() => {
-    firstValue.current.value = "";
-    secondValue.current.value = "";
+    setEmail("");
+    setPassword("");
 
     let timeoutId;
     if (isSubmit) {
@@ -52,9 +49,7 @@ export const FindId = () => {
       });
 
       setIsSubmit(true);
-      setAlertMessage(
-        "이메일로 아이디를 발송했습니다.\n 메일함을 확인해주세요!"
-      );
+      setAlertMessage(`이메일로 아이디를 발송했습니다. 메일함을 확인해주세요!`);
     } catch (error) {
       console.error(
         "에러 발생:",
@@ -73,7 +68,6 @@ export const FindId = () => {
           <Input
             type="email"
             id="field1"
-            ref={firstValue}
             value={email}
             onChange={handleEmail}
           />
@@ -83,7 +77,6 @@ export const FindId = () => {
           <Input
             type="password"
             id="field2"
-            ref={secondValue}
             value={password}
             onChange={handlePassword}
           />
