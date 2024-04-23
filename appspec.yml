@@ -2,17 +2,18 @@ version: 0.0
 os: linux
 
 files:
-  - source: /scripts/deploy.sh # deploy.sh의 위치를 정확히 지정합니다.
+  - source: scripts/deploy.sh # 아카이브 내부의 상대 경로를 지정합니다.
     destination: /home/ubuntu/deploy-fe
     overwrite: yes
-file_exists_behavior: OVERWRITE
+
 permissions:
-  - object: /home/ubuntu/deploy-fe/deploy.sh # 정확한 스크립트 경로로 변경합니다.
+  - object: /home/ubuntu/deploy-fe/deploy.sh
     owner: ubuntu
     group: ubuntu
     mode: 755
+
 hooks:
   AfterInstall:
-    - location: /home/ubuntu/deploy-fe/deploy.sh # destination에 복사된 후의 정확한 경로를 명시합니다.
+    - location: /home/ubuntu/deploy-fe/deploy.sh
       timeout: 60
       runas: root
