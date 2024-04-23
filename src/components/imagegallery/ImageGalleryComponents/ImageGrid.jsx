@@ -35,7 +35,7 @@ export const ImageGrid = (value) => {
         {value.value === "all" ? (
           <div>Code Gallery</div>
         ) : (
-          <div>My Gallery</div>
+          <div>My Gallery </div>
         )}
 
         <div>
