@@ -1,4 +1,5 @@
 // AWS SDK 및 시크릿 매니저 코드
+
 const AWS = require("aws-sdk");
 const region = "ap-northeast-2";
 const secretName = "starblog";

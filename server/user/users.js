@@ -8,7 +8,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const loadSecrets = require("../loadSecrets");
 
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+// require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const { logError } = require("../error/processError");
 const { sendAuthEmail } = require("./sendEmail");
 
