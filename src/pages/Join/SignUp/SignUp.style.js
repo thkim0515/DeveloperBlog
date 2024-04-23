@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
 // form
+export const SignUpForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
 export const SignUpFiled = styled.div`
   label {
     display: inline-block;
@@ -12,8 +18,8 @@ export const SignUpFiled = styled.div`
 
   input {
     width: 100%;
-    margin: 0.5rem 0 0.75rem 0;
-    padding: 0.75rem;
+    margin-top: 0.5rem;
+    padding: 0.65rem;
     display: inline-block;
     border: 1px solid #d9d9d9;
     background: #ffffff;
@@ -25,10 +31,10 @@ export const SignUpFiled = styled.div`
   }
 `;
 
-export const SignUpText = styled.p`
+export const SignUpTitle = styled.p`
   font-size: 1.2rem;
   text-align: center;
-  margin: 1rem 0;
+  margin: 0.75rem 0;
 `;
 
 export const SignUpButton = styled.button`
@@ -38,10 +44,12 @@ export const SignUpButton = styled.button`
   border-radius: 20px;
   color: #ffffff;
   background-color: ${(props) => (props.disabled ? "#c0c0c0" : "#3f72af")};
+  margin-top: 0.8rem;
 `;
 
 export const MoveLink = styled.p`
   font-size: 0.9rem;
   color: #112d4e;
   text-align: center;
+  margin-top: 0.9rem;
 `;

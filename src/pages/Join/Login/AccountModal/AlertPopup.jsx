@@ -10,9 +10,9 @@ export const AlertPopup = ({ alertMessage }) => {
 
 const AlertBox = styled.div`
   position: absolute;
-  top: -190px;
-  left: -25px;
-  width: 280px;
+  top: -11.875rem;
+  left: -1.5625rem;
+  width: 17.5rem;
   padding: 0.7rem;
   border-radius: 8px;
   font-size: 1rem;

@@ -1,3 +1,5 @@
-export const Input = ({ type, id, value, onChange }) => {
-  return <input type={type} id={id} value={value} onChange={onChange} />;
-};
+import React, { forwardRef } from "react";
+
+export const Input = forwardRef((props, ref) => {
+  return <input ref={ref} {...props} />;
+});

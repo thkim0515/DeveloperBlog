@@ -62,12 +62,12 @@ export const SignUp = () => {
         url="/signUp"
         description="스타블로그와 함께 공부해요!"
       />
-      <S.SignUpText>회원가입</S.SignUpText>
-      <form onSubmit={handleSubmit}>
+      <S.SignUpTitle>회원가입</S.SignUpTitle>
+      <S.SignUpForm onSubmit={handleSubmit}>
         {/* 아이디 */}
         <S.SignUpFiled>
           <label htmlFor="id">아이디</label>
-          <input type="text" id="id" onChange={handleInputData} />
+          <Input type="text" id="id" onChange={handleInputData} />
         </S.SignUpFiled>
 
         {/* 닉네임 */}
@@ -108,7 +108,7 @@ export const SignUp = () => {
         <S.SignUpButton type="submit" disabled={!isEmailVerified}>
           회원가입
         </S.SignUpButton>
-      </form>
+      </S.SignUpForm>
 
       {/* 페이지 이동 */}
       <S.MoveLink>

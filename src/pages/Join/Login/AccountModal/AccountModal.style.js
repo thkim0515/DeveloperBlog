@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 
 export const ModalBackgroundBox = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ export const TabMenu = styled.div`
 `;
 
 export const Tab = styled.button`
-  color: ${({ $active }) => ($active === "findId" ? "#3f72af" : "#888888")};
+  color: ${({ $active }) => ($active ? "#3d5afe" : "#888888")};
 `;
 
 export const ModalCloseButton = styled.div`
@@ -38,7 +38,7 @@ export const TabMenuBar = styled.div`
   position: relative;
   width: 100%;
   height: 8px;
-  background-color: #d9d9d9;
+  background-color: #dee2e6;
   margin: 1rem 0;
 `;
 
@@ -46,9 +46,9 @@ export const InnerBar = styled.div`
   position: absolute;
   width: 50%;
   height: 8px;
-  background-color: #dbe2ef;
+  background-color: #3d5afe;
   transition: all 0.3s ease;
-  left: ${({ $active }) => ($active === "findId" ? 0 : "50%")};
+  left: ${({ $active }) => $active};
 `;
 
 export const FormField = styled.div`
