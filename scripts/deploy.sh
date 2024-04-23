@@ -24,7 +24,7 @@ sudo npm install --legacy-peer-deps
 # PM2를 사용하는 경우 예시:
 # pm2 restart all
 
-# 아래는 Nginx를 사용하는 경우 서버를 재시작하는 예시입니다.
+# 아래는 Nginx를 사용하는 경우 서버를 재시작
 sudo systemctl restart nginx
 
 # 서버 상태를 확인합니다.
