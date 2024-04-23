@@ -7,7 +7,7 @@ function setupWebSocket(server) {
   const wss = new WebSocket.Server({ server });
 
   wss.on("connection", (ws) => {
-    console.log("클라이언트 연결");
+    console.log("클라이언트연결");
 
     messages.forEach((message) => {
       ws.send(message);
