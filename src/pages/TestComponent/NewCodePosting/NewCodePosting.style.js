@@ -4,41 +4,53 @@ export const TitleBox = styled.div`
   font-size: 2rem;
   font-weight: bold;
   color: #112d4e;
+  margin-bottom: 1.5rem;
 `;
 
 export const CodePostingBox = styled.div`
-  background-color: white;
-  padding: 0.5rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 0.375rem;
 `;
 
 export const InputBox = styled.div`
   background-color: white;
+  margin-bottom: 0.375rem;
 
   input {
     margin: 0;
   }
 `;
 
-export const ViewOptionsBox = styled.div`
-  text-align: center;
+export const ViewOptionsBox = styled.table`
+  margin: 0.5rem auto;
+  background-color: #f5f9ff;
 
-  button {
-    display: inline-block;
-    background-color: #b3b0b0;
-    padding: 0.25rem;
-    margin: 1rem 0.5rem;
-    border-radius: 4px;
+  td {
+    padding: 0.5rem;
+    border: 1px solid lightgray;
+  }
+`;
+
+export const LangauageBox = styled.div`
+  margin: 0.5rem 0;
+
+  svg:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+
+  svg {
+    font-size: 1.5rem;
   }
 `;
 
 export const PostButtonBox = styled.div`
-  display: flex;
-  justify-content: space-between;
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
 
   button {
-    background-color: #b3b0b0;
     padding: 0.25rem;
-    margin: 1rem 0;
     border-radius: 4px;
+    background-color: #b3b0b0;
   }
 `;
