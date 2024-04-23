@@ -8,7 +8,7 @@ const { logError } = require("../error/processError");
 const loadSecrets = require("../loadSecrets");
 const Log = require("../models/LogModel");
 const axios = require("axios");
-//images
+//images .
 router.get("/contents", async (req, res) => {
   try {
     // throw new Error("테스트 에러발생");
