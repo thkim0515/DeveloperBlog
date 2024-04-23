@@ -357,4 +357,5 @@ loadSecrets().then((secrets) => {
     }
   });
 });
+
 module.exports = router;
