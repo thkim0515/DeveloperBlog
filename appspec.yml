@@ -7,13 +7,13 @@ files:
     overwrite: yes
 
 permissions:
-  - object: /home/ubuntu/deploy-fe/deploy.sh
+  - object: scripts/deploy.sh
     owner: ubuntu
     group: ubuntu
     mode: 755
 
 hooks:
   AfterInstall:
-    - location: /home/ubuntu/deploy-fe/deploy.sh
+    - location: scripts/deploy.sh
       timeout: 60
       runas: root
