@@ -22,7 +22,7 @@ sudo npm install --legacy-peer-deps
 
 # 서버를 재시작하거나 PM2 등을 사용해 프로세스를 관리합니다 (Node.js 애플리케이션의 경우).
 # PM2를 사용하는 경우 예시:
-# pm2 restart all
+pm2 restart all
 
 # 아래는 Nginx를 사용하는 경우 서버를 재시작
 sudo systemctl restart nginx
