@@ -52,11 +52,27 @@ router.get("/contents", async (req, res) => {
       },
       {
         $project: {
-          comments: 0,
+          userId: 1,
+          pid: 1,
+          title: 1,
+          nickname: 1,
+          profileImg: 1,
+          imagePath: 1,
+          language: 1,
+          publicPrivate: 1,
+          ace_contents: { $substrCP: ["$ace_contents", 0, 10] },
+          toast_contents: { $substrCP: ["$toast_contents", 0, 10] },
+          postdate: 1,
+          views: 1,
+          likes: 1,
+          likeUser: 1,
+          commentCount: 1,
         },
       },
     ]);
     // console.log(contentst[0]);
+    const a = contentst.sort((a, b) => a - b);
+    console.log(a[0]);
     res.json(contentst);
   } catch (error) {
     logError("콘텐츠 파싱", error.message);
