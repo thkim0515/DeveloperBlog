@@ -40,6 +40,7 @@ export const FindId = () => {
     if (!email || !password) {
       setIsSubmit(true);
       setAlertMessage("이메일 또는 비밀번호를 입력해주세요");
+      return;
     }
 
     try {
@@ -47,7 +48,6 @@ export const FindId = () => {
         firstField: email,
         secondField: password,
       });
-
       setIsSubmit(true);
       setAlertMessage(`이메일로 아이디를 발송했습니다. 메일함을 확인해주세요!`);
     } catch (error) {

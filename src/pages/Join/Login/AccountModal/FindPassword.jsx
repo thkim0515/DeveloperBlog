@@ -40,7 +40,7 @@ export const FindPassword = () => {
     if (!id || !email) {
       setIsSubmit(true);
       setAlertMessage("아이디 또는 이메일을 입력해주세요");
-      return false;
+      return;
     }
 
     try {
@@ -48,14 +48,16 @@ export const FindPassword = () => {
         firstField: id,
         secondField: email,
       });
+      setIsSubmit(true);
+      setAlertMessage(
+        `임시비밀번호를 메일로 발송했습니다. 메일함을 확인해주세요!`
+      );
     } catch (error) {
       console.error(
         "에러 발생:",
         error.response ? error.response.data.message : error.message
       );
     }
-    setIsSubmit(true);
-    setAlertMessage("임시 비밀번호가 발급되었습니다.\n 메일함을 확인해주세요!");
 
     setTimeout(() => {
       setIsSubmit(false);
