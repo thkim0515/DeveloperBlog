@@ -1,9 +1,9 @@
-import * as S from "./projectCard.style";
+import * as S from "./TeamProject.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faJs, faReact, faNodeJs } from "@fortawesome/free-brands-svg-icons";
 
-export const ProjectCard = () => {
+export const TeamProject = () => {
   return (
     <S.ProjectCardBox>
       <S.ProjectHeader>
