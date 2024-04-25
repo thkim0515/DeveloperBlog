@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { Pagination } from "react-bootstrap";
+import styled from "styled-components";
 
 const SPagination = styled(Pagination)`
   display: flex;
