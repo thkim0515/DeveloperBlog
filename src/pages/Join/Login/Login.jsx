@@ -16,7 +16,7 @@ import { AccountModal } from "./AccountModal/AccountModal";
 import { Metas } from "./../../../components/common/Metas";
 
 // button array
-import { SOCIAL_LOGIN } from "./socialLogin/SocialLoginData";
+import { SOCIAL_LOGIN } from "./socialLogin/SocialLoginType";
 
 import { encryptData } from "../../../js/secure";
 
@@ -67,12 +67,11 @@ export const Login = () => {
   return (
     <>
       <Metas title="로그인" url="/login" description="스타블로그에 로그인" />
-      <div className="social-login">
+      <S.LoginBox>
         {/* 로그인 문구 */}
         <S.LoginText>똑소리 나는 코드 기록</S.LoginText>
-
         {/* 소셜 로그인  */}
-        <S.SocialButtons>
+        <S.SocialButtonBox>
           {SOCIAL_LOGIN.map((item, index) => (
             <SocialButton
               key={index}
@@ -81,8 +80,8 @@ export const Login = () => {
               color={item.color}
             />
           ))}
-        </S.SocialButtons>
-      </div>
+        </S.SocialButtonBox>
+      </S.LoginBox>
       <hr />
 
       {/* 로그인 양식 */}
