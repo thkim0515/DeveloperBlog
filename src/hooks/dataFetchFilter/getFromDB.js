@@ -1,5 +1,5 @@
-import axios from "axios";
 import { decryptData, encryptData } from "../../js/secure";
+import axios from "axios";
 
 export async function getFromDB() {
   const storedContents = await decryptData("contents", localStorage);

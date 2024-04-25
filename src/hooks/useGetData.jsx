@@ -1,8 +1,8 @@
+import { decryptData } from "../js/secure";
 import { useState, useEffect } from "react";
 import { useCalculatePage } from "./useCalculatePage";
 import { getFromDB } from "./dataFetchFilter/getFromDB";
 import { filterImages } from "./dataFetchFilter/filterImages";
-import { decryptData } from "../js/secure";
 export const useGetData = (
   value,
   PageCount,
