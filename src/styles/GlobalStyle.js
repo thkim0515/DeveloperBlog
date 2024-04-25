@@ -37,6 +37,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button {
+    font-family: "NotoSansKr";
     background: inherit;
     padding: 0;
     border: none;

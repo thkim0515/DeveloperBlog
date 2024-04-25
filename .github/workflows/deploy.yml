@@ -50,5 +50,5 @@ jobs:
         run: aws deploy create-deployment
           --application-name CodeDeploy-starblog
           --deployment-config-name CodeDeployDefault.AllAtOnce
-          --deployment-group-name CodeDeploy-Group
+          --deployment-group-name code-deploy-group
           --s3-location bucket=${{ secrets.S3_BUCKET }},key=build-app.zip,bundleType=zip

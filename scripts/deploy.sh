@@ -11,8 +11,8 @@ sudo chown -R ubuntu:ubuntu /home/ubuntu/deploy-fe
 sudo chmod -R 755 /home/ubuntu/deploy-fe
 
 # 이전에 설치된 node_modules를 삭제하고, clean install을 수행합니다.
-sudo rm -rf node_modules/
-sudo npm install --legacy-peer-deps
+# sudo rm -rf node_modules/
+# sudo npm install --legacy-peer-deps
 
 # 환경변수 설정 (필요한 경우)
 # export 변수명=값
