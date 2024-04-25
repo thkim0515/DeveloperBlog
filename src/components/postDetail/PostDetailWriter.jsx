@@ -44,7 +44,7 @@ export const PostDetailWriter = ({ content }) => {
         console.log("서버 응답:", response.data);
         if (response.status === 200) {
           await removePostFromLocalStorage(_id);
-          navigate("/");
+          navigate(-1);
         }
       } catch (error) {
         console.error("에러:", error);
