@@ -1,6 +1,6 @@
 import * as S from "./ProjectInformation.style";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { UserInformation } from "./../../../components/user/UserInformation";
+import { imagePaths, imageAltText } from "../../../utils/programming";
 
 export const ProjectInformation = () => {
   return (
@@ -11,12 +11,11 @@ export const ProjectInformation = () => {
           모집합니다.
         </S.ProjectTitle>
         <S.AuthorInfoBox>
-          <img alt="user" width={20} />
-          <span>오늘의날씨</span>
+          <UserInformation nickname="오늘의 날씨" />
           <span>2024.05.09</span>
         </S.AuthorInfoBox>
         <div style={{ textAlign: "right" }}>
-          <FontAwesomeIcon icon={faEye} />
+          <span>조회수 </span>
           <span>177</span>
         </div>
       </div>
@@ -40,8 +39,14 @@ export const ProjectInformation = () => {
             <tr>
               <td>모집 분야</td>
               <td>기획자 디자이너 프론트 백엔드</td>
-              <td>사용 언어</td>
-              <td>리액트 리덕스 노드 몽고디비</td>
+              <td>기술 스택</td>
+              <td>
+                <S.IconBox>
+                  {Object.entries(imagePaths).map(([key, path]) => (
+                    <img key={key} src={path} alt={imageAltText[key]} />
+                  ))}
+                </S.IconBox>
+              </td>
             </tr>
           </tbody>
         </table>

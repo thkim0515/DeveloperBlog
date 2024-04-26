@@ -22,3 +22,19 @@ export const AuthorInfoBox = styled.div`
 `;
 
 export const RecruitmentInfoBox = styled.div``;
+
+export const IconBox = styled.div`
+  display: flex;
+  align-items: center;
+  width: 42px;
+  width: 42px;
+
+  img:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;

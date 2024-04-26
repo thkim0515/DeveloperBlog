@@ -1,6 +1,4 @@
 import { useEffect, useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faJs, faReact, faNodeJs } from "@fortawesome/free-brands-svg-icons";
 
 // components
 import { Input } from "./../../components/form/Input";
@@ -31,9 +29,6 @@ export const TeamProjectCreate = () => {
       </div>
       <div>
         <h2>기술 스택</h2>
-        <FontAwesomeIcon icon={faJs} />
-        <FontAwesomeIcon icon={faReact} />
-        <FontAwesomeIcon icon={faNodeJs} />
       </div>
       <div>
         <label>모집 인원</label>
