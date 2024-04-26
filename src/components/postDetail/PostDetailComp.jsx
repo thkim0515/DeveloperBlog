@@ -28,10 +28,11 @@ export const PostDetailComp = () => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate(0);
-    setTimeout(() => {
-      navigate(-1);
-    }, 0);
+    navigate(-1);
+    // navigate(0);
+    // setTimeout(() => {
+    //   navigate(-1);
+    // }, 0);
   };
 
   useEffect(() => {

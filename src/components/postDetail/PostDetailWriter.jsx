@@ -41,7 +41,7 @@ export const PostDetailWriter = ({ content }) => {
     if (isConfirmed) {
       try {
         const response = await axios.delete(`/contents/delete/${_id}`);
-        console.log("서버 응답:", response.data);
+
         if (response.status === 200) {
           await removePostFromLocalStorage(_id);
           navigate("/");

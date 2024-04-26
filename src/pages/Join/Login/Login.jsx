@@ -52,8 +52,6 @@ export const Login = () => {
         setIsLogin(true);
         setIsChange(true);
         navigate("/");
-      } else {
-        console.log(response.data.message);
       }
     } catch (error) {
       if (error.response) {

@@ -56,7 +56,6 @@ export const AnnotationCreatePost = (props) => {
     let svgImages = [];
     svgImages = validNames;
 
-    console.log(svgImages);
     const matchedName = svgImages.find((lang) => lang === firstLineContent);
     return matchedName;
   }
@@ -84,14 +83,13 @@ export const AnnotationCreatePost = (props) => {
       toast_contents: props.editorData,
     };
 
-    console.log(codeData);
     await postCodeToServer(codeData);
   };
 
   const postCodeToServer = async (codeData) => {
     try {
       const response = await axios.post("/contents/create", codeData);
-      console.log("서버 응답:", response.data);
+
       alert("글 등록 성공!");
       const userSession = await decryptData("user", sessionStorage);
       const content = response.data.info;
@@ -108,37 +106,6 @@ export const AnnotationCreatePost = (props) => {
   function onChange(newValue) {
     setCode(newValue);
   }
-
-  // const handleCaptureImage = async () => {
-  //   const image = await captureImage("setCode");
-  //   const formData = new FormData();
-  //   formData.append("imagePath", image);
-
-  //   try {
-  //     const response = await axios.post("/userdata/upload", formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     });
-  //     setImageSrc(response.data.filePath);
-  //     console.log(response.data.filePath);
-  //     console.log("이미지 업로드 성공:", response.data);
-  //   } catch (error) {
-  //     console.error("이미지 업로드 실패:", error);
-  //   }
-  // };
-
-  // const updateContents = async (pid) => {
-  //   try {
-  //     const response = await axios.put(`/contents/update/${pid}`);
-  //     console.log("서버 응답:", response.data);
-  //     alert("성공적으로 수정");
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.error("에러:", error);
-  //     alert("수정 실패");
-  //   }
-  // };
 
   return (
     <>

@@ -35,7 +35,7 @@ export const LiveChat = () => {
 
   /* 웹소켓 연결 변수 관리 */
   // const WEBSOCKET_ADDRESS = "ws://localhost:5000";
-  const WEBSOCKET_ADDRESS = "ws://13.125.188.8:5000";
+  const WEBSOCKET_ADDRESS = "wss://13.125.188.8:5000";
   const disconnectWebsocketTime = 6; // 6 분
   const milliseconds = disconnectWebsocketTime * 100000;
 
@@ -46,7 +46,6 @@ export const LiveChat = () => {
 
     const websocket = new WebSocket(WEBSOCKET_ADDRESS);
     websocket.onopen = () => {
-      console.log("웹소켓 연결됨");
       setMessages([]);
     };
     websocket.onmessage = async (event) => {
@@ -100,7 +99,6 @@ export const LiveChat = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         if (ws) {
-          console.log(`${disconnectWebsocketTime}분간 반응 X >> 소켓 종료`);
           ws.close();
         }
       }, milliseconds);

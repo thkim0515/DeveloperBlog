@@ -7,13 +7,13 @@ const secretName = "starblog";
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-// const a = process.env.REACT_APP_A;
-// const b = process.env.REACT_APP_B;
+const a = process.env.REACT_APP_A;
+const b = process.env.REACT_APP_B;
 
 AWS.config.update({
   region: region,
-  // accessKeyId: a,
-  // secretAccessKey: b,
+  accessKeyId: a,
+  secretAccessKey: b,
 });
 const client = new AWS.SecretsManager();
 

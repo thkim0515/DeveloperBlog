@@ -77,7 +77,6 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
   const updateContents = async (_id, content) => {
     try {
       const response = await axios.put(`/contents/update/${_id}`, content);
-      console.log("서버 응답:", response.data);
       alert("성공적으로 수정");
       navigate(`/post/${_id}`, { state: { content } });
     } catch (error) {

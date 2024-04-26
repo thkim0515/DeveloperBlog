@@ -66,9 +66,7 @@ export const PostDetailComment = ({ content }) => {
   const postCommentToServer = async (commentData) => {
     try {
       const response = await axios.post("/comments/create", commentData);
-      console.log("서버 응답:", response.data);
       alert("댓글 등록 성공!");
-
       readCommentsFunc();
       setComment("");
     } catch (error) {
@@ -129,7 +127,7 @@ export const PostDetailComment = ({ content }) => {
   const updateCommentToServer = async (_id, commentData) => {
     try {
       const response = await axios.put(`/comments/update/${_id}`, commentData);
-      console.log("서버 응답:", response.data);
+
       alert("댓글 수정 성공!");
       setEditComment("");
       readCommentsFunc();
@@ -147,7 +145,7 @@ export const PostDetailComment = ({ content }) => {
     if (isConfirmed) {
       try {
         const response = await axios.delete(`/comments/delete/${_id}`);
-        console.log("서버 응답:", response.data);
+
         readCommentsFunc();
       } catch (error) {
         console.error("에러:", error);

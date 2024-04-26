@@ -16,20 +16,3 @@ hooks:
     - location: scripts/deploy.sh
       timeout: 600
       runas: root
-# files:
-#   - source: scripts/deploy.sh
-#     destination: /home/ubuntu/deploy-fe
-#     overwrite: yes
-# file_exists_behavior: OVERWRITE
-
-# permissions:
-#   - object: scripts/deploy.sh
-#     owner: ubuntu
-#     group: ubuntu
-#     mode: 755
-
-# hooks:
-#   AfterInstall:
-#     - location: scripts/deploy.sh
-#       timeout: 60
-#       runas: root
