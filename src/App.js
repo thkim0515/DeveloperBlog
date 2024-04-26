@@ -17,6 +17,8 @@ import { Profile } from "./pages/Profile/Profile";
 import { ProfileEdit } from "./pages/ProfileEdit/ProfileEdit";
 import { MyCodes } from "./pages/MyCodes/MyCodes";
 import { NotFound } from "./pages/NotFound/NotFound";
+import { TeamProject } from "./pages/TeamProject/TeamProject";
+import { TeamProjectDetail } from "./pages/TeamProjectDetail/TeamProjectDetail";
 
 //context
 import { UserLoginProvider } from "./context/UserLoginContext";
@@ -24,8 +26,6 @@ import { UserLoginProvider } from "./context/UserLoginContext";
 //privateRoute
 import { PrivateRoute } from "./routes/PrivateRoute";
 import { NewCodePosting } from "./pages/TestComponent/NewCodePosting/NewCodePosting";
-import { TeamProject } from "./pages/TeamProject/TeamProject";
-import { TeamProjectDetail } from "./pages/TeamProjectDetail/TeamProjectDetail";
 
 export const App = () => {
   return (
@@ -47,7 +47,7 @@ export const App = () => {
                 element={<PrivateRoute component={<CodeCreate />} />}
               />
               <Route path="/teamProject" element={<TeamProject />} />
-              <Route path="/project" element={<TeamProjectDetail />} />
+              <Route path="/project/:_pid" element={<TeamProjectDetail />} />
               <Route path="post/:_id" element={<PostDetail />} />
               <Route
                 path="postUpdate/:_id"
