@@ -1,8 +1,8 @@
-export const UserInformation = () => {
+export const UserInformation = ({ nickname }) => {
   return (
     <div>
-      <img alt="user" width={20} />
-      <span>닉네임</span>
+      <img alt={""} width={20} />
+      <span>{nickname}</span>
     </div>
   );
 };

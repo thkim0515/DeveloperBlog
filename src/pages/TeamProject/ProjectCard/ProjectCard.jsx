@@ -1,12 +1,12 @@
-import * as S from "./TeamProject.style";
+import * as S from "./ProjectCard.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faJs, faReact, faNodeJs } from "@fortawesome/free-brands-svg-icons";
 
 // components
-import { UserInformation } from "./../../components/user/UserInformation";
+import { UserInformation } from "../../../components/user/UserInformation";
 
-export const TeamprojectCard = ({ props }) => {
+export const ProjectCard = ({ props }) => {
   return (
     <S.ProjectCardBox>
       <S.ProjectHeader>
@@ -35,7 +35,7 @@ export const TeamprojectCard = ({ props }) => {
         </S.ProjectRoleBox>
       </S.ProjectBody>
       <S.ProjectFooter>
-        <UserInformation />
+        <UserInformation nickname={props.nickname} />
         <span>{`${props.recruitmentCompleted}/${props.tableOfOrganiztion}`}</span>
       </S.ProjectFooter>
     </S.ProjectCardBox>

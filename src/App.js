@@ -25,7 +25,6 @@ import { UserLoginProvider } from "./context/UserLoginContext";
 
 //privateRoute
 import { PrivateRoute } from "./routes/PrivateRoute";
-import { NewCodePosting } from "./pages/TestComponent/NewCodePosting/NewCodePosting";
 import { TeamProjectCreate } from "./pages/TeamProjectCreate/TeamProjectCreate";
 
 export const App = () => {
@@ -50,10 +49,6 @@ export const App = () => {
                 element={<PrivateRoute component={<CodeCreate />} />}
               />
               <Route path="post/:_id" element={<PostDetail />} />
-              <Route
-                path="codePosting"
-                element={<PrivateRoute component={<NewCodePosting />} />}
-              />
               <Route
                 path="postUpdate/:_id"
                 element={<PrivateRoute component={<PostUpdate />} />}
