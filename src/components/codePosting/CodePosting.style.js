@@ -44,13 +44,24 @@ export const LangauageBox = styled.div`
   }
 `;
 
-export const PostButtonBox = styled.div`
-  margin-top: 2.5rem;
+export const ExplainAndButtonBox = styled.div`
   padding-bottom: 0.5rem;
-
-  button {
-    padding: 0.25rem;
-    border-radius: 4px;
-    background-color: #b3b0b0;
+  display: flex;
+  justify-content: space-between;
+  p {
+    color: #112d4e;
+    padding: 4px;
+  }
+  .button_box {
+    display: flex;
+    gap: 8px;
+    button {
+      padding: 0.25rem;
+      border-radius: 4px;
+      background-color: #3f72af;
+      color: #ffff;
+      width: 80px;
+      height: 40px;
+    }
   }
 `;

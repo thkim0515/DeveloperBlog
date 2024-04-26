@@ -124,7 +124,7 @@ export const SImageContent = styled.div`
     overflow-wrap: break-word;
     white-space: normal;
     background-color: white;
-    padding: 8px;
+    //padding: 8px;
     line-height: 2;
   }
   button {

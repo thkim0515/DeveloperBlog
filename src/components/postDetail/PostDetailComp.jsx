@@ -1,4 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+// Toast-UI Viewer 임포트
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import { Viewer } from '@toast-ui/react-editor';
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./PostDetailComp.style";
@@ -98,10 +101,13 @@ export const PostDetailComp = () => {
               width="100%"
               fontSize="1rem"
             />
-            <div
+            {/* <div
               className="text_area"
               dangerouslySetInnerHTML={{ __html: content.toast_contents }}
-            />
+            /> */}
+            <div className='text_area'>
+            <Viewer initialValue={content.toast_contents}/>
+            </div>
           </S.SImageContent>
           <S.SLikeBackButton>
             <LikeButton content_id={content._id} user_id={userId} />

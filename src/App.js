@@ -21,7 +21,6 @@ import { UserLoginProvider } from "./context/UserLoginContext";
 
 //privateRoute
 import { PrivateRoute } from "./routes/PrivateRoute";
-import { NewCodePosting } from "./pages/TestComponent/NewCodePosting/NewCodePosting";
 import { ProjectCard } from "./pages/TestComponent/ProjectCard/ProjectCard";
 
 export const App = () => {
@@ -58,10 +57,6 @@ export const App = () => {
             <Route
               path="myCodes"
               element={<PrivateRoute component={<MyCodes />} />}
-            />
-            <Route
-              path="/codePosting"
-              element={<PrivateRoute component={<NewCodePosting />} />}
             />
             <Route path="/test" element={<ProjectCard />} />
             <Route path="/*" element={<NotFound />} />
