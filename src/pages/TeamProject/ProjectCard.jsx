@@ -3,6 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faJs, faReact, faNodeJs } from "@fortawesome/free-brands-svg-icons";
 
+// components
+import { UserInformation } from "./../../components/user/UserInformation";
+
 export const TeamprojectCard = ({ props }) => {
   return (
     <S.ProjectCardBox>
@@ -32,10 +35,7 @@ export const TeamprojectCard = ({ props }) => {
         </S.ProjectRoleBox>
       </S.ProjectBody>
       <S.ProjectFooter>
-        <div>
-          <img src={props.profileImage} alt="" width={20} />
-          <span>{props.nickname}</span>
-        </div>
+        <UserInformation />
         <span>{`${props.recruitmentCompleted}/${props.tableOfOrganiztion}`}</span>
       </S.ProjectFooter>
     </S.ProjectCardBox>

@@ -1,6 +1,8 @@
-export const ProjectContents = () => {
+import styled from "styled-components";
+
+export const ProjectContent = () => {
   return (
-    <div>
+    <ProjectContentBox>
       <h2>프로젝트 소개</h2>
       <p>
         현재 대표적인 분실물 서비스 "로스트112"는 분실물을 찾는 과정이
@@ -46,6 +48,14 @@ export const ProjectContents = () => {
       </p>
       <h2>문의사항</h2>
       <p>오픈채팅: https://open.kakao.com/o/gwkWo9ng</p>
-    </div>
+    </ProjectContentBox>
   );
 };
+
+const ProjectContentBox = styled.div`
+  margin-top: 72px;
+  font-size: 1.125rem;
+  word-break: break-all;
+  line-height: 1.7;
+  letter-spacing: -0.004em;
+`;

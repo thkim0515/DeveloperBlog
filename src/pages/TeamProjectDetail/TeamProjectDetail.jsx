@@ -1,12 +1,13 @@
+// components
 import { ProjectInformation } from "./ProjectInformation/ProjectInformation";
-import { ProjectContents } from "./ProjectContents/ProjectContents";
+import { ProjectContent } from "./ProjectContent/ProjectContent";
 import { ProjectComments } from "./ProjectComments/ProjectComments";
 
 export const TeamProjectDetail = () => {
   return (
     <div>
       <ProjectInformation />
-      <ProjectContents />
+      <ProjectContent />
       <ProjectComments />
     </div>
   );

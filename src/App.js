@@ -42,17 +42,27 @@ export const App = () => {
             <Route element={<Layout />}>
               {/* Layout 컴포넌트 안에서 자식 Route들을 배치 */}
               <Route index element={<Main />} />
+
+              {/* Code Posting */}
               <Route
                 path="codeCreate"
                 element={<PrivateRoute component={<CodeCreate />} />}
               />
-              <Route path="/teamProject" element={<TeamProject />} />
-              <Route path="/project/:_pid" element={<TeamProjectDetail />} />
-              <Route path="post/:_id" element={<PostDetail />} />
+              <Route
+                path="codePosting"
+                element={<PrivateRoute component={<NewCodePosting />} />}
+              />
               <Route
                 path="postUpdate/:_id"
                 element={<PrivateRoute component={<PostUpdate />} />}
               />
+
+              {/* Team Project */}
+              <Route path="/teamProject" element={<TeamProject />} />
+              <Route path="/project/:_pid" element={<TeamProjectDetail />} />
+              <Route path="post/:_id" element={<PostDetail />} />
+
+              {/* Profile */}
               <Route
                 path="profile"
                 element={<PrivateRoute component={<Profile />} />}
@@ -65,10 +75,8 @@ export const App = () => {
                 path="myCodes"
                 element={<PrivateRoute component={<MyCodes />} />}
               />
-              <Route
-                path="codePosting"
-                element={<PrivateRoute component={<NewCodePosting />} />}
-              />
+
+              {/* NotFound */}
               <Route path="/*" element={<NotFound />} />
             </Route>
           </Routes>
