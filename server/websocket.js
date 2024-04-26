@@ -1,6 +1,5 @@
 const WebSocket = require("ws");
 
-// 모든 메시지를 저장할 배열
 let messages = [];
 
 function setupWebSocket(server) {
