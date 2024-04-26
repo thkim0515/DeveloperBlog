@@ -26,6 +26,7 @@ import { UserLoginProvider } from "./context/UserLoginContext";
 //privateRoute
 import { PrivateRoute } from "./routes/PrivateRoute";
 import { NewCodePosting } from "./pages/TestComponent/NewCodePosting/NewCodePosting";
+import { TeamProjectCreate } from "./pages/TeamProjectCreate/TeamProjectCreate";
 
 export const App = () => {
   return (
@@ -48,6 +49,7 @@ export const App = () => {
                 path="codeCreate"
                 element={<PrivateRoute component={<CodeCreate />} />}
               />
+              <Route path="post/:_id" element={<PostDetail />} />
               <Route
                 path="codePosting"
                 element={<PrivateRoute component={<NewCodePosting />} />}
@@ -60,7 +62,7 @@ export const App = () => {
               {/* Team Project */}
               <Route path="/teamProject" element={<TeamProject />} />
               <Route path="/project/:_pid" element={<TeamProjectDetail />} />
-              <Route path="post/:_id" element={<PostDetail />} />
+              <Route path="/projectCreate" element={<TeamProjectCreate />} />
 
               {/* Profile */}
               <Route

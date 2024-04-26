@@ -1,4 +1,5 @@
 import * as S from "./ProjectComments.style";
+import { TextArea } from "./ProjectComments.style";
 import { UserInformation } from "../../../components/user/UserInformation";
 
 export const ProjectComments = () => {
@@ -10,13 +11,7 @@ export const ProjectComments = () => {
           <span>1</span>
         </S.CommentTitle>
         <UserInformation />
-        <S.TextArea
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          placeholder="댓글을 입력하세요."
-        ></S.TextArea>
+        <TextArea placeholder="댓글을 입력하세요." />
         <div>
           <S.CommentSubmitBox>
             <S.CommentSubmitButton>댓글 등록</S.CommentSubmitButton>
