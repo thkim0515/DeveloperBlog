@@ -1,17 +1,28 @@
 import styled from "styled-components";
-import { useEffect,useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { AceEditorSet } from "./AceEditor/AceEditorSet";
 import { ToastEditor } from "./ToastEditor/ToastEditor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/i18n/ko-kr";
 
-export const CodePost = ({setCode, error, commentedCode, textData, handleEditorChange, toastBox, setToastBox}) => {
-
+export const CodePost = ({
+  setCode,
+  error,
+  commentedCode,
+  textData,
+  handleEditorChange,
+  toastBox,
+  setToastBox,
+  postData,
+}) => {
   //코드 해석이 완료되면 자동으로 입력창은 사라지고 텍스트 에디터가 뜨가 만드는 기능
-  const memoizedSetToastBox = useCallback((value) => {
-    setToastBox(value);
-  }, [setToastBox]);
-  
+  const memoizedSetToastBox = useCallback(
+    (value) => {
+      setToastBox(value);
+    },
+    [setToastBox]
+  );
+
   useEffect(() => {
     if (commentedCode) {
       memoizedSetToastBox(true);
@@ -20,12 +31,12 @@ export const CodePost = ({setCode, error, commentedCode, textData, handleEditorC
 
   const onChange = (newValue) => {
     setCode(newValue);
-  }
+  };
 
   return (
     <>
       <CodeEditBox>
-        <AceSetBox style={{ display: !toastBox ? 'block' : 'none' }}>
+        <AceSetBox style={{ display: !toastBox ? "block" : "none" }}>
           <EditorTitle>입력창</EditorTitle>
           <AceEditorSet name="getCode" onChange={onChange} />
         </AceSetBox>
@@ -33,13 +44,16 @@ export const CodePost = ({setCode, error, commentedCode, textData, handleEditorC
           <EditorTitle>해석창</EditorTitle>
           <AceEditorSet
             name="setCode"
-            value={error || commentedCode || ""}
+            value={error || commentedCode || postData.ace_contents || ""}
             readOnly={true}
           />
         </AceGetBox>
-        <ToastBox style={{ display: toastBox ? 'block' : 'none' }} >
+        <ToastBox style={{ display: toastBox ? "block" : "none" }}>
           <EditorTitle>텍스트에디터</EditorTitle>
-          <ToastEditor textData={textData} onEditorChange = {handleEditorChange}   />
+          <ToastEditor
+            postData={postData}
+            onEditorChange={handleEditorChange}
+          />
         </ToastBox>
       </CodeEditBox>
     </>

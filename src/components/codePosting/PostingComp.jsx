@@ -1,8 +1,9 @@
-import * as S from "./CodePosting.style";
+import * as S from "./PostingComp.style";
 import { CodePost } from "./CodePost";
 import { Input } from "../LiveChat.style";
 import ace from "ace-builds/src-noconflict/ace";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import useOpenai from "../../hooks/useOpenAi";
 import axios from "axios";
 import { decryptData } from "../../js/secure";
@@ -10,7 +11,13 @@ import { UpdateLocalStorage } from "../../js/UpdateLocalStorage";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "./spinner/Spinner";
 
-export const PostingComp = () => {
+export const PostingComp = ({
+  edit,
+  postData,
+  postDataToToast,
+  setPostData,
+  setPostDataToToast,
+}) => {
   const navigate = useNavigate();
   const { commentedCode, error, annotateCode } = useOpenai();
   const [code, setCode] = useState("");
@@ -18,6 +25,8 @@ export const PostingComp = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const imageSrc = "";
+
+  const { _id } = useParams();
 
   useEffect(() => {
     if (commentedCode || error) {
@@ -29,7 +38,12 @@ export const PostingComp = () => {
 
   //제목창 관리
   const handleTitleChange = (event) => {
-    setTitle(event.target.value);
+    if (edit) {
+      setPostData((prevData) => ({
+        ...prevData,
+        title: event.target.value,
+      }));
+    } else setTitle(event.target.value);
   };
 
   //입력창 초기화
@@ -48,7 +62,7 @@ export const PostingComp = () => {
   };
 
   //토스트에디터
-  const [toastBox, setToastBox] = useState(false);
+  const [toastBox, setToastBox] = useState(postData ? true : false);
   const handleToggle = () => {
     setToastBox(!toastBox);
   };
@@ -120,9 +134,33 @@ export const PostingComp = () => {
     }
   };
 
+  //글 수정하는 함수
+  const handleUpdateCode = async (_id) => {
+    const content = {
+      ...postData,
+      title: postData.title ? postData.title : "제목없음",
+      ace_contents: commentedCode ? commentedCode : postData.ace_contents,
+      toast_contents: textData,
+    };
+
+    await updateContents(_id, content);
+  };
+
+  const updateContents = async (_id, content) => {
+    try {
+      const response = await axios.put(`/contents/update/${_id}`, content);
+      console.log("서버 응답:", response.data);
+      alert("성공적으로 수정");
+      navigate(`/post/${_id}`, { state: { content } });
+    } catch (error) {
+      console.error("에러:", error);
+      alert("수정 실패");
+    }
+  };
+
   return (
     <>
-      <S.TitleBox>Code Posting</S.TitleBox>
+      <S.TitleBox>{edit ? "Code Edit" : "Code Posting"}</S.TitleBox>
       <S.CodePostingBox>
         {/* 제목 입력 */}
         <S.InputBox>
@@ -131,6 +169,7 @@ export const PostingComp = () => {
             id="title"
             placeholder="제목을 입력하세요"
             onChange={handleTitleChange}
+            value={edit ? postData.title : title}
           />
         </S.InputBox>
         {/* 내용 입력 */}
@@ -163,24 +202,24 @@ export const PostingComp = () => {
           handleEditorChange={handleEditorChange}
           toastBox={toastBox}
           setToastBox={setToastBox}
+          postData={postData}
         />
         <S.ExplainAndButtonBox>
           <div>
             <p>* 코드를 입력하여 똑 소리 나는 주석을 달아보세요!</p>
             <p>1. 코드 입력창에 코드를 입력하고 해석하기 버튼을 클릭하세요.</p>
-            <p>2. 코드 해석창에 내 코드에 코드 해석이 주석으로 달려요.</p>
+            <p>2. 코드 해석창에 내 코드에 대한 해석이 주석으로 달려요.</p>
             <p>3. 텍스트 에디터에 공부한 내용을 기록해요!</p>
           </div>
           <div className="button_box">
-          <button onClick={handleCodeAnnotation}>해석하기</button>
-          <button
-            onClick={handlePostCode}
-            style={{ display: commentedCode ? "block" : "none" }}
-          >
-            작성 완료
-          </button>
+            <button onClick={handleCodeAnnotation}>해석하기</button>
+            <button
+              onClick={edit ? () => handleUpdateCode(_id) : handlePostCode}
+              style={{ display: commentedCode || edit ? "block" : "none" }}
+            >
+              작성 완료
+            </button>
           </div>
-
         </S.ExplainAndButtonBox>
       </S.CodePostingBox>
     </>

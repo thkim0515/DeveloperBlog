@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import { PostUpdatData } from "../CodeCreate/PostUpdatData";
-import { ToastEditor } from "../CodeCreate/component/ToastEditor";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Metas } from "./../../components/common/Metas";
 import { useLocation } from "react-router-dom";
 import { NotFound } from "../NotFound/NotFound";
+import { PostingComp } from "../../components/codePosting/PostingComp";
+import axios from "axios";
 
 export const PostUpdate = () => {
   // _id값을 받아옴 > PostUpdatData 로 전송 >> API 호출 >> return >>
@@ -16,27 +16,55 @@ export const PostUpdate = () => {
   const location = useLocation();
   const userId = location.state?.userId;
 
-  const [editorData, setEditorData] = useState("");
-  const [postData, setPostDataToToast] = useState(null);
+  const [postDataToToast, setPostDataToToast] = useState(null);
 
-  const handleEditorChange = (data) => {
-    setEditorData(data);
-  };
+  const [postData, setPostData] = useState({
+    _id: "",
+    title: "",
+    ace_contents: "",
+    toast_contents: "",
+    language: "",
+    imagePath: "",
+    postdate: "",
+    publicPrivate: false,
+    views: 0,
+    likes: 0,
+    likeUser: [],
+    userId: {
+      nickname: "",
+      profileImg: "",
+    },
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (_id) {
+        try {
+          const response = await axios.get(`/contents/read/${_id}`);
+          const data = response.data;
+          setPostData({
+            ...data,
+          });
+          setPostDataToToast(data.toast_contents);
+        } catch (error) {
+          console.error("에러:", error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [_id, setPostDataToToast]);
 
   return userId ? (
     <div>
       <Metas title="게시글 업로드" none />
-      <PostUpdatData
-        _id={_id}
-        editorData={editorData}
+      <PostingComp
+        edit={true}
+        postData={postData}
+        postDataToToast={postDataToToast}
+        setPostData={setPostData}
         setPostDataToToast={setPostDataToToast}
       />
-      {postData && (
-        <ToastEditor
-          editorData={postData}
-          onEditorChange={handleEditorChange}
-        />
-      )}
     </div>
   ) : (
     <NotFound />
