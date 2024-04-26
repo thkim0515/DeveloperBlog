@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const TeamProjectBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  place-items: center center;
+`;
+
 export const ProjectCardBox = styled.div`
   width: 20rem;
   height: 15rem;
@@ -7,6 +14,7 @@ export const ProjectCardBox = styled.div`
   border: 1px solid black;
   border-radius: 4px;
   padding: 0.75rem 1.3rem 0.75rem 1.3rem;
+  cursor: pointer;
 `;
 
 export const ProjectHeader = styled.div`
@@ -14,8 +22,6 @@ export const ProjectHeader = styled.div`
   justify-content: space-between;
   margin-top: 0.5rem;
 `;
-
-export const ProjectViewBox = styled.div``;
 
 export const ProjectViews = styled.span`
   margin-left: 0.5rem;
