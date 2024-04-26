@@ -35,7 +35,7 @@ export const LiveChat = () => {
 
   /* 웹소켓 연결 변수 관리 */
   // const WEBSOCKET_ADDRESS = "wss://13.125.188.8:5000";
-  const WEBSOCKET_ADDRESS = "wss://kstarblog.com";
+  const WEBSOCKET_ADDRESS = "wss://kstarblog.com:5000";
   const disconnectWebsocketTime = 6; // 6 분
   const milliseconds = disconnectWebsocketTime * 100000;
 
