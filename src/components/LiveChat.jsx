@@ -4,8 +4,6 @@ import { decryptData } from "../js/secure";
 import * as S from "./LiveChat.style";
 
 export const LiveChat = () => {
-  /* 로그인 여부 상태관리 */
-  /* 세션에 따른 닉네임 or 비로그인 유저 */
   const [userNickname, setUserNickname] = useState("");
   const { isLogin } = useUserLogin();
 
@@ -25,96 +23,96 @@ export const LiveChat = () => {
     };
 
     initializeUserSession();
-
-    connectWebSocket();
   }, [isLogin]);
 
-  /* 웹소켓 상태관리 */
   const [ws, setWs] = useState(null);
   const [messages, setMessages] = useState([]);
-
-  /* 웹소켓 연결 변수 관리 */
-  // const WEBSOCKET_ADDRESS = "wss://13.125.188.8:5000";
-  const WEBSOCKET_ADDRESS = "wss://13.125.188.8:5000";
+  const WEBSOCKET_ADDRESSES = [
+    "wss://13.125.188.8:5000",
+    "wss://starblog.com",
+    "wss://starblog.com:5000",
+    "wss://ec2-13-125-188-8.ap-northeast-2.compute.amazonaws.com",
+    "wss://d3kcrktwedekfj.cloudfront.net",
+    "ws://localhost:5000",
+  ];
   const disconnectWebsocketTime = 6; // 6 분
-  const milliseconds = disconnectWebsocketTime * 100000;
+  const milliseconds = disconnectWebsocketTime * 60000;
 
   const connectWebSocket = () => {
     if (ws != null) {
       ws.close();
     }
 
-    const websocket = new WebSocket(WEBSOCKET_ADDRESS);
-    websocket.onopen = () => {
-      setMessages([]);
-    };
-    websocket.onmessage = async (event) => {
-      if (event.data instanceof Blob) {
-        const text = await event.data.text();
-        try {
-          const data = JSON.parse(text);
-          const displayMessage = {
-            text: `${data.userId || userNickname}: ${data.message}`,
-            timestamp: data.timestamp, // 받은 데이터에서 시간 사용
-          };
-          setMessages((prev) => [...prev, displayMessage]);
-        } catch (e) {
-          console.error("JSON 파싱 에러:", e);
-        }
-      } else {
-        try {
-          const data = JSON.parse(event.data);
-          const displayMessage = {
-            text: `${data.userId || userNickname}: ${data.message}`,
-            timestamp: data.timestamp, // 받은 데이터에서 시간 사용
-          };
-          setMessages((prev) => [...prev, displayMessage]);
-        } catch (e) {
-          console.error("JSON 파싱 에러:", e);
-        }
+    let connectionIndex = 0;
+
+    const tryConnect = () => {
+      if (connectionIndex >= WEBSOCKET_ADDRESSES.length) {
+        console.log("모든 주소에 연결 실패");
+        return;
       }
+
+      const address = WEBSOCKET_ADDRESSES[connectionIndex];
+      const websocket = new WebSocket(address);
+
+      websocket.onopen = () => {
+        console.log(`${address}로 연결 성공`);
+        setWs(websocket);
+        setMessages([]);
+      };
+
+      websocket.onerror = () => {
+        console.log(`${address} 연결 시도 실패`);
+        websocket.close(); // Ensure websocket is properly closed before retrying
+        connectionIndex++;
+        setTimeout(tryConnect, 500); // 3초 후 재시도
+      };
+
+      websocket.onmessage = async (event) => {
+        if (event.data instanceof Blob) {
+          const text = await event.data.text();
+          try {
+            const data = JSON.parse(text);
+            const displayMessage = {
+              text: `${data.userId || userNickname}: ${data.message}`,
+              timestamp: data.timestamp,
+            };
+            setMessages((prev) => [...prev, displayMessage]);
+          } catch (e) {
+            console.error("JSON 파싱 에러:", e);
+          }
+        } else {
+          try {
+            const data = JSON.parse(event.data);
+            const displayMessage = {
+              text: `${data.userId || userNickname}: ${data.message}`,
+              timestamp: data.timestamp,
+            };
+            setMessages((prev) => [...prev, displayMessage]);
+          } catch (e) {
+            console.error("JSON 파싱 에러:", e);
+          }
+        }
+      };
+
+      websocket.onclose = () => {
+        console.log("웹소켓 연결안됨");
+        setWs(null); // Ensure to clean up the ws state
+      };
     };
-    websocket.onclose = () => {
-      console.log("웹소켓 연결안됨");
-    };
-    setWs(websocket);
+
+    tryConnect();
   };
 
-  /* 맨 밑 스크룰 */
+  useEffect(() => {
+    connectWebSocket();
+  }, []);
+
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    scrollToBottom();
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView(); //({ behavior: "instant" });
-  };
-
-  /* 사용자 반응 없을 시 소켓 종료 */
-  useEffect(() => {
-    let timeoutId;
-
-    const handleActivity = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        if (ws) {
-          ws.close();
-        }
-      }, milliseconds);
-    };
-
-    window.addEventListener("mousemove", handleActivity);
-    window.addEventListener("keypress", handleActivity);
-
-    return () => {
-      window.removeEventListener("mousemove", handleActivity);
-      window.removeEventListener("keypress", handleActivity);
-      clearTimeout(timeoutId);
-    };
-  }, [ws]);
-
-  /* 채팅 인풋 박스 상태관리 */
   const [inputText, setInputText] = useState("");
 
   const sendMessage = (message) => {
@@ -128,7 +126,6 @@ export const LiveChat = () => {
     }
   };
 
-  /* 입력 상태 관리 */
   const handleInputChange = (e) => {
     setInputText(e.target.value);
   };
@@ -138,6 +135,30 @@ export const LiveChat = () => {
       sendMessage(inputText);
     }
   };
+
+  useEffect(() => {
+    let timeoutId;
+
+    const handleActivity = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        if (ws) {
+          console.log("사용자 활동이 없어 웹소켓 연결을 종료합니다.");
+          ws.close();
+          setWs(null); // Ensure to clean up the ws state as well
+        }
+      }, milliseconds);
+    };
+
+    window.addEventListener("mousemove", handleActivity);
+    window.addEventListener("keypress", handleActivity);
+
+    return () => {
+      window.removeEventListener("mousemove", handleActivity);
+      window.removeEventListener("keypress", handleActivity);
+      clearTimeout(timeoutId);
+    };
+  }, [ws, milliseconds]);
 
   return (
     <S.Container>
