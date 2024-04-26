@@ -35,7 +35,7 @@ export const LiveChat = () => {
     "wss://d3kcrktwedekfj.cloudfront.net",
     "ws://localhost:5000",
   ];
-  const disconnectWebsocketTime = 6; // 6 분
+  const disconnectWebsocketTime = 5; // 6 분
   const milliseconds = disconnectWebsocketTime * 60000;
 
   const connectWebSocket = () => {
