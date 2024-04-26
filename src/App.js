@@ -24,8 +24,8 @@ import { UserLoginProvider } from "./context/UserLoginContext";
 //privateRoute
 import { PrivateRoute } from "./routes/PrivateRoute";
 import { NewCodePosting } from "./pages/TestComponent/NewCodePosting/NewCodePosting";
-import { TeamProject } from "./pages/TestComponent/TeamProject/TeamProject";
-import { TeamProjectDetail } from "./pages/TestComponent/TeamProjectDetail/TeamProjectDetail";
+import { TeamProject } from "./pages/TeamProject/TeamProject";
+import { TeamProjectDetail } from "./pages/TeamProjectDetail/TeamProjectDetail";
 
 export const App = () => {
   return (
