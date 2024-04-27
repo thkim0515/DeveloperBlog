@@ -71,8 +71,8 @@ router.get("/contents", async (req, res) => {
       },
     ]);
     // console.log(contentst[0]);
-    const a = contentst.sort((a, b) => a - b);
-    console.log(a[0]);
+    // const a = contentst.sort((a, b) => a - b);
+    // console.log(a[0]);
     res.json(contentst);
   } catch (error) {
     logError("콘텐츠 파싱", error.message);
