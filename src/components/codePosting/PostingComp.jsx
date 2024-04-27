@@ -10,23 +10,24 @@ import { decryptData } from "../../js/secure";
 import { UpdateLocalStorage } from "../../js/UpdateLocalStorage";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "./spinner/Spinner";
+import { Category } from "./Category/Category";
 
-export const PostingComp = ({
-  edit,
-  postData,
-  postDataToToast,
-  setPostData,
-  setPostDataToToast,
-}) => {
+export const PostingComp = ({ edit, postData }) => {
   const navigate = useNavigate();
   const { commentedCode, error, annotateCode } = useOpenai();
   const [code, setCode] = useState("");
-  const [title, setTitle] = useState(edit ? postData.title : "");
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
   const imageSrc = "";
-
   const { _id } = useParams();
+
+  useEffect(() => {
+    if (postData) {
+      setTitle(postData.title);
+      setCategory(postData.language);
+    }
+  }, [postData]);
 
   useEffect(() => {
     if (commentedCode || error) {
@@ -67,24 +68,6 @@ export const PostingComp = ({
     setTextData(data);
   };
 
-  //언어타입
-  async function languageType(commentedCode) {
-    let firstLineContent = commentedCode.split("\n")[0].replace(/[^\w.]/g, "");
-    if (firstLineContent === "jsx") {
-      firstLineContent = "react";
-    }
-    if (firstLineContent === "js") {
-      firstLineContent = "javascript";
-    }
-    const validNames = await decryptData("svgImages", localStorage);
-    let svgImages = [];
-    svgImages = validNames;
-
-    console.log(svgImages);
-    const matchedName = svgImages.find((lang) => lang === firstLineContent);
-    return matchedName;
-  }
-
   //글 등록하는 함수
   const handlePostCode = async () => {
     if (!commentedCode) {
@@ -94,7 +77,6 @@ export const PostingComp = ({
     const user = await decryptData("user", sessionStorage);
     const nickname = user.nickname;
     const profileImg = user.profileimg;
-    const result = await languageType(commentedCode);
     const userId = user.id;
 
     const codeData = {
@@ -102,7 +84,7 @@ export const PostingComp = ({
       title: title ? title : "제목없음",
       nickname: nickname,
       profileImg: profileImg,
-      language: result ? result : "unknown",
+      language: category ? category : "unknown",
       publicPrivate: true,
       imagePath: imageSrc ? imageSrc : "img/Image0.jpg",
       ace_contents: commentedCode,
@@ -134,6 +116,7 @@ export const PostingComp = ({
     const content = {
       ...postData,
       title: title ? title : "제목없음",
+      language: category ? category : "unknown",
       ace_contents: commentedCode ? commentedCode : postData.ace_contents,
       toast_contents: textData,
     };
@@ -170,6 +153,7 @@ export const PostingComp = ({
         {/* 내용 입력 */}
         {isLoading && <Spinner isLoading={isLoading} />}
         <div>
+          <Category category={category} setCategory={setCategory} />
           <S.ViewOptionsBox>
             <tbody>
               <tr>

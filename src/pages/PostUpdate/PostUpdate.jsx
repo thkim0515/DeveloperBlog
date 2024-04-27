@@ -16,8 +16,6 @@ export const PostUpdate = () => {
   const location = useLocation();
   const userId = location.state?.userId;
 
-  const [postDataToToast, setPostDataToToast] = useState(null);
-
   const [postData, setPostData] = useState({
     _id: "",
     title: "",
@@ -45,7 +43,6 @@ export const PostUpdate = () => {
           setPostData({
             ...data,
           });
-          setPostDataToToast(data.toast_contents);
         } catch (error) {
           console.error("에러:", error);
         }
@@ -53,18 +50,12 @@ export const PostUpdate = () => {
     };
 
     fetchData();
-  }, [_id, setPostDataToToast]);
+  }, [_id]);
 
   return userId ? (
     <div>
       <Metas title="게시글 업로드" none />
-      <PostingComp
-        edit={true}
-        postData={postData}
-        postDataToToast={postDataToToast}
-        setPostData={setPostData}
-        setPostDataToToast={setPostDataToToast}
-      />
+      <PostingComp edit={true} postData={postData} />
     </div>
   ) : (
     <NotFound />
