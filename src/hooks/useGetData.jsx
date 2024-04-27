@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useCalculatePage } from "./useCalculatePage";
 import { getFromDB } from "./dataFetchFilter/getFromDB";
 import { filterImages } from "./dataFetchFilter/filterImages";
+import axios from "axios";
 export const useGetData = (
   value,
   PageCount,
@@ -27,17 +28,24 @@ export const useGetData = (
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await getFromDB();
+        const { data: userData } = await axios.get("/contents/svgsdata");
+        const { data: contentData } = await axios.get("/contents/contents");
 
-        const storedContents = await decryptData("contents", localStorage);
-        const storedSvgImages = await decryptData("svgImages", localStorage);
+        const svgs = userData;
+        const contents = contentData;
+        setSvgImages(svgs[0].svgs);
 
-        let contents = [];
+        // await getFromDB();
 
-        if (storedContents && storedSvgImages) {
-          contents = storedContents;
-          setSvgImages(storedSvgImages);
-        }
+        // const storedContents = await decryptData("contents", localStorage);
+        // const storedSvgImages = await decryptData("svgImages", localStorage);
+
+        // let contents = [];
+
+        // if (storedContents && storedSvgImages) {
+        //   contents = storedContents;
+        //   setSvgImages(storedSvgImages);
+        // }
 
         // 조건부 필터링기능 ( 필터 , 검색)
         const images = await filterImages(

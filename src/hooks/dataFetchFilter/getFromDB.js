@@ -19,10 +19,11 @@ export async function getFromDB() {
     const svgs = userData;
     const contents = contentData;
 
-    await encryptData(svgs[0].svgs, "svgImages", localStorage);
-    await encryptData(contents, "contents", localStorage);
+    return { svgs, contents };
+    // await encryptData(svgs[0].svgs, "svgImages", localStorage);
+    // await encryptData(contents, "contents", localStorage);
 
-    return { contents, svgs, storedContents };
+    // return { contents, svgs, storedContents };
   } catch (e) {
     const { data } = await axios.get("/json/newDummy.json");
     await encryptData(data.svgs, "svgImages", localStorage);

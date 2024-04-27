@@ -46,7 +46,7 @@ export const PostDetailComment = ({ content }) => {
   };
 
   /*-------------create 기능---------------*/
-  const handleCreateSubmit = async (e) => {
+  const handleCreateSubmit = async (e, parentId = null) => {
     e.preventDefault();
     if (!user) {
       alert("로그인이 필요한 영역입니다.");
@@ -58,6 +58,7 @@ export const PostDetailComment = ({ content }) => {
         userId: userId,
         postId: postId,
         comment: comment,
+        parentId: parentId,
       };
       await postCommentToServer(commentData);
     }
@@ -152,6 +153,14 @@ export const PostDetailComment = ({ content }) => {
         alert("삭제 실패");
       }
     }
+  };
+
+  // 대댓글 입력창 상태 및 함수
+  const [replyCommentId, setReplyCommentId] = useState(null);
+
+  // 대댓글 작성 함수
+  const handleReply = (parentId) => {
+    setReplyCommentId(parentId);
   };
 
   return (

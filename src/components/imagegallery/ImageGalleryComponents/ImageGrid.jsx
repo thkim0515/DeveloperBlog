@@ -15,21 +15,12 @@ export const ImageGrid = (value) => {
   const [searchTerm, setSearchTerm] = useState(""); // 검색내용
 
   const maxcount = 9;
-  const {
-    svgImages,
-    currentImages,
-    currentPage,
-    totalPages,
-    paginate,
-    nextPage,
-    prevPage,
-    firstPage,
-    lastPage,
-  } = useGetData(value, maxcount, selectedIcon, searchTerm);
+  const data = useGetData(value, maxcount, selectedIcon, searchTerm);
 
   const handleUpdateSelectedIcon = (iconName = searchTerm) => {
     setSelectedIcon(iconName);
   };
+
   return (
     <S.Container>
       <S.Spacer>
@@ -62,7 +53,7 @@ export const ImageGrid = (value) => {
         </div>
         <div>
           {value.value === "all"
-            ? svgImages.map((svgName, idx) => {
+            ? data.svgImages.map((svgName, idx) => {
                 return (
                   <img
                     key={idx}
@@ -88,19 +79,19 @@ https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${svgName}.svg`}
         </div>
       </S.Spacer>
 
-      {currentImages.map((content, idx) => (
+      {data.currentImages.map((content, idx) => (
         <ImageItem key={idx} content={content} />
       ))}
 
       <S.SPContainer>
         <MainPagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          paginate={paginate}
-          nextPage={nextPage}
-          prevPage={prevPage}
-          firstPage={firstPage}
-          lastPage={lastPage}
+          currentPage={data.currentPage}
+          totalPages={data.totalPages}
+          paginate={data.paginate}
+          nextPage={data.nextPage}
+          prevPage={data.prevPage}
+          firstPage={data.firstPage}
+          lastPage={data.lastPage}
         />
       </S.SPContainer>
     </S.Container>
