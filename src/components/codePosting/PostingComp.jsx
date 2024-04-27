@@ -21,7 +21,7 @@ export const PostingComp = ({
   const navigate = useNavigate();
   const { commentedCode, error, annotateCode } = useOpenai();
   const [code, setCode] = useState("");
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(edit ? postData.title : "");
   const [isLoading, setIsLoading] = useState(false);
 
   const imageSrc = "";
@@ -38,12 +38,7 @@ export const PostingComp = ({
 
   //제목창 관리
   const handleTitleChange = (event) => {
-    if (edit) {
-      setPostData((prevData) => ({
-        ...prevData,
-        title: event.target.value,
-      }));
-    } else setTitle(event.target.value);
+    setTitle(event.target.value);
   };
 
   //입력창 초기화
@@ -138,7 +133,7 @@ export const PostingComp = ({
   const handleUpdateCode = async (_id) => {
     const content = {
       ...postData,
-      title: postData.title ? postData.title : "제목없음",
+      title: title ? title : "제목없음",
       ace_contents: commentedCode ? commentedCode : postData.ace_contents,
       toast_contents: textData,
     };
@@ -169,13 +164,13 @@ export const PostingComp = ({
             id="title"
             placeholder="제목을 입력하세요"
             onChange={handleTitleChange}
-            value={edit ? postData.title : title}
+            value={title}
           />
         </S.InputBox>
         {/* 내용 입력 */}
+        {isLoading && <Spinner isLoading={isLoading} />}
         <div>
           <S.ViewOptionsBox>
-            {isLoading && <Spinner isLoading={isLoading} />}
             <tbody>
               <tr>
                 <td

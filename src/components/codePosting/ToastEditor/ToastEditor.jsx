@@ -20,10 +20,11 @@ export const ToastEditor = ({ postData, onEditorChange }) => {
   };
 
   useEffect(() => {
-    if (editorRef.current) {
+    if (postData && editorRef.current) {
       editorRef.current.getInstance().setHTML(postData.toast_contents);
     }
-  }, [postData.toast_contents]);
+  }, [postData]);
+
   return (
     <Editor
       initialValue=" "

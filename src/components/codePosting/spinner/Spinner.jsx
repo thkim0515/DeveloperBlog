@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from "../../../pages/CodeCreate/AnnotationCreatePost.style";
+import * as S from "./Spinner.style";
 import { CustomSpinner } from "./Spinner.style";
 
 export const Spinner = ({ isLoading }) => {

@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // Toast-UI Viewer 임포트
-import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import { Viewer } from '@toast-ui/react-editor';
-import { useState, useEffect } from "react";
+import "@toast-ui/editor/dist/toastui-editor-viewer.css";
+import { Viewer } from "@toast-ui/react-editor";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./PostDetailComp.style";
 import { PostDetailWriter } from "./PostDetailWriter";
@@ -79,7 +79,7 @@ export const PostDetailComp = () => {
               <S.SProfileImage title="프로필">
                 {content.userId.profileimg && (
                   <S.ProfileImage
-                    src={`../${content.imagePath}`}
+                    src={`../${content.userId.profileimg}`}
                     alt={content.userId.profileimg}
                   />
                 )}
@@ -105,8 +105,8 @@ export const PostDetailComp = () => {
               className="text_area"
               dangerouslySetInnerHTML={{ __html: content.toast_contents }}
             /> */}
-            <div className='text_area'>
-            <Viewer initialValue={content.toast_contents}/>
+            <div className="text_area">
+              <Viewer initialValue={content.toast_contents} />
             </div>
           </S.SImageContent>
           <S.SLikeBackButton>

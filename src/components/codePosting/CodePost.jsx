@@ -9,7 +9,6 @@ export const CodePost = ({
   setCode,
   error,
   commentedCode,
-  textData,
   handleEditorChange,
   toastBox,
   setToastBox,
@@ -42,11 +41,19 @@ export const CodePost = ({
         </AceSetBox>
         <AceGetBox>
           <EditorTitle>해석창</EditorTitle>
-          <AceEditorSet
-            name="setCode"
-            value={error || commentedCode || postData.ace_contents || ""}
-            readOnly={true}
-          />
+          {postData ? (
+            <AceEditorSet
+              name="setCode"
+              value={error || commentedCode || postData.ace_contents || ""}
+              readOnly={true}
+            />
+          ) : (
+            <AceEditorSet
+              name="setCode"
+              value={error || commentedCode || ""}
+              readOnly={true}
+            />
+          )}
         </AceGetBox>
         <ToastBox style={{ display: toastBox ? "block" : "none" }}>
           <EditorTitle>텍스트에디터</EditorTitle>
