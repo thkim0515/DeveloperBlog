@@ -11,6 +11,11 @@ const commentSchema = new mongoose.Schema({
     ref: "Content",
     required: true,
   },
+  parentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment",
+    default: null,
+  },
   comment: { type: String, required: true },
   postdate: {
     type: Date,

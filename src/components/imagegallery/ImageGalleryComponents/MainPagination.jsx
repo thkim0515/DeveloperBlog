@@ -1,5 +1,6 @@
+// import { Pagination } from "react-bootstrap";
+import Pagination from "react-bootstrap/Pagination";
 import styled from "styled-components";
-import { Pagination } from "react-bootstrap";
 
 const SPagination = styled(Pagination)`
   display: flex;

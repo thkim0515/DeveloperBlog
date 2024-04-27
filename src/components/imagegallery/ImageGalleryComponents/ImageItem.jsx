@@ -41,7 +41,8 @@ export const ImageItem = ({ content }) => {
             {content.language && (
               <div className="img_box">
                 <img
-                  src={`/svg/${content.language.toLowerCase()}.svg`}
+                  src={`
+https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${content.language.toLowerCase()}.svg`}
                   alt={content.language.toLowerCase()}
                   className="svgIcon"
                 />

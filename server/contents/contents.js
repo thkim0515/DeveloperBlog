@@ -8,7 +8,8 @@ const { logError } = require("../error/processError");
 const loadSecrets = require("../loadSecrets");
 const Log = require("../models/LogModel");
 const axios = require("axios");
-//images .
+
+//getcontents.
 router.get("/contents", async (req, res) => {
   try {
     // throw new Error("테스트 에러발생");
@@ -52,6 +53,7 @@ router.get("/contents", async (req, res) => {
       },
       {
         $project: {
+          //comment: 0,
           userId: 1,
           pid: 1,
           title: 1,
@@ -70,9 +72,7 @@ router.get("/contents", async (req, res) => {
         },
       },
     ]);
-    // console.log(contentst[0]);
-    // const a = contentst.sort((a, b) => a - b);
-    // console.log(a[0]);
+
     res.json(contentst);
   } catch (error) {
     logError("콘텐츠 파싱", error.message);

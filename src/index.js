@@ -1,9 +1,11 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.css";
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { App } from "./App";
 import GlobalStyle from "./styles/GlobalStyle";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { HelmetProvider } from "react-helmet-async";
 
 window.addEventListener("beforeunload", () => {

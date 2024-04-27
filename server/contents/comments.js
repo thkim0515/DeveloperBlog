@@ -6,15 +6,17 @@ const { logError } = require("../error/processError");
 
 // C
 router.post("/create", async (req, res) => {
-  const { userId, postId, comment } = req.body;
+  const { userId, postId, parentId, comment } = req.body; // parentId 추가
+  console.log(userId, postId, comment, parentId);
   try {
-    const newComments = new Comment({
+    const newComment = new Comment({
       userId,
       postId,
+      parentId, // 대댓글용
       comment,
     });
-    await newComments.save();
-    res.status(201).json({ message: "댓글 등록 성공", pid: newComments.pid });
+    await newComment.save();
+    res.status(201).json({ message: "댓글 등록 성공", pid: newComment._id });
   } catch (error) {
     logError("댓글 생성", error.message);
     res.status(500).json({ message: "서버 에러", error: error.message });
