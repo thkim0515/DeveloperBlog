@@ -18,7 +18,7 @@
     "roles": {
       "projectManager": "기획자",
       "designer": "디자이너",
-      "frontEnd": "프론트",
+      "frontEnd": "프론트엔드",
       "backEnd": "백엔드"
     },
     "recruitmentCompleted": 2,
@@ -41,7 +41,7 @@
       "mongodb": "/img/programming/mongodb.png"
     },
     "roles": {
-      "frontEnd": "프론트",
+      "frontEnd": "프론트엔드",
       "backEnd": "백엔드"
     },
     "recruitmentCompleted": 3,
