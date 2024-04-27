@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 // components
-import { FormGroup } from "./ProjectCreateForm";
+import { ProjectCreateForm } from "./ProjectCreateForm";
 
 export const TeamProjectCreate = () => {
   return (
     <section>
       <H2>팀 프로젝트 글 작성</H2>
       <Box>
-        <FormGroup />
+        <ProjectCreateForm />
       </Box>
     </section>
   );

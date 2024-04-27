@@ -4,9 +4,9 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
-import { IMAGE_PATHS, IMAGE_ALT_TEXT } from "./../../utils/stacks";
+import { IMAGE_PATHS, IMAGE_ALT_TEXT } from "../../utils/stacks";
 
-export const ProjectCreateForm = forwardRef((props, ref) => {
+export const ProjectEidtForm = forwardRef((props, ref) => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {

@@ -19,13 +19,14 @@ import { MyCodes } from "./pages/MyCodes/MyCodes";
 import { NotFound } from "./pages/NotFound/NotFound";
 import { TeamProject } from "./pages/TeamProject/TeamProject";
 import { TeamProjectDetail } from "./pages/TeamProjectDetail/TeamProjectDetail";
+import { TeamProjectCreate } from "./pages/TeamProjectCreate/TeamProjectCreate";
+import { TeamProjectEdit } from "./pages/TeamProjectEdit/TeamProjectEdit";
 
 //context
 import { UserLoginProvider } from "./context/UserLoginContext";
 
 //privateRoute
 import { PrivateRoute } from "./routes/PrivateRoute";
-import { TeamProjectCreate } from "./pages/TeamProjectCreate/TeamProjectCreate";
 
 export const App = () => {
   return (
@@ -58,6 +59,7 @@ export const App = () => {
               <Route path="/teamProject" element={<TeamProject />} />
               <Route path="/project" element={<TeamProjectDetail />} />
               <Route path="/projectCreate" element={<TeamProjectCreate />} />
+              <Route path="/projectEdit" element={<TeamProjectEdit />} />
 
               {/* Profile */}
               <Route
