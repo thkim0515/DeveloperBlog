@@ -44,23 +44,29 @@ export const ProjectTitle = styled.p`
   font-size: 1.125rem;
 `;
 
-export const projectStackBox = styled.div`
-  svg:not(:last-child) {
-    margin-right: 1.25rem;
+export const projectStackBox = styled.ul`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+
+  li {
+    width: 34px;
   }
 
-  svg {
-    font-size: 2rem;
+  img {
+    width: 100%;
+    height: 100%;
   }
 `;
 
-export const ProjectRoleBox = styled.div`
-  span:not(:last-child) {
+export const ProjectRoleBox = styled.ul`
+  li:not(:last-child) {
     margin-right: 0.438rem;
   }
 `;
 
-export const ProjectRole = styled.span`
+export const ProjectRole = styled.li`
   display: inline-block;
   font-size: 0.875rem;
   padding: 0.25rem 0.5rem;

@@ -56,7 +56,7 @@ export const App = () => {
 
               {/* Team Project */}
               <Route path="/teamProject" element={<TeamProject />} />
-              <Route path="/project/:_pid" element={<TeamProjectDetail />} />
+              <Route path="/project" element={<TeamProjectDetail />} />
               <Route path="/projectCreate" element={<TeamProjectCreate />} />
 
               {/* Profile */}

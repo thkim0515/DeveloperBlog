@@ -52,8 +52,9 @@ export const ProjectContent = () => {
   );
 };
 
-const ProjectContentBox = styled.div`
-  margin-top: 72px;
+const ProjectContentBox = styled.section`
+  margin-top: 2.75rem;
+  padding: 1.75rem 0;
   font-size: 1.125rem;
   word-break: break-all;
   line-height: 1.7;

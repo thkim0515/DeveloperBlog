@@ -24,7 +24,7 @@ export const TeamProject = () => {
 
   useEffect(() => {
     axios
-      .get("/json/mockingProjectCard.json")
+      .get("/json/getProjectData.json")
       .then((res) => setProjectData(res.data))
       .catch((err) => console.log(err));
   }, []);
