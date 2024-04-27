@@ -5,7 +5,7 @@ import { CustomSpinner } from "./Spinner.style";
 export const Spinner = ({ isLoading }) => {
   return (
     <>
-      <S.Modal show={isLoading}>
+      <S.Modal $show={isLoading}>
         <S.ModalContent>
           <CustomSpinner
             animation="border"

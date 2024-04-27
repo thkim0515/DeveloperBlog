@@ -10,7 +10,7 @@ export const CustomSpinner = styled(Spinner)`
 `;
 
 export const Modal = styled.div`
-  display: ${({ show }) => (show ? "block" : "none")};
+  display: ${({ $show }) => ($show ? "block" : "none")};
   position: fixed;
   z-index: 1050;
   left: 0;

@@ -14,7 +14,7 @@ export const CodePost = ({
   setToastBox,
   postData,
 }) => {
-  //코드 해석이 완료되면 자동으로 입력창은 사라지고 텍스트 에디터가 뜨가 만드는 기능
+  //코드 해석이 완료되면 자동으로 입력창은 사라지고 텍스트 에디터가 뜨게 만드는 기능
   const memoizedSetToastBox = useCallback(
     (value) => {
       setToastBox(value);

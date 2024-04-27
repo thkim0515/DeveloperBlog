@@ -1,16 +1,13 @@
+import React, { useState, useEffect } from "react";
 import * as S from "./PostingComp.style";
 import { CodePost } from "./CodePost";
 import { Input } from "../LiveChat.style";
-import ace from "ace-builds/src-noconflict/ace";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import useOpenai from "../../hooks/useOpenAi";
-import axios from "axios";
-import { decryptData } from "../../js/secure";
-import { UpdateLocalStorage } from "../../js/UpdateLocalStorage";
-import { useNavigate } from "react-router-dom";
 import { Spinner } from "./spinner/Spinner";
 import { Category } from "./Category/Category";
+import { handlePostCode, handleUpdateCode } from "../../utils/handleCode";
+import useOpenai from "../../hooks/useOpenAi";
+import { useNavigate } from "react-router-dom";
+import ace from "ace-builds/src-noconflict/ace";
 
 export const PostingComp = ({ edit, postData }) => {
   const navigate = useNavigate();
@@ -19,15 +16,15 @@ export const PostingComp = ({ edit, postData }) => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const imageSrc = "";
-  const { _id } = useParams();
+  const [toastBox, setToastBox] = useState(edit ? true : false);
+  const [textData, setTextData] = useState("");
 
   useEffect(() => {
-    if (postData) {
+    if (edit && postData) {
       setTitle(postData.title);
       setCategory(postData.language);
     }
-  }, [postData]);
+  }, [edit, postData]);
 
   useEffect(() => {
     if (commentedCode || error) {
@@ -57,82 +54,29 @@ export const PostingComp = ({ edit, postData }) => {
     setIsLoading(false);
   };
 
-  //토스트에디터
-  const [toastBox, setToastBox] = useState(postData ? true : false);
+  //토스트에디터 토글
   const handleToggle = () => {
     setToastBox(!toastBox);
   };
 
-  const [textData, setTextData] = useState("");
+  //토스트에디터 내용
   const handleEditorChange = (data) => {
     setTextData(data);
   };
 
-  //글 등록하는 함수
-  const handlePostCode = async () => {
-    if (!commentedCode) {
-      alert("코드변환을 진행해 주세요.");
-      return;
-    }
-    const user = await decryptData("user", sessionStorage);
-    const nickname = user.nickname;
-    const profileImg = user.profileimg;
-    const userId = user.id;
-
-    const codeData = {
-      userId: userId,
-      title: title ? title : "제목없음",
-      nickname: nickname,
-      profileImg: profileImg,
-      language: category ? category : "unknown",
-      publicPrivate: true,
-      imagePath: imageSrc ? imageSrc : "img/Image0.jpg",
-      ace_contents: commentedCode,
-      toast_contents: textData,
-    };
-
-    await postCodeToServer(codeData);
-  };
-
-  const postCodeToServer = async (codeData) => {
-    try {
-      const response = await axios.post("/contents/create", codeData);
-      console.log("서버 응답:", response.data);
-      alert("글 등록 성공!");
-      const userSession = await decryptData("user", sessionStorage);
-      const content = response.data.info;
-      content.userId = userSession;
-
-      UpdateLocalStorage(content);
-      navigate(`/post/${content._id}`, { state: { content } });
-    } catch (error) {
-      console.error("에러:", error);
-      alert("글 등록 실패. 서버 에러.");
-    }
-  };
-
-  //글 수정하는 함수
-  const handleUpdateCode = async (_id) => {
-    const content = {
-      ...postData,
-      title: title ? title : "제목없음",
-      language: category ? category : "unknown",
-      ace_contents: commentedCode ? commentedCode : postData.ace_contents,
-      toast_contents: textData,
-    };
-
-    await updateContents(_id, content);
-  };
-
-  const updateContents = async (_id, content) => {
-    try {
-      const response = await axios.put(`/contents/update/${_id}`, content);
-      console.log("서버 응답:", response.data);
-      alert("성공적으로 수정");
-      navigate(`/post/${_id}`, { state: { content } });
-    } catch (error) {
-      console.error("에러:", error);
-      alert("수정 실패");
+  //등록,수정 함수
+  const handlePost = async () => {
+    if (edit) {
+      await handleUpdateCode(
+        postData,
+        title,
+        category,
+        commentedCode,
+        textData,
+        navigate
+      );
+    } else {
+      await handlePostCode(commentedCode, title, category, textData, navigate);
     }
   };
 
@@ -163,7 +107,12 @@ export const PostingComp = ({ edit, postData }) => {
                 >
                   <button onClick={handleCodeReset}>입력창 초기화</button>
                 </td>
-                <td name="setToast">
+                <td
+                  name="setToast"
+                  style={{
+                    display: commentedCode || edit ? "" : "none",
+                  }}
+                >
                   <button onClick={handleToggle}>
                     {!toastBox ? "텍스트에디터" : "입력창"}
                   </button>
@@ -191,9 +140,14 @@ export const PostingComp = ({ edit, postData }) => {
             <p>3. 텍스트 에디터에 공부한 내용을 기록해요!</p>
           </div>
           <div className="button_box">
-            <button onClick={handleCodeAnnotation}>해석하기</button>
             <button
-              onClick={edit ? () => handleUpdateCode(_id) : handlePostCode}
+              onClick={handleCodeAnnotation}
+              style={{ display: !toastBox ? "block" : "none" }}
+            >
+              해석하기
+            </button>
+            <button
+              onClick={handlePost}
               style={{ display: commentedCode || edit ? "block" : "none" }}
             >
               작성 완료

@@ -8,8 +8,7 @@ import axios from "axios";
 
 export const PostUpdate = () => {
   // _id값을 받아옴 > PostUpdatData 로 전송 >> API 호출 >> return >>
-  // return 값 상태 저장 >> ToastEditor 전송 >> 수정 >> 수정데이터 반환 >>
-  // 반환 데이터 PostUpdatData 로 전송 >> API Update
+  // return 값 상태 저장 >> postingcomp 전송 >> 수정 >> 수정데이터 반환 >> API Update
   let { _id } = useParams();
 
   //작성자만 접근 가능하게
