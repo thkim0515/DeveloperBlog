@@ -24,7 +24,7 @@ export const TeamProject = () => {
 
   useEffect(() => {
     axios
-      .get("/json/getProjectData.json")
+      .get("/json/projectData.json")
       .then((res) => setProjectData(res.data))
       .catch((err) => console.log(err));
   }, []);

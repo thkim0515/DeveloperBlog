@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const ProjectCardBox = styled.div`
-  width: 20rem;
+  width: 22rem;
   height: auto;
   background-color: #ffffff;
   border: 1px solid black;
   border-radius: 4px;
-  padding: 0.75rem 1.3rem 0.75rem 1.3rem;
+  padding: 1rem 2rem;
   cursor: pointer;
 `;
 
@@ -61,9 +61,10 @@ export const projectStackBox = styled.ul`
 `;
 
 export const ProjectRoleBox = styled.ul`
-  li:not(:last-child) {
-    margin-right: 0.438rem;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
 `;
 
 export const ProjectRole = styled.li`

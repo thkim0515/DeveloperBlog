@@ -5,10 +5,6 @@ import { RecruitmentInfo } from "../ProjectInformation/Recruitmentinfo/Recruitme
 export const ProjectInformation = () => {
   return (
     <section>
-      <S.ProjectTitle>
-        위치기반 분실물 솔루션 서비스 LOCAT의 백-프론트엔드, 디자이너를
-        모집합니다.
-      </S.ProjectTitle>
       <S.RemainsInfoBox>
         <S.HashTagBox>
           <li>#서비스</li>
