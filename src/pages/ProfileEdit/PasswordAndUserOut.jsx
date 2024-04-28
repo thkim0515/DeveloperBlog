@@ -52,10 +52,9 @@ export const PasswordAndUserOut = () => {
     } catch (error) {
       if (error.response && error.response.status === 409) {
         alert(error.response.data.message);
-      } else if (error.response && error.response.status === 400){
-        alert(error.response.data.message)
-      } 
-      else {
+      } else if (error.response && error.response.status === 400) {
+        alert(error.response.data.message);
+      } else {
         alert("비밀번호 변경 실패");
       }
     }
@@ -67,7 +66,7 @@ export const PasswordAndUserOut = () => {
     if (isConfirmed) {
       try {
         const response = await axios.delete(`/users/delete/${profileDB._id}`);
-        console.log("서버 응답:", response.data);
+
         logout(setIsLogin, setUser, setIsChange, navigate);
       } catch (error) {
         console.error("에러:", error);
@@ -80,17 +79,35 @@ export const PasswordAndUserOut = () => {
       <S.PwdTitle>비밀번호 변경</S.PwdTitle>
       <S.PwdFormBox>
         <S.PwdForm onSubmit={handleUpdate}>
-        <label htmlFor="username" style={{ display: 'none' }} >사용자명:</label>
-        <input type="text" id="username" name="username" style={{ display: 'none' }} autoComplete="username" />
+          <label htmlFor="username" style={{ display: "none" }}>
+            사용자명:
+          </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            style={{ display: "none" }}
+            autoComplete="username"
+          />
           <label htmlFor="current-password">현재 비밀번호</label>
-          <input type="password" name="current-password" autoComplete="off" onChange={handleInputChange(setPassword)} />
+          <input
+            type="password"
+            name="current-password"
+            autoComplete="off"
+            onChange={handleInputChange(setPassword)}
+          />
           <label htmlFor="new-password">새로운 비밀번호</label>
-          <input type="password" name="new-password" autoComplete="new-password" onChange={handleInputChange(setNewPassword)} />
+          <input
+            type="password"
+            name="new-password"
+            autoComplete="new-password"
+            onChange={handleInputChange(setNewPassword)}
+          />
           <label htmlFor="new-password-confirm">비밀번호 재입력</label>
           <input
             type="password"
             name="new-password-confirm"
-            autoComplete="new-password" 
+            autoComplete="new-password"
             onChange={handleInputChange(setConfirmPassword)}
           />
           <S.PwdEditButton type="submit">변경사항 저장</S.PwdEditButton>

@@ -3,7 +3,8 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+
+// require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const http = require("http");
 const { setupWebSocket } = require("./websocket");
@@ -35,14 +36,6 @@ const server = http.createServer(app);
 setupWebSocket(server);
 
 const PORT = 5000;
-// const DATABASE = process.env.REACT_APP_DATABASE;
-// const uri = `${DATABASE}starblog?retryWrites=true&w=majority`;
-
-// mongoose
-//   .connect(uri)
-//   .then(() => console.log("DB 연결 확인 - STARBLOG"))
-//   .catch((err) => console.error(err));
-
 const users = require("./user/users");
 const contents = require("./contents/contents");
 const comments = require("./contents/comments");
@@ -67,9 +60,5 @@ app.get("*", (req, res) => {
 server.listen(PORT, () => {
   console.log(`서버 가동 >> http://localhost:${PORT} << Ctrl + 클릭`);
 });
-
-// server.listen(5000, () => {
-//   console.log(`Server running on http://localhost:${PORT}`);
-// });
 
 // ref. https 상태코드 >> https://developer.mozilla.org/ko/docs/Web/HTTP/Status

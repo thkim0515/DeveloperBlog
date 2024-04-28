@@ -34,7 +34,7 @@ export const LiveChat = () => {
   const [messages, setMessages] = useState([]);
 
   /* 웹소켓 연결 변수 관리 */
-  const WEBSOCKET_ADDRESS = "ws://localhost:5000";
+  const WEBSOCKET_ADDRESS = "wss://d3kcrktwedekfj.cloudfront.net";
   const disconnectWebsocketTime = 6; // 6 분
   const milliseconds = disconnectWebsocketTime * 100000;
 
@@ -45,7 +45,6 @@ export const LiveChat = () => {
 
     const websocket = new WebSocket(WEBSOCKET_ADDRESS);
     websocket.onopen = () => {
-      console.log("웹소켓 연결됨");
       setMessages([]);
     };
     websocket.onmessage = async (event) => {
@@ -75,7 +74,7 @@ export const LiveChat = () => {
       }
     };
     websocket.onclose = () => {
-      console.log("웹소켓 연결안됨");
+      // 닫힐 때 > 필요 시 작성
     };
     setWs(websocket);
   };
@@ -99,7 +98,6 @@ export const LiveChat = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         if (ws) {
-          console.log(`${disconnectWebsocketTime}분간 반응 X >> 소켓 종료`);
           ws.close();
         }
       }, milliseconds);
@@ -124,7 +122,6 @@ export const LiveChat = () => {
       ws.send(JSON.stringify({ userId: userNickname, message, timestamp }));
       setInputText("");
     } else {
-      console.log("실시간 채팅 닫힘, 재연결 시도 중...");
       connectWebSocket();
     }
   };

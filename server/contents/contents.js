@@ -8,7 +8,8 @@ const { logError } = require("../error/processError");
 const loadSecrets = require("../loadSecrets");
 const Log = require("../models/LogModel");
 const axios = require("axios");
-//images
+
+//getcontents.
 router.get("/contents", async (req, res) => {
   try {
     // throw new Error("테스트 에러발생");
@@ -52,11 +53,26 @@ router.get("/contents", async (req, res) => {
       },
       {
         $project: {
-          comments: 0,
+          comment: 0,
+          // userId: 1,
+          // pid: 1,
+          // title: 1,
+          // nickname: 1,
+          // profileImg: 1,
+          // imagePath: 1,
+          // language: 1,
+          // publicPrivate: 1,
+          // ace_contents: { $substrCP: ["$ace_contents", 0, 10] },
+          // toast_contents: { $substrCP: ["$toast_contents", 0, 10] },
+          // postdate: 1,
+          // views: 1,
+          // likes: 1,
+          // likeUser: 1,
+          // commentCount: 1,
         },
       },
     ]);
-    // console.log(contentst[0]);
+
     res.json(contentst);
   } catch (error) {
     logError("콘텐츠 파싱", error.message);
