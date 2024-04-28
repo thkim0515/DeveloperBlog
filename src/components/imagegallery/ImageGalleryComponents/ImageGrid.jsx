@@ -17,8 +17,8 @@ export const ImageGrid = (value) => {
   const maxcount = 9;
   const data = useGetData(value, maxcount, selectedIcon, searchTerm);
 
-  const handleUpdateSelectedIcon = (iconName = searchTerm) => {
-    setSelectedIcon(iconName);
+  const handleUpdateSelectedIcon = () => {
+    setSelectedIcon(searchTerm);
   };
 
   return (
@@ -27,13 +27,12 @@ export const ImageGrid = (value) => {
         {value.value === "all" ? (
           <div>Code Gallery</div>
         ) : (
-          <div>My Gallery </div>
+          <div>My Gallery</div>
         )}
-
         <div>
           <InputGroup>
             <Form.Control
-              aria-label="Amount (to the nearest dollar)"
+              aria-label="Search"
               style={{ border: "2px solid #000", width: "350px" }}
               onChange={(e) => setSearchTerm(e.target.value)}
               value={searchTerm}
@@ -52,30 +51,21 @@ export const ImageGrid = (value) => {
           </InputGroup>
         </div>
         <div>
-          {value.value === "all"
-            ? data.svgImages.map((svgName, idx) => {
-                return (
-                  <img
-                    key={idx}
-                    src={`
-https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${svgName}.svg`}
-                    alt={svgName}
-                    onClick={() => handleUpdateSelectedIcon(svgName)}
-                    style={{
-                      cursor: "pointer",
-                      backgroundColor:
-                        svgName === selectedIcon && svgName !== "back"
-                          ? "#fff"
-                          : "transparent",
-                      padding:
-                        svgName === selectedIcon && svgName !== "back"
-                          ? "4px"
-                          : "0",
-                    }}
-                  />
-                );
-              })
-            : null}
+          {value.value === "all" &&
+            data.svgImages.map((svgName, idx) => (
+              <img
+                key={idx}
+                src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${svgName}.svg`}
+                alt={svgName}
+                onClick={() => setSelectedIcon(svgName)}
+                style={{
+                  cursor: "pointer",
+                  backgroundColor:
+                    svgName === selectedIcon ? "#fff" : "transparent",
+                  padding: svgName === selectedIcon ? "4px" : "0",
+                }}
+              />
+            ))}
         </div>
       </S.Spacer>
 
@@ -97,6 +87,3 @@ https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${svgName}.svg`}
     </S.Container>
   );
 };
-
-// 인풋박스 ref . https://react-bootstrap.netlify.app/docs/forms/input-group/
-// 아이콘   ref . https://fontawesome.com/icons/magnifying-glass?f=classic&s=solid

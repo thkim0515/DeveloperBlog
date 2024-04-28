@@ -1,22 +1,11 @@
 import { useState, useEffect } from "react";
-import { encryptData, decryptData } from "../js/secure";
 
 export const useCalculatePage = (PageCount, filteredImages) => {
-  const savedCurrentPage = Number(
-    decryptData("currentPage", sessionStorage) || 1
-  );
+  const savedCurrentPage = Number(sessionStorage.getItem("currentPage") || 1);
   const [currentPage, setCurrentPage] = useState(savedCurrentPage);
 
   useEffect(() => {
-    const encryptAndStoreData = async () => {
-      try {
-        await encryptData(currentPage, "currentPage", sessionStorage);
-      } catch (error) {
-        console.error("Failed to encrypt and store data:", error);
-      }
-    };
-
-    encryptAndStoreData();
+    sessionStorage.setItem("currentPage", currentPage);
   }, [currentPage]);
 
   const indexOfLastImage = currentPage * PageCount;

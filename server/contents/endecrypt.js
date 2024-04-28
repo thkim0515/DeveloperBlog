@@ -22,7 +22,6 @@ router.post("/encrypt", async (req, res) => {
 
 router.post("/decrypt", async (req, res) => {
   const { data } = req.body;
-  console.log(data.length);
   const secrets = await loadSecrets();
   const SECURECODE = secrets.REACT_APP_SECURECODE;
   if (data) {

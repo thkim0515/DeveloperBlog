@@ -23,16 +23,16 @@ export const filterImages = async (images, searchTerm, value, selectedIcon) => {
     filterimages = images;
   }
 
-  // const userItem = await decryptData("user", sessionStorage);
+  const userItem = await decryptData("user", sessionStorage);
 
-  // if (userItem) {
-  //   const nickname = userItem.nickname;
-  //   if (value.value === "my" && userItem) {
-  //     filterimages = images.filter(
-  //       (content) => content.userId.nickname === nickname
-  //     );
-  //   }
-  // }
+  if (userItem) {
+    const nickname = userItem.nickname;
+    if (value.value === "my") {
+      filterimages = images.filter(
+        (content) => content.userId.nickname === nickname
+      );
+    }
+  }
 
   return filterimages.sort((a, b) => b.pid - a.pid);
 };

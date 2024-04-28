@@ -29,10 +29,6 @@ export const PostDetailComp = () => {
 
   const handleGoBack = () => {
     navigate(-1);
-    // navigate(0);
-    // setTimeout(() => {
-    //   navigate(-1);
-    // }, 0);
   };
 
   useEffect(() => {
@@ -64,7 +60,7 @@ export const PostDetailComp = () => {
             <div className="img_box">
               <img
                 src={`
-https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${content.language}.svg`}
+                    https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${content.language}.svg`}
                 alt=""
               />{" "}
               {/* alt={image.language} */}

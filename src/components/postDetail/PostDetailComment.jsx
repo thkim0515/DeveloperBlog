@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
 
 export const PostDetailComment = ({ content }) => {
-  console.log(content);
   //로그인 유저 정보 가져오기
   const { user } = useUserLogin();
 
@@ -154,14 +153,6 @@ export const PostDetailComment = ({ content }) => {
         alert("삭제 실패");
       }
     }
-  };
-
-  // 대댓글 입력창 상태 및 함수
-  const [replyCommentId, setReplyCommentId] = useState(null);
-
-  // 대댓글 작성 함수
-  const handleReply = (parentId) => {
-    setReplyCommentId(parentId);
   };
 
   return (
