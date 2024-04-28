@@ -23,6 +23,7 @@ export const STitle = styled.div`
   .img_box {
     background-color: white;
     width: 3rem;
+    height: 3rem;
     left: 10px;
     margin-left: 20px;
     border-radius: 6px;
@@ -34,7 +35,8 @@ export const STitle = styled.div`
   }
 
   h3 {
-    height: 24px;
+    height: 32px;
+    line-height: 32px;
     text-align: center;
     font-size: 24px;
     margin: 10px;
@@ -122,7 +124,7 @@ export const SImageContent = styled.div`
     overflow-wrap: break-word;
     white-space: normal;
     background-color: white;
-    padding: 8px;
+    //padding: 8px;
     line-height: 2;
   }
   button {

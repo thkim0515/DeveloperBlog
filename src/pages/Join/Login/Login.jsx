@@ -16,7 +16,7 @@ import { AccountModal } from "./AccountModal/AccountModal";
 import { Metas } from "./../../../components/common/Metas";
 
 // button array
-import { socialLogin } from "./socialLogin/SocialLoginData";
+import { SOCIAL_LOGIN } from "./socialLogin/SocialLoginType";
 
 import { encryptData } from "../../../js/secure";
 
@@ -48,12 +48,9 @@ export const Login = () => {
       const response = await axios.post("/users/login", userInputData);
       if (response.data.user) {
         await encryptData(response.data.user, "user", sessionStorage);
-        //sessionStorage.setItem("user", JSON.stringify(response.data.user));
         setIsLogin(true);
         setIsChange(true);
         navigate("/");
-      } else {
-        console.log(response.data.message);
       }
     } catch (error) {
       if (error.response) {
@@ -67,13 +64,12 @@ export const Login = () => {
   return (
     <>
       <Metas title="로그인" url="/login" description="스타블로그에 로그인" />
-      <div className="social-login">
+      <S.LoginBox>
         {/* 로그인 문구 */}
         <S.LoginText>똑소리 나는 코드 기록</S.LoginText>
-
         {/* 소셜 로그인  */}
-        <S.SocialButtons>
-          {socialLogin.map((item, index) => (
+        <S.SocialButtonBox>
+          {SOCIAL_LOGIN.map((item, index) => (
             <SocialButton
               key={index}
               social={item.social}
@@ -81,8 +77,8 @@ export const Login = () => {
               color={item.color}
             />
           ))}
-        </S.SocialButtons>
-      </div>
+        </S.SocialButtonBox>
+      </S.LoginBox>
       <hr />
 
       {/* 로그인 양식 */}

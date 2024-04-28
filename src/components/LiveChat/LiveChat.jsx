@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { useUserLogin } from "../context/UserLoginContext";
-import { decryptData } from "../js/secure";
+import { useUserLogin } from "../../context/UserLoginContext";
+import { decryptData } from "../../js/secure";
 import * as S from "./LiveChat.style";
 
 export const LiveChat = () => {
+  /* 로그인 여부 상태관리 */
+  /* 세션에 따른 닉네임 or 비로그인 유저 */
   /* 로그인 여부 상태관리 */
   /* 세션에 따른 닉네임 or 비로그인 유저 */
   const [userNickname, setUserNickname] = useState("");
@@ -27,14 +29,17 @@ export const LiveChat = () => {
     initializeUserSession();
 
     connectWebSocket();
+
+    connectWebSocket();
   }, [isLogin]);
 
+  /* 웹소켓 상태관리 */
   /* 웹소켓 상태관리 */
   const [ws, setWs] = useState(null);
   const [messages, setMessages] = useState([]);
 
   /* 웹소켓 연결 변수 관리 */
-  const WEBSOCKET_ADDRESS = "ws://localhost:5000";
+  const WEBSOCKET_ADDRESS = "wss://d3kcrktwedekfj.cloudfront.net";
   const disconnectWebsocketTime = 6; // 6 분
   const milliseconds = disconnectWebsocketTime * 100000;
 
@@ -45,7 +50,6 @@ export const LiveChat = () => {
 
     const websocket = new WebSocket(WEBSOCKET_ADDRESS);
     websocket.onopen = () => {
-      console.log("웹소켓 연결됨");
       setMessages([]);
     };
     websocket.onmessage = async (event) => {
@@ -75,15 +79,18 @@ export const LiveChat = () => {
       }
     };
     websocket.onclose = () => {
-      console.log("웹소켓 연결안됨");
+      // 닫힐 때 > 필요 시 작성
     };
+    setWs(websocket);
     setWs(websocket);
   };
 
   /* 맨 밑 스크룰 */
+  /* 맨 밑 스크룰 */
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
+    scrollToBottom();
     scrollToBottom();
   }, [messages]);
 
@@ -99,7 +106,6 @@ export const LiveChat = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         if (ws) {
-          console.log(`${disconnectWebsocketTime}분간 반응 X >> 소켓 종료`);
           ws.close();
         }
       }, milliseconds);
@@ -124,11 +130,11 @@ export const LiveChat = () => {
       ws.send(JSON.stringify({ userId: userNickname, message, timestamp }));
       setInputText("");
     } else {
-      console.log("실시간 채팅 닫힘, 재연결 시도 중...");
       connectWebSocket();
     }
   };
 
+  /* 입력 상태 관리 */
   /* 입력 상태 관리 */
   const handleInputChange = (e) => {
     setInputText(e.target.value);

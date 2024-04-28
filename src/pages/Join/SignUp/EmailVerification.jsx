@@ -35,8 +35,7 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
   const handleCheckAuthCode = () => {
     const authCodeString = String(authCode).trim();
     const inputCodeString = String(userInputauthCode).trim();
-    console.log(authCodeString);
-    console.log(inputCodeString);
+
     if (authCodeString === inputCodeString) {
       alert("이메일 인증 성공!");
       onEmailVerified(true);
@@ -82,6 +81,7 @@ const VerifyButtonBox = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
   button {
     width: 40px;
     height: 24px;

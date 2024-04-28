@@ -1,6 +1,6 @@
-import { useState } from "react";
-import axios from "axios";
 import * as S from "./AccountModal.style";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 // component
 import { Input } from "../../../../components/form/Input";
@@ -11,6 +11,20 @@ export const FindId = () => {
   const [password, setPassword] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+
+  // alertPopup Unmount
+  useEffect(() => {
+    setEmail("");
+    setPassword("");
+
+    let timeoutId;
+    if (isSubmit) {
+      timeoutId = setTimeout(() => {
+        setIsSubmit(false);
+      }, 3 * 1000);
+    }
+    return () => clearTimeout(timeoutId);
+  }, [isSubmit]);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -23,31 +37,30 @@ export const FindId = () => {
   const onSubmitData = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      setIsSubmit(true);
+      setAlertMessage("이메일 또는 비밀번호를 입력해주세요");
+      return;
+    }
+
     try {
       const response = await axios.post("/users/findId", {
         firstField: email,
         secondField: password,
       });
-
-      // TODO 배포 전 콘솔 지우기
-      // console.log("결과:", response.data);
+      setIsSubmit(true);
+      setAlertMessage(`이메일로 아이디를 발송했습니다. 메일함을 확인해주세요!`);
     } catch (error) {
       console.error(
         "에러 발생:",
         error.response ? error.response.data.message : error.message
       );
     }
-    setIsSubmit(true);
-    setAlertMessage("이메일로 아이디를 발송했습니다.\n 메일함을 확인해주세요!");
-
-    setTimeout(() => {
-      setIsSubmit(false);
-    }, 2500);
   };
 
   return (
     <S.FindBox>
-      {isSubmit ? <AlertPopup alertMessage={alertMessage} /> : <></>}
+      {isSubmit && <AlertPopup alertMessage={alertMessage} />}
       <form>
         {/* 아이디 찾기 */}
         <S.FormField>

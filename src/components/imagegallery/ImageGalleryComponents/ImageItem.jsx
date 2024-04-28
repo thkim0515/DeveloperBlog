@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./ImageItem.style";
 
+import { switchColor } from "../../../utils/switchColor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
@@ -31,23 +32,28 @@ export const ImageItem = ({ content }) => {
       {content && (
         <S.SItem>
           <S.RoutingPage onClick={handleImageClick}>
-            {content.imagePath && (
-              <img
-                src={content.imagePath}
-                alt={content.title}
-                className="post_img"
-              />
-            )}
+            <div
+              className="lang_box"
+              style={{ backgroundColor: switchColor(content.language) }}
+            >
+              <p>{content.language.toUpperCase()}</p>
+            </div>
             {content.language && (
-              <img
-                src={`/svg/${content.language.toLowerCase()}.svg`}
-                alt={content.language.toLowerCase()}
-                className="svgIcon"
-              />
+              <div className="img_box">
+                <img
+                  src={`
+                      https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${content.language.toLowerCase()}.svg`}
+                  alt={content.language.toLowerCase()}
+                  className="svgIcon"
+                />
+              </div>
             )}
-            <h2>{content.title}</h2>
+            <div className="text_contents_box">
+              <h2>{content.title}</h2>
+              <p className="post_date">{timeString(content.postdate)}</p>
+            </div>
           </S.RoutingPage>
-          <div className="user_date_box">
+          <S.UserDateBox className="user_date_box">
             <S.SProfileImage title="프로필">
               {content.userId.profileimg && (
                 <S.ProfileImage
@@ -60,7 +66,6 @@ export const ImageItem = ({ content }) => {
               <p className="user_write_info">{content.userId.nickname}</p>
             </div>
             <div className="user_write_info">
-              <p className="post_date">{timeString(content.postdate)}</p>
               <div>
                 <FontAwesomeIcon
                   icon={faEye}
@@ -82,7 +87,7 @@ export const ImageItem = ({ content }) => {
                 {content.likes}
               </div>
             </div>
-          </div>
+          </S.UserDateBox>
         </S.SItem>
       )}
     </>

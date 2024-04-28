@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
 import ace from "ace-builds/src-noconflict/ace";
 import { decryptData } from "../../js/secure";
-import { UpdateLocalStorage } from "../../js/UpdateLocalStorage";
+// import { UpdateLocalStorage } from "../../js/UpdateLocalStorage";
 export const AnnotationCreatePost = (props) => {
   const navigate = useNavigate();
   const [code, setCode] = useState("");
@@ -49,11 +49,13 @@ export const AnnotationCreatePost = (props) => {
     if (firstLineContent === "jsx") {
       firstLineContent = "react";
     }
+    if (firstLineContent === "js") {
+      firstLineContent = "javascript";
+    }
     const validNames = await decryptData("svgImages", localStorage);
     let svgImages = [];
     svgImages = validNames;
 
-    console.log(svgImages);
     const matchedName = svgImages.find((lang) => lang === firstLineContent);
     return matchedName;
   }
@@ -81,20 +83,19 @@ export const AnnotationCreatePost = (props) => {
       toast_contents: props.editorData,
     };
 
-    console.log(codeData);
     await postCodeToServer(codeData);
   };
 
   const postCodeToServer = async (codeData) => {
     try {
       const response = await axios.post("/contents/create", codeData);
-      console.log("서버 응답:", response.data);
+
       alert("글 등록 성공!");
       const userSession = await decryptData("user", sessionStorage);
       const content = response.data.info;
       content.userId = userSession;
 
-      UpdateLocalStorage(content);
+      // UpdateLocalStorage(content);
       navigate(`/post/${content._id}`, { state: { content } });
     } catch (error) {
       console.error("에러:", error);
@@ -105,37 +106,6 @@ export const AnnotationCreatePost = (props) => {
   function onChange(newValue) {
     setCode(newValue);
   }
-
-  // const handleCaptureImage = async () => {
-  //   const image = await captureImage("setCode");
-  //   const formData = new FormData();
-  //   formData.append("imagePath", image);
-
-  //   try {
-  //     const response = await axios.post("/userdata/upload", formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     });
-  //     setImageSrc(response.data.filePath);
-  //     console.log(response.data.filePath);
-  //     console.log("이미지 업로드 성공:", response.data);
-  //   } catch (error) {
-  //     console.error("이미지 업로드 실패:", error);
-  //   }
-  // };
-
-  // const updateContents = async (pid) => {
-  //   try {
-  //     const response = await axios.put(`/contents/update/${pid}`);
-  //     console.log("서버 응답:", response.data);
-  //     alert("성공적으로 수정");
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.error("에러:", error);
-  //     alert("수정 실패");
-  //   }
-  // };
 
   return (
     <>

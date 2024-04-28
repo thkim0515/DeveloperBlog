@@ -1,5 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+// Toast-UI Viewer 임포트
+import "@toast-ui/editor/dist/toastui-editor-viewer.css";
+import { Viewer } from "@toast-ui/react-editor";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./PostDetailComp.style";
 import { PostDetailWriter } from "./PostDetailWriter";
@@ -9,24 +12,26 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-one_dark";
 import "ace-builds/src-noconflict/theme-twilight";
 import axios from "axios";
-import { useUserLogin } from "../../../context/UserLoginContext";
-import { LikeButton } from "./LikeButton";
-import { Metas } from "../../common/Metas";
+import { useUserLogin } from "../../context/UserLoginContext";
+import { useScrollReset } from "../../hooks/useScrollReset";
+import { LikeButton } from "../imagegallery/ImageGalleryComponents/LikeButton";
+import { Metas } from "../common/Metas";
 
 export const PostDetailComp = () => {
+  //스크롤위치 초기화
+  useScrollReset();
+
   //로그인 유저 정보 가져오기
   const { user } = useUserLogin();
   const userId = user && user.id ? user.id : null;
+
   // ImageItem 클릭시 state값 전달
   const location = useLocation();
   const { content } = location.state;
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate(0);
-    setTimeout(() => {
-      navigate(-1);
-    }, 0);
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -56,7 +61,11 @@ export const PostDetailComp = () => {
         <S.SContainer>
           <S.STitle>
             <div className="img_box">
-              <img src={`../svg/${content.language}.svg`} alt="" />{" "}
+              <img
+                src={`
+                    https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${content.language}.svg`}
+                alt=""
+              />{" "}
               {/* alt={image.language} */}
             </div>
             <h3>{content.title}</h3>
@@ -71,7 +80,7 @@ export const PostDetailComp = () => {
               <S.SProfileImage title="프로필">
                 {content.userId.profileimg && (
                   <S.ProfileImage
-                    src={`../${content.imagePath}`}
+                    src={`../${content.userId.profileimg}`}
                     alt={content.userId.profileimg}
                   />
                 )}
@@ -93,10 +102,13 @@ export const PostDetailComp = () => {
               width="100%"
               fontSize="1rem"
             />
-            <div
+            {/* <div
               className="text_area"
               dangerouslySetInnerHTML={{ __html: content.toast_contents }}
-            />
+            /> */}
+            <div className="text_area">
+              <Viewer initialValue={content.toast_contents} />
+            </div>
           </S.SImageContent>
           <S.SLikeBackButton>
             <LikeButton content_id={content._id} user_id={userId} />

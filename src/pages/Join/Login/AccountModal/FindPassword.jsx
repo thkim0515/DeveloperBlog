@@ -1,6 +1,6 @@
-import { useState } from "react";
-import axios from "axios";
 import * as S from "./AccountModal.style";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 // component
 import { Input } from "../../../../components/form/Input";
@@ -11,6 +11,20 @@ export const FindPassword = () => {
   const [email, setEmail] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+
+  // alertPopup Unmount
+  useEffect(() => {
+    setId("");
+    setEmail("");
+
+    let timeoutId;
+    if (isSubmit) {
+      timeoutId = setTimeout(() => {
+        setIsSubmit(false);
+      }, 3 * 1000);
+    }
+    return () => clearTimeout(timeoutId);
+  }, [isSubmit]);
 
   const handleId = (e) => {
     setId(e.target.value);
@@ -23,22 +37,27 @@ export const FindPassword = () => {
   const onSubmitData = async (e) => {
     e.preventDefault();
 
+    if (!id || !email) {
+      setIsSubmit(true);
+      setAlertMessage("아이디 또는 이메일을 입력해주세요");
+      return;
+    }
+
     try {
       const response = await axios.post("/users/findPwd", {
         firstField: id,
         secondField: email,
       });
-
-      // TODO 배포 전 콘솔 지우기
-      // console.log("결과:", response.data);
+      setIsSubmit(true);
+      setAlertMessage(
+        `임시비밀번호를 메일로 발송했습니다. 메일함을 확인해주세요!`
+      );
     } catch (error) {
       console.error(
         "에러 발생:",
         error.response ? error.response.data.message : error.message
       );
     }
-    setIsSubmit(true);
-    setAlertMessage("임시 비밀번호가 발급되었습니다.\n 메일함을 확인해주세요!");
 
     setTimeout(() => {
       setIsSubmit(false);

@@ -65,6 +65,6 @@ const LogoBox = styled.div`
   right: 60px;
 
   a {
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
 `;

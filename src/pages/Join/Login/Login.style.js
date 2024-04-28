@@ -1,15 +1,20 @@
 import styled from "styled-components";
 
-export const LoginText = styled.p`
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-  color: #112d4e;
+export const LoginBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 `;
 
-export const SocialButtons = styled.div`
-  button:not(:last-child) {
-    margin-bottom: 1rem;
-  }
+export const SocialButtonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+`;
+
+export const LoginText = styled.p`
+  font-size: 1.375rem;
+  color: #112d4e;
 `;
 
 // form

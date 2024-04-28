@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import * as S from "./PostDetailComp.style";
 import { useNavigate } from "react-router-dom";
-import { useUserLogin } from "../../../context/UserLoginContext";
+import { useUserLogin } from "../../context/UserLoginContext";
 
 export const PostDetailComment = ({ content }) => {
   //로그인 유저 정보 가져오기
@@ -17,7 +17,6 @@ export const PostDetailComment = ({ content }) => {
   const handleInputChange = (setState) => (e) => {
     setState(e.target.value);
   };
-  
 
   /*-------------시간표시---------------*/
   function timeString(postdate) {
@@ -35,20 +34,19 @@ export const PostDetailComment = ({ content }) => {
   }
 
   /*-------------댓글 textarea 높이 조절---------------*/
-  
+
   const textarea = useRef();
 
-
   const handleResizeHeight = () => {
-    textarea.current.style.height = textarea.current.scrollHeight + 'px';
+    textarea.current.style.height = textarea.current.scrollHeight + "px";
   };
 
   const handleOnFocusTextarea = () => {
-    textarea.current.style.height = textarea.current.scrollHeight + 'px';
+    textarea.current.style.height = textarea.current.scrollHeight + "px";
   };
 
   /*-------------create 기능---------------*/
-  const handleCreateSubmit = async (e) => {
+  const handleCreateSubmit = async (e, parentId = null) => {
     e.preventDefault();
     if (!user) {
       alert("로그인이 필요한 영역입니다.");
@@ -60,6 +58,7 @@ export const PostDetailComment = ({ content }) => {
         userId: userId,
         postId: postId,
         comment: comment,
+        parentId: parentId,
       };
       await postCommentToServer(commentData);
     }
@@ -68,9 +67,7 @@ export const PostDetailComment = ({ content }) => {
   const postCommentToServer = async (commentData) => {
     try {
       const response = await axios.post("/comments/create", commentData);
-      console.log("서버 응답:", response.data);
       alert("댓글 등록 성공!");
-
       readCommentsFunc();
       setComment("");
     } catch (error) {
@@ -131,7 +128,7 @@ export const PostDetailComment = ({ content }) => {
   const updateCommentToServer = async (_id, commentData) => {
     try {
       const response = await axios.put(`/comments/update/${_id}`, commentData);
-      console.log("서버 응답:", response.data);
+
       alert("댓글 수정 성공!");
       setEditComment("");
       readCommentsFunc();
@@ -149,7 +146,7 @@ export const PostDetailComment = ({ content }) => {
     if (isConfirmed) {
       try {
         const response = await axios.delete(`/comments/delete/${_id}`);
-        console.log("서버 응답:", response.data);
+
         readCommentsFunc();
       } catch (error) {
         console.error("에러:", error);
@@ -177,15 +174,15 @@ export const PostDetailComment = ({ content }) => {
                   </div>
                   <div className="comment_box">
                     <div className="comment_detail_box">
-                      <div className="text_detail">                      
+                      <div className="text_detail">
                         {editId === comment._id ? (
                           <textarea
                             ref={textarea}
                             type="text"
                             value={editComment}
                             onChange={(event) => {
-                               handleInputChange(setEditComment)(event); // handleInputChange 함수 호출
-                               handleResizeHeight(); // handleResizeHeight 함수 호출
+                              handleInputChange(setEditComment)(event); // handleInputChange 함수 호출
+                              handleResizeHeight(); // handleResizeHeight 함수 호출
                             }}
                             onFocus={handleOnFocusTextarea}
                             placeholder="댓글 달기..."

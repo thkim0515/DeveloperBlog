@@ -4,17 +4,18 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-one_dark";
 import "ace-builds/src-noconflict/theme-twilight";
 
-export const AceEditorComp = ({ name, onChange, value, readOnly = false }) => {
+export const AceEditorSet = ({ name, onChange, value, readOnly = false }) => {
+
   return (
     <AceEditor
       mode="javascript"
-      theme="one_dark"
+      theme="twilight"
       onChange={onChange}
       name={name}
-      editorProps={{ $blockScrolling: true }}
+      editorProps={{ $blockScrolling: false }}
       setOptions={{ useWorker: false }}
       wrapEnabled={true}
-      width="49%"
+      width="100%"
       fontSize="1rem"
       value={value}
       readOnly={readOnly}
