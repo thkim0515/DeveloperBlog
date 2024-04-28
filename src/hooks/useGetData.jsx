@@ -38,7 +38,6 @@ export const useGetData = (value, PageCount, selectedIcon, searchTerm) => {
           setCurrentPage(1);
           sessionStorage.setItem("currentPage", "1");
         }
-        // setCurrentPage(1);
       } catch (e) {
         console.error(e);
       }
