@@ -20,6 +20,9 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
   }, [isLoading]);
 
   const handleClick = () => setLoading(true);
+
+  const onChange = (e) => {};
+
   return (
     <Form>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -28,6 +31,7 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
           size="lg"
           type="text"
           placeholder="프로젝트 제목을 입력하세요."
+          onChange={onChange}
         />
       </Form.Group>
 
@@ -40,28 +44,32 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
             label="기획자"
             name="group1"
             type="checkbox"
-            value="projectManager"
+            data-name="projectManager"
+            onChange={onChange}
           />
           <Form.Check
             inline
             label="디자이너"
             name="group1"
             type="checkbox"
-            value="designer"
+            data-name="designer"
+            onChange={onChange}
           />
           <Form.Check
             inline
             label="프론트엔드"
             name="group1"
             type="checkbox"
-            value="frontEnd"
+            data-name="frontEnd"
+            onChange={onChange}
           />
           <Form.Check
             inline
             label="백엔드"
             name="group1"
             type="checkbox"
-            value="backEnd"
+            data-name="backEnd"
+            onChange={onChange}
           />
         </div>
       </Form.Group>
@@ -73,6 +81,7 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
           className="mb-4"
           type="search"
           placeholder="검색어를 입력하세요."
+          onChange={onChange}
         />
       </Form.Group>
 
@@ -86,11 +95,11 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
         <div className="d-flex gap-2 align-items-center">
           <div>
             <Form.Label className="mb-2 ">시작 날짜</Form.Label>
-            <Form.Control type="date" />
+            <Form.Control type="date" onChange={onChange} />
           </div>
           <div>
             <Form.Label className="mb-2">종료 날짜</Form.Label>
-            <Form.Control type="date" />
+            <Form.Control type="date" onChange={onChange} />
           </div>
         </div>
       </Form.Group>
@@ -105,11 +114,19 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
         <div className="d-flex gap-2 align-items-center">
           <div>
             <Form.Label className="mb-2">기존 인원</Form.Label>
-            <Form.Control type="number" value="recruitmentCompleted" />
+            <Form.Control
+              type="number"
+              data-name="recruitmentCompleted"
+              onChange={onChange}
+            />
           </div>
           <div>
             <Form.Label className="mb-2">시작 인원</Form.Label>
-            <Form.Control type="number" value="tableOfOrganiztion" />
+            <Form.Control
+              type="number"
+              data-name="tableOfOrganiztion"
+              onChange={onChange}
+            />
           </div>
         </div>
       </Form.Group>
@@ -125,6 +142,7 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
           rows={20}
           placeholder="내용을 입력하세요."
           style={{ resize: "none" }}
+          onChange={onChange}
         />
       </Form.Group>
 
@@ -132,7 +150,10 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
       <div>
         <p className="fs-5 mb-3">프로젝트 해시태그</p>
         <InputGroup className="mb-4 w-50">
-          <Form.Control placeholder="프로젝트 관련 해시태그는 3개까지 가능" />
+          <Form.Control
+            placeholder="프로젝트 관련 해시태그는 3개까지 가능"
+            onChange={onChange}
+          />
           <Button variant="outline-secondary" id="button-addon2">
             Button
           </Button>
