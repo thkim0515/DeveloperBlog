@@ -2,13 +2,7 @@ import { useState, useEffect } from "react";
 import { useCalculatePage } from "./useCalculatePage";
 import { filterImages } from "./dataFetchFilter/filterImages";
 import axios from "axios";
-export const useGetData = (
-  value,
-  PageCount,
-  selectedIcon,
-  searchTerm,
-  selectInfo
-) => {
+export const useGetData = (value, PageCount, selectedIcon, searchTerm) => {
   const [svgImages, setSvgImages] = useState([]);
   const [filteredImages, setFilteredImages] = useState([]);
   const {
@@ -40,13 +34,17 @@ export const useGetData = (
         );
         setFilteredImages(images);
 
+        if (searchTerm || selectedIcon) {
+          setCurrentPage(1);
+          sessionStorage.setItem("currentPage", "1");
+        }
         // setCurrentPage(1);
       } catch (e) {
         console.error(e);
       }
     };
     fetchData();
-  }, [value.value, selectedIcon, searchTerm, selectInfo, setFilteredImages]);
+  }, [value.value, selectedIcon, searchTerm]);
 
   return {
     svgImages,

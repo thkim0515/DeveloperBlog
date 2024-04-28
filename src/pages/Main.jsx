@@ -1,8 +1,8 @@
 import { ImageGrid } from "../components/imagegallery/ImageGalleryComponents/ImageGrid";
-import { LiveChat } from "../components/LiveChat";
 import { useState } from "react";
 import { Metas } from "./../components/common/Metas";
-import { Modal } from "../components/Modal";
+import { LiveChat } from "../components/LiveChat/LiveChat";
+import { Modal } from "../components/LiveChat/Modal";
 import { WriteButton } from "../components/imagegallery/WriteButton";
 import styled from "styled-components";
 

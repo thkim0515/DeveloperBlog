@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as S from "./PostingComp.style";
 import { CodePost } from "./CodePost";
-import { Input } from "../LiveChat.style";
+import { Input } from "../LiveChat/LiveChat.style";
 import { Spinner } from "./spinner/Spinner";
 import { Category } from "./Category/Category";
 import { handlePostCode, handleUpdateCode } from "../../utils/handleCode";

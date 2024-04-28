@@ -1,20 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 export const Category = ({ category, setCategory }) => {
-  const svgImages = [
-    "html",
-    "css",
-    "javascript",
-    "typescript",
-    "java",
-    "react",
-    "c",
-    "python",
-    "spring",
-    "vue",
-    "unknown",
-  ];
+  const [svgImages, setSvgImages] = useState([]);
+
+  useEffect(() => {
+    const fetchSvgImages = async () => {
+      try {
+        const response = await axios.get("/contents/svgsdata");
+        setSvgImages(response.data[0].svgs);
+      } catch (error) {
+        return;
+      }
+    };
+
+    fetchSvgImages();
+  }, []);
 
   const handleCategory = (svgName) => {
     setCategory(svgName);

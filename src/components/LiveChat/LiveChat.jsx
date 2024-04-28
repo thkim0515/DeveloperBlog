@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { useUserLogin } from "../context/UserLoginContext";
-import { decryptData } from "../js/secure";
+import { useUserLogin } from "../../context/UserLoginContext";
+import { decryptData } from "../../js/secure";
 import * as S from "./LiveChat.style";
 
 export const LiveChat = () => {
