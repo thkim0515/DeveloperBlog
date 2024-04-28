@@ -3,6 +3,7 @@ import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+  
   @font-face {
     font-family: "NotoSansKr";
     src: url("/fonts/NotoSansKR-VariableFont_wght.ttf") format("truetype");
@@ -10,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: "FjallaOne";
     src: url("/fonts/FjallaOne-Regular.ttf") format("truetype");
+  }
+
+  #root{
+    position: relative;
   }
 
   * {
@@ -45,10 +50,6 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 0;
     overflow: visible;
     cursor: pointer;
-  }
-
-  #root{
-    position: relative;
   }
 `;
 

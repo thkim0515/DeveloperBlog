@@ -11,7 +11,7 @@ export const SocialButton = ({ social, background, color }) => {
 const Button = styled.button`
   display: block;
   width: 100%;
-  border: 1px solid #888888;
+  border: 1px solid #9a9a9a;
   padding: 1rem;
   border-radius: 20px;
 `;
