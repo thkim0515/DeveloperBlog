@@ -49,7 +49,9 @@ export const UserLogin = () => {
               setIsMenuOpen(!isMenuOpen);
             }}
             alt="메뉴 아이콘"
-            src={"/img/layout/menu-icon.png"}
+            src={
+              "https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/starblogimg/menu-icon.png"
+            }
           />
         </S.UserLoginBox>
       )}

@@ -7,7 +7,6 @@ const { logError } = require("../error/processError");
 // C
 router.post("/create", async (req, res) => {
   const { userId, postId, parentId, comment } = req.body; // parentId 추가
-  console.log(userId, postId, comment, parentId);
   try {
     const newComment = new Comment({
       userId,
