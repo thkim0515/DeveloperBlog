@@ -32,7 +32,7 @@ export const ProjectCard = ({ props }) => {
         <S.projectStackBox>
           {Object.keys(props.stacks).map((key, idx) => (
             <li key={idx}>
-              <img src={props.stacks[key]} alt={key} />
+              <img src="" alt={key} />
             </li>
           ))}
         </S.projectStackBox>

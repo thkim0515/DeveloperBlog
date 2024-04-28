@@ -27,7 +27,6 @@ import { UserLoginProvider } from "./context/UserLoginContext";
 
 //privateRoute
 import { PrivateRoute } from "./routes/PrivateRoute";
-import { ProjectCard } from "./pages/TestComponent/ProjectCard/ProjectCard";
 
 export const App = () => {
   return (

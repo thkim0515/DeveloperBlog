@@ -38,7 +38,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently \"nodemon server/index.js\" \"npm start\""
+    "dev": "concurrently \"nodemon server/index.js\" \"npm start\"",
+    "mock": "json-server public/mock/projectData.json --port 8080"
   },
   "eslintConfig": {
     "extends": [

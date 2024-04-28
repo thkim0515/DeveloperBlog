@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const InformationBox = styled.ul`
+  .recruitment-info-title {
+    color: #3e4756;
+  }
+`;
+
 export const IconBox = styled.ul`
   display: flex;
   align-items: center;

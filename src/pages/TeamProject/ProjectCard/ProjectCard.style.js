@@ -36,12 +36,17 @@ export const ProjectHashTagBox = styled.div`
 
 export const ProjectHashTag = styled.span`
   display: inline-block;
-  color: #e31ce7;
+  color: #f542f4;
+  font-weight: bold;
   font-size: 0.875rem;
 `;
 
 export const ProjectTitle = styled.p`
   font-size: 1.125rem;
+  text-overflow: ellipsis;
+  max-width: 18rem;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const projectStackBox = styled.ul`
