@@ -16,6 +16,15 @@ export const switchColor = (lang) => {
     case "css":
       bgColor = "#264DE4";
       break;
+    case "spring":
+      bgColor = "#2DFA0C";
+      break;
+    case "vue":
+      bgColor = "#6CD252";
+      break;
+    case "typescript":
+      bgColor = "#3561FD";
+      break;
     case "unknown":
       bgColor = "grey";
       break;

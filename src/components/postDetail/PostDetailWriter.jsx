@@ -41,11 +41,11 @@ export const PostDetailWriter = ({ content }) => {
     if (isConfirmed) {
       try {
         const response = await axios.delete(`/contents/delete/${_id}`);
-        console.log("서버 응답:", response.data);
-        if (response.status === 200) {
-          await removePostFromLocalStorage(_id);
-          navigate(-1);
-        }
+
+        navigate(-1);
+        // if (response.status === 200) {
+        //   await removePostFromLocalStorage(_id);
+        // }
       } catch (error) {
         console.error("에러:", error);
         alert("삭제 실패");
@@ -53,15 +53,15 @@ export const PostDetailWriter = ({ content }) => {
     }
   };
 
-  const removePostFromLocalStorage = async (_id) => {
-    const storedContents = await decryptData("contents", localStorage);
-    if (storedContents) {
-      const updatedContents = storedContents.filter(
-        (content) => content._id !== _id
-      );
-      await encryptData(updatedContents, "contents", localStorage);
-    }
-  };
+  // const removePostFromLocalStorage = async (_id) => {
+  //   const storedContents = await decryptData("contents", localStorage);
+  //   if (storedContents) {
+  //     const updatedContents = storedContents.filter(
+  //       (content) => content._id !== _id
+  //     );
+  //     await encryptData(updatedContents, "contents", localStorage);
+  //   }
+  // };
 
   return (
     <S.WriterBox className="writer-box" ref={dropMenuRef}>

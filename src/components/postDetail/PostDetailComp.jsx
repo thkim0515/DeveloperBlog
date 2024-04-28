@@ -1,5 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+// Toast-UI Viewer 임포트
+import "@toast-ui/editor/dist/toastui-editor-viewer.css";
+import { Viewer } from "@toast-ui/react-editor";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./PostDetailComp.style";
 import { PostDetailWriter } from "./PostDetailWriter";
@@ -28,10 +31,7 @@ export const PostDetailComp = () => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate(0);
-    setTimeout(() => {
-      navigate(-1);
-    }, 0);
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -61,7 +61,11 @@ export const PostDetailComp = () => {
         <S.SContainer>
           <S.STitle>
             <div className="img_box">
-              <img src={`../svg/${content.language}.svg`} alt="" />{" "}
+              <img
+                src={`
+                    https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${content.language}.svg`}
+                alt=""
+              />{" "}
               {/* alt={image.language} */}
             </div>
             <h3>{content.title}</h3>
@@ -76,7 +80,7 @@ export const PostDetailComp = () => {
               <S.SProfileImage title="프로필">
                 {content.userId.profileimg && (
                   <S.ProfileImage
-                    src={`../${content.imagePath}`}
+                    src={`../${content.userId.profileimg}`}
                     alt={content.userId.profileimg}
                   />
                 )}
@@ -98,10 +102,13 @@ export const PostDetailComp = () => {
               width="100%"
               fontSize="1rem"
             />
-            <div
+            {/* <div
               className="text_area"
               dangerouslySetInnerHTML={{ __html: content.toast_contents }}
-            />
+            /> */}
+            <div className="text_area">
+              <Viewer initialValue={content.toast_contents} />
+            </div>
           </S.SImageContent>
           <S.SLikeBackButton>
             <LikeButton content_id={content._id} user_id={userId} />

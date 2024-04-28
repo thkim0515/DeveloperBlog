@@ -67,7 +67,7 @@ export const FindPassword = () => {
   return (
     <S.FindBox>
       {isSubmit ? <AlertPopup alertMessage={alertMessage} /> : <></>}
-      <form>
+      <div>
         {/* 아이디 찾기 */}
         <S.FormField>
           <label htmlFor="field1">아이디</label>
@@ -85,7 +85,7 @@ export const FindPassword = () => {
 
         {/* 찾기 버튼 */}
         <S.Button onClick={onSubmitData}>비밀번호 찾기</S.Button>
-      </form>
+      </div>
     </S.FindBox>
   );
 };

@@ -1,7 +1,7 @@
 // mailer.js
 const nodemailer = require("nodemailer");
 const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+// require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const loadSecrets = require("../loadSecrets");
 
 let transporter;
@@ -59,10 +59,8 @@ async function sendAuthEmail(email, subject, content, value, addInfo = "") {
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log("인증번호 전송 성공");
     return true;
   } catch (error) {
-    console.error("인증번호 전송 실패:", error);
     return false;
   }
 }

@@ -27,7 +27,7 @@ export const filterImages = async (images, searchTerm, value, selectedIcon) => {
 
   if (userItem) {
     const nickname = userItem.nickname;
-    if (value.value === "my" && userItem) {
+    if (value.value === "my") {
       filterimages = images.filter(
         (content) => content.userId.nickname === nickname
       );

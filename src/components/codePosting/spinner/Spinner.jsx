@@ -1,11 +1,11 @@
 import React from "react";
-import * as S from "../AnnotationCreatePost.style";
+import * as S from "./Spinner.style";
 import { CustomSpinner } from "./Spinner.style";
 
 export const Spinner = ({ isLoading }) => {
   return (
     <>
-      <S.Modal show={isLoading}>
+      <S.Modal $show={isLoading}>
         <S.ModalContent>
           <CustomSpinner
             animation="border"
