@@ -69,6 +69,7 @@ export const PostDetailComp = () => {
       return `${year}-${month}-${day} / ${hours}:${minutes}`;
     }
   }
+
   return (
     <>
       <Metas title={detailContent.title} />
@@ -95,8 +96,8 @@ export const PostDetailComp = () => {
               <S.SProfileImage title="프로필">
                 {detailContent.userId.profileimg && (
                   <S.ProfileImage
-                    src={`../${detailContent.userId.profileimg}`}
-                    alt={detailContent.userId.profileimg}
+                    src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${detailContent.userId.profileimg}`}
+                    alt={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${detailContent.userId.profileimg}`}
                   />
                 )}
               </S.SProfileImage>

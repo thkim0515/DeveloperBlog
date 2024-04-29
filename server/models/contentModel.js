@@ -8,8 +8,6 @@ const userSetContentsSchema = new mongoose.Schema({
   },
   pid: { type: Number },
   title: { type: String },
-  nickname: { type: String },
-  profileImg: { type: String },
   language: { type: String },
   publicPrivate: { type: Boolean },
   imagePath: { type: String },

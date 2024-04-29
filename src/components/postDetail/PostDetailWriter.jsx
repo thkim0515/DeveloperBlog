@@ -42,7 +42,7 @@ export const PostDetailWriter = ({ content }) => {
       try {
         const response = await axios.delete(`/contents/delete/${_id}`);
 
-        navigate(-1);
+        navigate("/");
         // if (response.status === 200) {
         //   await removePostFromLocalStorage(_id);
         // }
@@ -52,16 +52,6 @@ export const PostDetailWriter = ({ content }) => {
       }
     }
   };
-
-  // const removePostFromLocalStorage = async (_id) => {
-  //   const storedContents = await decryptData("contents", localStorage);
-  //   if (storedContents) {
-  //     const updatedContents = storedContents.filter(
-  //       (content) => content._id !== _id
-  //     );
-  //     await encryptData(updatedContents, "contents", localStorage);
-  //   }
-  // };
 
   return (
     <S.WriterBox className="writer-box" ref={dropMenuRef}>

@@ -58,7 +58,7 @@ app.get("*", (req, res) => {
 
 server.listen(PORT, () => {
   // 필요시 작성
-  //console.log(`서버 가동 >> http://localhost:${PORT} << Ctrl + 클릭`);
+  console.log(`Server >> http://localhost:${PORT} `);
 });
 
 // ref. https 상태코드 >> https://developer.mozilla.org/ko/docs/Web/HTTP/Status
