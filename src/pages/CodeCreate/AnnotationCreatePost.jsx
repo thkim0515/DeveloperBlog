@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
 import ace from "ace-builds/src-noconflict/ace";
 import { decryptData } from "../../js/secure";
-// import { UpdateLocalStorage } from "../../js/UpdateLocalStorage";
+
 export const AnnotationCreatePost = (props) => {
   const navigate = useNavigate();
   const [code, setCode] = useState("");
@@ -94,8 +94,6 @@ export const AnnotationCreatePost = (props) => {
       const userSession = await decryptData("user", sessionStorage);
       const content = response.data.info;
       content.userId = userSession;
-
-      // UpdateLocalStorage(content);
       navigate(`/post/${content._id}`, { state: { content } });
     } catch (error) {
       console.error("에러:", error);

@@ -1,10 +1,14 @@
 import axios from "axios";
 import { decryptData } from "../js/secure";
-import { UpdateLocalStorage } from "../js/UpdateLocalStorage";
-
 
 //글 작성 함수
-export const handlePostCode = async (commentedCode, title, category, textData, navigate) => {
+export const handlePostCode = async (
+  commentedCode,
+  title,
+  category,
+  textData,
+  navigate
+) => {
   if (!commentedCode) {
     alert("코드변환을 진행해 주세요.");
     return;
@@ -38,7 +42,6 @@ const postCodeToServer = async (codeData, navigate) => {
     const content = response.data.info;
     content.userId = userSession;
 
-    UpdateLocalStorage(content);
     navigate(`/post/${content._id}`, { state: { content } });
   } catch (error) {
     console.error("에러:", error);
@@ -47,7 +50,14 @@ const postCodeToServer = async (codeData, navigate) => {
 };
 
 //글 수정 함수
-export const handleUpdateCode = async (postData, title, category, commentedCode, textData, navigate) => {
+export const handleUpdateCode = async (
+  postData,
+  title,
+  category,
+  commentedCode,
+  textData,
+  navigate
+) => {
   const content = {
     ...postData,
     title: title ? title : "제목없음",

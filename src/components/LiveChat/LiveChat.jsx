@@ -6,8 +6,6 @@ import * as S from "./LiveChat.style";
 export const LiveChat = () => {
   /* 로그인 여부 상태관리 */
   /* 세션에 따른 닉네임 or 비로그인 유저 */
-  /* 로그인 여부 상태관리 */
-  /* 세션에 따른 닉네임 or 비로그인 유저 */
   const [userNickname, setUserNickname] = useState("");
   const { isLogin } = useUserLogin();
 
@@ -29,11 +27,8 @@ export const LiveChat = () => {
     initializeUserSession();
 
     connectWebSocket();
-
-    connectWebSocket();
   }, [isLogin]);
 
-  /* 웹소켓 상태관리 */
   /* 웹소켓 상태관리 */
   const [ws, setWs] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -82,15 +77,12 @@ export const LiveChat = () => {
       // 닫힐 때 > 필요 시 작성
     };
     setWs(websocket);
-    setWs(websocket);
   };
 
-  /* 맨 밑 스크룰 */
   /* 맨 밑 스크룰 */
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    scrollToBottom();
     scrollToBottom();
   }, [messages]);
 
@@ -134,7 +126,6 @@ export const LiveChat = () => {
     }
   };
 
-  /* 입력 상태 관리 */
   /* 입력 상태 관리 */
   const handleInputChange = (e) => {
     setInputText(e.target.value);

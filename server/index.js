@@ -27,7 +27,7 @@ loadSecrets().then((secrets) => {
 
   mongoose
     .connect(uri)
-    .then(() => console.log("DB 연결 확인 - STARBLOG"))
+    //.then(() => console.log("DB 연결 확인 - STARBLOG"))
     .catch((err) => console.error(err));
 });
 
@@ -57,7 +57,8 @@ app.get("*", (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`서버 가동 >> http://localhost:${PORT} << Ctrl + 클릭`);
+  // 필요시 작성
+  //console.log(`서버 가동 >> http://localhost:${PORT} << Ctrl + 클릭`);
 });
 
 // ref. https 상태코드 >> https://developer.mozilla.org/ko/docs/Web/HTTP/Status

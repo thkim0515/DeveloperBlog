@@ -22,7 +22,7 @@ function setupWebSocket(server) {
     });
 
     ws.on("close", () => {
-      console.log("연결끊김");
+      // 필요시 작성
     });
   });
 }
