@@ -27,7 +27,7 @@ loadSecrets().then((secrets) => {
 
   mongoose
     .connect(uri)
-    //.then(() => console.log("DB 연결 확인 - STARBLOG"))
+    .then(() => console.log("DB 연결 확인 - STARBLOG"))
     .catch((err) => console.error(err));
 });
 
