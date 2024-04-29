@@ -23,7 +23,6 @@ loadSecrets().then((secrets) => {
 
 async function sendAuthEmail(email, subject, content, value, addInfo = "") {
   const trimValue = value;
-  console.log(trimValue);
   const mailOptions = {
     from: transporter.options.auth.user,
     to: email,
