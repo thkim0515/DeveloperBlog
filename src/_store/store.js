@@ -1,8 +1,10 @@
+// store.js
 import { configureStore } from "@reduxjs/toolkit";
-import { rootReducer } from "../_reducers/rootReducer"; // 여러 리듀서를 합치는 루트 리듀서
+import rootReducer from "../_reducers/rootReducer";
 
 const store = configureStore({
   reducer: rootReducer,
+  // Add middleware, enhancers, and other store configurations here if needed
 });
 
 export default store;

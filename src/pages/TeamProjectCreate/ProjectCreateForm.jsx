@@ -1,11 +1,45 @@
-import { useState, useEffect, forwardRef } from "react";
+import { useState, useEffect, useRef, forwardRef } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
-// import Stack from "react-bootstrap/Stack";
+import { useFormFields } from "../../hooks/form/useprojectFormFields";
+
+// 하드코딩된 검색어 목록
+const SEARCH_RESULT = [
+  "React",
+  "Vue",
+  "Svelt",
+  "JavaScript",
+  "HTML",
+  "CSS",
+  "redux",
+  "node",
+  "express",
+  "mongoDB",
+];
 
 export const ProjectCreateForm = forwardRef((props, ref) => {
   const [isLoading, setLoading] = useState(false);
+
+  const [
+    projectFields,
+    handleProjectChange,
+    handleCheckboxChange,
+    // handleHashTags,
+    // hashTags,
+  ] = useFormFields({
+    title: "",
+    updatedDate: new Date().toLocaleDateString(),
+    search: "",
+    startDate: "",
+    endDate: "",
+    recruitmentCompleted: "",
+    tableOfOrganiztion: "",
+    content: "",
+    hashTags: [],
+    roles: [],
+    stacks: [],
+  });
 
   useEffect(() => {
     function simulateNetworkRequest() {
@@ -19,9 +53,9 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
     }
   }, [isLoading]);
 
-  const handleClick = () => setLoading(true);
-
-  const onChange = (e) => {};
+  const onSubmit = () => {
+    setLoading(true);
+  };
 
   return (
     <Form>
@@ -31,7 +65,9 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
           size="lg"
           type="text"
           placeholder="프로젝트 제목을 입력하세요."
-          onChange={onChange}
+          value={projectFields.title}
+          onChange={handleProjectChange}
+          name="title"
         />
       </Form.Group>
 
@@ -42,34 +78,30 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
           <Form.Check
             inline
             label="기획자"
-            name="group1"
             type="checkbox"
-            data-name="projectManager"
-            onChange={onChange}
+            onChange={handleCheckboxChange}
+            name="projectManager"
           />
           <Form.Check
             inline
             label="디자이너"
-            name="group1"
             type="checkbox"
-            data-name="designer"
-            onChange={onChange}
+            onChange={handleCheckboxChange}
+            name="designer"
           />
           <Form.Check
             inline
             label="프론트엔드"
-            name="group1"
             type="checkbox"
-            data-name="frontEnd"
-            onChange={onChange}
+            onChange={handleCheckboxChange}
+            name="frontEnd"
           />
           <Form.Check
             inline
             label="백엔드"
-            name="group1"
             type="checkbox"
-            data-name="backEnd"
-            onChange={onChange}
+            onChange={handleCheckboxChange}
+            name="backEnd"
           />
         </div>
       </Form.Group>
@@ -81,7 +113,7 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
           className="mb-4"
           type="search"
           placeholder="검색어를 입력하세요."
-          onChange={onChange}
+          name="stacks"
         />
       </Form.Group>
 
@@ -89,17 +121,27 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
       <Form.Group className="mb-4" controlId="exampleForm.ControlInput2">
         <div>
           <Form.Label className="fs-5 mb-3">모집 기간</Form.Label>
-          <span className="ms-3 text-primary">2024.03.24~2024.04.21</span>
+          <span className="ms-3 text-primary">{`${projectFields.startDate} ~ ${projectFields.endDate}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
           <div>
-            <Form.Label className="mb-2 ">시작 날짜</Form.Label>
-            <Form.Control type="date" onChange={onChange} />
+            <Form.Label className="mb-2">시작 날짜</Form.Label>
+            <Form.Control
+              type="date"
+              value={projectFields.startDate}
+              onChange={handleProjectChange}
+              name="startDate"
+            />
           </div>
           <div>
             <Form.Label className="mb-2">종료 날짜</Form.Label>
-            <Form.Control type="date" onChange={onChange} />
+            <Form.Control
+              type="date"
+              value={projectFields.endDate}
+              onChange={handleProjectChange}
+              name="endDate"
+            />
           </div>
         </div>
       </Form.Group>
@@ -108,7 +150,7 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
       <Form.Group>
         <div>
           <Form.Label className="fs-5 mb-3">모집 인원</Form.Label>
-          <span className="ms-3 text-primary">0/6</span>
+          <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganiztion}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
@@ -116,16 +158,18 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
             <Form.Label className="mb-2">기존 인원</Form.Label>
             <Form.Control
               type="number"
-              data-name="recruitmentCompleted"
-              onChange={onChange}
+              value={projectFields.recruitmentCompleted}
+              onChange={handleProjectChange}
+              name="recruitmentCompleted"
             />
           </div>
           <div>
             <Form.Label className="mb-2">시작 인원</Form.Label>
             <Form.Control
               type="number"
-              data-name="tableOfOrganiztion"
-              onChange={onChange}
+              value={projectFields.tableOfOrganiztion}
+              onChange={handleProjectChange}
+              name="tableOfOrganiztion"
             />
           </div>
         </div>
@@ -142,7 +186,9 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
           rows={20}
           placeholder="내용을 입력하세요."
           style={{ resize: "none" }}
-          onChange={onChange}
+          value={projectFields.content}
+          onChange={handleProjectChange}
+          name="content"
         />
       </Form.Group>
 
@@ -151,10 +197,12 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
         <p className="fs-5 mb-3">프로젝트 해시태그</p>
         <InputGroup className="mb-4 w-50">
           <Form.Control
-            placeholder="프로젝트 관련 해시태그는 3개까지 가능"
-            onChange={onChange}
+            placeholder="해시태그 3개까지 추가 가능"
+            value={projectFields.hashTag || ""}
+            onChange={handleProjectChange}
+            name="hashTag"
           />
-          <Button variant="outline-secondary" id="button-addon2">
+          <Button variant="outline-secondary" id="hashTagButton">
             Button
           </Button>
         </InputGroup>
@@ -164,7 +212,7 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
         className="w-100 p-2"
         variant="primary"
         disabled={isLoading}
-        onClick={!isLoading ? handleClick : null}
+        onClick={!isLoading ? onSubmit : null}
       >
         {isLoading ? "Loading…" : "올리기"}
       </Button>

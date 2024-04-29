@@ -4,6 +4,7 @@ import { UserProfileBox } from "./../../../components/user/UserProfileBox";
 export const ProjectComments = () => {
   return (
     <section>
+      <h3>댓글</h3>
       <CommentForm>
         <input type="text" placeholder="댓글을 입력해주세요." />
         <button type="submit">작성</button>

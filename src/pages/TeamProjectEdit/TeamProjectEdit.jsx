@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 // components
-import { ProjectEidtForm } from "./ProjectEditForm";
+import { ProjectEditForm } from "./ProjectEditForm";
 
 export const TeamProjectEdit = () => {
   return (
     <section>
       <H2>팀 프로젝트 글 수정</H2>
       <Box>
-        <ProjectEidtForm />
+        <ProjectEditForm />
       </Box>
     </section>
   );
