@@ -22,7 +22,7 @@ loadSecrets().then((secrets) => {
 });
 
 async function sendAuthEmail(email, subject, content, value, addInfo = "") {
-  const trimValue = value.trim();
+  const trimValue = value;
   const mailOptions = {
     from: transporter.options.auth.user,
     to: email,

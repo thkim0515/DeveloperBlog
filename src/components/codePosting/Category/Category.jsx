@@ -9,7 +9,7 @@ export const Category = ({ category, setCategory }) => {
     const fetchSvgImages = async () => {
       try {
         const response = await axios.get("/contents/svgsdata");
-        setSvgImages(response.data[0].svgs);
+        setSvgImages(response.data[0].svgs.slice(1));
       } catch (error) {
         return;
       }
@@ -32,7 +32,10 @@ export const Category = ({ category, setCategory }) => {
             onClick={() => handleCategory(svgName)}
             $isSelected={category === svgName}
           >
-            <img src={`/svg/${svgName}.svg`} alt={svgName} />
+            <img
+              src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${svgName}.svg`}
+              alt={svgName}
+            />
           </ImageWrapper>
         );
       })}

@@ -2,7 +2,7 @@
 // Toast-UI Viewer 임포트
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import { Viewer } from "@toast-ui/react-editor";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./PostDetailComp.style";
 import { PostDetailWriter } from "./PostDetailWriter";
@@ -28,8 +28,23 @@ export const PostDetailComp = () => {
   // ImageItem 클릭시 state값 전달
   const location = useLocation();
   const { content } = location.state;
-  const navigate = useNavigate();
+  const [detailContent, setDetailContent] = useState([]);
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(`/contents/read/${content._id}`);
+        setDetailContent(response.data);
+      } catch (e) {
+        return;
+        //console.log(e);
+      }
+    };
+
+    getData();
+  }, []);
+
+  const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -54,40 +69,41 @@ export const PostDetailComp = () => {
       return `${year}-${month}-${day} / ${hours}:${minutes}`;
     }
   }
+
   return (
     <>
-      <Metas title={content.title} />
-      {content.imagePath && (
+      <Metas title={detailContent.title} />
+      {detailContent.imagePath && (
         <S.SContainer>
           <S.STitle>
             <div className="img_box">
               <img
                 src={`
-                    https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${content.language}.svg`}
+                    https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${detailContent.language}.svg`}
                 alt=""
               />{" "}
               {/* alt={image.language} */}
             </div>
-            <h3>{content.title}</h3>
+            <h3>{detailContent.title}</h3>
             {user &&
-              (userId === content.userId._id ||
-                userId === content.userId.id) && (
-                <PostDetailWriter content={content} />
+              (userId === detailContent.userId._id ||
+                userId === detailContent.userId.id) && (
+                <PostDetailWriter content={detailContent} />
               )}
           </S.STitle>
           <S.SSpace>
             <div style={{ display: "flex", alignItems: "center" }}>
               <S.SProfileImage title="프로필">
-                {content.userId.profileimg && (
+                {detailContent.userId.profileimg && (
                   <S.ProfileImage
-                    src={`../${content.userId.profileimg}`}
-                    alt={content.userId.profileimg}
+                    src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${detailContent.userId.profileimg}`}
+                    alt={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${detailContent.userId.profileimg}`}
                   />
                 )}
               </S.SProfileImage>
-              {content.userId.nickname}
+              {detailContent.userId.nickname}
             </div>
-            <div>{timeString(content.postdate)}</div>
+            <div>{timeString(detailContent.postdate)}</div>
           </S.SSpace>
           <S.SImageContent>
             <AceEditor
@@ -96,7 +112,7 @@ export const PostDetailComp = () => {
               name="setCord"
               editorProps={{ $blockScrolling: true }}
               setOptions={{ useWorker: false }}
-              value={content.ace_contents}
+              value={detailContent.ace_contents}
               readOnly={true}
               wrapEnabled={true}
               width="100%"
@@ -107,14 +123,14 @@ export const PostDetailComp = () => {
               dangerouslySetInnerHTML={{ __html: content.toast_contents }}
             /> */}
             <div className="text_area">
-              <Viewer initialValue={content.toast_contents} />
+              <Viewer initialValue={detailContent.toast_contents} />
             </div>
           </S.SImageContent>
           <S.SLikeBackButton>
-            <LikeButton content_id={content._id} user_id={userId} />
+            <LikeButton content_id={detailContent._id} user_id={userId} />
             <button onClick={handleGoBack}>뒤로가기</button>
           </S.SLikeBackButton>
-          <PostDetailComment content={content} />
+          <PostDetailComment content={detailContent} />
         </S.SContainer>
       )}
     </>
