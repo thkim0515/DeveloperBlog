@@ -12,10 +12,11 @@ const SEARCH_RESULT = [
   "JavaScript",
   "HTML",
   "CSS",
-  "redux",
-  "node",
-  "express",
-  "mongoDB",
+  "Sass",
+  "Redux",
+  "Node",
+  "Express",
+  "MongoDB",
 ];
 
 export const ProjectCreateForm = forwardRef((props, ref) => {
@@ -25,8 +26,8 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
     projectFields,
     handleProjectChange,
     handleCheckboxChange,
-    // handleHashTags,
-    // hashTags,
+    handleAddStack,
+    handleRemoveStacks,
   ] = useFormFields({
     title: "",
     updatedDate: new Date().toLocaleDateString(),
@@ -55,6 +56,7 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
 
   const onSubmit = () => {
     setLoading(true);
+    console.log(projectFields);
   };
 
   return (
@@ -109,12 +111,34 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
       {/*  */}
       <Form.Group controlId="exampleForm.ControlInput1">
         <Form.Label className="fs-5 mb-3">사용 기술</Form.Label>
-        <Form.Control
-          className="mb-4"
-          type="search"
-          placeholder="검색어를 입력하세요."
-          name="stacks"
-        />
+        <div className="mb-2">
+          {projectFields.stacks.map((elem, idx) => (
+            <span key={idx}>
+              <span className="text-primary">{elem}</span>
+              <button
+                type="button"
+                className="border rounded-2 ms-1 p-1"
+                onClick={() => handleRemoveStacks(idx)}
+              >
+                x
+              </button>
+            </span>
+          ))}
+        </div>
+        <div>
+          <Form.Control
+            type="search"
+            placeholder="검색어를 입력하세요."
+            value={""}
+            onChange={handleProjectChange}
+            name="stacks"
+          />
+          <ul style={{ cursor: "pointer" }} onClick={handleAddStack}>
+            {SEARCH_RESULT.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+        </div>
       </Form.Group>
 
       {/*  */}
@@ -194,18 +218,30 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
 
       {/*  */}
       <div>
-        <p className="fs-5 mb-3">프로젝트 해시태그</p>
-        <InputGroup className="mb-4 w-50">
-          <Form.Control
-            placeholder="해시태그 3개까지 추가 가능"
-            value={projectFields.hashTag || ""}
-            onChange={handleProjectChange}
-            name="hashTag"
-          />
-          <Button variant="outline-secondary" id="hashTagButton">
-            Button
-          </Button>
-        </InputGroup>
+        <div className="mb-3">
+          <span className="fs-5">프로젝트 해시태그</span>
+          <span className="ms-3">
+            <span className="text-primary">#플랫폼</span>
+            <button className="border rounded-2 ms-1 p-1">x</button>
+          </span>
+          <span className="ms-3">
+            <span className="text-primary">#서비스</span>
+            <button className="border rounded-2 ms-1 p-1">x</button>
+          </span>
+        </div>
+        <div className="d-flex mb-4 align-items-center">
+          <InputGroup className="w-50">
+            <Form.Control
+              placeholder="해시태그를 입력하세요. (최대 3개)"
+              value={projectFields.hashTag || ""}
+              onChange={handleProjectChange}
+              name="hashTag"
+            />
+            <Button variant="outline-secondary" id="hashTagButton">
+              Button
+            </Button>
+          </InputGroup>
+        </div>
       </div>
 
       <Button
