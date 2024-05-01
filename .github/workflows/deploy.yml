@@ -1,0 +1,52 @@
+name: Deploy # Workflow 이름
+on: # Event 감지
+  push:
+    branches:
+      - dev # << 파이프라인 브렌치 이름
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Checkout source code. # Repo checkout
+      #   uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Check Node v # Node v 확인
+        run: node -v
+
+      - name: Install Dependencies # 의존 파일 설치
+        run: npm install --legacy-peer-deps --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+        env:
+          CI: ""
+
+      - name: zip create
+        run: zip -qq -r ./build-app.zip .
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload to S3 # << S3 업로드
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp --region ap-northeast-2 ./build-app.zip s3://${{ secrets.S3_BUCKET }}/build-app.zip
+
+      - name: Deploy # EC2에 배포
+        run: aws deploy create-deployment
+          --application-name CodeDeploy-starblog
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name code-deploy-group
+          --s3-location bucket=${{ secrets.S3_BUCKET }},key=build-app.zip,bundleType=zip
