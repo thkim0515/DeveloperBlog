@@ -1,4 +1,5 @@
 import { useState, useEffect, forwardRef } from "react";
+import axios from "axios";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
@@ -34,7 +35,6 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
   ] = useFormFields({
     title: "",
     updatedDate: new Date().toLocaleDateString(),
-    search: "",
     startDate: "",
     endDate: "",
     recruitmentCompleted: "",
@@ -61,15 +61,11 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
     setHashTag(e.target.value);
   };
 
-  const onSubmit = () => {
-    if (projectFields.recruitmentCompleted > projectFields.tableOfOrganiztion) {
-      alert("기존 인원은 모집 인원보다 클 수 없습니다.");
-      return;
-    }
-
+  const onSubmit = async () => {
     setLoading(true);
     console.log(projectFields);
   };
+
   return (
     <Form>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
