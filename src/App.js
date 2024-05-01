@@ -17,55 +17,69 @@ import { Profile } from "./pages/Profile/Profile";
 import { ProfileEdit } from "./pages/ProfileEdit/ProfileEdit";
 import { MyCodes } from "./pages/MyCodes/MyCodes";
 import { NotFound } from "./pages/NotFound/NotFound";
+import { TeamProject } from "./pages/TeamProject/TeamProject";
+import { TeamProjectDetail } from "./pages/TeamProjectDetail/TeamProjectDetail";
+import { TeamProjectCreate } from "./pages/TeamProjectCreate/TeamProjectCreate";
+import { TeamProjectEdit } from "./pages/TeamProjectEdit/TeamProjectEdit";
+
 
 //context
 import { UserLoginProvider } from "./context/UserLoginContext";
 
 //privateRoute
 import { PrivateRoute } from "./routes/PrivateRoute";
-import { ProjectCard } from "./pages/TestComponent/ProjectCard/ProjectCard";
 
 export const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <UserLoginProvider>
-          <Routes>
-            {/* 로그인 및 회원가입 페이지를 레이아웃 밖에 배치 */}
-            <Route element={<Join />}>
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-            </Route>
+    <BrowserRouter>
+      <UserLoginProvider>
+        <Routes>
+          {/* 로그인 및 회원가입 페이지를 레이아웃 밖에 배치 */}
+          <Route element={<Join />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Route>
 
-            <Route element={<Layout />}>
-              {/* Layout 컴포넌트 안에서 자식 Route들을 배치 */}
-              <Route index element={<Main />} />
-              <Route
-                path="codeCreate"
-                element={<PrivateRoute component={<CodeCreate />} />}
-              />
-              <Route path="post/:_id" element={<PostDetail />} />
-              <Route
-                path="postUpdate/:_id"
-                element={<PrivateRoute component={<PostUpdate />} />}
-              />
-              <Route
-                path="profile"
-                element={<PrivateRoute component={<Profile />} />}
-              />
-              <Route
-                path="profileEdit"
-                element={<PrivateRoute component={<ProfileEdit />} />}
-              />
-              <Route
-                path="myCodes"
-                element={<PrivateRoute component={<MyCodes />} />}
-              />
-              <Route path="/*" element={<NotFound />} />
-            </Route>
-          </Routes>
-        </UserLoginProvider>
-      </BrowserRouter>
-    </ThemeProvider>
+          <Route element={<Layout />}>
+            {/* Layout 컴포넌트 안에서 자식 Route들을 배치 */}
+            <Route index element={<Main />} />
+
+            {/* Code Posting */}
+            <Route
+              path="codeCreate"
+              element={<PrivateRoute component={<CodeCreate />} />}
+            />
+            <Route path="post/:_id" element={<PostDetail />} />
+            <Route
+              path="postUpdate/:_id"
+              element={<PrivateRoute component={<PostUpdate />} />}
+            />
+
+            {/* Team Project */}
+            <Route path="/teamProject" element={<TeamProject />} />
+            <Route path="/project" element={<TeamProjectDetail />} />
+            <Route path="/projectCreate" element={<TeamProjectCreate />} />
+            <Route path="/projectEdit" element={<TeamProjectEdit />} />
+
+            {/* Profile */}
+            <Route
+              path="profile"
+              element={<PrivateRoute component={<Profile />} />}
+            />
+            <Route
+              path="profileEdit"
+              element={<PrivateRoute component={<ProfileEdit />} />}
+            />
+            <Route
+              path="myCodes"
+              element={<PrivateRoute component={<MyCodes />} />}
+            />
+
+            {/* NotFound */}
+            <Route path="/*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </UserLoginProvider>
+    </BrowserRouter>
   );
 };

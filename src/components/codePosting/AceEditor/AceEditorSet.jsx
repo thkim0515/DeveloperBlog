@@ -5,7 +5,6 @@ import "ace-builds/src-noconflict/theme-one_dark";
 import "ace-builds/src-noconflict/theme-twilight";
 
 export const AceEditorSet = ({ name, onChange, value, readOnly = false }) => {
-
   return (
     <AceEditor
       mode="javascript"

@@ -22,3 +22,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# 테스트용 api 서버 프록시 설정
+src/setupProxy.js

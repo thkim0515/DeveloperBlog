@@ -7,7 +7,7 @@ import * as S from "./Login.style";
 import { useUserLogin } from "../../../context/UserLoginContext";
 
 // hook
-import { useForm } from "../../../hooks/useForm";
+import { useInput } from "../../../hooks/form/useInput";
 
 // component
 import { SocialButton } from "./socialLogin/SocialButton";
@@ -21,8 +21,8 @@ import { SOCIAL_LOGIN } from "./socialLogin/SocialLoginType";
 import { encryptData } from "../../../js/secure";
 
 export const Login = () => {
-  const [id, onChangeId] = useForm();
-  const [password, onChangePassword] = useForm();
+  const [id, onChangeId] = useInput();
+  const [password, onChangePassword] = useInput();
   const { setIsLogin, setIsChange } = useUserLogin();
   const [isShowModal, setIsShowModal] = useState(false);
 
