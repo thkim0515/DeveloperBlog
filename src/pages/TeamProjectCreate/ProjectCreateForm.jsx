@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, forwardRef } from "react";
+import { useState, useEffect, forwardRef } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
@@ -124,7 +124,7 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
         <Form.Label className="fs-5 mb-3">사용 기술</Form.Label>
         <div className="mb-2">
           {projectFields.stacks.map((elem, idx) => (
-            <span key={idx}>
+            <span key={idx} className="ms-3">
               <span className="text-primary">{elem}</span>
               <button
                 type="button"
@@ -253,7 +253,7 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
             </Button>
           </InputGroup>
           {projectFields.hashTags.map((elem, idx) => (
-            <span key={idx}>
+            <span key={idx} className="ms-3">
               <span className="text-primary">{`#${elem}`}</span>
               <button
                 type="button"
