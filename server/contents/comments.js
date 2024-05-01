@@ -6,11 +6,16 @@ const { logError } = require("../error/processError");
 
 // C
 router.post("/create", async (req, res) => {
-  const { userId, postId, parentId, comment } = req.body; // parentId 추가
+  const { userId, postId, postType, parentId, comment } = req.body; // parentId 추가
+
+  if (!["Content", "Project"].includes(postType)) {
+    return res.status(400).json({ message: "유효하지 않은 타입" });
+  }
   try {
     const newComment = new Comment({
       userId,
       postId,
+      postType,
       parentId, // 대댓글용
       comment,
     });

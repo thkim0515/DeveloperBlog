@@ -2,20 +2,16 @@ const {
   SecretsManagerClient,
   GetSecretValueCommand,
 } = require("@aws-sdk/client-secrets-manager");
-const region = "ap-northeast-2";
 const secretName = "starblog";
 
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-const KEYID = process.env.REACT_APP_A;
-const KEYPWD = process.env.REACT_APP_B;
-
 const client = new SecretsManagerClient({
-  region: region,
+  region: process.env.AWS_REGION,
   credentials: {
-    accessKeyId: KEYID,
-    secretAccessKey: KEYPWD,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
 });
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useUserLogin } from "../../context/UserLoginContext";
 import { decryptData } from "../../js/secure";
+import { connectWebSocket, sendMessage } from "./LiveChatFunctions";
 import * as S from "./LiveChat.style";
 
 export const LiveChat = () => {
@@ -8,7 +9,10 @@ export const LiveChat = () => {
   /* 세션에 따른 닉네임 or 비로그인 유저 */
   const [userNickname, setUserNickname] = useState("");
   const { isLogin } = useUserLogin();
+  const [messages, setMessages] = useState([]);
+  const [ws, setWs] = useState(null); // WebSocket 상태 추가
 
+  /* 웹소켓 연결 및 메시지 관리 */
   useEffect(() => {
     const initializeUserSession = async () => {
       try {
@@ -16,7 +20,8 @@ export const LiveChat = () => {
         if (isLogin && userSession) {
           setUserNickname(userSession.nickname);
         } else {
-          setUserNickname("비로그인유저");
+          let randomSuffix = Math.floor(1000 + Math.random() * 9000).toString();
+          setUserNickname("비로그인유저" + randomSuffix);
         }
       } catch (error) {
         console.error("사용자 세션 데이터 복호화 중 에러 발생:", error);
@@ -25,61 +30,11 @@ export const LiveChat = () => {
     };
 
     initializeUserSession();
-
-    connectWebSocket();
+    const wsNew = connectWebSocket(setMessages, userNickname);
+    setWs(wsNew);
   }, [isLogin]);
 
-  /* 웹소켓 상태관리 */
-  const [ws, setWs] = useState(null);
-  const [messages, setMessages] = useState([]);
-
-  /* 웹소켓 연결 변수 관리 */
-  const WEBSOCKET_ADDRESS = "wss://d3kcrktwedekfj.cloudfront.net";
-  const disconnectWebsocketTime = 6; // 6 분
-  const milliseconds = disconnectWebsocketTime * 100000;
-
-  const connectWebSocket = () => {
-    if (ws != null) {
-      ws.close();
-    }
-
-    const websocket = new WebSocket(WEBSOCKET_ADDRESS);
-    websocket.onopen = () => {
-      setMessages([]);
-    };
-    websocket.onmessage = async (event) => {
-      if (event.data instanceof Blob) {
-        const text = await event.data.text();
-        try {
-          const data = JSON.parse(text);
-          const displayMessage = {
-            text: `${data.userId || userNickname}: ${data.message}`,
-            timestamp: data.timestamp, // 받은 데이터에서 시간 사용
-          };
-          setMessages((prev) => [...prev, displayMessage]);
-        } catch (e) {
-          console.error("JSON 파싱 에러:", e);
-        }
-      } else {
-        try {
-          const data = JSON.parse(event.data);
-          const displayMessage = {
-            text: `${data.userId || userNickname}: ${data.message}`,
-            timestamp: data.timestamp, // 받은 데이터에서 시간 사용
-          };
-          setMessages((prev) => [...prev, displayMessage]);
-        } catch (e) {
-          console.error("JSON 파싱 에러:", e);
-        }
-      }
-    };
-    websocket.onclose = () => {
-      // 닫힐 때 > 필요 시 작성
-    };
-    setWs(websocket);
-  };
-
-  /* 맨 밑 스크룰 */
+  /* 스크롤 자동화 */
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -87,53 +42,19 @@ export const LiveChat = () => {
   }, [messages]);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView(); //({ behavior: "instant" });
+    messagesEndRef.current?.scrollIntoView();
   };
-
-  /* 사용자 반응 없을 시 소켓 종료 */
-  useEffect(() => {
-    let timeoutId;
-
-    const handleActivity = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        if (ws) {
-          ws.close();
-        }
-      }, milliseconds);
-    };
-
-    window.addEventListener("mousemove", handleActivity);
-    window.addEventListener("keypress", handleActivity);
-
-    return () => {
-      window.removeEventListener("mousemove", handleActivity);
-      window.removeEventListener("keypress", handleActivity);
-      clearTimeout(timeoutId);
-    };
-  }, [ws]);
 
   /* 채팅 인풋 박스 상태관리 */
   const [inputText, setInputText] = useState("");
 
-  const sendMessage = (message) => {
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      const timestamp = new Date().toLocaleTimeString();
-      ws.send(JSON.stringify({ userId: userNickname, message, timestamp }));
-      setInputText("");
-    } else {
-      connectWebSocket();
-    }
-  };
-
-  /* 입력 상태 관리 */
   const handleInputChange = (e) => {
     setInputText(e.target.value);
   };
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      sendMessage(inputText);
+      sendMessage(ws, inputText, userNickname, setInputText);
     }
   };
 
@@ -141,8 +62,16 @@ export const LiveChat = () => {
     <S.Container>
       <S.MessageList>
         {messages.map((item, idx) => (
-          <S.Message key={idx}>
-            <span>{item.text}</span>
+          <S.Message
+            key={idx}
+            isUserMessage={
+              item.userId === userNickname && userNickname !== "비로그인유저"
+            }
+          >
+            <span>
+              {item.userId}
+              {item.text}
+            </span>
             <S.Timestamp>({item.timestamp})</S.Timestamp>
           </S.Message>
         ))}
@@ -154,7 +83,6 @@ export const LiveChat = () => {
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
       />
-      {/* <Button onClick={() => sendMessage(inputText)}>전송</Button> */}
     </S.Container>
   );
 };

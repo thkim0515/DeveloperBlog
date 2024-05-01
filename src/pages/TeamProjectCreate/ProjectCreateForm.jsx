@@ -4,21 +4,13 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { useFormFields } from "../../hooks/form/useprojectFormFields";
-
+import { handlePostProject } from "../../utils/handleProject";
 // 하드코딩된 검색어 목록
-const TECH_STACK_OPTIONS = [
-  "React",
-  "Vue",
-  "Svelt",
-  "JavaScript",
-  "HTML",
-  "CSS",
-  "Sass",
-  "Redux",
-  "Node",
-  "Express",
-  "MongoDB",
-];
+const getSvgsData = await axios.get("/contents/svgsdata");
+const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
+  .map((item) => item.replace(/\.svg$/, ""))
+  .filter((item) => item !== "back" && item !== "unknown")
+  .map((item) => item.toUpperCase());
 
 export const ProjectCreateForm = forwardRef((props, ref) => {
   const [isLoading, setLoading] = useState(false);
@@ -63,7 +55,7 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
 
   const onSubmit = async () => {
     setLoading(true);
-    console.log(projectFields);
+    await handlePostProject(projectFields);
   };
 
   return (

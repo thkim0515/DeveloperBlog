@@ -6,13 +6,25 @@ import { faEye, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import { UserProfileBox } from "../../../components/user/UserProfileBox";
 
 export const ProjectCard = ({ props }) => {
+  const timeString = (postdate) => {
+    const match = postdate.match(/(\d{4}).(\d{2}).(\d{2})/);
+
+    if (match) {
+      const year = match[1].substr(-2);
+      const month = match[2];
+      const day = match[3];
+
+      return `${year}.${month}.${day}`;
+    }
+  };
+
   return (
     <S.ProjectCardBox>
       {/*  */}
       <S.ProjectHeader>
         <div>
           <FontAwesomeIcon icon={faCalendarDays} />
-          <span>{` ${props.startDate}`}</span>
+          <span>{` ${timeString(props.startDate)}`}</span>
         </div>
 
         <div>
@@ -30,11 +42,16 @@ export const ProjectCard = ({ props }) => {
         </S.ProjectHashTagBox>
         <S.ProjectTitle>{props.title}</S.ProjectTitle>
         <S.projectStackBox>
-          {Object.keys(props.stacks).map((key, idx) => (
-            <li key={idx}>
-              <img src="" alt={key} />
-            </li>
-          ))}
+          {props.stacks.map((stack) => {
+            return (
+              <li key={stack}>
+                <img
+                  src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${stack.toLowerCase()}.svg`}
+                  alt={stack}
+                />
+              </li>
+            );
+          })}
         </S.projectStackBox>
         <S.ProjectRoleBox>
           {Object.keys(props.roles).map((key, idx) => (
@@ -45,8 +62,8 @@ export const ProjectCard = ({ props }) => {
 
       {/*  */}
       <S.ProjectFooter>
-        <UserProfileBox nickname={props.nickname} />
-        <span>{`${props.recruitmentCompleted}/${props.tableOfOrganiztion}`}</span>
+        <UserProfileBox nickname={props.userId.nickname} />
+        <span>{`${props.memberList.length}/${props.tableOfOrganiztion}`}</span>
       </S.ProjectFooter>
     </S.ProjectCardBox>
   );

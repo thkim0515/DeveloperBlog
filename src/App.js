@@ -22,7 +22,6 @@ import { TeamProjectDetail } from "./pages/TeamProjectDetail/TeamProjectDetail";
 import { TeamProjectCreate } from "./pages/TeamProjectCreate/TeamProjectCreate";
 import { TeamProjectEdit } from "./pages/TeamProjectEdit/TeamProjectEdit";
 
-
 //context
 import { UserLoginProvider } from "./context/UserLoginContext";
 
