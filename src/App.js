@@ -1,5 +1,3 @@
-import { ThemeProvider } from "styled-components";
-import { theme } from "./styles/theme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //레이아웃
@@ -56,7 +54,7 @@ export const App = () => {
 
             {/* Team Project */}
             <Route path="/teamProject" element={<TeamProject />} />
-            <Route path="/project" element={<TeamProjectDetail />} />
+            <Route path="/project/:_id" element={<TeamProjectDetail />} />
             <Route path="/projectCreate" element={<TeamProjectCreate />} />
             <Route path="/projectEdit" element={<TeamProjectEdit />} />
 

@@ -11,8 +11,8 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const client = new SecretsManagerClient({
   region: region,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.REACT_APP_A,
+    secretAccessKey: process.env.REACT_APP_B,
   },
 });
 
