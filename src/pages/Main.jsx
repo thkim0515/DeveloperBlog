@@ -5,6 +5,7 @@ import { LiveChat } from "../components/LiveChat/LiveChat";
 import { Modal } from "../components/LiveChat/Modal";
 import { WriteButton } from "../components/imagegallery/WriteButton";
 import styled from "styled-components";
+import { S3Uploader } from "../components/codePosting/S3Uploader";
 
 const ChatAndWriteBox = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ export const Main = () => {
 
   return (
     <div>
+      <S3Uploader />
       <Metas main="main" />
       <ChatAndWriteBox>
         <LiveChatButton onClick={toggleLiveChat}>실시간 채팅</LiveChatButton>

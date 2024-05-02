@@ -8,8 +8,15 @@ const commentSchema = new mongoose.Schema({
   },
   postId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Content",
     required: true,
+    ref: function () {
+      return this.postType === "Content" ? "Content" : "Project";
+    },
+  },
+  postType: {
+    type: String,
+    required: true,
+    enum: ["Content", "Project"],
   },
   parentId: {
     type: mongoose.Schema.Types.ObjectId,

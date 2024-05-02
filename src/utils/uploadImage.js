@@ -25,3 +25,28 @@
 //     return false;
 //   }
 // };
+
+import axios from "axios";
+
+export const handleUpload = async (props) => {
+  if (!props) {
+    alert("파일을 선택해주세요.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("file", props);
+
+  try {
+    await axios.post("/s3bucket/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    alert(`파일이 성공적으로 업로드되었습니다`);
+  } catch (err) {
+    const errorMessage =
+      err.response?.data?.message || "파일 업로드 중 오류가 발생했습니다.";
+    alert(errorMessage);
+  }
+};

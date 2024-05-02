@@ -9,10 +9,14 @@ export const TeamProject = () => {
   const [projectData, setProjectData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("/mock/projectData.json")
-      .then((res) => setProjectData(res.data))
-      .catch((err) => console.log(err));
+    const fetchData = async () => {
+      axios
+        .get("/project/project")
+        .then((res) => setProjectData(res.data))
+        .catch((err) => console.log(err));
+    };
+
+    fetchData();
   }, []);
 
   return (

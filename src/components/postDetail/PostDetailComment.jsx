@@ -57,6 +57,7 @@ export const PostDetailComment = ({ content }) => {
       const commentData = {
         userId: userId,
         postId: postId,
+        postType: "Content",
         comment: comment,
         parentId: parentId,
       };

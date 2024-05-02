@@ -48,12 +48,10 @@ router.get("/contents", async (req, res) => {
         },
       },
       {
-        // 데이터 참조 테스트용
         $sort: { pid: -1 },
       },
       {
         $project: {
-          //comment: 0,
           userId: 1,
           pid: 1,
           title: 1,
@@ -62,8 +60,6 @@ router.get("/contents", async (req, res) => {
           imagePath: 1,
           language: 1,
           publicPrivate: 1,
-          // ace_contents: { $substrCP: ["$ace_contents", 0, 10] },
-          // toast_contents: { $substrCP: ["$toast_contents", 0, 10] },
           postdate: 1,
           views: 1,
           likes: 1,
@@ -163,20 +159,6 @@ router.post("/create", async (req, res) => {
     res.status(500).json({ message: "서버 에러" });
   }
 });
-
-// All R
-/*
-최초 렌더링 할 때 사용할지 고민중...
-
-router.get("/read", async (req, res) => {
-  try {
-    const contents = await Content.find();
-    res.status(200).json(contents);
-  } catch (error) {
-    res.status(500).json({ message: "서버 에러" });
-  }
-});
-*/
 
 // R
 router.get("/read/:_id", async (req, res) => {

@@ -1,14 +1,13 @@
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-
 import { useState } from "react";
+import * as S from "./ImageGrid.style";
 import { ImageItem } from "./ImageItem";
 import { MainPagination } from "./MainPagination";
 import { useGetData } from "../../../hooks/useGetData";
 
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import * as S from "./ImageGrid.style";
 
 export const ImageGrid = (value) => {
   const [selectedIcon, setSelectedIcon] = useState(null); // 선택된 아이콘의 이름
@@ -61,7 +60,7 @@ export const ImageGrid = (value) => {
                 style={{
                   cursor: "pointer",
                   backgroundColor:
-                    svgName === selectedIcon ? "##F9F7F7" : "transparent",
+                    svgName === selectedIcon ? "#fff" : "transparent",
                   padding: svgName === selectedIcon ? "4px" : "0",
                 }}
               />

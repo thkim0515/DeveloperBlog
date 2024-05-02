@@ -11,6 +11,7 @@ export const MessageList = styled.ul`
 `;
 
 export const Message = styled.li`
+  color: ${(props) => (props.isUserMessage ? "blue" : "black")};
   display: flex;
   justify-content: space-between;
   background: #f0f0f0;
@@ -23,7 +24,7 @@ export const Message = styled.li`
 export const Timestamp = styled.span`
   font-size: 0.8em;
   color: #888;
-  margin-left: auto; // 왼쪽 여백을 자동으로 설정하여 오른쪽 끝으로 밀어냄
+  margin-left: auto;
 `;
 
 export const Input = styled.input`
