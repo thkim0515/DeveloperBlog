@@ -20,13 +20,13 @@ export const TeamProject = () => {
   }, []);
 
   return (
-    <>
+    <section>
       <h2>Team Project 모집</h2>
       <S.TeamProjectBox>
         {projectData.map((data) => (
-          <ProjectCard key={data.id} props={data} />
+          <ProjectCard key={data.pid} data={data} />
         ))}
       </S.TeamProjectBox>
-    </>
+    </section>
   );
 };
