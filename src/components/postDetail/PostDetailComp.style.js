@@ -6,6 +6,23 @@ export const SContainer = styled.div`
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+
+  h2 {
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 24px;
+    margin: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  h3{
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 20px;
+      color: #112d4e;
+    }
 `;
 
 export const STitle = styled.div`
@@ -34,15 +51,6 @@ export const STitle = styled.div`
     }
   }
 
-  h3 {
-    height: 32px;
-    line-height: 32px;
-    text-align: center;
-    font-size: 24px;
-    margin: 10px;
-    overflow: hidden;
-    white-space: nowrap;
-  }
 `;
 
 //작성자일 때 나타나는 아이콘
@@ -85,38 +93,34 @@ export const DropList = styled.div`
 
 export const SSpace = styled.div`
   width: 100%;
-  background-color: #dbe2ef;
-  height: 50px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-
+  border-bottom: 1px solid #dbe2ef;
   div {
     justify-content: space-between;
     margin: 0 10px;
   }
 `;
 
-export const SImageContent = styled.div`
+export const CodeContentBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   font-size: 1rem;
-  img {
-    width: 100%;
-    overflow: hidden;
-  }
 
-  .ace_content {
-    height: auto !important;
-  }
-
-  .text_area {
-    width: 100%;
-    background-color: white;
-    padding: 8px;
-    border-radius: 0 0 12px 12px;
+  .content_box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    .text_area {
+      width: 95%;
+    }
   }
 
   p {
@@ -124,7 +128,6 @@ export const SImageContent = styled.div`
     overflow-wrap: break-word;
     white-space: normal;
     background-color: white;
-    //padding: 8px;
     line-height: 2;
   }
   button {
@@ -140,12 +143,14 @@ export const SImageContent = styled.div`
   }
 `;
 export const SLikeBackButton = styled.div`
-  margin-top: 10px;
+  margin-top: 20px;
+  padding-bottom: 20px;
   width: 100%;
   height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #dbe2ef;
 
   button {
     width: 80px;
@@ -174,20 +179,6 @@ export const ProfileImage = styled.img`
   object-fit: cover;
 `;
 
-// export const StyledDropdownToggle = styled.div`
-//   &::after {
-//     display: none; // 화살표 숨기기
-//   }
-//   background-color: #3f72af;
-//   border: none;
-//   font-size: 2rem;
-//   gap: 10px;
-// `;
-
-// export const StyledDropdown = styled.div`
-//   display: inline-block;
-//   margin-right: 1rem;
-// `;
 
 /** 댓글 창 스타일 */
 
@@ -196,14 +187,16 @@ export const CommentAndFormBox = styled.div`
 `;
 
 export const CommentBox = styled.div`
-  margin: 20px auto;
-  border: 1px solid #dbe2ef;
+  margin: 0 auto 20px auto;
+  background-color: #fff;
+  border-radius: 12px;
 
   .comment_list {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 8px 8px 8px 0;
+
 
     .profile_box {
       width: 8%;
