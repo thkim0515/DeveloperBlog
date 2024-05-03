@@ -90,9 +90,6 @@ export const UserLoginBox = styled.div`
   display: flex;
   gap: 12px;
   align-items: center;
-  div {
-    cursor: pointer;
-  }
   img {
     cursor: pointer;
   }

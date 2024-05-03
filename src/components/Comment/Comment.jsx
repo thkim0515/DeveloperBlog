@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import * as S from "./PostDetailComp.style";
+import * as S from "./Comment.style";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
 
-export const PostDetailComment = ({ content }) => {
+export const Comment = ({ content }) => {
   //로그인 유저 정보 가져오기
   const { user } = useUserLogin();
 

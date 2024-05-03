@@ -1,4 +1,4 @@
-import { PostDetailComp } from "../../components/postDetail/PostDetailComp";
+import { PostDetailComp } from "./PostDetailComp";
 
 export const PostDetail = () => {
   return (

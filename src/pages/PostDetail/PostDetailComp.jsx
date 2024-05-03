@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./PostDetailComp.style";
 import { PostDetailWriter } from "./PostDetailWriter";
-import { PostDetailComment } from "./PostDetailComment";
+import { Comment } from "../../components/Comment/Comment";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-one_dark";
@@ -15,8 +15,8 @@ import "ace-builds/src-noconflict/theme-kuroir";
 import axios from "axios";
 import { useUserLogin } from "../../context/UserLoginContext";
 import { useScrollReset } from "../../hooks/useScrollReset";
-import { LikeButton } from "../imagegallery/ImageGalleryComponents/LikeButton";
-import { Metas } from "../common/Metas";
+import { LikeButton } from "../../components/imagegallery/ImageGalleryComponents/LikeButton";
+import { Metas } from "../../components/common/Metas";
 
 export const PostDetailComp = () => {
   //스크롤위치 초기화
@@ -111,8 +111,8 @@ export const PostDetailComp = () => {
             <div className="content_box">
               <AceEditor
                 mode="javascript"
-                theme="kuroir"
-                name="setCord"
+                theme="twilight"
+                name="setCode"
                 editorProps={{ $blockScrolling: true }}
                 setOptions={{ useWorker: false }}
                 value={detailContent.ace_contents}
@@ -125,7 +125,7 @@ export const PostDetailComp = () => {
             <h3>Text</h3>
             <div className="content_box">
               <div className="text_area">
-              <Viewer initialValue={detailContent.toast_contents} />
+                <Viewer initialValue={detailContent.toast_contents} />
               </div>
             </div>
           </S.CodeContentBox>
@@ -137,7 +137,7 @@ export const PostDetailComp = () => {
             />
             <button onClick={handleGoBack}>뒤로가기</button>
           </S.SLikeBackButton>
-          <PostDetailComment content={detailContent} />
+          <Comment content={detailContent} />
         </S.SContainer>
       )}
     </>
