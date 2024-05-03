@@ -23,12 +23,14 @@ export const useFormFields = (initialState) => {
   };
 
   const handleAddStack = (e) => {
-    const { tagName, textContent } = e.target;
-    if (tagName === "LI" && !fields.stacks.includes(textContent)) {
-      setFields((prevFields) => ({
-        ...prevFields,
-        stacks: [...prevFields.stacks, textContent],
-      }));
+    const { className, textContent } = e.target;
+    if (className === "list-group-item") {
+      if (!fields.stacks.includes(textContent)) {
+        setFields((prevFields) => ({
+          ...prevFields,
+          stacks: [...prevFields.stacks, textContent],
+        }));
+      }
     }
   };
 

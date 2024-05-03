@@ -1,9 +1,14 @@
-import { useState, useEffect, forwardRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
+
+// hooks
 import { useFormFields } from "../../hooks/form/useprojectFormFields";
+
+// utils
 import { handlePostProject } from "../../utils/handleProject";
 import { validateProjectForm } from "../../utils/validation";
 
@@ -14,8 +19,9 @@ const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
   .filter((item) => item !== "back" && item !== "unknown")
   .map((item) => item.toUpperCase());
 
-export const ProjectCreateForm = forwardRef((props, ref) => {
+export const ProjectCreateForm = () => {
   const [isLoading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
   const [hashTag, setHashTag] = useState("");
 
   const [
@@ -50,6 +56,10 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
       });
     }
   }, [isLoading]);
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   const handleHashTags = (e) => {
     setHashTag(e.target.value);
@@ -113,19 +123,26 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
             onChange={handleCheckboxChange}
             name="backEnd"
           />
+          <Form.Check
+            inline
+            label="추후결정"
+            type="checkbox"
+            onChange={handleCheckboxChange}
+            name="undecided"
+          />
         </div>
       </Form.Group>
 
       {/*  */}
-      <Form.Group controlId="exampleForm.ControlInput1">
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label className="fs-5 mb-3">사용 기술</Form.Label>
-        <div className="mb-2">
-          {projectFields.stacks.map((elem, idx) => (
-            <span key={idx} className="ms-3">
-              <span className="text-primary">{elem}</span>
+        <div>
+          {projectFields.stacks.map((item, idx) => (
+            <span key={idx} className="me-2">
+              <span className="text-primary">{item}</span>
               <button
                 type="button"
-                className="border rounded-2 ms-1 p-1"
+                className="border rounded-2 ms-2 p-1"
                 onClick={() => handleRemoveStacks(idx)}
               >
                 x
@@ -133,18 +150,18 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
             </span>
           ))}
         </div>
-        <div>
+        <div className="position-relative w-50">
           <Form.Control
             type="search"
             placeholder="검색어를 입력하세요."
-            onChange={handleProjectForm}
+            onChange={handleSearch}
             name="stacks"
           />
-          <ul style={{ cursor: "pointer" }} onClick={handleAddStack}>
+          <ListGroup style={{ cursor: "pointer" }} onClick={handleAddStack}>
             {TECH_STACK_OPTIONS.map((item, idx) => (
-              <li key={idx}>{item}</li>
+              <ListGroup.Item key={idx}> {item}</ListGroup.Item>
             ))}
-          </ul>
+          </ListGroup>
         </div>
       </Form.Group>
 
@@ -249,9 +266,9 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
               Button
             </Button>
           </InputGroup>
-          {projectFields.hashTags.map((elem, idx) => (
+          {projectFields.hashTags.map((item, idx) => (
             <span key={idx} className="ms-3">
-              <span className="text-primary">{`#${elem}`}</span>
+              <span className="text-primary">{`#${item}`}</span>
               <button
                 type="button"
                 className="border rounded-2 ms-1 p-1"
@@ -274,4 +291,4 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
       </Button>
     </Form>
   );
-});
+};
