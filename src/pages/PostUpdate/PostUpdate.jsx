@@ -15,23 +15,7 @@ export const PostUpdate = () => {
   const location = useLocation();
   const userId = location.state?.userId;
 
-  const [postData, setPostData] = useState({
-    _id: "",
-    title: "",
-    ace_contents: "",
-    toast_contents: "",
-    language: "",
-    imagePath: "",
-    postdate: "",
-    publicPrivate: false,
-    views: 0,
-    likes: 0,
-    likeUser: [],
-    userId: {
-      nickname: "",
-      profileImg: "",
-    },
-  });
+  const [postData, setPostData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {

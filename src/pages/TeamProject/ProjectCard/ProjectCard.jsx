@@ -46,7 +46,7 @@ export const ProjectCard = ({ data }) => {
         </S.ProjectHashTagBox>
         <S.ProjectTitle>{data.title}</S.ProjectTitle>
         <S.projectStackBox>
-          {data.stacks.slice(1, 6).map((stack, idx) => (
+          {data.stacks.slice(0, 5).map((stack, idx) => (
             <li key={`${stack}-${idx}`}>
               <img
                 src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${stack.toLowerCase()}.svg`}
@@ -67,7 +67,7 @@ export const ProjectCard = ({ data }) => {
       {/*  */}
       <S.ProjectFooter>
         <UserProfileBox nickname={data.userId.nickname} />
-        <span>{`${data.memberList.length}/${data.tableOfOrganiztion}`}</span>
+        <span>{`${data.memberList.length}/${data.tableOfOrganization}`}</span>
       </S.ProjectFooter>
     </S.ProjectCardBox>
   );

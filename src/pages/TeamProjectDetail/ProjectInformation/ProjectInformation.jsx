@@ -39,7 +39,7 @@ export const ProjectInformation = (data) => {
         startDate={infoData.startDate}
         endDate={infoData.endDate}
         memberList={infoData.memberList}
-        tableOfOrganiztion={infoData.tableOfOrganiztion}
+        tableOfOrganiztion={infoData.tableOfOrganization}
         stacks={infoData.stacks}
         roles={infoData.roles}
       />

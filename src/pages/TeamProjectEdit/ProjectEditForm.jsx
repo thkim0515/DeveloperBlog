@@ -4,10 +4,11 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { useFormFields } from "../../hooks/form/useprojectFormFields";
-import { handlePostProject } from "../../utils/handleProject";
+import { handleUpdateCode } from "../../utils/handleProject";
 import { validateProjectForm } from "../../utils/validation";
+import { timeString } from "../../utils/timeString";
+import { useNavigate } from "react-router-dom";
 
-// 하드코딩된 검색어 목록
 const getSvgsData = await axios.get("/contents/svgsdata");
 const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
   .map((item) => item.replace(/\.svg$/, ""))
@@ -17,7 +18,7 @@ const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
 export const ProjectEditForm = forwardRef((props, ref) => {
   const [isLoading, setLoading] = useState(false);
   const [hashTag, setHashTag] = useState("");
-
+  const navigate = useNavigate();
   const [
     projectFields,
     handleProjectForm,
@@ -29,16 +30,28 @@ export const ProjectEditForm = forwardRef((props, ref) => {
   ] = useFormFields({
     title: "",
     updatedDate: new Date().toLocaleDateString(),
-    startDate: "",
-    endDate: "",
-    recruitmentCompleted: "",
-    tableOfOrganiztion: "",
+    startDate: new Date().toISOString().slice(0, 10),
+    endDate: new Date().toISOString().slice(0, 10),
+    memberList: [],
+    tableOfOrganization: 0,
     content: "",
     hashTags: [],
     roles: [],
     stacks: [],
   });
 
+  useEffect(() => {
+    if (props.postData) {
+      Object.keys(props.postData).forEach((key) => {
+        handleProjectForm({
+          target: {
+            name: key,
+            value: props.postData[key],
+          },
+        });
+      });
+    }
+  }, [props.postData]);
   useEffect(() => {
     function simulateNetworkRequest() {
       return new Promise((resolve) => setTimeout(resolve, 2000));
@@ -57,16 +70,16 @@ export const ProjectEditForm = forwardRef((props, ref) => {
 
   const onSubmit = async () => {
     // TODO 폼 유효성 검사 에러메시지 수정예정
+
     const errors = validateProjectForm(projectFields);
 
     if (Object.keys(errors).length === 0) {
       setLoading(true);
-      await handlePostProject(projectFields);
+      await handleUpdateCode(projectFields, navigate);
     } else {
       return false;
     }
   };
-
   return (
     <Form>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -89,29 +102,33 @@ export const ProjectEditForm = forwardRef((props, ref) => {
             inline
             label="기획자"
             type="checkbox"
-            onChange={handleCheckboxChange}
             name="projectManager"
+            onChange={handleCheckboxChange}
+            checked={projectFields.roles.includes("projectManager")}
           />
           <Form.Check
             inline
             label="디자이너"
             type="checkbox"
-            onChange={handleCheckboxChange}
             name="designer"
+            onChange={handleCheckboxChange}
+            checked={projectFields.roles.includes("designer")}
           />
           <Form.Check
             inline
             label="프론트엔드"
             type="checkbox"
-            onChange={handleCheckboxChange}
             name="frontEnd"
+            onChange={handleCheckboxChange}
+            checked={projectFields.roles.includes("frontEnd")}
           />
           <Form.Check
             inline
             label="백엔드"
             type="checkbox"
-            onChange={handleCheckboxChange}
             name="backEnd"
+            onChange={handleCheckboxChange}
+            checked={projectFields.roles.includes("backEnd")}
           />
         </div>
       </Form.Group>
@@ -152,7 +169,9 @@ export const ProjectEditForm = forwardRef((props, ref) => {
       <Form.Group className="mb-4" controlId="exampleForm.ControlInput2">
         <div>
           <Form.Label className="fs-5 mb-3">모집 기간</Form.Label>
-          <span className="ms-3 text-primary">{`${projectFields.startDate} ~ ${projectFields.endDate}`}</span>
+          <span className="ms-3 text-primary">{`${timeString(
+            projectFields.startDate
+          )} ~ ${timeString(projectFields.endDate)}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
@@ -160,7 +179,7 @@ export const ProjectEditForm = forwardRef((props, ref) => {
             <Form.Label className="mb-2">시작 날짜</Form.Label>
             <Form.Control
               type="date"
-              value={projectFields.startDate}
+              // value={projectFields.startDate}
               onChange={handleProjectForm}
               name="startDate"
             />
@@ -169,7 +188,7 @@ export const ProjectEditForm = forwardRef((props, ref) => {
             <Form.Label className="mb-2">종료 날짜</Form.Label>
             <Form.Control
               type="date"
-              value={projectFields.endDate}
+              // value={projectFields.endDate}
               onChange={handleProjectForm}
               name="endDate"
             />
@@ -181,7 +200,7 @@ export const ProjectEditForm = forwardRef((props, ref) => {
       <Form.Group>
         <div>
           <Form.Label className="fs-5 mb-3">모집 인원</Form.Label>
-          <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganiztion}`}</span>
+          <span className="ms-3 text-primary">{`${projectFields.memberList.length} / ${projectFields.tableOfOrganization}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
@@ -189,7 +208,7 @@ export const ProjectEditForm = forwardRef((props, ref) => {
             <Form.Label className="mb-2">기존 인원</Form.Label>
             <Form.Control
               type="number"
-              value={projectFields.recruitmentCompleted}
+              value={projectFields.memberList.length}
               onChange={handleProjectForm}
               name="recruitmentCompleted"
             />
@@ -198,7 +217,7 @@ export const ProjectEditForm = forwardRef((props, ref) => {
             <Form.Label className="mb-2">시작 인원</Form.Label>
             <Form.Control
               type="number"
-              value={projectFields.tableOfOrganiztion}
+              value={projectFields.tableOfOrganization}
               onChange={handleProjectForm}
               name="tableOfOrganiztion"
             />

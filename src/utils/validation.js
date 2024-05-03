@@ -45,14 +45,11 @@ export const validateProjectForm = (fields) => {
   }
 
   // 모집 인원 유효성 검사
-  if (
-    fields.recruitmentCompleted === undefined ||
-    fields.recruitmentCompleted < 0
-  ) {
-    errors.recruitmentCompleted = "기존 인원은 0 이상이어야 합니다.";
+  if (fields.memberList.length === undefined || fields.memberList.length < 0) {
+    errors.memberList.length = "기존 인원은 0 이상이어야 합니다.";
   }
-  if (fields.recruitmentCompleted > fields.tableOfOrganization) {
-    errors.recruitmentCompleted = "기존 인원은 시작 인원보다 작아야 합니다.";
+  if (fields.memberList.length > fields.tableOfOrganization) {
+    errors.memberList.length = "기존 인원은 시작 인원보다 작아야 합니다.";
   }
 
   return errors;

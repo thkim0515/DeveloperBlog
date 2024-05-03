@@ -4,13 +4,29 @@ import { ProjectContent } from "./ProjectContent/ProjectContent";
 import { ProjectComments } from "./ProjectComments/ProjectComments";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { decryptData } from "../../js/secure";
 export const TeamProjectDetail = () => {
   const location = useLocation();
   const { data } = location.state;
 
+  const navigate = useNavigate();
+  const updateContents = (_id) => () => {
+    navigate(`/projectEdit/${_id}`, { state: { _id } });
+  };
+
   return (
     <TeamProjectDetailBox>
+      <button
+        onClick={updateContents(data._id)}
+        style={{
+          fontSize: "3rem",
+          border: "2px solid black",
+          backgroundColor: "yellow",
+        }}
+      >
+        수정하기
+      </button>
       <ProjectInformation data={data} />
       <ProjectContent content={data.content} />
       <ProjectComments content_id={data._id} />

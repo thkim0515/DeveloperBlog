@@ -33,7 +33,7 @@ const projectSchema = new mongoose.Schema({
   //     },
   //   },
   // ],
-  tableOfOrganiztion: { type: Number, default: 1 },
+  tableOfOrganization: { type: Number, default: 1 },
   views: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
   likeUser: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],

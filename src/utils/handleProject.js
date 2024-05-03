@@ -40,3 +40,23 @@ const postCodeToServer = async (Data) => {
     alert("글 등록 실패. 서버 에러.");
   }
 };
+
+//글 수정 함수
+export const handleUpdateCode = async (data, navigate) => {
+  const content = {
+    ...data,
+  };
+  await updateContents(data._id, content, navigate);
+};
+
+const updateContents = async (_id, content, navigate) => {
+  try {
+    await axios.put(`/project/update/${_id}`, content);
+    alert("성공적으로 수정");
+    const data = content;
+    navigate(`/project/${_id}`, { state: { data } });
+  } catch (error) {
+    console.error("에러:", error);
+    alert("수정 실패");
+  }
+};
