@@ -43,36 +43,24 @@ export const UserLogin = () => {
           <S.ProfileImage
             alt="프로필 사진"
             src={"/img/" + profileDB.profileimg}
-          />
-          <img
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
             }}
-            alt="메뉴 아이콘"
-            src={
-              "https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/starblogimg/menu-icon.png"
-            }
           />
         </S.UserLoginBox>
       )}
 
       <S.MenuBox $isOpen={isMenuOpen}>
         <S.MenuListBox>
-          <p>CODE</p>
-          <li>
-            <S.ListLink to="/">Code Gallery</S.ListLink>
-          </li>
-          <li>
-            <S.ListLink to="/codeCreate">Code Annotate</S.ListLink>
-          </li>
-          <p>MY PAGE</p>
-          <li>
-            <S.ListLink to="/myCodes">My Gallery</S.ListLink>
-          </li>
           <li>
             <S.ListLink to="/profile">Profile</S.ListLink>
           </li>
-          <p></p>
+          <li>
+            <S.ListLink to="/myCodes">My Code</S.ListLink>
+          </li>
+          <li>
+            <S.ListLink to="/myProject">My Project</S.ListLink>
+          </li>
           <li onClick={handleLogout}>Logout</li>
         </S.MenuListBox>
       </S.MenuBox>
