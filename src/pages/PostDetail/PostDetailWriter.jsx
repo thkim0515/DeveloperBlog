@@ -4,7 +4,6 @@ import * as S from "./PostDetailComp.style";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
-import { decryptData, encryptData } from "../../js/secure";
 
 export const PostDetailWriter = ({ content }) => {
   //작성자 정보
