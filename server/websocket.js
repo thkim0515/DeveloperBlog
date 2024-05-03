@@ -12,6 +12,10 @@ function setupWebSocket(server) {
     });
 
     ws.on("message", (message) => {
+      // 메세지 개수 200개 넘어가면 0번부터 지우기
+      if (messages.length >= 200) {
+        messages.shift();
+      }
       messages.push(message);
 
       wss.clients.forEach((client) => {

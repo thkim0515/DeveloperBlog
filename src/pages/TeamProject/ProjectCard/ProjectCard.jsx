@@ -1,4 +1,5 @@
 import * as S from "./ProjectCard.style";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 
@@ -6,6 +7,13 @@ import { faEye, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import { UserProfileBox } from "../../../components/user/UserProfileBox";
 
 export const ProjectCard = ({ props }) => {
+  const navigate = useNavigate();
+  const handleImageClick = () => {
+    if (props) {
+      navigate(`/project/${props._id}`, { state: { props } });
+    }
+  };
+
   const timeString = (postdate) => {
     const match = postdate.match(/(\d{4}).(\d{2}).(\d{2})/);
 
@@ -19,7 +27,7 @@ export const ProjectCard = ({ props }) => {
   };
 
   return (
-    <S.ProjectCardBox>
+    <S.ProjectCardBox onClick={handleImageClick}>
       {/*  */}
       <S.ProjectHeader>
         <div>

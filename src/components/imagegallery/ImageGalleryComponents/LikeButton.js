@@ -4,9 +4,12 @@ import { faHeart as colorHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as whiteHeart } from "@fortawesome/free-regular-svg-icons";
 import { useLike } from "../../../hooks/useLike";
 
-export function LikeButton({ content_id, user_id }) {
-  const { liked, likes, toggleLike } = useLike(content_id, user_id);
-
+export function LikeButton({ content_id, user_id, boardSortation }) {
+  const { liked, likes, toggleLike } = useLike(
+    content_id,
+    user_id,
+    boardSortation
+  );
   const handleLike = () => {
     if (user_id) {
       toggleLike();

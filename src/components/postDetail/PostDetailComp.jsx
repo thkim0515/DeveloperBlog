@@ -127,7 +127,11 @@ export const PostDetailComp = () => {
             </div>
           </S.SImageContent>
           <S.SLikeBackButton>
-            <LikeButton content_id={detailContent._id} user_id={userId} />
+            <LikeButton
+              content_id={detailContent._id}
+              user_id={userId}
+              boardSortation="contents"
+            />
             <button onClick={handleGoBack}>뒤로가기</button>
           </S.SLikeBackButton>
           <PostDetailComment content={detailContent} />

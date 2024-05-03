@@ -2,28 +2,47 @@ import * as S from "./ProjectInformation.style";
 import { UserProfileBox } from "../../../components/user/UserProfileBox";
 import { RecruitmentInfo } from "../ProjectInformation/Recruitmentinfo/RecruitmentInfo";
 
-export const ProjectInformation = () => {
+export const ProjectInformation = (props) => {
+  const infoData = props.props;
+
+  const timeString = (postdate) => {
+    const match = postdate.match(/(\d{4}).(\d{2}).(\d{2})/);
+
+    if (match) {
+      const year = match[1].substr(-2);
+      const month = match[2];
+      const day = match[3];
+
+      return `${year}.${month}.${day}`;
+    }
+  };
+
   return (
     <S.ProjectInfoBox>
-      <S.ProjectTitle>
-        위치기반 분실물 솔루션 서비스 LOCAT의 백-프론트엔드, 디자이너를
-        모집합니다.
-      </S.ProjectTitle>
+      <S.ProjectTitle>{infoData.title}</S.ProjectTitle>
       <S.HashTagBox>
-        <li>#서비스</li>
-        <li>#어플리케이션</li>
+        {infoData.hashTags.map((tag, index) => (
+          <li key={index}>#{tag}</li>
+        ))}
       </S.HashTagBox>
       <S.PostingInfoBox>
-        <UserProfileBox nickname="오늘의 날씨" />
+        <UserProfileBox nickname={infoData.userId.nickname} />
         <S.ProjectViews>
           <img src="/img/eye-solid.png" alt="views-icon" />
-          <span>177</span>
+          <span>{infoData.views}</span>
         </S.ProjectViews>
-        <span>2024.05.09</span>
+        <span>{timeString(infoData.startDate)}</span>
       </S.PostingInfoBox>
 
       {/*  */}
-      <RecruitmentInfo />
+      <RecruitmentInfo
+        startDate={infoData.startDate}
+        endDate={infoData.endDate}
+        memberList={infoData.memberList}
+        tableOfOrganiztion={infoData.tableOfOrganiztion}
+        stacks={infoData.stacks}
+        roles={infoData.roles}
+      />
     </S.ProjectInfoBox>
   );
 };

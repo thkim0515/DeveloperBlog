@@ -1,9 +1,19 @@
 import styled from "styled-components";
 import { UserProfileBox } from "./../../../components/user/UserProfileBox";
+import { LikeButton } from "../../../components/imagegallery/ImageGalleryComponents/LikeButton";
+import { useUserLogin } from "../../../context/UserLoginContext";
+import { useState } from "react";
+export const ProjectComments = (content_id) => {
+  const { user } = useUserLogin();
+  const userId = user && user.id ? user.id : null;
 
-export const ProjectComments = () => {
   return (
     <section>
+      <LikeButton
+        content_id={content_id.content_id}
+        user_id={userId}
+        boardSortation="project"
+      />
       <h3>댓글</h3>
       <CommentForm>
         <input type="text" placeholder="댓글을 입력해주세요." />
