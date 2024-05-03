@@ -1,5 +1,3 @@
-import { ThemeProvider } from "styled-components";
-import { theme } from "./styles/theme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //레이아웃

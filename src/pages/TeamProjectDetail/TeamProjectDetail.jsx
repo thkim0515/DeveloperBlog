@@ -7,13 +7,13 @@ import { useLocation } from "react-router-dom";
 
 export const TeamProjectDetail = () => {
   const location = useLocation();
-  const { props } = location.state;
+  const { data } = location.state;
 
   return (
     <TeamProjectDetailBox>
-      <ProjectInformation props={props} />
-      <ProjectContent content={props.content} />
-      <ProjectComments content_id={props._id} />
+      <ProjectInformation data={data} />
+      <ProjectContent content={data.content} />
+      <ProjectComments content_id={data._id} />
     </TeamProjectDetailBox>
   );
 };

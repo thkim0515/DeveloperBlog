@@ -158,6 +158,7 @@ export const PostDetailComment = ({ content }) => {
 
   return (
     <S.CommentAndFormBox>
+      <h3>댓글</h3>
       {commentList[0] && (
         <S.CommentBox>
           <ul>

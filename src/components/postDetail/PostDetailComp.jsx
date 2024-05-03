@@ -11,6 +11,7 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-one_dark";
 import "ace-builds/src-noconflict/theme-twilight";
+import "ace-builds/src-noconflict/theme-kuroir";
 import axios from "axios";
 import { useUserLogin } from "../../context/UserLoginContext";
 import { useScrollReset } from "../../hooks/useScrollReset";
@@ -83,7 +84,7 @@ export const PostDetailComp = () => {
               />{" "}
               {/* alt={image.language} */}
             </div>
-            <h3>{detailContent.title}</h3>
+            <h2>{detailContent.title}</h2>
             {user &&
               (userId === detailContent.userId._id ||
                 userId === detailContent.userId.id) && (
@@ -104,27 +105,30 @@ export const PostDetailComp = () => {
             </div>
             <div>{timeString(detailContent.postdate)}</div>
           </S.SSpace>
-          <S.SImageContent>
-            <AceEditor
-              mode="javascript"
-              theme="one_dark"
-              name="setCord"
-              editorProps={{ $blockScrolling: true }}
-              setOptions={{ useWorker: false }}
-              value={detailContent.ace_contents}
-              readOnly={true}
-              wrapEnabled={true}
-              width="100%"
-              fontSize="1rem"
-            />
-            {/* <div
-              className="text_area"
-              dangerouslySetInnerHTML={{ __html: content.toast_contents }}
-            /> */}
-            <div className="text_area">
-              <Viewer initialValue={detailContent.toast_contents} />
+
+          <S.CodeContentBox>
+            <h3>Code</h3>
+            <div className="content_box">
+              <AceEditor
+                mode="javascript"
+                theme="kuroir"
+                name="setCord"
+                editorProps={{ $blockScrolling: true }}
+                setOptions={{ useWorker: false }}
+                value={detailContent.ace_contents}
+                readOnly={true}
+                wrapEnabled={true}
+                width="95%"
+                fontSize="1rem"
+              />
             </div>
-          </S.SImageContent>
+            <h3>Text</h3>
+            <div className="content_box">
+              <div className="text_area">
+              <Viewer initialValue={detailContent.toast_contents} />
+              </div>
+            </div>
+          </S.CodeContentBox>
           <S.SLikeBackButton>
             <LikeButton
               content_id={detailContent._id}

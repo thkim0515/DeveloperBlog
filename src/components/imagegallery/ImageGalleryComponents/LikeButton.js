@@ -21,7 +21,7 @@ export function LikeButton({ content_id, user_id, boardSortation }) {
   return (
     <div
       style={{
-        fontSize: "2rem",
+        fontSize: "1.5rem",
         alignItems: "center",
         cursor: "pointer",
       }}
