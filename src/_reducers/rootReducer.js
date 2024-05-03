@@ -1,10 +1,10 @@
 // rootReducer.js
-import { combineReducers } from "@reduxjs/toolkit";
-import projectSlice from "../_slice/projectSlice";
+import { combineReducers } from "redux";
+import projectReducer from "../_slice/projectSlice";
 
 const rootReducer = combineReducers({
-  posts: projectSlice,
-  // Add other reducers here if needed
+  project: projectReducer,
+  // Add more reducers here if you have additional slices of state
 });
 
 export default rootReducer;

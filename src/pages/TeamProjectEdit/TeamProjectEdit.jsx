@@ -17,7 +17,7 @@ export const TeamProjectEdit = () => {
 const H2 = styled.h2`
   font-size: 2rem;
   font-weight: bold;
-  margin-left: 4rem;
+  margin-left: 4.25rem;
   margin-bottom: 1.5rem;
 `;
 

@@ -26,7 +26,7 @@ export const ProjectCard = ({ data }) => {
       <S.ProjectHeader>
         <div>
           <FontAwesomeIcon icon={faCalendarDays} />
-          <span>{` ${timeString(data.startDate)}`}</span>
+          <span>{data.startDate ? ` ${timeString(data.startDate)}` : ""}</span>
         </div>
 
         <div>

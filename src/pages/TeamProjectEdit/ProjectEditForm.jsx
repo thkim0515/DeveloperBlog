@@ -1,11 +1,43 @@
 import { useState, useEffect, forwardRef } from "react";
+import axios from "axios";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
-// import Stack from "react-bootstrap/Stack";
+import { useFormFields } from "../../hooks/form/useprojectFormFields";
+import { handlePostProject } from "../../utils/handleProject";
+import { validateProjectForm } from "../../utils/validation";
+
+// 하드코딩된 검색어 목록
+const getSvgsData = await axios.get("/contents/svgsdata");
+const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
+  .map((item) => item.replace(/\.svg$/, ""))
+  .filter((item) => item !== "back" && item !== "unknown")
+  .map((item) => item.toUpperCase());
 
 export const ProjectEditForm = forwardRef((props, ref) => {
   const [isLoading, setLoading] = useState(false);
+  const [hashTag, setHashTag] = useState("");
+
+  const [
+    projectFields,
+    handleProjectForm,
+    handleCheckboxChange,
+    handleAddStack,
+    handleRemoveStacks,
+    handleAddHashTags,
+    handleRemoveHashTags,
+  ] = useFormFields({
+    title: "",
+    updatedDate: new Date().toLocaleDateString(),
+    startDate: "",
+    endDate: "",
+    recruitmentCompleted: "",
+    tableOfOrganiztion: "",
+    content: "",
+    hashTags: [],
+    roles: [],
+    stacks: [],
+  });
 
   useEffect(() => {
     function simulateNetworkRequest() {
@@ -19,11 +51,21 @@ export const ProjectEditForm = forwardRef((props, ref) => {
     }
   }, [isLoading]);
 
-  const handleClick = () => {
-    setLoading(true);
+  const handleHashTags = (e) => {
+    setHashTag(e.target.value);
   };
 
-  const onChange = (e) => {};
+  const onSubmit = async () => {
+    // TODO 폼 유효성 검사 에러메시지 수정예정
+    const errors = validateProjectForm(projectFields);
+
+    if (Object.keys(errors).length === 0) {
+      setLoading(true);
+      await handlePostProject(projectFields);
+    } else {
+      return false;
+    }
+  };
 
   return (
     <Form>
@@ -33,7 +75,9 @@ export const ProjectEditForm = forwardRef((props, ref) => {
           size="lg"
           type="text"
           placeholder="프로젝트 제목을 입력하세요."
-          onChange={onChange}
+          value={projectFields.title}
+          onChange={handleProjectForm}
+          name="title"
         />
       </Form.Group>
 
@@ -44,34 +88,30 @@ export const ProjectEditForm = forwardRef((props, ref) => {
           <Form.Check
             inline
             label="기획자"
-            name="group1"
             type="checkbox"
-            data-name="projectManager"
-            onChange={onChange}
+            onChange={handleCheckboxChange}
+            name="projectManager"
           />
           <Form.Check
             inline
             label="디자이너"
-            name="group1"
             type="checkbox"
-            data-name="designer"
-            onChange={onChange}
+            onChange={handleCheckboxChange}
+            name="designer"
           />
           <Form.Check
             inline
             label="프론트엔드"
-            name="group1"
             type="checkbox"
-            data-name="frontEnd"
-            onChange={onChange}
+            onChange={handleCheckboxChange}
+            name="frontEnd"
           />
           <Form.Check
             inline
             label="백엔드"
-            name="group1"
             type="checkbox"
-            data-name="backEnd"
-            onChange={onChange}
+            onChange={handleCheckboxChange}
+            name="backEnd"
           />
         </div>
       </Form.Group>
@@ -79,29 +119,60 @@ export const ProjectEditForm = forwardRef((props, ref) => {
       {/*  */}
       <Form.Group controlId="exampleForm.ControlInput1">
         <Form.Label className="fs-5 mb-3">사용 기술</Form.Label>
-        <Form.Control
-          className="mb-4"
-          type="search"
-          placeholder="검색어를 입력하세요."
-          onChange={onChange}
-        />
+        <div className="mb-2">
+          {projectFields.stacks.map((elem, idx) => (
+            <span key={idx} className="ms-3">
+              <span className="text-primary">{elem}</span>
+              <button
+                type="button"
+                className="border rounded-2 ms-1 p-1"
+                onClick={() => handleRemoveStacks(idx)}
+              >
+                x
+              </button>
+            </span>
+          ))}
+        </div>
+        <div>
+          <Form.Control
+            type="search"
+            placeholder="검색어를 입력하세요."
+            onChange={handleProjectForm}
+            name="stacks"
+          />
+          <ul style={{ cursor: "pointer" }} onClick={handleAddStack}>
+            {TECH_STACK_OPTIONS.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+        </div>
       </Form.Group>
 
       {/*  */}
       <Form.Group className="mb-4" controlId="exampleForm.ControlInput2">
         <div>
           <Form.Label className="fs-5 mb-3">모집 기간</Form.Label>
-          <span className="ms-3 text-primary">2024.03.24~2024.04.21</span>
+          <span className="ms-3 text-primary">{`${projectFields.startDate} ~ ${projectFields.endDate}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
           <div>
-            <Form.Label className="mb-2 ">시작 날짜</Form.Label>
-            <Form.Control type="date" onChange={onChange} />
+            <Form.Label className="mb-2">시작 날짜</Form.Label>
+            <Form.Control
+              type="date"
+              value={projectFields.startDate}
+              onChange={handleProjectForm}
+              name="startDate"
+            />
           </div>
           <div>
             <Form.Label className="mb-2">종료 날짜</Form.Label>
-            <Form.Control type="date" onChange={onChange} />
+            <Form.Control
+              type="date"
+              value={projectFields.endDate}
+              onChange={handleProjectForm}
+              name="endDate"
+            />
           </div>
         </div>
       </Form.Group>
@@ -110,7 +181,7 @@ export const ProjectEditForm = forwardRef((props, ref) => {
       <Form.Group>
         <div>
           <Form.Label className="fs-5 mb-3">모집 인원</Form.Label>
-          <span className="ms-3 text-primary">0/6</span>
+          <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganiztion}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
@@ -118,16 +189,18 @@ export const ProjectEditForm = forwardRef((props, ref) => {
             <Form.Label className="mb-2">기존 인원</Form.Label>
             <Form.Control
               type="number"
-              data-name="recruitmentCompleted"
-              onChange={onChange}
+              value={projectFields.recruitmentCompleted}
+              onChange={handleProjectForm}
+              name="recruitmentCompleted"
             />
           </div>
           <div>
             <Form.Label className="mb-2">시작 인원</Form.Label>
             <Form.Control
               type="number"
-              data-name="tableOfOrganiztion"
-              onChange={onChange}
+              value={projectFields.tableOfOrganiztion}
+              onChange={handleProjectForm}
+              name="tableOfOrganiztion"
             />
           </div>
         </div>
@@ -144,29 +217,58 @@ export const ProjectEditForm = forwardRef((props, ref) => {
           rows={20}
           placeholder="내용을 입력하세요."
           style={{ resize: "none" }}
-          onChange={onChange}
+          value={projectFields.content}
+          onChange={handleProjectForm}
+          name="content"
         />
       </Form.Group>
 
       {/*  */}
       <div>
-        <p className="fs-5 mb-3">프로젝트 해시태그</p>
-        <InputGroup className="mb-4 w-50">
-          <Form.Control
-            placeholder="프로젝트 관련 해시태그는 3개까지 가능"
-            onChange={onChange}
-          />
-          <Button variant="outline-secondary" id="button-addon2">
-            Button
-          </Button>
-        </InputGroup>
+        <div className="mb-3">
+          <span className="fs-5">프로젝트 해시태그</span>
+          <div></div>
+        </div>
+        <div className="d-flex mb-4 align-items-center">
+          <InputGroup className="w-50">
+            <Form.Control
+              placeholder="해시태그를 입력하세요. (최대 3개)"
+              value={hashTag}
+              onChange={handleHashTags}
+              name="hashTag"
+            />
+            <Button
+              type="button"
+              variant="outline-secondary"
+              id="hashTagButton"
+              onClick={() => {
+                handleAddHashTags(hashTag);
+                setHashTag("");
+              }}
+            >
+              Button
+            </Button>
+          </InputGroup>
+          {projectFields.hashTags.map((elem, idx) => (
+            <span key={idx} className="ms-3">
+              <span className="text-primary">{`#${elem}`}</span>
+              <button
+                type="button"
+                className="border rounded-2 ms-1 p-1"
+                onClick={() => handleRemoveHashTags(idx)}
+              >
+                x
+              </button>
+            </span>
+          ))}
+        </div>
       </div>
 
       <Button
         className="w-100 p-2"
         variant="primary"
         disabled={isLoading}
-        onClick={!isLoading ? handleClick : null}
+        onClick={!isLoading ? onSubmit : null}
       >
         {isLoading ? "Loading…" : "올리기"}
       </Button>

@@ -5,6 +5,8 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { useFormFields } from "../../hooks/form/useprojectFormFields";
 import { handlePostProject } from "../../utils/handleProject";
+import { validateProjectForm } from "../../utils/validation";
+
 // 하드코딩된 검색어 목록
 const getSvgsData = await axios.get("/contents/svgsdata");
 const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
@@ -54,8 +56,15 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
   };
 
   const onSubmit = async () => {
-    setLoading(true);
-    await handlePostProject(projectFields);
+    // TODO 폼 유효성 검사 에러메시지 수정예정
+    const errors = validateProjectForm(projectFields);
+
+    if (Object.keys(errors).length === 0) {
+      setLoading(true);
+      await handlePostProject(projectFields);
+    } else {
+      return false;
+    }
   };
 
   return (
