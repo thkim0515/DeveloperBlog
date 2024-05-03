@@ -27,7 +27,7 @@ export const S3Uploader = () => {
     formData.append("file", selectedFile);
 
     try {
-      const response = await axios.post("/s3bucket/upload", formData, {
+      await axios.post("/s3bucket/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -40,7 +40,7 @@ export const PostDetailWriter = ({ content }) => {
 
     if (isConfirmed) {
       try {
-        const response = await axios.delete(`/contents/delete/${_id}`);
+        await axios.delete(`/contents/delete/${_id}`);
 
         navigate("/");
         // if (response.status === 200) {

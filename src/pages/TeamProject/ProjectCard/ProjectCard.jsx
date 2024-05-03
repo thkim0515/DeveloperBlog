@@ -14,7 +14,7 @@ export const ProjectCard = ({ data }) => {
   const navigate = useNavigate();
 
   const moveToProjectDetail = (id) => {
-    navigate(`/project/${id}`);
+    navigate(`/project/${id}`, { state: { data } });
   };
 
   return (

@@ -44,7 +44,7 @@ export const FindPassword = () => {
     }
 
     try {
-      const response = await axios.post("/users/findPwd", {
+      await axios.post("/users/findPwd", {
         firstField: id,
         secondField: email,
       });

@@ -3,13 +3,17 @@ import { ProjectInformation } from "./ProjectInformation/ProjectInformation";
 import { ProjectContent } from "./ProjectContent/ProjectContent";
 import { ProjectComments } from "./ProjectComments/ProjectComments";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 export const TeamProjectDetail = () => {
+  const location = useLocation();
+  const { data } = location.state;
+
   return (
     <TeamProjectDetailBox>
-      <ProjectInformation />
-      <ProjectContent />
-      <ProjectComments />
+      <ProjectInformation data={data} />
+      <ProjectContent content={data.content} />
+      <ProjectComments content_id={data._id} />
     </TeamProjectDetailBox>
   );
 };

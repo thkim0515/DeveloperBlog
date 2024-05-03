@@ -7,10 +7,8 @@ const Log = require("../models/LogModel");
 //getproject.
 router.get("/project", async (req, res) => {
   try {
-    // throw new Error("테스트 에러발생");
     const project = await Project.aggregate([
       {
-        // 외래키 참조로 comment.postId === content._id
         $lookup: {
           from: "comments",
           localField: "_id",
@@ -19,13 +17,11 @@ router.get("/project", async (req, res) => {
         },
       },
       {
-        // 댓글 갯수 카운트
         $addFields: {
           commentCount: { $size: "$comments" },
         },
       },
       {
-        // 외래키 참조 content.userId === users_id 에서 _id 제외 ,nickname,profileimg만 추출
         $lookup: {
           from: "users",
           let: { userId: "$userId" },
@@ -188,10 +184,9 @@ router.post("/view", async (req, res) => {
 
 // 좋아요
 router.post("/like", async (req, res) => {
-  const { project_id, user_id } = req.body;
-
+  const { content_id, user_id } = req.body;
   try {
-    const project = await Project.findOne({ _id: project_id });
+    const project = await Project.findOne({ _id: content_id });
     if (!project) {
       return res.status(404).json({ message: "프로젝트 없음" });
     }

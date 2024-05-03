@@ -60,7 +60,7 @@ export const ImageGrid = (value) => {
                 style={{
                   cursor: "pointer",
                   backgroundColor:
-                    svgName === selectedIcon ? "#fff" : "transparent",
+                    svgName === selectedIcon ? "#F9F7F7" : "transparent",
                   padding: svgName === selectedIcon ? "4px" : "0",
                 }}
               />

@@ -19,11 +19,20 @@ export const Header = () => {
   return (
     <S.HeaerParentBox>
       <S.HeaderBox>
+        <div style={{ display:"flex", alignItems:"ceneter", gap: "16px"}}>
         <Logo />
         {/* 로그인 여부에 따라 조건부 렌더링 */}
         <S.SloganBox>
           <p>우리의 지식이 별이 되는 공간</p>
         </S.SloganBox>
+        </div>
+        <div style={{ display:"flex", alignItems:"ceneter", gap: "8px"}}>
+        <S.CodeProjectMenuBox>
+          <ul>
+          <S.ListLink to="/">Code</S.ListLink>
+          <S.ListLink to="/teamProject">Project</S.ListLink>
+          </ul>
+        </S.CodeProjectMenuBox>
         {isLogin ? (
           <UserLogin></UserLogin>
         ) : (
@@ -31,6 +40,8 @@ export const Header = () => {
             로그인
           </S.LogineButton>
         )}
+        </div>
+
       </S.HeaderBox>
     </S.HeaerParentBox>
   );

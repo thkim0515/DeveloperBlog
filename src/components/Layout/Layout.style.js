@@ -33,8 +33,30 @@ export const HeaderBox = styled.header`
 export const SloganBox = styled.div`
   p {
     color: #112d4e;
+    line-height: 40px;
   }
 `;
+
+//코드 프로젝트 메뉴 박스
+export const CodeProjectMenuBox = styled.div`
+  ul{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    
+  }
+
+  a {
+    padding: 0 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 20px;
+  }
+
+  a:first-child {
+    border-right: 1px solid #dbe2ef;
+  }
+`
 
 //로그인 버튼
 export const LogineButton = styled.button`
@@ -63,7 +85,8 @@ export const LogoLink = styled(Link)`
 
 //로그인 된 유저 박스
 export const UserLoginBox = styled.div`
-  height: 100%;
+  width: 100px;
+  height: 40px;
   display: flex;
   gap: 12px;
   align-items: center;
@@ -83,15 +106,16 @@ export const ProfileImage = styled.img`
 
 //메뉴 전체 박스
 export const MenuBox = styled.div`
-  width: 160px;
-  height: 360px;
+  width: 120px;
+  height: 160px;
   display: ${({ $isOpen }) => ($isOpen ? "block" : "none")};
   position: absolute;
   z-index: 10;
   top: 80px;
   right: 0;
-  background-color: #112d4e;
-  color: white;
+  background-color: #dbe2ef;
+  border: 1px solid #fff;
+  border-radius: 12px;
 `;
 
 //메뉴 리스트 박스
@@ -102,22 +126,26 @@ export const MenuListBox = styled.ul`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  p {
-    margin: 4px 0;
-    font-weight: bold;
-    cursor: default;
-  }
   li {
+    width: 100%;
+    flex:1;
+    text-align: center;
+    line-height: 40px;
     list-style: none;
     cursor: pointer;
+  }
+  li:hover {
+    background-color: #D4DBE9; /* 마우스를 올렸을 때 배경 색상 변경 */
+  }
+  li:last-child {
+    border-top: 1px solid #fff;
   }
 `;
 
 //링크 스타일
 export const ListLink = styled(Link)`
   cursor: pointer;
-  color: #fff;
+  color: #112d4e;
 `;
 
 /**------풋터 스타일------ */
