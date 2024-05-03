@@ -5,6 +5,8 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { useFormFields } from "../../hooks/form/useprojectFormFields";
 import { handlePostProject } from "../../utils/handleProject";
+import { validateProjectCreate } from "../../utils/validation";
+
 // 하드코딩된 검색어 목록
 const getSvgsData = await axios.get("/contents/svgsdata");
 const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
@@ -54,6 +56,7 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
   };
 
   const onSubmit = async () => {
+    if (!validateProjectCreate(projectFields)) return;
     setLoading(true);
     await handlePostProject(projectFields);
   };
