@@ -65,7 +65,7 @@ export const PasswordAndUserOut = () => {
     const isConfirmed = window.confirm("정말로 탈퇴하시겠습니까?");
     if (isConfirmed) {
       try {
-        const response = await axios.delete(`/users/delete/${profileDB._id}`);
+        await axios.delete(`/users/delete/${profileDB._id}`);
 
         logout(setIsLogin, setUser, setIsChange, navigate);
       } catch (error) {

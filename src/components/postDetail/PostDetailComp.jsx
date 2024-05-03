@@ -52,7 +52,6 @@ export const PostDetailComp = () => {
   useEffect(() => {
     axios
       .post("/contents/view", { _id: content._id })
-      // .then((response) => setViews(response.data.views))
       .catch((error) => console.error("Error:", error));
   }, [content._id]);
 
