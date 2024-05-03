@@ -1,5 +1,5 @@
 // import * as S from "./RecruitmentInfo.style";
-
+import { translateRoleToKr } from "../../../../utils/convertToTemplate";
 export const RecruitmentInfo = (...props) => {
   const infoData = props[0];
 
@@ -29,7 +29,7 @@ export const RecruitmentInfo = (...props) => {
             <td>
               <ul>
                 {infoData.roles.map((tag, index) => (
-                  <li key={index}>{tag}</li>
+                  <li key={index}>{translateRoleToKr(tag)}</li>
                 ))}
               </ul>
             </td>
