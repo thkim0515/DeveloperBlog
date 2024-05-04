@@ -3,6 +3,8 @@ import axios from "axios";
 import * as S from "./Comment.style";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
+import { timeStringWithHour } from "../../utils/timeString";
+import { organizeComments } from "./CommentUtil";
 
 export const Comment = ({ content }) => {
   //로그인 유저 정보 가져오기
@@ -17,21 +19,6 @@ export const Comment = ({ content }) => {
   const handleInputChange = (setState) => (e) => {
     setState(e.target.value);
   };
-
-  /*-------------시간표시---------------*/
-  function timeString(postdate) {
-    const match = postdate.match(/(\d{4}).(\d{2}).(\d{2})T(\d{2}):(\d{2})/);
-
-    if (match) {
-      const year = match[1].substr(-2);
-      const month = match[2];
-      const day = match[3];
-      const hours = match[4];
-      const minutes = match[5];
-
-      return `${year}-${month}-${day} / ${hours}:${minutes}`;
-    }
-  }
 
   /*-------------댓글 textarea 높이 조절---------------*/
 
@@ -54,14 +41,20 @@ export const Comment = ({ content }) => {
     } else {
       const userId = user.id;
       const postId = content._id;
+      const postType = content.ace_contents;
+
       const commentData = {
         userId: userId,
         postId: postId,
-        postType: "Content",
-        comment: comment,
+        postType: postType ? "Content" : "Project",
+        comment: parentId ? reply[parentId] : comment,
         parentId: parentId,
       };
       await postCommentToServer(commentData);
+      if (parentId) {
+        setReply({ ...reply, [parentId]: "" });
+        setReplyId(null);
+      }
     }
   };
 
@@ -83,11 +76,8 @@ export const Comment = ({ content }) => {
   const readCommentsFunc = async () => {
     try {
       const response = await axios.get(`/comments/read/${content._id}`);
-      setCommentList(
-        response.data.sort(
-          (a, b) => new Date(b.postdate) - new Date(a.postdate)
-        )
-      );
+      const organized = organizeComments(response.data);
+      setCommentList(organized);
     } catch (error) {
       if (error.response || error.response.status === 404) {
         setCommentList([]);
@@ -156,6 +146,26 @@ export const Comment = ({ content }) => {
     }
   };
 
+  /*-------------대댓글 기능---------------*/
+  const [replyId, setReplyId] = useState(null);
+  const [reply, setReply] = useState({});
+  const handleReplyChange = (commentId) => (event) => {
+    setReply({ ...reply, [commentId]: event.target.value });
+  };
+
+  const toggleReplyInput = (id) => {
+    if (!user) {
+      alert("로그인이 필요한 영역입니다.");
+      return;
+    }
+
+    if (replyId === id) {
+      setReplyId(null);
+    } else {
+      setReplyId(id);
+    }
+  };
+
   return (
     <S.CommentAndFormBox>
       <h3>댓글</h3>
@@ -165,64 +175,98 @@ export const Comment = ({ content }) => {
             {/**댓글 리스트*/}
             {commentList.map((comment) => {
               return (
-                <li className="comment_list" key={comment._id}>
-                  <div className="profile_box">
-                    <img
-                      src={"/img/" + comment.userId.profileimg}
-                      alt="유저이미지"
-                    ></img>
-
-                    <div className="userid">{comment.userId.nickname}</div>
-                  </div>
-                  <div className="comment_box">
-                    <div className="comment_detail_box">
-                      <div className="text_detail">
-                        {editId === comment._id ? (
-                          <textarea
-                            ref={textarea}
-                            type="text"
-                            value={editComment}
-                            onChange={(event) => {
-                              handleInputChange(setEditComment)(event); // handleInputChange 함수 호출
-                              handleResizeHeight(); // handleResizeHeight 함수 호출
-                            }}
-                            onFocus={handleOnFocusTextarea}
-                            placeholder="댓글 달기..."
-                          />
-                        ) : (
-                          <div className="comment">{comment.comment}</div>
-                        )}
-                      </div>
-                      <div>
-                        <div className="date">
-                          {timeString(comment.postdate)}
+                <>
+                  <li
+                    className="comment_list"
+                    key={comment._id}
+                    style={{ marginLeft: comment.parentId ? "20px" : "0px" }}
+                  >
+                    <div className="profile_box">
+                      <img
+                        src={"/img/" + comment.userId.profileimg}
+                        alt="유저이미지"
+                      ></img>
+                      <div className="userid">{comment.userId.nickname}</div>
+                    </div>
+                    <div className="comment_box">
+                      <div className="comment_detail_box">
+                        <div className="text_detail">
+                          {editId === comment._id ? (
+                            <textarea
+                              ref={textarea}
+                              type="text"
+                              value={editComment}
+                              onChange={(event) => {
+                                handleInputChange(setEditComment)(event); // handleInputChange 함수 호출
+                                handleResizeHeight(); // handleResizeHeight 함수 호출
+                              }}
+                              onFocus={handleOnFocusTextarea}
+                              placeholder="댓글 달기..."
+                            />
+                          ) : (
+                            <div className="comment">{comment.comment}</div>
+                          )}
                         </div>
-                        {user && comment.userId._id === user.id && (
-                          <div className="edit_delete">
-                            <button
-                              onClick={() =>
-                                editId === comment._id
-                                  ? handleComplete(comment._id)
-                                  : handleUpdate(comment._id, comment.comment)
-                              }
-                            >
-                              {editId === comment._id ? "완료" : "수정"}
-                            </button>
-                            <button
-                              onClick={() =>
-                                editId === comment._id
-                                  ? handleCancel()
-                                  : deleteContents(comment._id, "comments")
-                              }
-                            >
-                              {editId === comment._id ? "취소" : "삭제"}
-                            </button>
+                        <div>
+                          <div className="date">
+                            {timeStringWithHour(comment.postdate)}
                           </div>
-                        )}
+                          {user && comment.userId._id === user.id ? (
+                            <div className="edit_delete">
+                              <button
+                                onClick={() =>
+                                  editId === comment._id
+                                    ? handleComplete(comment._id)
+                                    : handleUpdate(comment._id, comment.comment)
+                                }
+                              >
+                                {editId === comment._id ? "완료" : "수정"}
+                              </button>
+                              <button
+                                onClick={() =>
+                                  editId === comment._id
+                                    ? handleCancel()
+                                    : deleteContents(comment._id, "comments")
+                                }
+                              >
+                                {editId === comment._id ? "취소" : "삭제"}
+                              </button>
+                            </div>
+                          ) : (
+                            // 대댓글 입력 여부 - 본인댓글엔 대댓글 X
+                            <button
+                              className="edit_delete"
+                              onClick={() => toggleReplyInput(comment._id)}
+                            >
+                              {replyId === comment._id ? "" : "댓글"}
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </li>
+                  </li>
+                  {/* 대댓글 입력창 렌더링 - replyId 값에따라 조건부 렌더링 */}
+                  {replyId === comment._id && (
+                    <div style={{ marginLeft: "20px" }}>
+                      <input
+                        type="text"
+                        value={reply[comment._id] || ""}
+                        onChange={handleReplyChange(comment._id)}
+                      />
+                      <button
+                        onClick={(e) => handleCreateSubmit(e, comment._id)}
+                      >
+                        등록
+                      </button>
+                      <button
+                        onClick={(e) => setReplyId(null)}
+                        style={{ marginLeft: "10px" }}
+                      >
+                        취소
+                      </button>
+                    </div>
+                  )}
+                </>
               );
             })}
           </ul>
