@@ -1,19 +1,15 @@
 import { useState, useEffect, forwardRef } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
-
-// hooks
 import { useFormFields } from "../../hooks/form/useprojectFormFields";
-
-// utils
 import { handleUpdateCode } from "../../utils/handleProject";
 import { validateProjectForm } from "../../utils/validation";
 import { timeString } from "../../utils/timeString";
+import { useNavigate } from "react-router-dom";
 
+// svgs
 const getSvgsData = await axios.get("/contents/svgsdata");
 const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
   .map((item) => item.replace(/\.svg$/, ""))
@@ -21,10 +17,9 @@ const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
   .map((item) => item.toUpperCase());
 
 export const ProjectEditForm = forwardRef((props, ref) => {
-  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
-  const [search, setSearch] = useState("");
   const [hashTag, setHashTag] = useState("");
+  const [isSearch, setIsSearch] = useState(false);
 
   const [
     projectFields,
@@ -40,7 +35,8 @@ export const ProjectEditForm = forwardRef((props, ref) => {
     startDate: new Date().toISOString().slice(0, 10),
     endDate: new Date().toISOString().slice(0, 10),
     memberList: [],
-    tableOfOrganization: 0,
+    recruitmentCompleted: 0,
+    tableOfOrganiztion: 0,
     content: "",
     hashTags: [],
     roles: [],
@@ -59,7 +55,6 @@ export const ProjectEditForm = forwardRef((props, ref) => {
       });
     }
   }, [props.postData]);
-
   useEffect(() => {
     function simulateNetworkRequest() {
       return new Promise((resolve) => setTimeout(resolve, 2000));
@@ -74,7 +69,20 @@ export const ProjectEditForm = forwardRef((props, ref) => {
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
+    setIsSearch(true);
   };
+
+  const getFilteredData = () => {
+    if (search === "") {
+      return TECH_STACK_OPTIONS;
+    }
+
+    return TECH_STACK_OPTIONS.filter((stack) =>
+      stack.toLowerCase().includes(search.toLowerCase())
+    );
+  };
+
+  const filteredStacks = getFilteredData();
 
   const handleHashTags = (e) => {
     setHashTag(e.target.value);
@@ -142,27 +150,19 @@ export const ProjectEditForm = forwardRef((props, ref) => {
             onChange={handleCheckboxChange}
             checked={projectFields.roles.includes("backEnd")}
           />
-          <Form.Check
-            inline
-            label="추후결정"
-            type="checkbox"
-            name="undecided"
-            onChange={handleCheckboxChange}
-            checked={projectFields.roles.includes("undecided")}
-          />
         </div>
       </Form.Group>
 
       {/*  */}
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+      <Form.Group controlId="exampleForm.ControlInput1">
         <Form.Label className="fs-5 mb-3">사용 기술</Form.Label>
-        <div>
-          {projectFields.stacks.map((item, idx) => (
-            <span key={idx} className="me-2">
-              <span className="text-primary">{item}</span>
+        <div className="mb-2">
+          {projectFields.stacks.map((elem, idx) => (
+            <span key={idx} className="ms-3">
+              <span className="text-primary">{elem}</span>
               <button
                 type="button"
-                className="border rounded-2 ms-2 p-1"
+                className="border rounded-2 ms-1 p-1"
                 onClick={() => handleRemoveStacks(idx)}
               >
                 x
@@ -170,18 +170,23 @@ export const ProjectEditForm = forwardRef((props, ref) => {
             </span>
           ))}
         </div>
-        <div className="position-relative w-50">
+        <div>
           <Form.Control
             type="search"
             placeholder="검색어를 입력하세요."
+            value={search}
             onChange={handleSearch}
             name="stacks"
           />
-          <ListGroup style={{ cursor: "pointer" }} onClick={handleAddStack}>
-            {TECH_STACK_OPTIONS.map((item, idx) => (
+          <ListGroup
+            className={isSearch ? "d-block" : "d-none"}
+            style={{ cursor: "pointer" }}
+            onClick={handleAddStack}
+          >
+            {filteredStacks.map((item, idx) => (
               <ListGroup.Item key={idx}> {item}</ListGroup.Item>
             ))}
-          </ListGroup>
+          </ul>
         </div>
       </Form.Group>
 
@@ -217,29 +222,32 @@ export const ProjectEditForm = forwardRef((props, ref) => {
       </Form.Group>
 
       {/*  */}
+      {/*  */}
       <Form.Group>
         <div>
           <Form.Label className="fs-5 mb-3">모집 인원</Form.Label>
-          <span className="ms-3 text-primary">{`${projectFields.memberList.length} / ${projectFields.tableOfOrganization}`}</span>
+          <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganiztion}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
           <div>
             <Form.Label className="mb-2">기존 인원</Form.Label>
-            <Form.Control
-              type="number"
-              value={projectFields.memberList.length}
+            <Form.Range
+              value={projectFields.recruitmentCompleted}
               onChange={handleProjectForm}
               name="recruitmentCompleted"
+              min="0"
+              max="10"
             />
           </div>
           <div>
             <Form.Label className="mb-2">시작 인원</Form.Label>
-            <Form.Control
-              type="number"
-              value={projectFields.tableOfOrganization}
+            <Form.Range
+              value={projectFields.tableOfOrganiztion}
               onChange={handleProjectForm}
               name="tableOfOrganiztion"
+              min="0"
+              max="10"
             />
           </div>
         </div>
@@ -288,9 +296,9 @@ export const ProjectEditForm = forwardRef((props, ref) => {
               Button
             </Button>
           </InputGroup>
-          {projectFields.hashTags.map((item, idx) => (
+          {projectFields.hashTags.map((elem, idx) => (
             <span key={idx} className="ms-3">
-              <span className="text-primary">{`#${item}`}</span>
+              <span className="text-primary">{`#${elem}`}</span>
               <button
                 type="button"
                 className="border rounded-2 ms-1 p-1"

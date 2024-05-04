@@ -12,7 +12,7 @@ import { useFormFields } from "../../hooks/form/useprojectFormFields";
 import { handlePostProject } from "../../utils/handleProject";
 import { validateProjectForm } from "../../utils/validation";
 
-// 하드코딩된 검색어 목록
+// svgs
 const getSvgsData = await axios.get("/contents/svgsdata");
 const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
   .map((item) => item.replace(/\.svg$/, ""))
@@ -23,6 +23,7 @@ export const ProjectCreateForm = () => {
   const [isLoading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [hashTag, setHashTag] = useState("");
+  const [isSearch, setIsSearch] = useState(false);
 
   const [
     projectFields,
@@ -37,8 +38,8 @@ export const ProjectCreateForm = () => {
     updatedDate: new Date().toLocaleDateString(),
     startDate: "",
     endDate: "",
-    recruitmentCompleted: "",
-    tableOfOrganiztion: "",
+    recruitmentCompleted: 0,
+    tableOfOrganiztion: 0,
     content: "",
     hashTags: [],
     roles: [],
@@ -59,14 +60,27 @@ export const ProjectCreateForm = () => {
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
+    setIsSearch(true);
   };
+
+  const getFilteredData = () => {
+    if (search === "") {
+      return TECH_STACK_OPTIONS;
+    }
+
+    return TECH_STACK_OPTIONS.filter((stack) =>
+      stack.toLowerCase().includes(search.toLowerCase())
+    );
+  };
+
+  const filteredStacks = getFilteredData();
 
   const handleHashTags = (e) => {
     setHashTag(e.target.value);
   };
 
   const onSubmit = async () => {
-    // TODO 폼 유효성 검사 에러메시지 수정예정
+    // stack 폼 유효성 검사 에러메시지 수정예정
     const errors = validateProjectForm(projectFields);
 
     if (Object.keys(errors).length === 0) {
@@ -154,11 +168,16 @@ export const ProjectCreateForm = () => {
           <Form.Control
             type="search"
             placeholder="검색어를 입력하세요."
+            value={search}
             onChange={handleSearch}
             name="stacks"
           />
-          <ListGroup style={{ cursor: "pointer" }} onClick={handleAddStack}>
-            {TECH_STACK_OPTIONS.map((item, idx) => (
+          <ListGroup
+            className={isSearch ? "d-block" : "d-none"}
+            style={{ cursor: "pointer" }}
+            onClick={handleAddStack}
+          >
+            {filteredStacks.map((item, idx) => (
               <ListGroup.Item key={idx}> {item}</ListGroup.Item>
             ))}
           </ListGroup>
@@ -204,20 +223,22 @@ export const ProjectCreateForm = () => {
         <div className="d-flex gap-2 align-items-center">
           <div>
             <Form.Label className="mb-2">기존 인원</Form.Label>
-            <Form.Control
-              type="number"
+            <Form.Range
               value={projectFields.recruitmentCompleted}
               onChange={handleProjectForm}
               name="recruitmentCompleted"
+              min="0"
+              max="10"
             />
           </div>
           <div>
             <Form.Label className="mb-2">시작 인원</Form.Label>
-            <Form.Control
-              type="number"
+            <Form.Range
               value={projectFields.tableOfOrganiztion}
               onChange={handleProjectForm}
               name="tableOfOrganiztion"
+              min="0"
+              max="10"
             />
           </div>
         </div>
