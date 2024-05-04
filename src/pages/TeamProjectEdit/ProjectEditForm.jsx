@@ -9,6 +9,7 @@ import { validateProjectForm } from "../../utils/validation";
 import { timeString } from "../../utils/timeString";
 import { useNavigate } from "react-router-dom";
 
+// svgs
 const getSvgsData = await axios.get("/contents/svgsdata");
 const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
   .map((item) => item.replace(/\.svg$/, ""))
@@ -18,7 +19,8 @@ const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
 export const ProjectEditForm = forwardRef((props, ref) => {
   const [isLoading, setLoading] = useState(false);
   const [hashTag, setHashTag] = useState("");
-  const navigate = useNavigate();
+  const [isSearch, setIsSearch] = useState(false);
+
   const [
     projectFields,
     handleProjectForm,
@@ -33,7 +35,8 @@ export const ProjectEditForm = forwardRef((props, ref) => {
     startDate: new Date().toISOString().slice(0, 10),
     endDate: new Date().toISOString().slice(0, 10),
     memberList: [],
-    tableOfOrganization: 0,
+    recruitmentCompleted: 0,
+    tableOfOrganiztion: 0,
     content: "",
     hashTags: [],
     roles: [],
@@ -63,6 +66,23 @@ export const ProjectEditForm = forwardRef((props, ref) => {
       });
     }
   }, [isLoading]);
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    setIsSearch(true);
+  };
+
+  const getFilteredData = () => {
+    if (search === "") {
+      return TECH_STACK_OPTIONS;
+    }
+
+    return TECH_STACK_OPTIONS.filter((stack) =>
+      stack.toLowerCase().includes(search.toLowerCase())
+    );
+  };
+
+  const filteredStacks = getFilteredData();
 
   const handleHashTags = (e) => {
     setHashTag(e.target.value);
@@ -154,12 +174,17 @@ export const ProjectEditForm = forwardRef((props, ref) => {
           <Form.Control
             type="search"
             placeholder="검색어를 입력하세요."
-            onChange={handleProjectForm}
+            value={search}
+            onChange={handleSearch}
             name="stacks"
           />
-          <ul style={{ cursor: "pointer" }} onClick={handleAddStack}>
-            {TECH_STACK_OPTIONS.map((item, idx) => (
-              <li key={idx}>{item}</li>
+          <ListGroup
+            className={isSearch ? "d-block" : "d-none"}
+            style={{ cursor: "pointer" }}
+            onClick={handleAddStack}
+          >
+            {filteredStacks.map((item, idx) => (
+              <ListGroup.Item key={idx}> {item}</ListGroup.Item>
             ))}
           </ul>
         </div>
@@ -197,29 +222,32 @@ export const ProjectEditForm = forwardRef((props, ref) => {
       </Form.Group>
 
       {/*  */}
+      {/*  */}
       <Form.Group>
         <div>
           <Form.Label className="fs-5 mb-3">모집 인원</Form.Label>
-          <span className="ms-3 text-primary">{`${projectFields.memberList.length} / ${projectFields.tableOfOrganization}`}</span>
+          <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganiztion}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
           <div>
             <Form.Label className="mb-2">기존 인원</Form.Label>
-            <Form.Control
-              type="number"
-              value={projectFields.memberList.length}
+            <Form.Range
+              value={projectFields.recruitmentCompleted}
               onChange={handleProjectForm}
               name="recruitmentCompleted"
+              min="0"
+              max="10"
             />
           </div>
           <div>
             <Form.Label className="mb-2">시작 인원</Form.Label>
-            <Form.Control
-              type="number"
-              value={projectFields.tableOfOrganization}
+            <Form.Range
+              value={projectFields.tableOfOrganiztion}
               onChange={handleProjectForm}
               name="tableOfOrganiztion"
+              min="0"
+              max="10"
             />
           </div>
         </div>
