@@ -8,6 +8,8 @@ export const translateRoleToKr = (role) => {
       return "프론트엔드";
     case "backEnd":
       return "백엔드";
+    case "undecided":
+      return "모집분야미정";
     default:
       return "";
   }
