@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: () => new Date(new Date().getTime() + 9 * 60 * 60 * 1000),
   },
+  lastLogin: {
+    type: Date,
+    default: () => new Date(new Date().getTime() + 9 * 60 * 60 * 1000),
+  },
   admin: {
     type: Boolean,
     default: false,

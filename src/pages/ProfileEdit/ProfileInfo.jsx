@@ -1,9 +1,10 @@
 import * as S from "./ProfileEdit.style.js";
+import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext.jsx";
-import axios from "axios";
 import { decryptData, encryptData } from "../../js/secure.js";
+import { handleUpload } from "../../utils/uploadImage";
 export const ProfileInfo = () => {
   const { profileDB, setIsChange } = useUserLogin();
 
@@ -16,7 +17,7 @@ export const ProfileInfo = () => {
   //로그인 유저정보
   const [nickname, setNickname] = useState(profileDB.nickname);
   const email = profileDB.email;
-  const imgSrc = profileDB.profileimg;
+  const imgSrc = `https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${profileDB.profileimg}`;
 
   //이미지 미리보기
   const [imgPreview, setImgPreview] = useState(null);
@@ -24,21 +25,6 @@ export const ProfileInfo = () => {
   //이름, 닉네임 state 변경 함수
   const handleInputChange = (setState) => (e) => {
     setState(e.target.value);
-  };
-
-  //이미지 미리보기 함수
-  const handleUploadFile = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      return new Promise((resolve) => {
-        reader.onload = () => {
-          setImgPreview(reader.result || null);
-          resolve();
-        };
-      });
-    }
   };
 
   //페이지 이동
@@ -56,8 +42,13 @@ export const ProfileInfo = () => {
       alert("2 ~ 14 글자의 닉네임을 작성해주세요.");
       return;
     }
-    const editData = { ...profileDB };
-    editData.nickname = nickname;
+    const changeImgaName = await handleUpload(selectedFile);
+    const editData = {
+      ...profileDB,
+      nickname: nickname,
+      profileimg: changeImgaName,
+    };
+
     try {
       await axios.put(`/users/update/${profileDB._id}`, editData);
       setIsChange(true);
@@ -82,6 +73,27 @@ export const ProfileInfo = () => {
     delete updatedData._id;
 
     await encryptData(updatedData, "user", sessionStorage);
+  };
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert("파일 크기는 5MB를 초과할 수 없습니다.");
+        event.target.value = null;
+        setSelectedFile(null);
+        return;
+      }
+      setSelectedFile(file);
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImgPreview(reader.result);
+      };
+    }
   };
 
   return (
@@ -129,7 +141,7 @@ export const ProfileInfo = () => {
               id="image-edit"
               accept="image/*"
               type="file"
-              onChange={(e) => handleUploadFile(e)}
+              onChange={(e) => handleFileChange(e)}
             />
           </div>
           <div>

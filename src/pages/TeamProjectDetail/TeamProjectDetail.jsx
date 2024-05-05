@@ -1,17 +1,19 @@
+import axios from "axios";
+import styled from "styled-components";
+
 // components
 import { ProjectInformation } from "./ProjectInformation/ProjectInformation";
 import { ProjectContent } from "./ProjectContent/ProjectContent";
 import { ProjectComments } from "./ProjectComments/ProjectComments";
 import { LikeButton } from "../../components/imagegallery/ImageGalleryComponents/LikeButton";
-import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
-import { decryptData } from "../../js/secure";
+import { useEffect } from "react";
+
 export const TeamProjectDetail = () => {
   const location = useLocation();
   const { data } = location.state;
-
   const { user } = useUserLogin();
   const userId = user && user.id ? user.id : null;
 
@@ -19,6 +21,12 @@ export const TeamProjectDetail = () => {
   const updateContents = (_id) => () => {
     navigate(`/projectEdit/${_id}`, { state: { _id } });
   };
+
+  useEffect(() => {
+    axios
+      .post("/project/view", { _id: data._id })
+      .catch((error) => console.error("Error:", error));
+  }, [data._id]);
 
   return (
     <TeamProjectDetailBox>

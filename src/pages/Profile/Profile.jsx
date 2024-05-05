@@ -23,7 +23,10 @@ export const Profile = () => {
             <S.ProfileImgBox>
               <S.ProfileImg
                 alt="프로필 이미지"
-                src={"/img/" + profileDB.profileimg}
+                src={
+                  "https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/" +
+                  profileDB.profileimg
+                }
               />
             </S.ProfileImgBox>
             <S.ProfileTextBox>

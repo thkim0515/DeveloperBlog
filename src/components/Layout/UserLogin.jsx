@@ -42,7 +42,10 @@ export const UserLogin = () => {
           <div>{profileDB.nickname}</div>
           <S.ProfileImage
             alt="프로필 사진"
-            src={"/img/" + profileDB.profileimg}
+            src={
+              "https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/" +
+              profileDB.profileimg
+            }
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
             }}

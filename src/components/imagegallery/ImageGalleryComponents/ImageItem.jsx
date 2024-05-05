@@ -57,8 +57,8 @@ export const ImageItem = ({ content }) => {
             <S.SProfileImage title="프로필">
               {content.userId.profileimg && (
                 <S.ProfileImage
-                  src={content.userId.profileimg}
-                  alt={content.userId.profileimg}
+                  src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${content.userId.profileimg}`}
+                  alt={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${content.userId.profileimg}`}
                 />
               )}
             </S.SProfileImage>

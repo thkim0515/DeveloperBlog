@@ -183,7 +183,10 @@ export const Comment = ({ content }) => {
                   >
                     <div className="profile_box">
                       <img
-                        src={"/img/" + comment.userId.profileimg}
+                        src={
+                          "https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/" +
+                          comment.userId.profileimg
+                        }
                         alt="유저이미지"
                       ></img>
                       <div className="userid">{comment.userId.nickname}</div>

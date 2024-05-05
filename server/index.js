@@ -38,11 +38,12 @@ const PORT = 5000;
 const { router } = require("./error/processError");
 const users = require("./user/users");
 const email = require("./user/email");
+const userprofileimg = require("./user/userprofileimg");
 const contents = require("./contents/contents");
 const comments = require("./contents/comments");
 const project = require("./contents/project");
 const endecrypt = require("./contents/endecrypt");
-const s3bucket = require("./contents/s3bucket");
+// const s3bucket = require("./contents/s3bucket");
 
 app.use(bodyParser.json());
 app.use(router);
@@ -52,7 +53,8 @@ app.use("/contents", contents);
 app.use("/comments", comments);
 app.use("/project", project);
 app.use("/endecrypt", endecrypt);
-app.use("/s3bucket", s3bucket);
+app.use("/userprofileimg", userprofileimg);
+// app.use("/s3bucket", s3bucket);
 
 app.use(express.static(path.join(__dirname, "../build")));
 

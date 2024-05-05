@@ -48,6 +48,11 @@ loadSecrets().then((secrets) => {
           .json({ message: "비밀번호가 일치하지 않습니다." });
       }
 
+      await User.findOneAndUpdate(
+        { id },
+        { lastLogin: new Date(new Date().getTime() + 9 * 60 * 60 * 1000) }
+      );
+
       req.session.user = {
         id: user._id,
         nickname: user.nickname,

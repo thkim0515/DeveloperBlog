@@ -12,7 +12,7 @@ const logSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: () => new Date(new Date().getTime() + 9 * 60 * 60 * 1000),
     index: { expires: "24h" },
   },
 });

@@ -120,7 +120,7 @@ export const ProfileEditButton = styled.button`
 
 //사진 수정
 export const ImgEditButton = styled.label`
-  display: none;
+  display: block;
   width: 100%;
   height: 30px;
   background-color: #3f72af;
@@ -212,4 +212,3 @@ export const UseroutBtnBox = styled.div`
     color: #dbe2ef;
   }
 `;
-

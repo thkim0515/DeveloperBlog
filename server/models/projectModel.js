@@ -18,6 +18,10 @@ const projectSchema = new mongoose.Schema({
   updateDate: {
     type: Date,
   },
+  postdate: {
+    type: Date,
+    default: () => new Date(new Date().getTime() + 9 * 60 * 60 * 1000),
+  },
   hashTags: [{ type: String }],
   stacks: [{ type: String }],
   roles: [{ type: String, required: true }],
