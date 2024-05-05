@@ -38,7 +38,7 @@ const PORT = 5000;
 const { router } = require("./error/processError");
 const users = require("./user/users");
 const email = require("./user/email");
-const userprofileimg = require("./user/userprofileimg");
+const awss3 = require("./user/awss3");
 const contents = require("./contents/contents");
 const comments = require("./contents/comments");
 const project = require("./contents/project");
@@ -53,7 +53,7 @@ app.use("/contents", contents);
 app.use("/comments", comments);
 app.use("/project", project);
 app.use("/endecrypt", endecrypt);
-app.use("/userprofileimg", userprofileimg);
+app.use("/awss3", awss3);
 // app.use("/s3bucket", s3bucket);
 
 app.use(express.static(path.join(__dirname, "../build")));

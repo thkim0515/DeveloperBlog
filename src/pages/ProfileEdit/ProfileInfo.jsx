@@ -30,6 +30,27 @@ export const ProfileInfo = () => {
   //페이지 이동
   const navigate = useNavigate();
 
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert("파일 크기는 5MB를 초과할 수 없습니다.");
+        event.target.value = null;
+        setSelectedFile(null);
+        return;
+      }
+      setSelectedFile(file);
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImgPreview(reader.result);
+      };
+    }
+  };
+
   //업데이트 요쳥
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,7 +86,9 @@ export const ProfileInfo = () => {
   };
 
   const updateSessionStorage = async (newData) => {
-    const storedData = decryptData("user", sessionStorage);
+    const storedData = await decryptData("user", sessionStorage);
+    // 변경 완료 후, 서버에 존재하는 기존 이미지 삭제
+    await axios.delete(`/awss3/deleteimg/${storedData.profileimg}`);
     const updatedData = { ...storedData, ...newData };
     delete updatedData.email;
     delete updatedData.id;
@@ -73,27 +96,6 @@ export const ProfileInfo = () => {
     delete updatedData._id;
 
     await encryptData(updatedData, "user", sessionStorage);
-  };
-
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        alert("파일 크기는 5MB를 초과할 수 없습니다.");
-        event.target.value = null;
-        setSelectedFile(null);
-        return;
-      }
-      setSelectedFile(file);
-
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        setImgPreview(reader.result);
-      };
-    }
   };
 
   return (

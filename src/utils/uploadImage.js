@@ -10,15 +10,11 @@ export const handleUpload = async (selectedFile) => {
   formData.append("file", selectedFile);
 
   try {
-    const response = await axios.post(
-      `/userprofileimg/userprofileimg`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const response = await axios.post(`/awss3/userprofileimg`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     alert(`성공적으로 변경되었습니다.`);
     return response.data.filename;
   } catch (err) {
