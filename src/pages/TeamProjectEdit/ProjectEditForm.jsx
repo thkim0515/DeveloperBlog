@@ -179,7 +179,7 @@ export const ProjectEditForm = forwardRef((props, ref) => {
           />
           <ListGroup style={{ cursor: "pointer" }} onClick={handleAddStack}>
             {TECH_STACK_OPTIONS.map((item, idx) => (
-              <ListGroup.Item key={idx}> {item}</ListGroup.Item>
+              <ListGroup.Item key={idx}> {item.toLowerCase()}</ListGroup.Item>
             ))}
           </ListGroup>
         </div>

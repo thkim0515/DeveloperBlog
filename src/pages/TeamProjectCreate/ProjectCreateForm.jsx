@@ -23,7 +23,6 @@ export const ProjectCreateForm = () => {
   const [isLoading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [hashTag, setHashTag] = useState("");
-  const [isSearch, setIsSearch] = useState(false);
 
   const [
     projectFields,
@@ -59,8 +58,8 @@ export const ProjectCreateForm = () => {
   }, [isLoading]);
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
-    setIsSearch(true);
+    const { value } = e.target;
+    setSearch(value);
   };
 
   const getFilteredData = () => {
@@ -76,13 +75,13 @@ export const ProjectCreateForm = () => {
   const filteredStacks = getFilteredData();
 
   const handleHashTags = (e) => {
-    setHashTag(e.target.value);
+    const { value } = e.target;
+    setSearch(value);
   };
 
   const onSubmit = async () => {
     // stack 폼 유효성 검사 에러메시지 수정예정
     const errors = validateProjectForm(projectFields);
-
     if (Object.keys(errors).length === 0) {
       setLoading(true);
       await handlePostProject(projectFields);
@@ -139,7 +138,7 @@ export const ProjectCreateForm = () => {
           />
           <Form.Check
             inline
-            label="추후결정"
+            label="모집분야미정"
             type="checkbox"
             onChange={handleCheckboxChange}
             name="undecided"
@@ -166,6 +165,7 @@ export const ProjectCreateForm = () => {
         </div>
         <div className="position-relative w-50">
           <Form.Control
+            className="w-50"
             type="search"
             placeholder="검색어를 입력하세요."
             value={search}
@@ -173,12 +173,15 @@ export const ProjectCreateForm = () => {
             name="stacks"
           />
           <ListGroup
-            className={isSearch ? "d-block" : "d-none"}
+            as="ul"
+            className="d-block w-50"
             style={{ cursor: "pointer" }}
             onClick={handleAddStack}
           >
             {filteredStacks.map((item, idx) => (
-              <ListGroup.Item key={idx}> {item}</ListGroup.Item>
+              <ListGroup.Item as="li" key={idx}>
+                {item.toLowerCase()}
+              </ListGroup.Item>
             ))}
           </ListGroup>
         </div>

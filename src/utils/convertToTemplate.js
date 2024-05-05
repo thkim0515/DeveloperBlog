@@ -9,7 +9,7 @@ export const translateRoleToKr = (role) => {
     case "backEnd":
       return "백엔드";
     case "undecided":
-      return "추후결정";
+      return "모집분야미정";
     default:
       return "";
   }
