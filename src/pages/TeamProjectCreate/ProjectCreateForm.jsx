@@ -1,21 +1,27 @@
-import { useState, useEffect, forwardRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
+
+// hooks
 import { useFormFields } from "../../hooks/form/useprojectFormFields";
+
+// utils
 import { handlePostProject } from "../../utils/handleProject";
 import { validateProjectForm } from "../../utils/validation";
 
-// 하드코딩된 검색어 목록
+// svgs
 const getSvgsData = await axios.get("/contents/svgsdata");
 const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
   .map((item) => item.replace(/\.svg$/, ""))
   .filter((item) => item !== "back" && item !== "unknown")
   .map((item) => item.toUpperCase());
 
-export const ProjectCreateForm = forwardRef((props, ref) => {
+export const ProjectCreateForm = () => {
   const [isLoading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
   const [hashTag, setHashTag] = useState("");
 
   const [
@@ -29,10 +35,10 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
   ] = useFormFields({
     title: "",
     updatedDate: new Date().toLocaleDateString(),
-    startDate: "",
-    endDate: "",
-    recruitmentCompleted: "",
-    tableOfOrganiztion: "",
+    startDate: new Date().toISOString().slice(0, 10),
+    endDate: new Date().toISOString().slice(0, 10),
+    recruitmentCompleted: 0,
+    tableOfOrganization: 0,
     content: "",
     hashTags: [],
     roles: [],
@@ -51,14 +57,31 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
     }
   }, [isLoading]);
 
+  const handleSearch = (e) => {
+    const { value } = e.target;
+    setSearch(value);
+  };
+
+  const getFilteredData = () => {
+    if (search === "") {
+      return TECH_STACK_OPTIONS;
+    }
+
+    return TECH_STACK_OPTIONS.filter((stack) =>
+      stack.toLowerCase().includes(search.toLowerCase())
+    );
+  };
+
+  const filteredStacks = getFilteredData();
+
   const handleHashTags = (e) => {
-    setHashTag(e.target.value);
+    const { value } = e.target;
+    setHashTag(value);
   };
 
   const onSubmit = async () => {
-    // TODO 폼 유효성 검사 에러메시지 수정예정
+    // stack 폼 유효성 검사 에러메시지 수정예정
     const errors = validateProjectForm(projectFields);
-
     if (Object.keys(errors).length === 0) {
       setLoading(true);
       await handlePostProject(projectFields);
@@ -113,19 +136,26 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
             onChange={handleCheckboxChange}
             name="backEnd"
           />
+          <Form.Check
+            inline
+            label="추후결정"
+            type="checkbox"
+            onChange={handleCheckboxChange}
+            name="undecided"
+          />
         </div>
       </Form.Group>
 
       {/*  */}
-      <Form.Group controlId="exampleForm.ControlInput1">
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label className="fs-5 mb-3">사용 기술</Form.Label>
-        <div className="mb-2">
-          {projectFields.stacks.map((elem, idx) => (
-            <span key={idx} className="ms-3">
-              <span className="text-primary">{elem}</span>
+        <div>
+          {projectFields.stacks.map((item, idx) => (
+            <span key={idx} className="me-2">
+              <span className="text-primary">{item}</span>
               <button
                 type="button"
-                className="border rounded-2 ms-1 p-1"
+                className="border rounded-2 ms-2 p-1"
                 onClick={() => handleRemoveStacks(idx)}
               >
                 x
@@ -133,18 +163,27 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
             </span>
           ))}
         </div>
-        <div>
+        <div className="position-relative w-50">
           <Form.Control
+            className="w-50"
             type="search"
             placeholder="검색어를 입력하세요."
-            onChange={handleProjectForm}
+            value={search}
+            onChange={handleSearch}
             name="stacks"
           />
-          <ul style={{ cursor: "pointer" }} onClick={handleAddStack}>
-            {TECH_STACK_OPTIONS.map((item, idx) => (
-              <li key={idx}>{item}</li>
+          <ListGroup
+            as="ul"
+            className="d-block w-50"
+            style={{ cursor: "pointer" }}
+            onClick={handleAddStack}
+          >
+            {filteredStacks.map((item, idx) => (
+              <ListGroup.Item as="li" key={idx}>
+                {item.toLowerCase()}
+              </ListGroup.Item>
             ))}
-          </ul>
+          </ListGroup>
         </div>
       </Form.Group>
 
@@ -181,26 +220,28 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
       <Form.Group>
         <div>
           <Form.Label className="fs-5 mb-3">모집 인원</Form.Label>
-          <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganiztion}`}</span>
+          <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganization}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
           <div>
             <Form.Label className="mb-2">기존 인원</Form.Label>
-            <Form.Control
-              type="number"
+            <Form.Range
               value={projectFields.recruitmentCompleted}
               onChange={handleProjectForm}
               name="recruitmentCompleted"
+              min="0"
+              max="10"
             />
           </div>
           <div>
             <Form.Label className="mb-2">시작 인원</Form.Label>
-            <Form.Control
-              type="number"
-              value={projectFields.tableOfOrganiztion}
+            <Form.Range
+              value={projectFields.tableOfOrganization}
               onChange={handleProjectForm}
-              name="tableOfOrganiztion"
+              name="tableOfOrganization"
+              min="0"
+              max="10"
             />
           </div>
         </div>
@@ -274,4 +315,4 @@ export const ProjectCreateForm = forwardRef((props, ref) => {
       </Button>
     </Form>
   );
-});
+};

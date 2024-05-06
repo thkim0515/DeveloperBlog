@@ -1,7 +1,7 @@
 import * as S from "./ProjectCard.style";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { translateRoleToKr } from "../../../utils/convertToTemplate";
 
 // components
@@ -25,7 +25,6 @@ export const ProjectCard = ({ data }) => {
       {/*  */}
       <S.ProjectHeader>
         <div>
-          <FontAwesomeIcon icon={faCalendarDays} />
           <span>{data.startDate ? ` ${timeString(data.startDate)}` : ""}</span>
         </div>
 
@@ -46,7 +45,7 @@ export const ProjectCard = ({ data }) => {
         </S.ProjectHashTagBox>
         <S.ProjectTitle>{data.title}</S.ProjectTitle>
         <S.projectStackBox>
-          {data.stacks.slice(0, 5).map((stack, idx) => (
+          {data.stacks.slice(0, 4).map((stack, idx) => (
             <li key={`${stack}-${idx}`}>
               <img
                 src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${stack.toLowerCase()}.svg`}
