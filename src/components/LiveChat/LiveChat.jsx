@@ -20,7 +20,13 @@ export const LiveChat = () => {
         if (isLogin && userSession) {
           setUserNickname(userSession.nickname);
         } else {
-          let randomSuffix = Math.floor(1000 + Math.random() * 9000).toString();
+          let randomSuffix;
+          if (sessionStorage.getItem("randomSuffix")) {
+            randomSuffix = sessionStorage.getItem("randomSuffix");
+          } else {
+            randomSuffix = Math.floor(1000 + Math.random() * 9000).toString();
+            sessionStorage.setItem("randomSuffix", randomSuffix);
+          }
           setUserNickname("비로그인유저" + randomSuffix);
         }
       } catch (error) {
