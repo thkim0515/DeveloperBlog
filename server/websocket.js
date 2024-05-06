@@ -1,32 +1,37 @@
 const WebSocket = require("ws");
 
-// 모든 메시지를 저장할 배열
 let messages = [];
+let userSessions = {}; // 사용자 세션 정보와 메시지 읽음 상태 저장
 
 function setupWebSocket(server) {
   const wss = new WebSocket.Server({ server });
 
-  wss.on("connection", (ws) => {
-    messages.forEach((message) => {
-      ws.send(message);
-    });
+  wss.on("connection", (ws, req) => {
+    const userID = req.headers["sec-websocket-key"]; // 예시로 WebSocket Key 사용
+    userSessions[userID] = {
+      lastReadIndex: messages.length - 1,
+      ws: ws,
+    };
 
     ws.on("message", (message) => {
-      // 메세지 개수 200개 넘어가면 0번부터 지우기
+      const parsedMessage = JSON.parse(message);
       if (messages.length >= 200) {
         messages.shift();
       }
-      messages.push(message);
+      messages.push({ ...parsedMessage, index: messages.length });
 
-      wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-          client.send(message);
+      Object.keys(userSessions).forEach((user) => {
+        if (userSessions[user].ws.readyState === WebSocket.OPEN) {
+          userSessions[user].ws.send(message);
+          if (user !== userID) {
+            userSessions[user].lastReadIndex = messages.length - 1;
+          }
         }
       });
     });
 
     ws.on("close", () => {
-      // 필요시 작성
+      delete userSessions[userID];
     });
   });
 }
