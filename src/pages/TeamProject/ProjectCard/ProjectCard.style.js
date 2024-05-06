@@ -1,10 +1,10 @@
+// projectCard.js
 import styled from "styled-components";
 
 export const ProjectCardBox = styled.div`
   max-width: 320px;
   width: 100%;
   height: 280px;
-  margin-top: 2.5rem;
   padding: 1.25rem 1.375rem 1.375rem;
   background-color: #ffffff;
   border: 1px solid #ebebeb;
@@ -13,6 +13,11 @@ export const ProjectCardBox = styled.div`
   -webkit-box-shadow: 13px 15px 14px -5px rgba(212, 207, 207, 0.75);
   -moz-box-shadow: 13px 15px 14px -5px rgba(212, 207, 207, 0.75);
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export const ProjectHeader = styled.div`
@@ -29,6 +34,8 @@ export const ProjectBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-height: 146.6px;
+  height: 100%;
   margin-top: 1rem;
   gap: 0.5rem;
 `;

@@ -44,9 +44,7 @@ export const TeamProject = () => {
       return projectData;
     }
 
-    return projectData.filter((project) =>
-      project.title.toLowerCase().includes(search)
-    );
+    return projectData.filter((project) => project.title.includes(search));
   };
 
   const filteredProject = getFilteredData();

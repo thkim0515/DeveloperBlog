@@ -138,7 +138,7 @@ export const ProjectCreateForm = () => {
           />
           <Form.Check
             inline
-            label="모집분야미정"
+            label="추후결정"
             type="checkbox"
             onChange={handleCheckboxChange}
             name="undecided"

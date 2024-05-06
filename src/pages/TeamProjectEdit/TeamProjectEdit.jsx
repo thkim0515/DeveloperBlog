@@ -39,10 +39,9 @@ export const TeamProjectEdit = () => {
 };
 
 const H2 = styled.h2`
-  max-width: 1000px;
-  margin: 0 auto;
   font-size: 2rem;
   font-weight: bold;
+  margin-left: 4.25rem;
   margin-bottom: 1.5rem;
 `;
 

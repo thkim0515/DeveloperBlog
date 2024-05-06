@@ -7,6 +7,7 @@ export const TeamProjectBox = styled.div`
   place-items: center;
   grid-row-gap: 10px;
   grid-column-gap: 10px;
+  margin-top: 2.5rem;
 `;
 
 export const TeamProjectTitle = styled.h2`
