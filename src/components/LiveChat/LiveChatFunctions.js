@@ -1,5 +1,6 @@
 export const connectWebSocket = (setMessages, userNickname) => {
   const WEBSOCKET_ADDRESS = "wss://d3kcrktwedekfj.cloudfront.net";
+  // const WEBSOCKET_ADDRESS = "ws://localhost:5000";
   let ws = new WebSocket(WEBSOCKET_ADDRESS);
 
   ws.onopen = () => {

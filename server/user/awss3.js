@@ -71,7 +71,8 @@ router.post("/userprofileimg", upload.single("file"), async (req, res) => {
 
 router.delete("/deleteimg/:profileimg", async (req, res) => {
   const { profileimg } = req.params;
-  if (profileimg) {
+
+  if (profileimg && profileimg !== "noprofile.jpg") {
     const filePath = `${folderPath}${profileimg}`;
 
     const deleteParams = {
