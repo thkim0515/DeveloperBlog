@@ -35,10 +35,10 @@ export const ProjectCreateForm = () => {
   ] = useFormFields({
     title: "",
     updatedDate: new Date().toLocaleDateString(),
-    startDate: "",
-    endDate: "",
+    startDate: new Date().toISOString().slice(0, 10),
+    endDate: new Date().toISOString().slice(0, 10),
     recruitmentCompleted: 0,
-    tableOfOrganiztion: 0,
+    tableOfOrganization: 0,
     content: "",
     hashTags: [],
     roles: [],
@@ -76,7 +76,7 @@ export const ProjectCreateForm = () => {
 
   const handleHashTags = (e) => {
     const { value } = e.target;
-    setSearch(value);
+    setHashTag(value);
   };
 
   const onSubmit = async () => {
@@ -220,7 +220,7 @@ export const ProjectCreateForm = () => {
       <Form.Group>
         <div>
           <Form.Label className="fs-5 mb-3">모집 인원</Form.Label>
-          <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganiztion}`}</span>
+          <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganization}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
@@ -237,9 +237,9 @@ export const ProjectCreateForm = () => {
           <div>
             <Form.Label className="mb-2">시작 인원</Form.Label>
             <Form.Range
-              value={projectFields.tableOfOrganiztion}
+              value={projectFields.tableOfOrganization}
               onChange={handleProjectForm}
-              name="tableOfOrganiztion"
+              name="tableOfOrganization"
               min="0"
               max="10"
             />
@@ -290,9 +290,9 @@ export const ProjectCreateForm = () => {
               Button
             </Button>
           </InputGroup>
-          {projectFields.hashTags.map((item, idx) => (
+          {projectFields.hashTags.map((elem, idx) => (
             <span key={idx} className="ms-3">
-              <span className="text-primary">{`#${item}`}</span>
+              <span className="text-primary">{`#${elem}`}</span>
               <button
                 type="button"
                 className="border rounded-2 ms-1 p-1"
