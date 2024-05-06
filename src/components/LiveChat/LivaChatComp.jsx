@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { WriteButton } from "../../components/imagegallery/WriteButton";
 import { Modal } from "./Modal";
 import { LiveChat } from "../../components/LiveChat/LiveChat";
+import { decryptData } from "../../js/secure";
 const ChatAndWriteBox = styled.div`
   display: flex;
   gap: 10px;
@@ -21,17 +22,59 @@ const LiveChatButton = styled.button`
 `;
 
 export const LiveChatComp = () => {
+  // const WEBSOCKET_ADDRESS = "wss://d3kcrktwedekfj.cloudfront.net";
+  const WEBSOCKET_ADDRESS = "ws://localhost:5000";
   const [isLiveChatVisible, setIsLiveChatVisible] = useState(false);
+  const [unreadMessages, setUnreadMessages] = useState(0);
 
   const toggleLiveChat = () => {
     setIsLiveChatVisible(!isLiveChatVisible);
+    if (!isLiveChatVisible) {
+      setUnreadMessages(0);
+    }
   };
+
+  useEffect(() => {
+    const init = async () => {
+      const userSession = await decryptData("user", sessionStorage);
+      const ws = new WebSocket(WEBSOCKET_ADDRESS);
+      ws.onmessage = async (event) => {
+        if (event.data instanceof Blob) {
+          const text = await event.data.text();
+
+          try {
+            const data = JSON.parse(text);
+            if (data.userId !== "userSession.nickname") {
+              setUnreadMessages((prev) => prev + 1);
+            }
+          } catch (error) {
+            console.error("JSON 파싱 에러:", error);
+          }
+        } else {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.userId !== "userSession.nickname") {
+              setUnreadMessages((prev) => prev + 1);
+            }
+          } catch (error) {
+            console.error("JSON 파싱 에러:", error);
+          }
+        }
+      };
+
+      return () => {
+        ws.close();
+      };
+    };
+    init();
+  }, []);
 
   return (
     <div>
       <ChatAndWriteBox>
-        <LiveChatButton onClick={toggleLiveChat}>실시간 채팅</LiveChatButton>
-        <WriteButton />
+        <LiveChatButton onClick={toggleLiveChat}>
+          실시간 채팅{unreadMessages > 0 ? ` (${unreadMessages})` : ""}
+        </LiveChatButton>
       </ChatAndWriteBox>
       {isLiveChatVisible && (
         <Modal onClose={toggleLiveChat}>

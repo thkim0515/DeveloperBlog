@@ -1,5 +1,6 @@
 export const connectWebSocket = (setMessages, userNickname) => {
-  const WEBSOCKET_ADDRESS = "wss://d3kcrktwedekfj.cloudfront.net";
+  // const WEBSOCKET_ADDRESS = "wss://d3kcrktwedekfj.cloudfront.net";
+  const WEBSOCKET_ADDRESS = "ws://localhost:5000";
   let ws = new WebSocket(WEBSOCKET_ADDRESS);
 
   ws.onopen = () => {
@@ -22,8 +23,14 @@ export const connectWebSocket = (setMessages, userNickname) => {
       }
     }
   };
-  ws.onclose = () => {
+
+  ws.onclose = function (event) {
     console.log("WebSocket 연결 종료");
+    console.log("종료 코드:", event.code, "이유:", event.reason);
+  };
+
+  ws.onerror = function (event) {
+    console.error("WebSocket 오류 발생:", event);
   };
 
   return ws; // WebSocket 객체 반환
