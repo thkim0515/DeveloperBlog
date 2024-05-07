@@ -88,7 +88,9 @@ export const ProfileInfo = () => {
   const updateSessionStorage = async (newData) => {
     const storedData = await decryptData("user", sessionStorage);
     // 변경 완료 후, 서버에 존재하는 기존 이미지 삭제
-    await axios.delete(`/awss3/deleteimg/${storedData.profileimg}`);
+    if (storedData.profileimg !== "noprofile.jpg") {
+      await axios.delete(`/awss3/deleteimg/${storedData.profileimg}`);
+    }
     const updatedData = { ...storedData, ...newData };
     delete updatedData.email;
     delete updatedData.id;
