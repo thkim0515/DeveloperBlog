@@ -96,7 +96,7 @@ export const ProjectEditForm = (props) => {
   };
 
   const onSubmit = async () => {
-    // TODO 폼 유효성 검사 에러메시지 수정예정
+    // TODO 에러메시지 추가예정
     const errors = validateProjectForm(projectFields);
 
     if (Object.keys(errors).length === 0) {
@@ -196,7 +196,7 @@ export const ProjectEditForm = (props) => {
           />
           <ListGroup
             as="ul"
-            className="d-block w-50"
+            className={search.trim() !== "" ? "d-block w-50" : "d-none w-50"}
             style={{ cursor: "pointer" }}
             onClick={handleAddStack}
           >

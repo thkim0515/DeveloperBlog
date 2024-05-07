@@ -3,15 +3,20 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 // components
 import { ProjectInformation } from "./ProjectInformation/ProjectInformation";
 import { ProjectContent } from "./ProjectContent/ProjectContent";
 import { ProjectComments } from "./ProjectComments/ProjectComments";
 
+import { useUserLogin } from "../../context/UserLoginContext";
+
 export const TeamProjectDetail = () => {
   const location = useLocation();
   const { data } = location.state;
+  const { isLogin } = useUserLogin();
 
   const navigate = useNavigate();
   const updateContents = (_id) => () => {
@@ -26,35 +31,69 @@ export const TeamProjectDetail = () => {
 
   return (
     <TeamProjectDetailBox>
-      <Button
-        className="edit-button"
-        variant="info"
-        onClick={updateContents(data._id)}
-      >
-        수정하기
-      </Button>
+      <Buttons>
+        <button
+          className="back-button"
+          onClick={() => navigate("/teamProject")}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </button>
+        {isLogin ? (
+          <Button variant="info" onClick={updateContents(data._id)}>
+            수정하기
+          </Button>
+        ) : (
+          ""
+        )}
+      </Buttons>
+
       <ProjectInformation data={data} />
       <ProjectContent content={data.content} />
       <ProjectComments content={data} />
-      {/* 임시 style 적용 */}
-      <div style={{ borderTop: "3px dashed #dbe2ef", padding: "2rem 0" }}>
-        <h2>프로젝트 모집 현황</h2>
+
+      {/* TODO 추가 기능 */}
+      {/* <RecruitmentStatusBox>
+        <h2 className="status-title">모집 현황</h2>
         <p>OO님이 프로젝트에 합류했어요!</p>
-      </div>
+      </RecruitmentStatusBox> */}
     </TeamProjectDetailBox>
   );
 };
 
-const TeamProjectDetailBox = styled.section`
+const TeamProjectDetailBox = styled.div`
   position: relative;
   max-width: 1000px;
   margin: 0 auto;
   background-color: #ffffff;
   padding: 0.25rem 3.5rem 0.75rem 3.5rem;
+`;
 
-  .edit-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+const Buttons = styled.section`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+
+  .back-button {
+    font-size: 1.5rem;
+    width: 42px;
+    height: 42px;
+    border: 1px solid transparent;
+
+    &:hover {
+      border: 1px solid #ebebeb;
+      border-radius: 3px;
+    }
+  }
+`;
+
+const RecruitmentStatusBox = styled.div`
+  border-top: 4px dashed #dbe2ef;
+  padding: 2rem 0;
+
+  .status-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-bottom: 1.5rem;
   }
 `;

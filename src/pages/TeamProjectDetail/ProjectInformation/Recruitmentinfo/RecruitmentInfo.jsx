@@ -7,9 +7,9 @@ export const RecruitmentInfo = (...props) => {
 
   return (
     <div>
-      <table>
+      <S.Table>
         <tbody>
-          <S.InformationBox>
+          <S.TR>
             <td className="recruitment-info-title">모집 기간</td>
             <td>
               <span>{timeString(infoData.startDate)}</span>
@@ -20,12 +20,14 @@ export const RecruitmentInfo = (...props) => {
             <td>
               <ul>
                 {infoData.roles.map((tag, index) => (
-                  <li key={index}>{translateRoleToKr(tag)}</li>
+                  <S.ProjectRole key={index}>
+                    {translateRoleToKr(tag)}
+                  </S.ProjectRole>
                 ))}
               </ul>
             </td>
-          </S.InformationBox>
-          <S.InformationBox>
+          </S.TR>
+          <S.TR>
             <td className="recruitment-info-title">모집 인원</td>
             <td>
               <span>{infoData.memberList.length}</span>
@@ -34,15 +36,11 @@ export const RecruitmentInfo = (...props) => {
             </td>
             <td className="recruitment-info-title">사용 기술</td>
             <td>
-              <S.IconBox>
-                {infoData.stacks.map((tag, index) => (
-                  <li key={index}>{tag}</li>
-                ))}
-              </S.IconBox>
+              <S.IconBox></S.IconBox>
             </td>
-          </S.InformationBox>
+          </S.TR>
         </tbody>
-      </table>
+      </S.Table>
     </div>
   );
 };
