@@ -21,7 +21,6 @@ export const HashTagBox = styled.ul`
   justify-content: center;
   gap: 1.5rem;
   color: #f542f4;
-  font-size: 0.875rem;
   font-weight: bold;
 `;
 

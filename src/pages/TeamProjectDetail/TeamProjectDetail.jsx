@@ -50,10 +50,12 @@ export const TeamProjectDetail = () => {
       <ProjectInformation data={data} />
       <ProjectContent content={data.content} />
       <ProjectComments content={data} />
-      <RecruitmentStatusBox>
+
+      {/* TODO 추가 기능 */}
+      {/* <RecruitmentStatusBox>
         <h2 className="status-title">모집 현황</h2>
         <p>OO님이 프로젝트에 합류했어요!</p>
-      </RecruitmentStatusBox>
+      </RecruitmentStatusBox> */}
     </TeamProjectDetailBox>
   );
 };
