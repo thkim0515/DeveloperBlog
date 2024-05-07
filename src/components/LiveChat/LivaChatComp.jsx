@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { WriteButton } from "../../components/imagegallery/WriteButton";
 import { Modal } from "./Modal";
 import { LiveChat } from "../../components/LiveChat/LiveChat";
 import { decryptData } from "../../js/secure";
+
+// 리덕스 적용
+import { useSelector, useDispatch } from "react-redux";
+import { reset, increment } from "../../_slice/unreadMessagesSlice";
+
 const ChatAndWriteBox = styled.div`
   display: flex;
   gap: 10px;
@@ -19,28 +23,77 @@ const LiveChatButton = styled.button`
   border: none;
   border-radius: 12px;
   cursor: pointer;
+  position: relative;
 `;
 
+const Notification = styled.div`
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  // background-image: url("https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/starblogimg/bell.png");
+  // background-size: cover;
+`;
+
+const develop = 2;
+
 export const LiveChatComp = () => {
-  // const WEBSOCKET_ADDRESS = "wss://d3kcrktwedekfj.cloudfront.net";
   const [isLiveChatVisible, setIsLiveChatVisible] = useState(false);
-  const [unreadMessages, setUnreadMessages] = useState(0);
-  const WEBSOCKET_ADDRESS = "ws://localhost:5000";
-  const [ws, setWs] = useState(null);
+  const WEBSOCKET_ADDRESS =
+    develop === 1
+      ? "wss://d3kcrktwedekfj.cloudfront.net"
+      : "ws://localhost:5000";
+
+  const unreadMessages = useSelector((state) => state.unreadMessages.value);
+  const dispatch = useDispatch();
+
+  const handleIncrement = () => {
+    dispatch(increment());
+  };
+
+  const handleReset = () => {
+    dispatch(reset());
+  };
+
+  const toggleLiveChat = () => {
+    setIsLiveChatVisible(!isLiveChatVisible);
+    if (isLiveChatVisible) {
+      handleReset();
+    }
+  };
+
+  useEffect(() => {
+    if (isLiveChatVisible) {
+      handleReset();
+    }
+  }, [isLiveChatVisible, handleReset]);
 
   useEffect(() => {
     const init = async () => {
       const ws = new WebSocket(WEBSOCKET_ADDRESS);
-      setWs(ws);
-
+      // const userSession = await decryptData("user", sessionStorage);
+      const randomSuffix =
+        "비로그인유저" + sessionStorage.getItem("randomSuffix");
       ws.onmessage = async (event) => {
         if (event.data instanceof Blob) {
           const text = await event.data.text();
 
           try {
             const data = JSON.parse(text);
-            if (data.userId !== "userSession.nickname") {
-              setUnreadMessages((prev) => prev + 1);
+            if (data.userId !== randomSuffix) {
+              // if (
+              //   data.userId !== randomSuffix &&
+              //   (!userSession || data.userId !== userSession.nickname)
+              // ) {
+              handleIncrement();
             }
           } catch (error) {
             console.error("JSON 파싱 에러:", error);
@@ -48,8 +101,8 @@ export const LiveChatComp = () => {
         } else {
           try {
             const data = JSON.parse(event.data);
-            if (data.userId !== "userSession.nickname") {
-              setUnreadMessages((prev) => prev + 1);
+            if (data.userId !== randomSuffix) {
+              handleIncrement();
             }
           } catch (error) {
             console.error("JSON 파싱 에러:", error);
@@ -62,23 +115,17 @@ export const LiveChatComp = () => {
     init();
   }, []);
 
-  const toggleLiveChat = () => {
-    setIsLiveChatVisible(!isLiveChatVisible);
-    if (isLiveChatVisible) {
-      setUnreadMessages(0); // 채팅창을 열면 읽음 처리
-    }
-  };
-
   return (
     <div>
       <ChatAndWriteBox>
         <LiveChatButton onClick={toggleLiveChat}>
-          실시간 채팅{unreadMessages > 0 ? ` (${unreadMessages})` : ""}
+          실시간 채팅{/*{unreadMessages > 0 ? ` (${unreadMessages})` : ""} */}
+          {unreadMessages > 0 && <Notification>{unreadMessages}</Notification>}
         </LiveChatButton>
       </ChatAndWriteBox>
       {isLiveChatVisible && (
         <Modal onClose={toggleLiveChat}>
-          <LiveChat />
+          <LiveChat addr={WEBSOCKET_ADDRESS} />
         </Modal>
       )}
     </div>

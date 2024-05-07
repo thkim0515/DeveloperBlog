@@ -1,31 +1,44 @@
 const WebSocket = require("ws");
 
 let messages = [];
-let userSessions = {}; // 사용자 세션 정보와 메시지 읽음 상태 저장
+let userSessions = {};
 
 function setupWebSocket(server) {
   const wss = new WebSocket.Server({ server });
 
   wss.on("connection", (ws, req) => {
-    const userID = req.headers["sec-websocket-key"]; // 예시로 WebSocket Key 사용
+    messages.forEach((message) => {
+      ws.send(message);
+    });
+
+    const userID = req.headers["sec-websocket-key"];
     userSessions[userID] = {
       lastReadIndex: messages.length - 1,
       ws: ws,
     };
-
     ws.on("message", (message) => {
-      const parsedMessage = JSON.parse(message);
+      // const parsedMessage = JSON.parse(message);
+      const messageBuffer = Buffer.from(message);
       if (messages.length >= 200) {
         messages.shift();
       }
-      messages.push({ ...parsedMessage, index: messages.length });
+
+      messages.push(messageBuffer);
+      // messages.push({ ...parsedMessage, index: messages.length });
+      // const messageString = JSON.stringify(parsedMessage); // 객체를 문자열로 변환
 
       Object.keys(userSessions).forEach((user) => {
         if (userSessions[user].ws.readyState === WebSocket.OPEN) {
-          userSessions[user].ws.send(message);
+          // userSessions[user].ws.send(messageString);
           if (user !== userID) {
             userSessions[user].lastReadIndex = messages.length - 1;
           }
+        }
+      });
+
+      wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(message);
         }
       });
     });
