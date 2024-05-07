@@ -5,10 +5,13 @@ export const ProjectContent = (content) => {
 };
 
 const ProjectContentBox = styled.section`
-  margin-top: 1rem;
-  padding: 1.75rem 0;
+  max-height: 1200px;
+  height: 100%;
+  margin: 2.5rem 0;
+  padding-bottom: 2.25rem;
   font-size: 1.125rem;
   word-break: break-all;
   line-height: 1.7;
   letter-spacing: -0.004em;
+  border-bottom: 1px solid #dbe2ef;
 `;

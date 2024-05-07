@@ -61,7 +61,6 @@ export const Comment = ({ content }) => {
   const postCommentToServer = async (commentData) => {
     try {
       await axios.post("/comments/create", commentData);
-      alert("댓글 등록 성공!");
       readCommentsFunc();
       setComment("");
     } catch (error) {
@@ -119,8 +118,6 @@ export const Comment = ({ content }) => {
   const updateCommentToServer = async (_id, commentData) => {
     try {
       await axios.put(`/comments/update/${_id}`, commentData);
-
-      alert("댓글 수정 성공!");
       setEditComment("");
       readCommentsFunc();
       setEditId(null);
@@ -132,7 +129,7 @@ export const Comment = ({ content }) => {
 
   /*-------------delete 기능---------------*/
   const deleteContents = async (_id, checkValue) => {
-    const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
+    const isConfirmed = window.confirm("댓글을 삭제하시겠습니까?");
 
     if (isConfirmed) {
       try {
@@ -169,6 +166,15 @@ export const Comment = ({ content }) => {
   return (
     <S.CommentAndFormBox>
       <h3>댓글</h3>
+      <S.CommentForm className="comment_form" onSubmit={handleCreateSubmit}>
+        <input
+          type="text"
+          value={comment}
+          onChange={handleInputChange(setComment)}
+          placeholder="댓글 쓰기..."
+        />
+        <button type="submit">작성</button>
+      </S.CommentForm>
       {commentList[0] && (
         <S.CommentBox>
           <ul>
@@ -204,7 +210,7 @@ export const Comment = ({ content }) => {
                                 handleResizeHeight(); // handleResizeHeight 함수 호출
                               }}
                               onFocus={handleOnFocusTextarea}
-                              placeholder="댓글 달기..."
+                              placeholder="댓글 쓰기..."
                             />
                           ) : (
                             <div className="comment">{comment.comment}</div>
@@ -241,7 +247,7 @@ export const Comment = ({ content }) => {
                               className="edit_delete"
                               onClick={() => toggleReplyInput(comment._id)}
                             >
-                              {replyId === comment._id ? "" : "댓글"}
+                              {replyId === comment._id ? "" : "답댓글"}
                             </button>
                           )}
                         </div>
@@ -275,15 +281,6 @@ export const Comment = ({ content }) => {
           </ul>
         </S.CommentBox>
       )}
-      <S.CommentForm className="comment_form" onSubmit={handleCreateSubmit}>
-        <input
-          type="text"
-          value={comment}
-          onChange={handleInputChange(setComment)}
-          placeholder="댓글 달기..."
-        />
-        <button type="submit">작성</button>
-      </S.CommentForm>
     </S.CommentAndFormBox>
   );
 };

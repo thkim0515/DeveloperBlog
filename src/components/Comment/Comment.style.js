@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const CommentAndFormBox = styled.div`
   width: 100%;
-    h3{
-      font-weight: bold;
-      font-size: 1.2rem;
-      padding: 20px;
-      color: #112d4e;
-    }
+  h3 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 20px 0;
+    color: #112d4e;
+  }
 `;
 
 export const CommentBox = styled.div`
@@ -20,7 +20,6 @@ export const CommentBox = styled.div`
     align-items: center;
     gap: 8px;
     padding: 8px 8px 8px 0;
-
 
     .profile_box {
       width: 8%;
@@ -69,10 +68,9 @@ export const CommentBox = styled.div`
             overflow: hidden;
           }
 
-          div{
-            word-break:break-all;
+          div {
+            word-break: break-all;
           }
-
         }
         .date {
           width: 100%;
@@ -122,4 +120,3 @@ export const CommentForm = styled.form`
     cursor: pointer;
   }
 `;
-

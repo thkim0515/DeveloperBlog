@@ -5,7 +5,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { translateRoleToKr } from "../../../utils/convertToTemplate";
 
 // components
-import { UserProfileBox } from "../../../components/user/UserProfileBox";
+import { UserProfile } from "../../../components/common/UserProfile";
 
 // util
 import { timeString } from "./../../../utils/timeString";
@@ -46,7 +46,7 @@ export const ProjectCard = ({ data }) => {
         <S.ProjectTitle>{data.title}</S.ProjectTitle>
         <S.projectStackBox>
           {data.stacks.slice(0, 4).map((stack, idx) => (
-            <li key={`${stack}-${idx}`}>
+            <li key={`stack-${idx}`}>
               <img
                 src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${stack.toLowerCase()}.svg`}
                 alt={stack}
@@ -65,7 +65,7 @@ export const ProjectCard = ({ data }) => {
 
       {/*  */}
       <S.ProjectFooter>
-        <UserProfileBox nickname={data.userId.nickname} />
+        <UserProfile />
         <span>{`${data.memberList.length}/${data.tableOfOrganization}`}</span>
       </S.ProjectFooter>
     </S.ProjectCardBox>

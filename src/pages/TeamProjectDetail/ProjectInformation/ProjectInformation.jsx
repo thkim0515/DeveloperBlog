@@ -1,6 +1,6 @@
 import * as S from "./ProjectInformation.style";
-import { UserProfileBox } from "../../../components/user/UserProfileBox";
 import { RecruitmentInfo } from "../ProjectInformation/Recruitmentinfo/RecruitmentInfo";
+import { UserProfile } from "../../../components/common/UserProfile";
 
 export const ProjectInformation = (data) => {
   const infoData = data.data;
@@ -26,7 +26,7 @@ export const ProjectInformation = (data) => {
         ))}
       </S.HashTagBox>
       <S.PostingInfoBox>
-        <UserProfileBox nickname={infoData.userId.nickname} />
+        <UserProfile nickname={infoData.userId.nickname} />
         <S.ProjectViews>
           <img src="/img/eye-solid.png" alt="views-icon" />
           <span>{infoData.views}</span>
@@ -38,7 +38,7 @@ export const ProjectInformation = (data) => {
       <RecruitmentInfo
         startDate={infoData.startDate}
         endDate={infoData.endDate}
-        memberList={infoData.memberList}
+        memberList={infoData.memberList.length}
         tableOfOrganiztion={infoData.tableOfOrganization}
         stacks={infoData.stacks}
         roles={infoData.roles}

@@ -40,6 +40,7 @@ export const Header = () => {
               로그인
             </S.LogineButton>
           )}
+          <LiveChatComp />
         </div>
       </S.HeaderBox>
     </S.HeaerParentBox>
