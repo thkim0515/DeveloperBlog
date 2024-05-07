@@ -36,12 +36,11 @@ export const ProjectBody = styled.div`
   align-items: center;
   max-height: 146.6px;
   height: 100%;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   gap: 0.5rem;
 `;
 
 export const ProjectHashTagBox = styled.div`
-  margin-top: 0.375rem;
   font-size: 0.75rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -55,6 +54,7 @@ export const ProjectHashTagBox = styled.div`
 
 export const ProjectHashTag = styled.span`
   display: inline-block;
+  padding: 0.5rem 0;
   color: #f542f4;
   font-weight: bold;
   font-size: 0.813rem;
@@ -63,7 +63,7 @@ export const ProjectHashTag = styled.span`
 
 export const ProjectTitle = styled.p`
   max-width: 16rem;
-  padding: 0.625rem 0;
+  padding: 0.5rem 0;
   font-size: 1.25rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -113,6 +113,7 @@ export const ProjectRole = styled.li`
 export const ProjectFooter = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 1rem;
-  padding: 0.5rem 0.625rem;
+  padding: 0 0.375rem;
 `;

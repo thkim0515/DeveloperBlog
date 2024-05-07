@@ -7,18 +7,19 @@ export const ProjectInfoBox = styled.div`
 `;
 
 export const ProjectTitle = styled.h2`
-  margin-top: 2.5rem;
   font-weight: 800;
   font-size: 2.25rem;
   line-height: 126.5%;
   letter-spacing: -0.005em;
   overflow-wrap: break-word;
-  margin-bottom: 2rem;
+  padding: 1.5rem 0;
+  text-align: center;
 `;
 
 export const HashTagBox = styled.ul`
   display: flex;
-  gap: 1rem;
+  justify-content: center;
+  gap: 1.5rem;
   color: #f542f4;
   font-weight: bold;
 `;
@@ -27,15 +28,21 @@ export const PostingInfoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.75rem 0;
+  padding: 1.5rem 0 2rem 0;
 
-  div::after {
+  & > *:not(:last-child)::after {
     content: "|";
-    padding: 0.5rem;
+    color: #000000;
+    margin: 0 0.5rem;
   }
 `;
 
 export const ProjectViews = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1rem;
+
   img {
     width: 18px;
     height: auto;

@@ -13,15 +13,15 @@ const commentSchema = new mongoose.Schema({
       return this.postType === "Content" ? "Content" : "Project";
     },
   },
-  postType: {
-    type: String,
-    required: true,
-    enum: ["Content", "Project"],
-  },
   parentId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Comment",
     default: null,
+  },
+  postType: {
+    type: String,
+    required: true,
+    enum: ["Content", "Project"],
   },
   comment: { type: String, required: true },
   postdate: {

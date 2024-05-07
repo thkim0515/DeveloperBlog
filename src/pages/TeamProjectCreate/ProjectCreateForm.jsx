@@ -35,8 +35,8 @@ export const ProjectCreateForm = () => {
   ] = useFormFields({
     title: "",
     updatedDate: new Date().toLocaleDateString(),
-    startDate: new Date().toISOString().slice(0, 10),
-    endDate: new Date().toISOString().slice(0, 10),
+    startDate: "",
+    endDate: "",
     recruitmentCompleted: 0,
     tableOfOrganization: 0,
     content: "",
@@ -80,7 +80,7 @@ export const ProjectCreateForm = () => {
   };
 
   const onSubmit = async () => {
-    // stack 폼 유효성 검사 에러메시지 수정예정
+    // TODO 에러메시지 추가예정
     const errors = validateProjectForm(projectFields);
     if (Object.keys(errors).length === 0) {
       setLoading(true);
@@ -174,7 +174,7 @@ export const ProjectCreateForm = () => {
           />
           <ListGroup
             as="ul"
-            className="d-block w-50"
+            className={search.trim() !== "" ? "d-block w-50" : "d-none w-50"}
             style={{ cursor: "pointer" }}
             onClick={handleAddStack}
           >
