@@ -335,7 +335,7 @@ export const ProjectEditForm = (props) => {
         disabled={isLoading}
         onClick={!isLoading ? onSubmit : null}
       >
-        {isLoading ? "Loading…" : "올리기"}
+        {isLoading ? "Loading…" : "수정하기"}
       </Button>
     </Form>
   );

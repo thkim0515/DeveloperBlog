@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import Button from "react-bootstrap/Button";
 
 // components
 import { ProjectEditForm } from "./ProjectEditForm";
-import axios from "axios";
+
 export const TeamProjectEdit = () => {
   const [postData, setPostData] = useState([]);
   let params = useParams();
@@ -32,6 +34,9 @@ export const TeamProjectEdit = () => {
     <section>
       <H2>팀 프로젝트 글 수정</H2>
       <Box>
+        <Button className="delete-button" variant="info">
+          삭제하기
+        </Button>
         <ProjectEditForm postData={postData} />
       </Box>
     </section>
@@ -46,8 +51,15 @@ const H2 = styled.h2`
 `;
 
 const Box = styled.section`
+  position: relative;
   max-width: 1000px;
   margin: 0 auto;
   padding: 2.5rem 1.5rem 2rem 1.5rem;
   background-color: #ffffff;
+
+  .delete-button {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+  }
 `;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InformationBox = styled.ul`
+export const InformationBox = styled.tr`
   .recruitment-info-title {
     color: #3e4756;
   }

@@ -1,19 +1,17 @@
-import axios from "axios";
 import styled from "styled-components";
+import axios from "axios";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+
 // components
 import { ProjectInformation } from "./ProjectInformation/ProjectInformation";
 import { ProjectContent } from "./ProjectContent/ProjectContent";
 import { ProjectComments } from "./ProjectComments/ProjectComments";
-import { LikeButton } from "../../components/imagegallery/ImageGalleryComponents/LikeButton";
-import { useUserLogin } from "../../context/UserLoginContext";
-import { useEffect } from "react";
 
 export const TeamProjectDetail = () => {
   const location = useLocation();
   const { data } = location.state;
-  const { user } = useUserLogin();
-  const userId = user && user.id ? user.id : null;
 
   const navigate = useNavigate();
   const updateContents = (_id) => () => {
@@ -28,31 +26,35 @@ export const TeamProjectDetail = () => {
 
   return (
     <TeamProjectDetailBox>
-      <button
+      <Button
+        className="edit-button"
+        variant="info"
         onClick={updateContents(data._id)}
-        style={{
-          fontSize: "3rem",
-          border: "2px solid black",
-          backgroundColor: "yellow",
-        }}
       >
         수정하기
-      </button>
+      </Button>
       <ProjectInformation data={data} />
       <ProjectContent content={data.content} />
-      <LikeButton
-        content_id={data._id}
-        user_id={userId}
-        boardSortation="project"
-      />
       <ProjectComments content={data} />
+      {/* 임시 style 적용 */}
+      <div style={{ borderTop: "3px dashed #dbe2ef", padding: "2rem 0" }}>
+        <h2>프로젝트 모집 현황</h2>
+        <p>OO님이 프로젝트에 합류했어요!</p>
+      </div>
     </TeamProjectDetailBox>
   );
 };
 
 const TeamProjectDetailBox = styled.section`
+  position: relative;
   max-width: 1000px;
   margin: 0 auto;
   background-color: #ffffff;
   padding: 0.25rem 3.5rem 0.75rem 3.5rem;
+
+  .edit-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
 `;
