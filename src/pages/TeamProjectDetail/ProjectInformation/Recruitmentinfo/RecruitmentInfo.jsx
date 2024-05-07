@@ -6,41 +6,42 @@ export const RecruitmentInfo = (...props) => {
   const infoData = props[0];
 
   return (
-    <div>
-      <S.Table>
-        <tbody>
-          <S.TR>
-            <td className="recruitment-info-title">모집 기간</td>
-            <td>
-              <span>{timeString(infoData.startDate)}</span>
-              <span>~</span>
-              <span>{timeString(infoData.endDate)}</span>
-            </td>
-            <td className="recruitment-info-title">모집 분야</td>
-            <td>
-              <ul>
-                {infoData.roles.map((tag, index) => (
-                  <S.ProjectRole key={index}>
-                    {translateRoleToKr(tag)}
-                  </S.ProjectRole>
-                ))}
-              </ul>
-            </td>
-          </S.TR>
-          <S.TR>
-            <td className="recruitment-info-title">모집 인원</td>
-            <td>
-              <span>{infoData.memberList.length}</span>
-              <span>/</span>
-              <span>{infoData.tableOfOrganiztion}</span>
-            </td>
-            <td className="recruitment-info-title">사용 기술</td>
-            <td>
-              <S.IconBox></S.IconBox>
-            </td>
-          </S.TR>
-        </tbody>
-      </S.Table>
-    </div>
+    <>
+      <S.UuorderListBox>
+        <S.Ul className="recruitment-info-list">
+          <S.Li>
+            <span className="title">모집 기간</span>
+            <span>{timeString(infoData.startDate)}</span>
+            <span>~</span>
+            <span>{timeString(infoData.endDate)}</span>
+          </S.Li>
+          <S.Li>
+            <span className="title">모집 분야</span>
+            <S.RoleBox>
+              {infoData.roles.map((tag, index) => (
+                <li key={index}>{translateRoleToKr(tag)}</li>
+              ))}
+            </S.RoleBox>
+          </S.Li>
+          <S.Li>
+            <span className="title">모집 인원</span>
+            <span>{infoData.memberList.length}</span>
+            <span>/</span>
+            <span>{infoData.tableOfOrganization}</span>
+          </S.Li>
+          <S.Li>
+            <span className="title">사용 기술</span>
+            {infoData.stacks.map((stack, idx) => (
+              <S.IconBox key={idx}>
+                <img
+                  src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${stack}.svg`}
+                  alt={stack}
+                />
+              </S.IconBox>
+            ))}
+          </S.Li>
+        </S.Ul>
+      </S.UuorderListBox>
+    </>
   );
 };

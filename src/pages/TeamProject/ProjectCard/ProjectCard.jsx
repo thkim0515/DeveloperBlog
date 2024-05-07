@@ -48,7 +48,7 @@ export const ProjectCard = ({ data }) => {
           {data.stacks.slice(0, 4).map((stack, idx) => (
             <li key={`stack-${idx}`}>
               <img
-                src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${stack.toLowerCase()}.svg`}
+                src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${stack}.svg`}
                 alt={stack}
               />
             </li>
@@ -56,7 +56,7 @@ export const ProjectCard = ({ data }) => {
         </S.projectStackBox>
         <S.ProjectRoleBox>
           {Object.keys(data.roles).map((role, idx) => (
-            <S.ProjectRole key={`${role}-${idx}`}>
+            <S.ProjectRole key={`role-${idx}`}>
               {translateRoleToKr(data.roles[role])}
             </S.ProjectRole>
           ))}

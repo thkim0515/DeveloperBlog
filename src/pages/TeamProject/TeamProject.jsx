@@ -13,6 +13,7 @@ import { useGetData } from "../../hooks/useGetData";
 // component
 import { ProjectCard } from "./ProjectCard/ProjectCard";
 import { MainPagination } from "./../../components/imagegallery/ImageGalleryComponents/MainPagination";
+import { Metas } from "../../components/common/Metas";
 
 export const TeamProject = () => {
   const [projectData, setProjectData] = useState([]);
@@ -44,42 +45,47 @@ export const TeamProject = () => {
       return projectData;
     }
 
-    return projectData.filter((project) => project.title.includes(search));
+    return projectData.filter((project) =>
+      project.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+    );
   };
 
   const filteredProject = getFilteredData();
 
   return (
-    <section>
-      <S.TeamProjectTitle>Team Project</S.TeamProjectTitle>
-      <InputGroup className="mb-3 mx-auto w-50">
-        <Form.Control
-          className="py-2"
-          placeholder="프로젝트를 검색하세요"
-          value={search}
-          onChange={handleSearchProject}
-        />
-        <Button variant="outline-secondary" id="button-addon2">
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </Button>
-      </InputGroup>
-      <S.TeamProjectBox>
-        {filteredProject.map((item, idx) => (
-          <ProjectCard key={idx} data={item} />
-        ))}
-      </S.TeamProjectBox>
+    <>
+      <Metas title="Team Project" />
+      <section>
+        <S.TeamProjectTitle>Team Project</S.TeamProjectTitle>
+        <InputGroup className="mb-3 mx-auto w-50">
+          <Form.Control
+            className="py-2"
+            placeholder="프로젝트를 검색하세요"
+            value={search}
+            onChange={handleSearchProject}
+          />
+          <Button variant="outline-secondary" id="button-addon2">
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </Button>
+        </InputGroup>
+        <S.TeamProjectBox>
+          {filteredProject.map((item, idx) => (
+            <ProjectCard key={idx} data={item} />
+          ))}
+        </S.TeamProjectBox>
 
-      <div>
-        <MainPagination
-          currentPage={data.currentPage}
-          totalPages={data.totalPages}
-          paginate={data.paginate}
-          nextPage={data.nextPage}
-          prevPage={data.prevPage}
-          firstPage={data.firstPage}
-          lastPage={data.lastPage}
-        />
-      </div>
-    </section>
+        <div>
+          <MainPagination
+            currentPage={data.currentPage}
+            totalPages={data.totalPages}
+            paginate={data.paginate}
+            nextPage={data.nextPage}
+            prevPage={data.prevPage}
+            firstPage={data.firstPage}
+            lastPage={data.lastPage}
+          />
+        </div>
+      </section>
+    </>
   );
 };

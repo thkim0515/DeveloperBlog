@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,21 +11,30 @@ import { ProjectInformation } from "./ProjectInformation/ProjectInformation";
 import { ProjectContent } from "./ProjectContent/ProjectContent";
 import { ProjectComments } from "./ProjectComments/ProjectComments";
 
+// context
 import { useUserLogin } from "../../context/UserLoginContext";
+
+// hooks
+import { useScrollReset } from "../../hooks/useScrollReset";
 
 export const TeamProjectDetail = () => {
   const location = useLocation();
   const { data } = location.state;
-  const { isLogin } = useUserLogin();
+  const { user } = useUserLogin();
+  const userId = user && user.id ? user.id : null;
+  const [ptPostingId, setPtPostingId] = useState("");
 
   const navigate = useNavigate();
   const updateContents = (_id) => () => {
     navigate(`/projectEdit/${_id}`, { state: { _id } });
   };
 
+  useScrollReset();
+
   useEffect(() => {
     axios
       .post("/project/view", { _id: data._id })
+      .then(() => setPtPostingId(data.userId._id))
       .catch((error) => console.error("Error:", error));
   }, [data._id]);
 
@@ -38,12 +47,10 @@ export const TeamProjectDetail = () => {
         >
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
-        {isLogin ? (
+        {userId === ptPostingId && (
           <Button variant="info" onClick={updateContents(data._id)}>
             수정하기
           </Button>
-        ) : (
-          ""
         )}
       </Buttons>
 
@@ -53,9 +60,9 @@ export const TeamProjectDetail = () => {
 
       {/* TODO 추가 기능 */}
       {/* <RecruitmentStatusBox>
-        <h2 className="status-title">모집 현황</h2>
-        <p>OO님이 프로젝트에 합류했어요!</p>
-      </RecruitmentStatusBox> */}
+    <h2 className="status-title">모집 현황</h2>
+    <p>OO님이 프로젝트에 합류했어요!</p>
+  </RecruitmentStatusBox> */}
     </TeamProjectDetailBox>
   );
 };

@@ -28,7 +28,7 @@ export const PostingInfoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5rem 0 2rem 0;
+  padding: 2rem 0;
 
   & > *:not(:last-child)::after {
     content: "|";
@@ -41,11 +41,10 @@ export const ProjectViews = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 1rem;
 
   img {
     width: 18px;
     height: auto;
-    margin-right: 0.5rem;
+    margin-right: 0.625rem;
   }
 `;

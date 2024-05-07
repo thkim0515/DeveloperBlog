@@ -63,7 +63,7 @@ router.post("/create", async (req, res) => {
     roles,
     content,
     memberList,
-    tableOfOrganiztion,
+    tableOfOrganization,
   } = req.body;
   try {
     const lastContent = await Project.findOne().sort({ pid: -1 });
@@ -80,7 +80,7 @@ router.post("/create", async (req, res) => {
       roles,
       content,
       memberList,
-      tableOfOrganiztion,
+      tableOfOrganization,
     });
     await newContents.save();
 
