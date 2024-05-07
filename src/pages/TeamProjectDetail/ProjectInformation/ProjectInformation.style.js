@@ -3,7 +3,6 @@ import styled from "styled-components";
 // informatin 줄임말 : info
 export const ProjectInfoBox = styled.div`
   border-bottom: 1px solid #dbe2ef;
-  margin-top: 2rem;
   padding: 1rem;
 `;
 
