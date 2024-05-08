@@ -4,7 +4,7 @@ import { decryptData } from "../../js/secure";
 import { connectWebSocket, sendMessage } from "./LiveChatFunctions";
 import * as S from "./LiveChat.style";
 
-export const LiveChat = () => {
+export const LiveChat = (addr) => {
   /* 로그인 여부 상태관리 */
   /* 세션에 따른 닉네임 or 비로그인 유저 */
   const [userNickname, setUserNickname] = useState("");
@@ -36,7 +36,7 @@ export const LiveChat = () => {
     };
 
     initializeUserSession();
-    const wsNew = connectWebSocket(setMessages, userNickname);
+    const wsNew = connectWebSocket(setMessages, userNickname, addr);
     setWs(wsNew);
   }, [isLogin]);
 

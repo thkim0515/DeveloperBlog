@@ -1,22 +1,40 @@
 const WebSocket = require("ws");
 
-// 모든 메시지를 저장할 배열
 let messages = [];
+let userSessions = {};
 
 function setupWebSocket(server) {
   const wss = new WebSocket.Server({ server });
 
-  wss.on("connection", (ws) => {
+  wss.on("connection", (ws, req) => {
     messages.forEach((message) => {
       ws.send(message);
     });
 
+    const userID = req.headers["sec-websocket-key"];
+    userSessions[userID] = {
+      lastReadIndex: messages.length - 1,
+      ws: ws,
+    };
     ws.on("message", (message) => {
-      // 메세지 개수 200개 넘어가면 0번부터 지우기
+      // const parsedMessage = JSON.parse(message);
+      const messageBuffer = Buffer.from(message);
       if (messages.length >= 200) {
         messages.shift();
       }
-      messages.push(message);
+
+      messages.push(messageBuffer);
+      // messages.push({ ...parsedMessage, index: messages.length });
+      // const messageString = JSON.stringify(parsedMessage); // 객체를 문자열로 변환
+
+      Object.keys(userSessions).forEach((user) => {
+        if (userSessions[user].ws.readyState === WebSocket.OPEN) {
+          // userSessions[user].ws.send(messageString);
+          if (user !== userID) {
+            userSessions[user].lastReadIndex = messages.length - 1;
+          }
+        }
+      });
 
       wss.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
@@ -26,7 +44,7 @@ function setupWebSocket(server) {
     });
 
     ws.on("close", () => {
-      // 필요시 작성
+      delete userSessions[userID];
     });
   });
 }
