@@ -227,7 +227,7 @@ export const Comment = ({ content }) => {
                               placeholder="댓글 쓰기..."
                             />
                           ) : (
-                            <div className="comment">{comment.comment}</div>
+                            <div className="comment"><pre>{comment.comment}</pre></div>
                           )}
                         </div>
                         <div>
@@ -271,7 +271,7 @@ export const Comment = ({ content }) => {
                   </li>
                   {/* 대댓글 입력창 렌더링 - replyId 값에따라 조건부 렌더링 */}
                   {replyId === comment._id && (
-                    <S.ReplyBox>
+                    <S.ReplyBox key={replyId}>
                       <div className="reply_title">ㄴ답글</div>
                       <input
                         type="text"

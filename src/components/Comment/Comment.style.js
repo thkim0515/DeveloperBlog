@@ -71,6 +71,11 @@ export const CommentBox = styled.div`
 
           div {
             word-break: break-all;
+            pre {
+              padding-bottom: 4px;
+              overflow-y: hidden;
+              white-space: pre-wrap;
+            }
           }
         }
         .date {
@@ -87,7 +92,6 @@ export const CommentBox = styled.div`
           cursor: pointer;
           button {
             margin-left: 8px;
-
           }
         }
       }
@@ -105,7 +109,7 @@ export const ReplyBox = styled.div`
   display: flex;
   justify-content: space-between;
 
-  .reply_title{
+  .reply_title {
     width: 8%;
     font-size: 0.8rem;
     line-height: 40px;
@@ -115,17 +119,15 @@ export const ReplyBox = styled.div`
     width: 80%;
     height: 40px;
     border: 1px solid #dbe2ef;
-
   }
-  .submit_cancel{
+  .submit_cancel {
     align-self: center;
     button {
-    margin-left: 8px;
-    font-size: 0.8rem;
-    cursor: pointer;
+      margin-left: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
   }
-  }
-
 `;
 
 export const CommentForm = styled.form`
