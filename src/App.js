@@ -5,9 +5,10 @@ import { Layout } from "./components/Layout/Layout";
 import { Join } from "./pages/Join/Join";
 
 //페이지
-import { Main } from "./pages/Main";
+import { Main } from "./pages/Main/Main";
 import { Login } from "./pages/Join/Login/Login";
 import { SignUp } from "./pages/Join/SignUp/SignUp";
+import { CodeMain } from "./pages/CodeMain/CodeMain";
 import { CodeCreate } from "./pages/CodeCreate/CodeCreate";
 import { PostDetail } from "./pages/PostDetail/PostDetail";
 import { PostUpdate } from "./pages/PostUpdate/PostUpdate";
@@ -42,6 +43,10 @@ export const App = () => {
             <Route index element={<Main />} />
 
             {/* Code Posting */}
+            <Route
+              path="codeMain"
+              element={<CodeMain />}
+            />
             <Route
               path="codeCreate"
               element={<PrivateRoute component={<CodeCreate />} />}
