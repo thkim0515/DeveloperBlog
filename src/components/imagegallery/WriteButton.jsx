@@ -6,7 +6,7 @@ const WriteBox = styled.div`
   display: flex;
   gap: 10px;
   justify-content: flex-end;
-`
+`;
 
 const Button = styled.button`
   width: 120px;
@@ -17,14 +17,17 @@ const Button = styled.button`
   border: none;
   border-radius: 12px;
   cursor: pointer;
-`
+`;
 
 export const WriteButton = () => {
-
-  const { isLogin, user} = useUserLogin();
+  const { isLogin, user } = useUserLogin();
   return (
     <WriteBox>
-    {isLogin && user && (<Link to="/codeCreate"><Button>글쓰기</Button></Link>)}
+      {isLogin && user && (
+        <Link to="/codeCreate">
+          <Button>글쓰기</Button>
+        </Link>
+      )}
     </WriteBox>
   );
 };

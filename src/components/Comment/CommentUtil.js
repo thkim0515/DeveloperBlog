@@ -1,8 +1,9 @@
-import { useState} from "react";
+import { useState } from "react";
 
 /*----------부모 자식 재정렬------------*/
 export const organizeComments = (comments) => {
-  comments.sort((a,b) => new Date(b.postdate) - new Date(a.postdate));
+  console.log(comments);
+  comments.sort((a, b) => new Date(b.postdate) - new Date(a.postdate));
 
   let organizedComments = [];
   const parents = comments.filter((noParents) => !noParents.parentId);
@@ -29,8 +30,7 @@ export const organizeComments = (comments) => {
 
 /**페이지네이션 */
 
-export const useCalculatePage = (PageCount, commentLists ) => {
-
+export const useCalculatePage = (PageCount, commentLists) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastImage = currentPage * PageCount;

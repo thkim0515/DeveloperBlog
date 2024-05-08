@@ -177,6 +177,7 @@ export const Comment = ({ content }) => {
     lastPage,
   } = useCalculatePage(10, commentList);
 
+  console.log(commentList);
   return (
     <S.CommentAndFormBox>
       <h3>댓글</h3>
@@ -227,7 +228,9 @@ export const Comment = ({ content }) => {
                               placeholder="댓글 쓰기..."
                             />
                           ) : (
-                            <div className="comment"><pre>{comment.comment}</pre></div>
+                            <div className="comment">
+                              <pre>{comment.comment}</pre>
+                            </div>
                           )}
                         </div>
                         <div>
