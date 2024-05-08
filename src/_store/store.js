@@ -14,7 +14,7 @@ const store = configureStore({
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(websocketMiddleware, logger),
+    getDefaultMiddleware().concat(websocketMiddleware), //, logger),
 });
 
 export default store;

@@ -177,7 +177,6 @@ export const Comment = ({ content }) => {
     lastPage,
   } = useCalculatePage(10, commentList);
 
-  console.log(commentList);
   return (
     <S.CommentAndFormBox>
       <h3>댓글</h3>

@@ -3,29 +3,29 @@ import { useState } from "react";
 /*----------부모 자식 재정렬------------*/
 export const organizeComments = (comments) => {
   console.log(comments);
-  comments.sort((a, b) => new Date(b.postdate) - new Date(a.postdate));
+  comments.sort((a, b) => new Date(a.postdate) - new Date(b.postdate));
 
   let organizedComments = [];
-  const parents = comments.filter((noParents) => !noParents.parentId);
-  const children = {};
+  let lookup = {};
 
   comments.forEach((comment) => {
-    if (comment.parentId) {
-      if (!children[comment.parentId]) {
-        children[comment.parentId] = [];
-      }
-      children[comment.parentId].push(comment);
+    lookup[comment._id] = comment;
+    comment.children = [];
+  });
+
+  comments.forEach((comment) => {
+    if (comment.parentId && lookup[comment.parentId]) {
+      lookup[comment.parentId].children.push(comment);
+    } else {
+      organizedComments.push(comment);
     }
   });
 
-  parents.forEach((parent) => {
-    organizedComments.push(parent);
-    if (children[parent._id]) {
-      organizedComments = organizedComments.concat(children[parent._id]);
-    }
-  });
+  const flattenComments = (comment) => {
+    return [comment, ...comment.children.flatMap(flattenComments)];
+  };
 
-  return organizedComments;
+  return organizedComments.flatMap(flattenComments);
 };
 
 /**페이지네이션 */
