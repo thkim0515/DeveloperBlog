@@ -5,6 +5,8 @@ import { connectWebSocket, sendMessage } from "./LiveChatFunctions";
 import * as S from "./LiveChat.style";
 
 export const LiveChat = (addr) => {
+  const address = addr.addr;
+
   /* 로그인 여부 상태관리 */
   /* 세션에 따른 닉네임 or 비로그인 유저 */
   const [userNickname, setUserNickname] = useState("");
@@ -36,7 +38,7 @@ export const LiveChat = (addr) => {
     };
 
     initializeUserSession();
-    const wsNew = connectWebSocket(setMessages, userNickname, addr);
+    const wsNew = connectWebSocket(setMessages, userNickname, address);
     setWs(wsNew);
   }, [isLogin]);
 
@@ -63,6 +65,13 @@ export const LiveChat = (addr) => {
       sendMessage(ws, inputText, userNickname, setInputText);
     }
   };
+
+  useEffect(() => {
+    if (!messages.length) return;
+
+    const lastMessage = messages[messages.length - 1];
+    sessionStorage.setItem("timestamp", lastMessage.timestamp);
+  }, [messages]);
 
   return (
     <S.Container>

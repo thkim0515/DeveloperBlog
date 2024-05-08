@@ -1,5 +1,5 @@
 export const connectWebSocket = (setMessages, userNickname, addr) => {
-  const WEBSOCKET_ADDRESS = addr.addr;
+  const WEBSOCKET_ADDRESS = addr;
   let ws = new WebSocket(WEBSOCKET_ADDRESS);
 
   ws.onopen = () => {

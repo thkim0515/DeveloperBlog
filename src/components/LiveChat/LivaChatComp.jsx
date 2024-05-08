@@ -43,7 +43,7 @@ const Notification = styled.div`
   // background-size: cover;
 `;
 
-const develop = 2;
+const develop = 1;
 
 export const LiveChatComp = () => {
   const [isLiveChatVisible, setIsLiveChatVisible] = useState(false);
@@ -76,10 +76,13 @@ export const LiveChatComp = () => {
     }
   }, [isLiveChatVisible, handleReset]);
 
+  // const [timeStamp, setTimeStamp] = useState("");
   useEffect(() => {
     const init = async () => {
       const ws = new WebSocket(WEBSOCKET_ADDRESS);
       // const userSession = await decryptData("user", sessionStorage);
+      // const timestamp = sessionStorage.getItem("timestamp");
+
       const randomSuffix =
         "비로그인유저" + sessionStorage.getItem("randomSuffix");
       ws.onmessage = async (event) => {
@@ -89,11 +92,14 @@ export const LiveChatComp = () => {
           try {
             const data = JSON.parse(text);
             if (data.userId !== randomSuffix) {
+              // if (data.timestamp > timeStamp) {
+              handleIncrement();
+              // }
               // if (
               //   data.userId !== randomSuffix &&
               //   (!userSession || data.userId !== userSession.nickname)
               // ) {
-              handleIncrement();
+              // handleIncrement();
             }
           } catch (error) {
             console.error("JSON 파싱 에러:", error);
@@ -102,7 +108,9 @@ export const LiveChatComp = () => {
           try {
             const data = JSON.parse(event.data);
             if (data.userId !== randomSuffix) {
+              // if (data.timestamp > timeStamp) {
               handleIncrement();
+              // }
             }
           } catch (error) {
             console.error("JSON 파싱 에러:", error);
@@ -113,13 +121,26 @@ export const LiveChatComp = () => {
       return () => ws.close();
     };
     init();
-  }, []);
+  }, []); //[timestamp]):
 
+  // useEffect(() => {
+  //   const updateTimestamp = () => {
+  //     const storedTimestamp = sessionStorage.getItem("timestamp");
+  //     setTimeStamp(storedTimestamp || "");
+  //   };
+
+  //   updateTimestamp();
+  //   const intervalId = setInterval(updateTimestamp, 1000);
+
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, []);
   return (
     <div>
       <ChatAndWriteBox>
         <LiveChatButton onClick={toggleLiveChat}>
-          실시간 채팅{/*{unreadMessages > 0 ? ` (${unreadMessages})` : ""} */}
+          실시간 채팅
           {unreadMessages > 0 && <Notification>{unreadMessages}</Notification>}
         </LiveChatButton>
       </ChatAndWriteBox>
