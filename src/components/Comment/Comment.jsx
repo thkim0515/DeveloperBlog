@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
 import { timeStringWithHour } from "../../utils/timeString";
 import { organizeComments } from "./CommentUtil";
+import { MainPagination } from "../imagegallery/ImageGalleryComponents/MainPagination";
+import { useCalculatePage } from "./CommentUtil";
 
 export const Comment = ({ content }) => {
   //로그인 유저 정보 가져오기
@@ -163,6 +165,18 @@ export const Comment = ({ content }) => {
     }
   };
 
+  /*----------페이지네이션------------*/
+  const {
+    currentComments,
+    currentPage,
+    totalPages,
+    paginate,
+    nextPage,
+    prevPage,
+    firstPage,
+    lastPage,
+  } = useCalculatePage(10, commentList);
+
   return (
     <S.CommentAndFormBox>
       <h3>댓글</h3>
@@ -179,7 +193,7 @@ export const Comment = ({ content }) => {
         <S.CommentBox>
           <ul>
             {/**댓글 리스트*/}
-            {commentList.map((comment) => {
+            {currentComments.map((comment) => {
               return (
                 <>
                   <li
@@ -213,7 +227,7 @@ export const Comment = ({ content }) => {
                               placeholder="댓글 쓰기..."
                             />
                           ) : (
-                            <div className="comment">{comment.comment}</div>
+                            <div className="comment"><pre>{comment.comment}</pre></div>
                           )}
                         </div>
                         <div>
@@ -243,12 +257,13 @@ export const Comment = ({ content }) => {
                             </div>
                           ) : (
                             // 대댓글 입력 여부 - 본인댓글엔 대댓글 X
-                            <button
-                              className="edit_delete"
-                              onClick={() => toggleReplyInput(comment._id)}
-                            >
-                              {replyId === comment._id ? "" : "답댓글"}
-                            </button>
+                            <div className="edit_delete">
+                              <button
+                                onClick={() => toggleReplyInput(comment._id)}
+                              >
+                                {!user || replyId === comment._id ? "" : "답글"}
+                              </button>
+                            </div>
                           )}
                         </div>
                       </div>
@@ -256,30 +271,39 @@ export const Comment = ({ content }) => {
                   </li>
                   {/* 대댓글 입력창 렌더링 - replyId 값에따라 조건부 렌더링 */}
                   {replyId === comment._id && (
-                    <div style={{ marginLeft: "20px" }}>
+                    <S.ReplyBox key={replyId}>
+                      <div className="reply_title">ㄴ답글</div>
                       <input
                         type="text"
                         value={reply[comment._id] || ""}
                         onChange={handleReplyChange(comment._id)}
                       />
-                      <button
-                        onClick={(e) => handleCreateSubmit(e, comment._id)}
-                      >
-                        등록
-                      </button>
-                      <button
-                        onClick={(e) => setReplyId(null)}
-                        style={{ marginLeft: "10px" }}
-                      >
-                        취소
-                      </button>
-                    </div>
+                      <div className="submit_cancel">
+                        <button
+                          onClick={(e) => handleCreateSubmit(e, comment._id)}
+                        >
+                          등록
+                        </button>
+                        <button onClick={(e) => setReplyId(null)}>취소</button>
+                      </div>
+                    </S.ReplyBox>
                   )}
                 </>
               );
             })}
           </ul>
         </S.CommentBox>
+      )}
+      {commentList[0] && (
+        <MainPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          paginate={paginate}
+          nextPage={nextPage}
+          prevPage={prevPage}
+          firstPage={firstPage}
+          lastPage={lastPage}
+        />
       )}
     </S.CommentAndFormBox>
   );

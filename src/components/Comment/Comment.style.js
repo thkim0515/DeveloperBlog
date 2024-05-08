@@ -61,6 +61,7 @@ export const CommentBox = styled.div`
 
           textarea {
             width: 100%;
+            min-height: 36px;
             outline: none;
             resize: none;
             border: 1px solid #dbe2ef;
@@ -70,6 +71,11 @@ export const CommentBox = styled.div`
 
           div {
             word-break: break-all;
+            pre {
+              padding-bottom: 4px;
+              overflow-y: hidden;
+              white-space: pre-wrap;
+            }
           }
         }
         .date {
@@ -81,8 +87,8 @@ export const CommentBox = styled.div`
           margin-top: 8px;
           display: flex;
           justify-content: end;
-          font-size: 12px;
-          color: #112d4e;
+          font-size: 0.8rem;
+
           cursor: pointer;
           button {
             margin-left: 8px;
@@ -93,6 +99,34 @@ export const CommentBox = styled.div`
   }
   .comment_list:not(:last-child) {
     border-bottom: 1px solid #dbe2ef;
+  }
+`;
+
+// 답글 스타일
+export const ReplyBox = styled.div`
+  width: 100%;
+  padding: 8px 8px 8px 0;
+  display: flex;
+  justify-content: space-between;
+
+  .reply_title {
+    width: 8%;
+    font-size: 0.8rem;
+    line-height: 40px;
+    text-align: right;
+  }
+  input {
+    width: 80%;
+    height: 40px;
+    border: 1px solid #dbe2ef;
+  }
+  .submit_cancel {
+    align-self: center;
+    button {
+      margin-left: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
   }
 `;
 
