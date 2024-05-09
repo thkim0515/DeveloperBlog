@@ -9,6 +9,7 @@ const {
   DeleteObjectCommand,
 } = require("@aws-sdk/client-s3");
 const { fromEnv } = require("@aws-sdk/credential-provider-env");
+const { loadSecrets } = require("../loadSecrets");
 
 const region = "ap-northeast-2";
 const bucket = "starblog-bucket";
@@ -91,6 +92,15 @@ router.delete("/deleteimg/:profileimg", async (req, res) => {
       logError(err);
       res.status(500).send(err);
     }
+  }
+});
+
+router.get("/getbucket", async (req, res) => {
+  try {
+    const secrets = await loadSecrets();
+    res.json({ bucketUrl: secrets.REACT_APP_BUCKETNAME });
+  } catch (error) {
+    res.status(500).json({ error: "서버 에러 발생" });
   }
 });
 

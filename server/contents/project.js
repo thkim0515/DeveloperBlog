@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { logError } = require("../error/processError");
 const Project = require("../models/projectModel");
+const Comment = require("../models/commentModel");
 const Log = require("../models/LogModel");
 
 //getproject.

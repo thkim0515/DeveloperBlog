@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 
@@ -11,6 +11,7 @@ export const TeamProjectEdit = () => {
   const [postData, setPostData] = useState([]);
   let params = useParams();
   const _id = params._id;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
