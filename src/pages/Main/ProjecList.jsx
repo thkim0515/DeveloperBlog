@@ -14,5 +14,6 @@ export const ProjectList = ({projectList}) => {
 const SProjectListBox = styled.div`
   margin-top: 36px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 40px;
 `;
