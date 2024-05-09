@@ -1,34 +1,46 @@
 import * as S from "./TeamProject.style";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import Pagination from "react-bootstrap/Pagination";
 
 // components
 import { ProjectCard } from "../../components/ProjectCard/ProjectCard";
 import { Metas } from "../../components/common/Metas";
 import { WriteButton } from "../../components/imagegallery/WriteButton";
 
-import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
-
 export const TeamProject = () => {
   const [projectData, setProjectData] = useState([]);
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [displayData, setDisplayData] = useState([]);
+  let itemsPerPage = 9;
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const filteredData = getFilteredData();
+    setTotalPages(Math.ceil(filteredData.length / itemsPerPage));
+    setDisplayData(
+      filteredData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      )
+    );
+  }, [projectData, currentPage, search]);
+
   const fetchData = async () => {
     try {
       const res = await axios.get("/project/project");
       setProjectData(res.data);
-      setPage((prevPage) => prevPage + 1);
     } catch (err) {
       console.error(err);
     } finally {
@@ -36,12 +48,11 @@ export const TeamProject = () => {
     }
   };
 
-  const { sentinelRef } = useInfiniteScroll(fetchData);
-
-  const handleSearchProject = useCallback((e) => {
+  const handleSearchProject = (e) => {
     const { value } = e.target;
     setSearch(value);
-  }, []);
+    setCurrentPage(1);
+  };
 
   const getFilteredData = () => {
     if (search === "") {
@@ -49,11 +60,13 @@ export const TeamProject = () => {
     }
 
     return projectData.filter((project) =>
-      project.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      project.title.toLowerCase().includes(search.toLowerCase())
     );
   };
 
-  const filteredProject = getFilteredData();
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
@@ -73,12 +86,35 @@ export const TeamProject = () => {
           </Button>
         </InputGroup>
         <S.TeamProjectBox>
-          {filteredProject.map((item, idx) => (
+          {displayData.map((item, idx) => (
             <ProjectCard key={idx} data={item} />
           ))}
         </S.TeamProjectBox>
-        {isLoading && <div>Loading...</div>}
-        <div ref={sentinelRef}></div>
+
+        {/* 페이지네이션 */}
+        <Pagination className="d-flex justify-content-center mt-5">
+          <Pagination.First onClick={() => handlePageChange(1)} />
+          <Pagination.Prev
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          />
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+            (page) => (
+              <Pagination.Item
+                key={page}
+                onClick={() => handlePageChange(page)}
+                active={page === currentPage}
+              >
+                {page}
+              </Pagination.Item>
+            )
+          )}
+          <Pagination.Next
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          />
+          <Pagination.Last onClick={() => handlePageChange(totalPages)} />
+        </Pagination>
       </section>
     </>
   );

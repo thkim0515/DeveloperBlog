@@ -1,9 +1,11 @@
+import styled from "styled-components";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
+// import { ProjectContentEditor } from "./../../components/editor/ProjectContentEditor";
 
 // hooks
 import { useFormFields } from "../../hooks/form/useprojectFormFields";
@@ -11,6 +13,13 @@ import { useFormFields } from "../../hooks/form/useprojectFormFields";
 // utils
 import { handlePostProject } from "../../utils/handleProject";
 import { validateProjectForm } from "../../utils/validation";
+
+// styled
+const ErrorMessage = styled.div`
+  display: inline-block;
+  margin: 1rem 0.5rem 0;
+  color: red;
+`;
 
 // svgs
 const getSvgsData = await axios.get("/contents/svgsdata");
@@ -23,6 +32,7 @@ export const ProjectCreateForm = () => {
   const [isLoading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [hashTag, setHashTag] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [
     projectFields,
@@ -80,12 +90,15 @@ export const ProjectCreateForm = () => {
   };
 
   const onSubmit = async () => {
-    // TODO 에러메시지 추가예정
     const errors = validateProjectForm(projectFields);
+    setErrorMessage(errors);
+
     if (Object.keys(errors).length === 0) {
       setLoading(true);
       await handlePostProject(projectFields);
     } else {
+      window.scroll(0, 0);
+      alert("알림에 따라 글 작성 해주세요!");
       return false;
     }
   };
@@ -94,6 +107,7 @@ export const ProjectCreateForm = () => {
     <Form>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label className="fs-5 mb-3 ">프로젝트 제목</Form.Label>
+        <ErrorMessage>{errorMessage.title}</ErrorMessage>
         <Form.Control
           size="lg"
           type="text"
@@ -115,6 +129,7 @@ export const ProjectCreateForm = () => {
             onChange={handleCheckboxChange}
             name="projectManager"
           />
+
           <Form.Check
             inline
             label="디자이너"
@@ -213,19 +228,22 @@ export const ProjectCreateForm = () => {
               name="endDate"
             />
           </div>
+          <ErrorMessage>
+            {errorMessage.startDate || errorMessage.endDate}
+          </ErrorMessage>
         </div>
       </Form.Group>
 
       {/*  */}
       <Form.Group>
         <div>
-          <Form.Label className="fs-5 mb-3">모집 인원</Form.Label>
+          <Form.Label className="fs-5 mb-3">모집인원 정하기</Form.Label>
           <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganization}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
           <div>
-            <Form.Label className="mb-2">기존 인원</Form.Label>
+            <Form.Label className="mb-2">기존인원</Form.Label>
             <Form.Range
               value={projectFields.recruitmentCompleted}
               onChange={handleProjectForm}
@@ -235,7 +253,7 @@ export const ProjectCreateForm = () => {
             />
           </div>
           <div>
-            <Form.Label className="mb-2">시작 인원</Form.Label>
+            <Form.Label className="mb-2">모집인원</Form.Label>
             <Form.Range
               value={projectFields.tableOfOrganization}
               onChange={handleProjectForm}
@@ -244,6 +262,7 @@ export const ProjectCreateForm = () => {
               max="10"
             />
           </div>
+          <ErrorMessage>{errorMessage.recruitment}</ErrorMessage>
         </div>
       </Form.Group>
 
@@ -253,6 +272,7 @@ export const ProjectCreateForm = () => {
         controlId="exampleForm.ControlTextarea1"
       >
         <Form.Label className="fs-5 mt-2 mb-3">내용</Form.Label>
+        <ErrorMessage>{errorMessage.content}</ErrorMessage>
         <Form.Control
           as="textarea"
           rows={20}
@@ -262,6 +282,8 @@ export const ProjectCreateForm = () => {
           onChange={handleProjectForm}
           name="content"
         />
+        {/* FIXME ToastEditor test */}
+        {/* <ProjectContentEditor /> */}
       </Form.Group>
 
       {/*  */}

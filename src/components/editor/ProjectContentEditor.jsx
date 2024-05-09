@@ -1,8 +1,14 @@
-import { ToastEditor as ToastUiEditor } from "../../editor/ToastEditor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/i18n/ko-kr";
 import { useRef, useEffect } from "react";
+import { ToastEditor } from "./ToastEditor";
 //import { uploadImage } from "../../../utils/uploadImage";
+
+const toolbar = [
+  ["heading", "bold", "italic", "strike"],
+  ["hr", "quote", "ul", "ol"],
+  ["image"],
+];
 
 const onUploadImage = async (blob, callback) => {
   // console.log(blob);
@@ -11,7 +17,7 @@ const onUploadImage = async (blob, callback) => {
   // return false;
 };
 
-export const ToastEditor = ({ postData, onEditorChange }) => {
+export const ProjectContentEditor = ({ postData, onEditorChange }) => {
   const editorRef = useRef();
 
   const onChange = () => {
@@ -26,19 +32,15 @@ export const ToastEditor = ({ postData, onEditorChange }) => {
   }, [postData]);
 
   return (
-    <ToastUiEditor
+    <ToastEditor
       initialValue=" "
+      initialEditType="wysiwyg"
       ref={editorRef}
-      initialEditType="markdown"
       autofocus={true}
       height="500px"
       useCommandShortcut={false}
       usageStatistics={false}
-      toolbarItems={[
-        // 툴바 옵션 설정
-        ["code", "codeblock"],
-        //["image"],
-      ]}
+      toolbarItems={toolbar}
       hideModeSwitch={true}
       onChange={onChange}
       language="ko-KR"

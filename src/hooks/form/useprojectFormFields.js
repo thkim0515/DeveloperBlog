@@ -14,6 +14,7 @@ export const useFormFields = (initialState) => {
 
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
+
     setFields((prevFields) => ({
       ...prevFields,
       roles: checked

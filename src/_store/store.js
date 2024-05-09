@@ -2,7 +2,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "../_reducers/rootReducer";
 import unreadMessagesReducer from "../_slice/unreadMessagesSlice";
-import createWebSocketMiddleware from "../_slice/websocketMiddleware";
+import createWebSocketMiddleware from "../_actions/websocketMiddleware";
 import butketUrl from "../_slice/bucketSlice";
 import logger from "redux-logger";
 
