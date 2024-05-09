@@ -1,15 +1,15 @@
+import { Metas } from "../../components/common/Metas";
 import { ImageGrid } from "../../components/imagegallery/ImageGalleryComponents/ImageGrid";
-import { Metas } from "./../../components/common/Metas";
 import { WriteButton } from "../../components/imagegallery/WriteButton";
 
-export const MyCodes = () => {
-  const value = "my";
+export const CodeMain = () => {
+  const value = "all";
 
   return (
     <div>
-      <Metas title="내 코드" none />
+      <Metas main="main" />
       <div style={{display: "flex", justifyContent: "space-between", alignItems:"center"}}>
-        <h2 style={{ fontSize:"1.5rem", fontWeight: "bold"}}>My Code</h2>
+        <h2 style={{ fontSize:"1.5rem", fontWeight: "bold"}}>Code</h2>
         <WriteButton />
       </div>
       <ImageGrid value={value} />

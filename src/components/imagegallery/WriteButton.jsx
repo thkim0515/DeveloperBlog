@@ -8,6 +8,7 @@ const WriteBox = styled.div`
   justify-content: flex-end;
 `;
 
+
 const Button = styled.button`
   width: 120px;
   height: 40px;

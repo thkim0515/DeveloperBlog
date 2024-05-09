@@ -25,11 +25,6 @@ export const ImageGrid = (value) => {
   return (
     <S.Container>
       <S.Spacer>
-        {value.value === "all" ? (
-          <div>Code Gallery</div>
-        ) : (
-          <div>My Gallery</div>
-        )}
         <div>
           <InputGroup>
             <Form.Control
