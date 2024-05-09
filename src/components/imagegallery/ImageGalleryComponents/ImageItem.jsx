@@ -6,8 +6,10 @@ import { switchColor } from "../../../utils/switchColor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
+import { useSelector } from "react-redux";
 
 export const ImageItem = ({ content }) => {
+  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
   const navigate = useNavigate();
   const handleImageClick = () => {
     if (content) {
@@ -42,7 +44,7 @@ export const ImageItem = ({ content }) => {
               <div className="img_box">
                 <img
                   src={`
-                      https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${content.language.toLowerCase()}.svg`}
+                      ${bucketUrl}svgs/${content.language.toLowerCase()}.svg`}
                   alt={content.language.toLowerCase()}
                   className="svgIcon"
                 />
@@ -57,8 +59,8 @@ export const ImageItem = ({ content }) => {
             <S.SProfileImage title="프로필">
               {content.userId.profileimg && (
                 <S.ProfileImage
-                  src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${content.userId.profileimg}`}
-                  alt={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${content.userId.profileimg}`}
+                  src={`${bucketUrl}profileImg/${content.userId.profileimg}`}
+                  alt={`${bucketUrl}profileImg/${content.userId.profileimg}`}
                 />
               )}
             </S.SProfileImage>

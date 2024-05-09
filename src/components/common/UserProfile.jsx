@@ -1,12 +1,12 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 export const UserProfile = ({ imagePath, nickname }) => {
+  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
+
   return (
     <UserProfileBox>
-      <ProfileImage
-        src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${imagePath}`}
-        alt="user"
-      />
+      <ProfileImage src={`${bucketUrl}profileImg/${imagePath}`} alt="user" />
       <UserNickname>{nickname}</UserNickname>
     </UserProfileBox>
   );

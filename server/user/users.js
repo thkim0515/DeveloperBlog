@@ -4,6 +4,7 @@ const router = express.Router();
 const User = require("../models/userModel");
 const Content = require("../models/contentModel");
 const Comment = require("../models/commentModel");
+const Project = require("../models/projectModel");
 const path = require("path");
 const bcrypt = require("bcrypt");
 const loadSecrets = require("../loadSecrets");
@@ -354,6 +355,7 @@ loadSecrets().then((secrets) => {
       }
       await Comment.deleteMany({ userId: userId });
       await Content.deleteMany({ userId: userId });
+      await Project.deleteMany({ userId: userId });
 
       res.status(200).json({ message: "계정 삭제성공" });
     } catch (error) {

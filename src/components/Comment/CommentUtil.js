@@ -2,7 +2,6 @@ import { useState } from "react";
 
 /*----------부모 자식 재정렬------------*/
 export const organizeComments = (comments) => {
-  console.log(comments);
   comments.sort((a, b) => new Date(a.postdate) - new Date(b.postdate));
 
   let organizedComments = [];

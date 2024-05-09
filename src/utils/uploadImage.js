@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const handleUpload = async (selectedFile) => {
   if (!selectedFile) {
-    alert("파일을 선택해주세요.");
+    // alert("파일을 선택해주세요.");
     return;
   }
 

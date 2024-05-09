@@ -17,8 +17,10 @@ import { useUserLogin } from "../../context/UserLoginContext";
 import { useScrollReset } from "../../hooks/useScrollReset";
 import { LikeButton } from "../../components/imagegallery/ImageGalleryComponents/LikeButton";
 import { Metas } from "../../components/common/Metas";
+import { useSelector } from "react-redux";
 
 export const PostDetailComp = () => {
+  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
   //스크롤위치 초기화
   useScrollReset();
 
@@ -79,7 +81,7 @@ export const PostDetailComp = () => {
             <div className="img_box">
               <img
                 src={`
-                    https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${detailContent.language}.svg`}
+                    ${bucketUrl}svgs/${detailContent.language}.svg`}
                 alt=""
               />{" "}
               {/* alt={image.language} */}
@@ -96,8 +98,8 @@ export const PostDetailComp = () => {
               <S.SProfileImage title="프로필">
                 {detailContent.userId.profileimg && (
                   <S.ProfileImage
-                    src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${detailContent.userId.profileimg}`}
-                    alt={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${detailContent.userId.profileimg}`}
+                    src={`${bucketUrl}profileImg/${detailContent.userId.profileimg}`}
+                    alt={`${bucketUrl}profileImg/${detailContent.userId.profileimg}`}
                   />
                 )}
               </S.SProfileImage>

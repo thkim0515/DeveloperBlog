@@ -8,8 +8,10 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 export const ImageGrid = (value) => {
+  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
   const [selectedIcon, setSelectedIcon] = useState(null); // 선택된 아이콘의 이름
   const [searchTerm, setSearchTerm] = useState(""); // 검색내용
 
@@ -54,7 +56,7 @@ export const ImageGrid = (value) => {
             data.svgImages.map((svgName, idx) => (
               <img
                 key={idx}
-                src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${svgName}.svg`}
+                src={`${bucketUrl}svgs/${svgName}.svg`}
                 alt={svgName}
                 onClick={() => setSelectedIcon(svgName)}
                 style={{

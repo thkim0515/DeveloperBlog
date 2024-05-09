@@ -2,8 +2,10 @@ import * as S from "./Profile.style.js";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
 import { Metas } from "../../components/common/Metas.jsx";
+import { useSelector } from "react-redux";
 
 export const Profile = () => {
+  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
   //유저정보 받아와서 프로필 데이터로 저장
   const { profileDB } = useUserLogin();
 
@@ -23,10 +25,7 @@ export const Profile = () => {
             <S.ProfileImgBox>
               <S.ProfileImg
                 alt="프로필 이미지"
-                src={
-                  "https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/" +
-                  profileDB.profileimg
-                }
+                src={`${bucketUrl}profileImg/` + profileDB.profileimg}
               />
             </S.ProfileImgBox>
             <S.ProfileTextBox>

@@ -19,7 +19,7 @@ export const S3Uploader = () => {
 
   const handleUpload = async () => {
     if (!selectedFile) {
-      alert("파일을 선택해주세요.");
+      // alert("파일을 선택해주세요.");
       return;
     }
 

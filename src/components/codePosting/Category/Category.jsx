@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+
 export const Category = ({ category, setCategory }) => {
+  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
   const [svgImages, setSvgImages] = useState([]);
 
   useEffect(() => {
@@ -32,10 +35,7 @@ export const Category = ({ category, setCategory }) => {
             onClick={() => handleCategory(svgName)}
             $isSelected={category === svgName}
           >
-            <img
-              src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${svgName}.svg`}
-              alt={svgName}
-            />
+            <img src={`${bucketUrl}svgs/${svgName}.svg`} alt={svgName} />
           </ImageWrapper>
         );
       })}

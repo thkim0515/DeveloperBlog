@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext.jsx";
 import { decryptData, encryptData } from "../../js/secure.js";
 import { handleUpload } from "../../utils/uploadImage";
+import { useSelector } from "react-redux";
+
 export const ProfileInfo = () => {
+  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
   const { profileDB, setIsChange } = useUserLogin();
 
   //user정보변경상태 false로 초기화
@@ -17,7 +20,7 @@ export const ProfileInfo = () => {
   //로그인 유저정보
   const [nickname, setNickname] = useState(profileDB.nickname);
   const email = profileDB.email;
-  const imgSrc = `https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/${profileDB.profileimg}`;
+  const imgSrc = `${bucketUrl}profileImg/${profileDB.profileimg}`;
 
   //이미지 미리보기
   const [imgPreview, setImgPreview] = useState(null);

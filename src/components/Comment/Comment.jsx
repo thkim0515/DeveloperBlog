@@ -7,8 +7,10 @@ import { timeStringWithHour } from "../../utils/timeString";
 import { organizeComments } from "./CommentUtil";
 import { MainPagination } from "../imagegallery/ImageGalleryComponents/MainPagination";
 import { useCalculatePage } from "./CommentUtil";
+import { useSelector } from "react-redux";
 
 export const Comment = ({ content }) => {
+  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
   //로그인 유저 정보 가져오기
   const { user } = useUserLogin();
 
@@ -204,8 +206,7 @@ export const Comment = ({ content }) => {
                     <div className="profile_box">
                       <img
                         src={
-                          "https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/" +
-                          comment.userId.profileimg
+                          `${bucketUrl}profileImg/` + comment.userId.profileimg
                         }
                         alt="유저이미지"
                       ></img>

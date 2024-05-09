@@ -2,8 +2,10 @@ import * as S from "./Layout.style";
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
+import { useSelector } from "react-redux";
 
 export const UserLogin = () => {
+  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
   //로그인 유저정보
   const { setIsLogin, setUser, setIsChange, profileDB } = useUserLogin();
 
@@ -42,10 +44,7 @@ export const UserLogin = () => {
           <div>{profileDB.nickname}</div>
           <S.ProfileImage
             alt="프로필 사진"
-            src={
-              "https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/profileImg/" +
-              profileDB.profileimg
-            }
+            src={`${bucketUrl}profileImg/` + profileDB.profileimg}
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
             }}

@@ -1,8 +1,10 @@
 import * as S from "./RecruitmentInfo.style";
 import { translateRoleToKr } from "../../../../utils/convertToTemplate";
 import { timeString } from "../../../../utils/timeString";
+import { useSelector } from "react-redux";
 
 export const RecruitmentInfo = (...props) => {
+  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
   const infoData = props[0];
 
   return (
@@ -33,10 +35,7 @@ export const RecruitmentInfo = (...props) => {
             <span className="title">사용 기술</span>
             {infoData.stacks.map((stack, idx) => (
               <S.IconBox key={idx}>
-                <img
-                  src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${stack}.svg`}
-                  alt={stack}
-                />
+                <img src={`${bucketUrl}svgs/${stack}.svg`} alt={stack} />
               </S.IconBox>
             ))}
           </S.Li>
