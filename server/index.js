@@ -42,6 +42,7 @@ const awss3 = require("./user/awss3");
 const contents = require("./contents/contents");
 const comments = require("./contents/comments");
 const project = require("./contents/project");
+const main = require("./contents/main");
 const endecrypt = require("./contents/endecrypt");
 // const s3bucket = require("./contents/s3bucket");
 
@@ -52,6 +53,7 @@ app.use("/email", email);
 app.use("/contents", contents);
 app.use("/comments", comments);
 app.use("/project", project);
+app.use("/main", main);
 app.use("/endecrypt", endecrypt);
 app.use("/awss3", awss3);
 // app.use("/s3bucket", s3bucket);

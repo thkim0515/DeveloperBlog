@@ -11,6 +11,14 @@ export const SItem = styled.div`
   border-radius: 12px;
   overflow: hidden;
 
+  box-shadow: 13px 15px 14px -5px rgba(212, 207, 207, 0.75);
+  -webkit-box-shadow: 13px 15px 14px -5px rgba(212, 207, 207, 0.75);
+  -moz-box-shadow: 13px 15px 14px -5px rgba(212, 207, 207, 0.75);
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
 `;
 
 /**컨텐츠 내용 박스 */
@@ -19,7 +27,7 @@ export const RoutingPage = styled.div`
   height: 75%;
   border-bottom: 1px solid #dbe2ef;
 
-  .lang_box{
+  .lang_box {
     height: 48px;
     padding: 10px;
     color: #fff;
@@ -27,8 +35,7 @@ export const RoutingPage = styled.div`
     font-weight: bold;
   }
 
-  .text_contents_box{
-
+  .text_contents_box {
     height: calc(100% - 48px);
     display: flex;
     flex-direction: column;
@@ -38,25 +45,25 @@ export const RoutingPage = styled.div`
     gap: 24px;
 
     h2 {
-    width: 100%;
-    padding: 0 8px;
-    height: 32px;
-    text-align: center;
-    line-height: 32px;
-    font-size: 24px;
-    font-weight: bold;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+      width: 100%;
+      padding: 0 8px;
+      height: 32px;
+      text-align: center;
+      line-height: 32px;
+      font-size: 24px;
+      font-weight: bold;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
-    .post_date{
+    .post_date {
       align-self: flex-end;
       padding-right: 8px;
     }
   }
 
-  .img_box{
+  .img_box {
     position: absolute;
     top: 8px;
     right: 10px;
@@ -70,19 +77,16 @@ export const RoutingPage = styled.div`
       height: 2rem;
     }
   }
-
-
 `;
-
 
 /**user, 글 조회수, 좋아요, 댓글 정보 박스 */
 export const UserDateBox = styled.div`
-    height: 25%;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0 10px;
+  height: 25%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
 
   .user_info {
     display: flex;
@@ -95,7 +99,7 @@ export const UserDateBox = styled.div`
     flex-direction: column;
     gap: 4px;
   }
-`
+`;
 
 /**프로필 이미지 */
 export const SProfileImage = styled.div`

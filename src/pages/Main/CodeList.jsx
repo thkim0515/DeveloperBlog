@@ -1,13 +1,12 @@
-import { useGetData } from "../../hooks/useGetData";
 import { ImageItem } from "../../components/imagegallery/ImageGalleryComponents/ImageItem";
 import styled from "styled-components";
 
-export const CodeList = () => {
-  const maxcount = 6;
-  const data = useGetData("all", maxcount, null, null);
+
+export const CodeList = ({codeList}) => {
+
   return (
     <SCodeListBox>
-      {data.currentImages.map((content, idx) => (
+      {codeList && codeList.map((content, idx) => (
         <ImageItem key={idx} content={content} />
       ))}
     </SCodeListBox>
