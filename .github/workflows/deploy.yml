@@ -2,7 +2,7 @@ name: Deploy # Workflow 이름
 on: # Event 감지
   push:
     branches:
-      - dev # << 파이프라인 브렌치 이름
+      - main # << 파이프라인 브렌치 이름
 jobs:
   build:
     runs-on: ubuntu-latest
