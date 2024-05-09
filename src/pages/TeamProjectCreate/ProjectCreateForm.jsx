@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
+// import { ProjectContentEditor } from "./../../components/editor/ProjectContentEditor";
 
 // hooks
 import { useFormFields } from "../../hooks/form/useprojectFormFields";
@@ -23,6 +25,7 @@ export const ProjectCreateForm = () => {
   const [isLoading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [hashTag, setHashTag] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [
     projectFields,
@@ -80,12 +83,14 @@ export const ProjectCreateForm = () => {
   };
 
   const onSubmit = async () => {
-    // TODO 에러메시지 추가예정
     const errors = validateProjectForm(projectFields);
+    setErrorMessage(errors);
+
     if (Object.keys(errors).length === 0) {
       setLoading(true);
       await handlePostProject(projectFields);
     } else {
+      alert("안내에 따라 다시 글 작성 해주세요!");
       return false;
     }
   };
@@ -102,6 +107,7 @@ export const ProjectCreateForm = () => {
           onChange={handleProjectForm}
           name="title"
         />
+        <div>{errorMessage.title}</div>
       </Form.Group>
 
       {/*  */}
@@ -115,6 +121,7 @@ export const ProjectCreateForm = () => {
             onChange={handleCheckboxChange}
             name="projectManager"
           />
+
           <Form.Check
             inline
             label="디자이너"
@@ -213,19 +220,20 @@ export const ProjectCreateForm = () => {
               name="endDate"
             />
           </div>
+          <div>{errorMessage.startDate || errorMessage.endDate}</div>
         </div>
       </Form.Group>
 
       {/*  */}
       <Form.Group>
         <div>
-          <Form.Label className="fs-5 mb-3">모집 인원</Form.Label>
+          <Form.Label className="fs-5 mb-3">모집인원 정하기</Form.Label>
           <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganization}`}</span>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
           <div>
-            <Form.Label className="mb-2">기존 인원</Form.Label>
+            <Form.Label className="mb-2">기존인원</Form.Label>
             <Form.Range
               value={projectFields.recruitmentCompleted}
               onChange={handleProjectForm}
@@ -235,7 +243,7 @@ export const ProjectCreateForm = () => {
             />
           </div>
           <div>
-            <Form.Label className="mb-2">시작 인원</Form.Label>
+            <Form.Label className="mb-2">모집인원</Form.Label>
             <Form.Range
               value={projectFields.tableOfOrganization}
               onChange={handleProjectForm}
@@ -244,6 +252,7 @@ export const ProjectCreateForm = () => {
               max="10"
             />
           </div>
+          <div>{errorMessage.recruitment}</div>
         </div>
       </Form.Group>
 
@@ -262,6 +271,8 @@ export const ProjectCreateForm = () => {
           onChange={handleProjectForm}
           name="content"
         />
+        {/* FIXME ToastEditor test */}
+        {/* <ProjectContentEditor /> */}
       </Form.Group>
 
       {/*  */}

@@ -20,6 +20,7 @@ import { TeamProject } from "./pages/TeamProject/TeamProject";
 import { TeamProjectDetail } from "./pages/TeamProjectDetail/TeamProjectDetail";
 import { TeamProjectCreate } from "./pages/TeamProjectCreate/TeamProjectCreate";
 import { TeamProjectEdit } from "./pages/TeamProjectEdit/TeamProjectEdit";
+import { MyProject } from "./pages/MyProject/MyProject";
 
 //context
 import { UserLoginProvider } from "./context/UserLoginContext";
@@ -60,8 +61,14 @@ export const App = () => {
             {/* Team Project */}
             <Route path="/teamProject" element={<TeamProject />} />
             <Route path="/project/:_id" element={<TeamProjectDetail />} />
-            <Route path="/projectCreate" element={<TeamProjectCreate />} />
-            <Route path="/projectEdit/:_id" element={<TeamProjectEdit />} />
+            <Route
+              path="projectCreate"
+              element={<PrivateRoute component={<TeamProjectCreate />} />}
+            />
+            <Route
+              path="projectEdit/:_id"
+              element={<PrivateRoute component={<TeamProjectEdit />} />}
+            />
 
             {/* Profile */}
             <Route
@@ -75,6 +82,10 @@ export const App = () => {
             <Route
               path="myCodes"
               element={<PrivateRoute component={<MyCodes />} />}
+            />
+            <Route
+              path="myProject"
+              element={<PrivateRoute component={<MyProject />} />}
             />
 
             {/* NotFound */}

@@ -44,5 +44,9 @@ export const validateProjectForm = (fields) => {
     }
   }
 
+  if (fields.recruitmentCompleted > fields.tableOfOrganization) {
+    errors.recruitment = "모집인원은 기존인원수 보다 커야합니다.";
+  }
+
   return errors;
 };
