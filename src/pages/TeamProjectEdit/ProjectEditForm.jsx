@@ -19,7 +19,7 @@ import { validateProjectForm } from "../../utils/validation";
 // styled
 const ErrorMessage = styled.div`
   display: inline-block;
-  margin: 1rem 0.5rem 0;
+  margin-left: 1rem;
   color: red;
 `;
 
@@ -229,6 +229,9 @@ export const ProjectEditForm = (props) => {
           <span className="ms-3 text-primary">{`${timeString(
             projectFields.startDate
           )} ~ ${timeString(projectFields.endDate)}`}</span>
+          <ErrorMessage>
+            {errorMessage.startDate || errorMessage.endDate}
+          </ErrorMessage>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
@@ -249,9 +252,6 @@ export const ProjectEditForm = (props) => {
               onChange={handleProjectForm}
               name="endDate"
             />
-            <ErrorMessage>
-              {errorMessage.startDate || errorMessage.endDate}
-            </ErrorMessage>
           </div>
         </div>
       </Form.Group>
@@ -261,8 +261,8 @@ export const ProjectEditForm = (props) => {
         <div>
           <Form.Label className="fs-5 mb-3">모집인원 정하기</Form.Label>
           <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganization}`}</span>
+          <ErrorMessage>{errorMessage.recruitment}</ErrorMessage>
         </div>
-
         <div className="d-flex gap-2 align-items-center">
           <div>
             <Form.Label className="mb-2">기존인원</Form.Label>
@@ -273,7 +273,6 @@ export const ProjectEditForm = (props) => {
               min="0"
               max="10"
             />
-            <ErrorMessage>{errorMessage.recruitment}</ErrorMessage>
           </div>
           <div>
             <Form.Label className="mb-2">모집인원</Form.Label>

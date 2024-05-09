@@ -17,7 +17,7 @@ import { validateProjectForm } from "../../utils/validation";
 // styled
 const ErrorMessage = styled.div`
   display: inline-block;
-  margin: 1rem 0.5rem 0;
+  margin-left: 1rem;
   color: red;
 `;
 
@@ -207,6 +207,9 @@ export const ProjectCreateForm = () => {
         <div>
           <Form.Label className="fs-5 mb-3">모집 기간</Form.Label>
           <span className="ms-3 text-primary">{`${projectFields.startDate} ~ ${projectFields.endDate}`}</span>
+          <ErrorMessage>
+            {errorMessage.startDate || errorMessage.endDate}
+          </ErrorMessage>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
@@ -228,9 +231,6 @@ export const ProjectCreateForm = () => {
               name="endDate"
             />
           </div>
-          <ErrorMessage>
-            {errorMessage.startDate || errorMessage.endDate}
-          </ErrorMessage>
         </div>
       </Form.Group>
 
@@ -239,6 +239,7 @@ export const ProjectCreateForm = () => {
         <div>
           <Form.Label className="fs-5 mb-3">모집인원 정하기</Form.Label>
           <span className="ms-3 text-primary">{`${projectFields.recruitmentCompleted} / ${projectFields.tableOfOrganization}`}</span>
+          <ErrorMessage>{errorMessage.recruitment}</ErrorMessage>
         </div>
 
         <div className="d-flex gap-2 align-items-center">
@@ -262,7 +263,6 @@ export const ProjectCreateForm = () => {
               max="10"
             />
           </div>
-          <ErrorMessage>{errorMessage.recruitment}</ErrorMessage>
         </div>
       </Form.Group>
 
