@@ -2,13 +2,13 @@ import * as S from "./ProjectCard.style";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { translateRoleToKr } from "../../../utils/convertToTemplate";
+import { translateRoleToKr } from "../../utils/convertToTemplate";
 
 // components
-import { UserProfile } from "../../../components/common/UserProfile";
+import { UserProfile } from "../../components/common/UserProfile";
 
 // util
-import { timeString } from "./../../../utils/timeString";
+import { timeString } from "./../../utils/timeString";
 
 export const ProjectCard = ({ data }) => {
   const navigate = useNavigate();
