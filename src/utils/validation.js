@@ -44,8 +44,14 @@ export const validateProjectForm = (fields) => {
     }
   }
 
+  // 모집인원 유효성 검사
   if (fields.recruitmentCompleted > fields.tableOfOrganization) {
     errors.recruitment = "모집인원은 기존인원수 보다 커야합니다.";
+  }
+
+  // content 유효성 검사
+  if (!fields.content.trim()) {
+    errors.content = "내용을 입력하세요.";
   }
 
   return errors;

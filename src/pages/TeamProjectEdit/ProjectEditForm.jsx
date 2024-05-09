@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -14,6 +15,13 @@ import { useFormFields } from "../../hooks/form/useprojectFormFields";
 import { handleUpdateCode } from "../../utils/handleProject";
 import { timeString } from "../../utils/timeString";
 import { validateProjectForm } from "../../utils/validation";
+
+// styled
+const ErrorMessage = styled.div`
+  display: inline-block;
+  margin: 1rem 0.5rem 0;
+  color: red;
+`;
 
 // svgs
 const getSvgsData = await axios.get("/contents/svgsdata");
@@ -106,7 +114,7 @@ export const ProjectEditForm = (props) => {
       await handleUpdateCode(projectFields, navigate);
     } else {
       window.scrollTo(0, 0);
-      alert("안내에 따라 다시 작성 해주세요!");
+      alert("알림에 따라 글 작성 해주세요!");
       return false;
     }
   };
@@ -115,6 +123,7 @@ export const ProjectEditForm = (props) => {
     <Form>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label className="fs-5 mb-3 ">프로젝트 제목</Form.Label>
+        <ErrorMessage>{errorMessage.title}</ErrorMessage>
         <Form.Control
           size="lg"
           type="text"
@@ -240,6 +249,9 @@ export const ProjectEditForm = (props) => {
               onChange={handleProjectForm}
               name="endDate"
             />
+            <ErrorMessage>
+              {errorMessage.startDate || errorMessage.endDate}
+            </ErrorMessage>
           </div>
         </div>
       </Form.Group>
@@ -261,6 +273,7 @@ export const ProjectEditForm = (props) => {
               min="0"
               max="10"
             />
+            <ErrorMessage>{errorMessage.recruitment}</ErrorMessage>
           </div>
           <div>
             <Form.Label className="mb-2">모집인원</Form.Label>
@@ -281,6 +294,7 @@ export const ProjectEditForm = (props) => {
         controlId="exampleForm.ControlTextarea1"
       >
         <Form.Label className="fs-5 mt-2 mb-3">내용</Form.Label>
+        <ErrorMessage>{errorMessage.content}</ErrorMessage>
         <Form.Control
           as="textarea"
           rows={20}

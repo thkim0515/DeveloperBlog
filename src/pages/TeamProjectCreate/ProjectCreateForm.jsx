@@ -1,10 +1,10 @@
+import styled from "styled-components";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
-import Alert from "react-bootstrap/Alert";
 // import { ProjectContentEditor } from "./../../components/editor/ProjectContentEditor";
 
 // hooks
@@ -13,6 +13,13 @@ import { useFormFields } from "../../hooks/form/useprojectFormFields";
 // utils
 import { handlePostProject } from "../../utils/handleProject";
 import { validateProjectForm } from "../../utils/validation";
+
+// styled
+const ErrorMessage = styled.div`
+  display: inline-block;
+  margin: 1rem 0.5rem 0;
+  color: red;
+`;
 
 // svgs
 const getSvgsData = await axios.get("/contents/svgsdata");
@@ -90,7 +97,8 @@ export const ProjectCreateForm = () => {
       setLoading(true);
       await handlePostProject(projectFields);
     } else {
-      alert("안내에 따라 다시 글 작성 해주세요!");
+      window.scroll(0, 0);
+      alert("알림에 따라 글 작성 해주세요!");
       return false;
     }
   };
@@ -99,6 +107,7 @@ export const ProjectCreateForm = () => {
     <Form>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label className="fs-5 mb-3 ">프로젝트 제목</Form.Label>
+        <ErrorMessage>{errorMessage.title}</ErrorMessage>
         <Form.Control
           size="lg"
           type="text"
@@ -107,7 +116,6 @@ export const ProjectCreateForm = () => {
           onChange={handleProjectForm}
           name="title"
         />
-        <div>{errorMessage.title}</div>
       </Form.Group>
 
       {/*  */}
@@ -220,7 +228,9 @@ export const ProjectCreateForm = () => {
               name="endDate"
             />
           </div>
-          <div>{errorMessage.startDate || errorMessage.endDate}</div>
+          <ErrorMessage>
+            {errorMessage.startDate || errorMessage.endDate}
+          </ErrorMessage>
         </div>
       </Form.Group>
 
@@ -252,7 +262,7 @@ export const ProjectCreateForm = () => {
               max="10"
             />
           </div>
-          <div>{errorMessage.recruitment}</div>
+          <ErrorMessage>{errorMessage.recruitment}</ErrorMessage>
         </div>
       </Form.Group>
 
@@ -262,6 +272,7 @@ export const ProjectCreateForm = () => {
         controlId="exampleForm.ControlTextarea1"
       >
         <Form.Label className="fs-5 mt-2 mb-3">내용</Form.Label>
+        <ErrorMessage>{errorMessage.content}</ErrorMessage>
         <Form.Control
           as="textarea"
           rows={20}
