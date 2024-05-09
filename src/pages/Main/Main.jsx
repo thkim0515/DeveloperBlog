@@ -1,5 +1,6 @@
 import { Metas } from "../../components/common/Metas";
 import { CodeList } from "./CodeList";
+import { ProjectList } from "./ProjecList";
 import * as S from "./Main.style";
 
 export const Main = () => {
@@ -9,6 +10,7 @@ export const Main = () => {
       <h2>최신 Code</h2>
       <CodeList />
       <h2>팀프로젝트 모집</h2>
+      <ProjectList/>
     </S.MainBox>
   );
 };
