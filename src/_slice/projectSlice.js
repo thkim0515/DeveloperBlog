@@ -6,7 +6,7 @@ const initialState = {
   startDate: "",
   endDate: "",
   recruitmentCompleted: "",
-  tableOfOrganiztion: "",
+  tableOfOrganization: "",
   content: "",
   hashTags: [],
   roles: [],

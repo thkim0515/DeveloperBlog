@@ -22,7 +22,7 @@ export const TeamProjectDetail = () => {
   const { data } = location.state;
   const { user } = useUserLogin();
   const userId = user && user.id ? user.id : null;
-  const [ptPostingId, setPtPostingId] = useState("");
+  const [ptPostingId, setPtPostingId] = useState(null);
 
   const navigate = useNavigate();
   const updateContents = (_id) => () => {

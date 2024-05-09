@@ -307,7 +307,7 @@ export const ProjectEditForm = (props) => {
               variant="outline-secondary"
               id="hashTagButton"
               onClick={() => {
-                handleAddHashTags(hashTag);
+                handleAddHashTags(hashTag.trim());
                 setHashTag("");
               }}
             >
