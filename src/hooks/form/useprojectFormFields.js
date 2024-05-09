@@ -42,13 +42,15 @@ export const useFormFields = (initialState) => {
   };
 
   const handleAddHashTags = (hashTag) => {
-    if (fields.hashTags.length < 3) {
-      setFields((prevFields) => ({
-        ...prevFields,
-        hashTags: [...prevFields.hashTags, hashTag],
-      }));
-    } else {
-      alert("더 이상 해시태그를 추가할 수 없습니다.");
+    if (hashTag.trim() !== "") {
+      if (fields.hashTags.length < 3) {
+        setFields((prevFields) => ({
+          ...prevFields,
+          hashTags: [...prevFields.hashTags, hashTag],
+        }));
+      } else {
+        alert("더 이상 해시태그를 추가할 수 없습니다.");
+      }
     }
   };
 

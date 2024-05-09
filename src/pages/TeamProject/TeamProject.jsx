@@ -7,20 +7,17 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-// hooks
-import { useGetData } from "../../hooks/useGetData";
-
-// component
-import { ProjectCard } from "./ProjectCard/ProjectCard";
-import { MainPagination } from "./../../components/imagegallery/ImageGalleryComponents/MainPagination";
+// components
+import { ProjectCard } from "../../components/ProjectCard/ProjectCard";
 import { Metas } from "../../components/common/Metas";
+
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 
 export const TeamProject = () => {
   const [projectData, setProjectData] = useState([]);
   const [search, setSearch] = useState("");
-
-  const maxcount = 9;
-  const data = useGetData(maxcount);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -30,10 +27,15 @@ export const TeamProject = () => {
     try {
       const res = await axios.get("/project/project");
       setProjectData(res.data);
+      setPage((prevPage) => prevPage + 1);
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const { sentinelRef } = useInfiniteScroll(fetchData);
 
   const handleSearchProject = useCallback((e) => {
     const { value } = e.target;
@@ -73,18 +75,8 @@ export const TeamProject = () => {
             <ProjectCard key={idx} data={item} />
           ))}
         </S.TeamProjectBox>
-
-        <div>
-          <MainPagination
-            currentPage={data.currentPage}
-            totalPages={data.totalPages}
-            paginate={data.paginate}
-            nextPage={data.nextPage}
-            prevPage={data.prevPage}
-            firstPage={data.firstPage}
-            lastPage={data.lastPage}
-          />
-        </div>
+        {isLoading && <div>Loading...</div>}
+        <div ref={sentinelRef}></div>
       </section>
     </>
   );

@@ -30,11 +30,25 @@ export const TeamProjectEdit = () => {
     fetchData();
   }, [_id]);
 
+  const handleDeleteProject = async (_id) => {
+    alert("정말 삭제하시겠습니까?");
+    try {
+      await axios.delete(`/delete/${_id}`);
+    } catch (error) {
+      console.error("에러:", error);
+      alert("삭제 실패");
+    }
+  };
+
   return (
     <section>
       <H2>팀 프로젝트 글 수정</H2>
       <Box>
-        <Button className="delete-button" variant="info">
+        <Button
+          className="delete-button"
+          variant="info"
+          onClick={() => handleDeleteProject(_id)}
+        >
           삭제하기
         </Button>
         <ProjectEditForm postData={postData} />
