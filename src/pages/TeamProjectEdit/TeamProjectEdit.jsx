@@ -33,7 +33,7 @@ export const TeamProjectEdit = () => {
   const handleDeleteProject = async (_id) => {
     alert("정말 삭제하시겠습니까?");
     try {
-      await axios.delete(`/delete/${_id}`);
+      await axios.delete(`/project/delete/${_id}`);
     } catch (error) {
       console.error("에러:", error);
       alert("삭제 실패");

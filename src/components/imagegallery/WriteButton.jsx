@@ -19,15 +19,15 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-export const WriteButton = () => {
+export const WriteButton = ({ project }) => {
   const { isLogin, user } = useUserLogin();
+  const path = !project && isLogin && user ? "/codeCreate" : "/projectCreate";
+
   return (
     <WriteBox>
-      {isLogin && user && (
-        <Link to="/codeCreate">
-          <Button>글쓰기</Button>
-        </Link>
-      )}
+      <Link to={path}>
+        <Button>글쓰기</Button>
+      </Link>
     </WriteBox>
   );
 };

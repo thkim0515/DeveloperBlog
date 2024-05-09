@@ -10,6 +10,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 // components
 import { ProjectCard } from "../../components/ProjectCard/ProjectCard";
 import { Metas } from "../../components/common/Metas";
+import { WriteButton } from "../../components/imagegallery/WriteButton";
 
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 
@@ -58,6 +59,7 @@ export const TeamProject = () => {
     <>
       <Metas title="Team Project" />
       <section>
+        <WriteButton project />
         <S.TeamProjectTitle>Team Project</S.TeamProjectTitle>
         <InputGroup className="mb-3 mx-auto w-50">
           <Form.Control
