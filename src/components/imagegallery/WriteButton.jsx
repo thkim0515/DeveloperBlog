@@ -21,13 +21,14 @@ const Button = styled.button`
 
 export const WriteButton = ({ project }) => {
   const { isLogin, user } = useUserLogin();
-  const path = !project && isLogin && user ? "/codeCreate" : "/projectCreate";
-
+  const path = !project ? "/codeCreate" : "/projectCreate";
   return (
     <WriteBox>
-      <Link to={path}>
-        <Button>글쓰기</Button>
-      </Link>
+      {isLogin && user && (
+        <Link to={path}>
+          <Button>글쓰기</Button>
+        </Link>
+      )}
     </WriteBox>
   );
 };
