@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { encryptData, decryptData } from "../js/secure";
+import { encryptData, decryptData } from "../utils/secure";
 // 새로운 컨텍스트 생성
 const UserLoginContext = createContext();
 

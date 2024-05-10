@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -33,7 +34,7 @@ export const ProjectCreateForm = () => {
   const [search, setSearch] = useState("");
   const [hashTag, setHashTag] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  const navigate = useNavigate();
   const [
     projectFields,
     handleProjectForm,
@@ -47,7 +48,7 @@ export const ProjectCreateForm = () => {
     updatedDate: new Date().toLocaleDateString(),
     startDate: "",
     endDate: "",
-    recruitmentCompleted: 0,
+    memberList: 1,
     tableOfOrganization: 0,
     content: "",
     hashTags: [],
@@ -95,7 +96,9 @@ export const ProjectCreateForm = () => {
 
     if (Object.keys(errors).length === 0) {
       setLoading(true);
-      await handlePostProject(projectFields);
+      const response = await handlePostProject(projectFields);
+      const data = response;
+      navigate(`/project/${data._id}`, { state: { data } });
     } else {
       window.scroll(0, 0);
       alert("알림에 따라 글 작성 해주세요!");

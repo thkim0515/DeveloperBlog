@@ -6,7 +6,7 @@ import { Spinner } from "./component/Spinner";
 import { useState, useEffect } from "react";
 import * as S from "./AnnotationCreatePost.style";
 import ace from "ace-builds/src-noconflict/ace";
-import { decryptData } from "../../js/secure";
+import { decryptData } from "../../utils/secure";
 
 export const AnnotationCreatePost = (props) => {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext.jsx";
-import { decryptData, encryptData } from "../../js/secure.js";
+import { decryptData, encryptData } from "../../utils/secure.js";
 import { handleUpload } from "../../utils/uploadImage";
 import { useSelector } from "react-redux";
 
