@@ -89,6 +89,7 @@ export const UserLoginBox = styled.div`
   height: 40px;
   display: flex;
   gap: 12px;
+  justify-content: center;
   align-items: center;
   img {
     cursor: pointer;
@@ -104,7 +105,7 @@ export const ProfileImage = styled.img`
 //메뉴 전체 박스
 export const MenuBox = styled.div`
   width: 120px;
-  height: 160px;
+  height: 120px;
   display: ${({ $isOpen }) => ($isOpen ? "block" : "none")};
   position: absolute;
   z-index: 10;
