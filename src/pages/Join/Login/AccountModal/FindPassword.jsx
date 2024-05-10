@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 // component
-import { Input } from "../../../../components/form/Input";
 import { AlertPopup } from "./AlertPopup";
 
 export const FindPassword = () => {
@@ -71,11 +70,11 @@ export const FindPassword = () => {
         {/* 아이디 찾기 */}
         <S.FormField>
           <label htmlFor="field1">아이디</label>
-          <Input type="text" id="field1" value={id} onChange={handleId} />
+          <S.Input type="text" id="field1" value={id} onChange={handleId} />
         </S.FormField>
         <S.FormField>
           <label htmlFor="field2">이메일</label>
-          <Input
+          <S.Input
             type="email"
             id="field2"
             value={email}

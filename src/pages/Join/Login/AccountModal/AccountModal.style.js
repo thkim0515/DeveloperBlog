@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const Input = styled.input`
+  font-family: inherit;
+  padding: 0.75rem 0;
+  width: 100%;
+`;
+
 export const ModalBackgroundBox = styled.div`
   display: flex;
   align-items: center;

@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
 // form
+export const Input = styled.input`
+  font-family: inherit;
+  padding: 0.75rem 0;
+  width: 100%;
+`;
+
 export const SignUpForm = styled.form`
   display: flex;
   flex-direction: column;

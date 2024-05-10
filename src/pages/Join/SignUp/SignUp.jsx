@@ -4,7 +4,6 @@ import axios from "axios";
 import * as S from "./SignUp.style";
 
 // components
-import { Input } from "./../../../components/form/Input";
 import { EmailVerification } from "./EmailVerification";
 import { Metas } from "./../../../components/common/Metas";
 
@@ -67,19 +66,19 @@ export const SignUp = () => {
         {/* 아이디 */}
         <S.SignUpFiled>
           <label htmlFor="id">아이디</label>
-          <Input type="text" id="id" onChange={handleInputData} />
+          <S.Input type="text" id="id" onChange={handleInputData} />
         </S.SignUpFiled>
 
         {/* 닉네임 */}
         <S.SignUpFiled>
           <label htmlFor="nickname">닉네임</label>
-          <Input type="text" id="nickname" onChange={handleInputData} />
+          <S.Input type="text" id="nickname" onChange={handleInputData} />
         </S.SignUpFiled>
 
         {/* 이메일 */}
         <S.SignUpFiled>
           <label htmlFor="email">이메일</label>
-          <Input type="email" id="email" onChange={handleInputData} />
+          <S.Input type="email" id="email" onChange={handleInputData} />
         </S.SignUpFiled>
 
         {/* 이메일 인증 */}
@@ -95,13 +94,13 @@ export const SignUp = () => {
         {/* 비밀번호 */}
         <S.SignUpFiled>
           <label htmlFor="password">비밀번호</label>
-          <Input type="password" id="password" onChange={handleInputData} />
+          <S.Input type="password" id="password" onChange={handleInputData} />
         </S.SignUpFiled>
 
         {/* 비밀번호 재입력 */}
         <S.SignUpFiled>
           <label htmlFor="re-password">비밀번호</label>
-          <Input type="password" id="rePassword" onChange={handleInputData} />
+          <S.Input type="password" id="rePassword" onChange={handleInputData} />
         </S.SignUpFiled>
 
         {/* 회원가입 버튼 */}
