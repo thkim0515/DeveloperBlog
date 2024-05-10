@@ -11,7 +11,6 @@ import { useInput } from "../../../hooks/form/useInput";
 
 // component
 import { SocialButton } from "./socialLogin/SocialButton";
-import { Input } from "./../../../components/form/Input";
 import { AccountModal } from "./AccountModal/AccountModal";
 import { Metas } from "./../../../components/common/Metas";
 
@@ -56,7 +55,7 @@ export const Login = () => {
       if (error.response) {
         alert(error.response.data.message);
       } else {
-        alert("로그인 요청 중 오류가 발생했습니다.");
+        alert("로그인 중 오류가 발생했습니다.");
       }
     }
   };
@@ -86,12 +85,12 @@ export const Login = () => {
         {/* 아이디 */}
         <S.LoginField>
           <label htmlFor="id">아이디</label>
-          <Input type="text" id="id" value={id} onChange={onChangeId} />
+          <S.Input type="text" id="id" value={id} onChange={onChangeId} />
         </S.LoginField>
 
         <S.LoginField>
           <label htmlFor="password">비밀번호</label>
-          <Input
+          <S.Input
             type="password"
             id="password"
             value={password}

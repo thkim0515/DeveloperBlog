@@ -27,7 +27,7 @@ export const RecruitmentInfo = (...props) => {
           </S.Li>
           <S.Li>
             <span className="title">모집 인원</span>
-            <span>{infoData.memberList.length}</span>
+            <span>{infoData.memberList}</span>
             <span>/</span>
             <span>{infoData.tableOfOrganization}</span>
           </S.Li>

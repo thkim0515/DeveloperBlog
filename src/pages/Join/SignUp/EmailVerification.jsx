@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import axios from "axios";
 import styled from "styled-components";
+import { useState } from "react";
+import axios from "axios";
+import { InputField } from "./../../../components/common/InputField";
 
 export const EmailVerification = ({ userEmail, onEmailVerified }) => {
   const [authCode, setauthCode] = useState("");
@@ -47,51 +48,61 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
   };
 
   return (
-    <VerifyInputnAndButtonBox>
-      <input
-        type="text"
-        placeholder="인증번호 입력"
-        value={userInputauthCode}
-        onChange={handleInputauthCode}
-      />
-      <VerifyButtonBox>
-        <div>인증번호:</div>
-        <SendButton type="button" onClick={handleSnedAuthCode}>
-          받기
+    <>
+      <VerifyInputnAndButtonBox>
+        <div className="input">
+          <InputField
+            type="text"
+            id="emailVertify"
+            content="이메일 인증번호 입력"
+            value={userInputauthCode}
+            onChange={handleInputauthCode}
+          />
+        </div>
+
+        <SendButton
+          type="button"
+          onClick={handleSnedAuthCode}
+          className="button"
+        >
+          메일인증
         </SendButton>
         <ConfirmButton
           type="button"
           onClick={handleCheckAuthCode}
           disabled={!isSend}
+          className="button"
         >
           확인
         </ConfirmButton>
-      </VerifyButtonBox>
-    </VerifyInputnAndButtonBox>
+      </VerifyInputnAndButtonBox>
+    </>
   );
 };
 
 const VerifyInputnAndButtonBox = styled.div`
+  position: relative;
   display: flex;
-  flex-direction: column;
-`;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
 
-const VerifyButtonBox = styled.div`
-  align-self: flex-end;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-  button {
-    width: 40px;
-    height: 24px;
-    border-radius: 6px;
+  .input {
+    width: 70%;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 0.65rem;
     color: #fff;
   }
 `;
+
 const SendButton = styled.button`
   background-color: #3f72af;
 `;
+
 const ConfirmButton = styled.button`
+  width: 79.69px;
   background-color: ${(props) => (props.disabled ? "#c0c0c0" : "#3f72af")};
 `;
