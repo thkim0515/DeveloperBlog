@@ -85,7 +85,6 @@ export const LogoLink = styled(Link)`
 
 //로그인 된 유저 박스
 export const UserLoginBox = styled.div`
-  width: 100px;
   height: 40px;
   display: flex;
   gap: 12px;
