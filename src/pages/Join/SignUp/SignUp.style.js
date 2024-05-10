@@ -1,16 +1,10 @@
 import styled from "styled-components";
 
 // form
-export const Input = styled.input`
-  font-family: inherit;
-  padding: 0.75rem 0;
-  width: 100%;
-`;
-
 export const SignUpForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1.813rem;
 `;
 
 export const SignUpFiled = styled.div`
@@ -38,9 +32,9 @@ export const SignUpFiled = styled.div`
 `;
 
 export const SignUpTitle = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.375rem;
   text-align: center;
-  margin: 0.75rem 0;
+  margin: 1.25rem;
 `;
 
 export const SignUpButton = styled.button`
@@ -50,12 +44,11 @@ export const SignUpButton = styled.button`
   border-radius: 20px;
   color: #ffffff;
   background-color: ${(props) => (props.disabled ? "#c0c0c0" : "#3f72af")};
-  margin-top: 0.8rem;
 `;
 
 export const MoveLink = styled.p`
   font-size: 0.9rem;
   color: #112d4e;
   text-align: center;
-  margin-top: 0.9rem;
+  margin-top: 1.75rem;
 `;

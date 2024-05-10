@@ -6,6 +6,7 @@ import * as S from "./SignUp.style";
 // components
 import { EmailVerification } from "./EmailVerification";
 import { Metas } from "./../../../components/common/Metas";
+import { InputField } from "../../../components/common/InputField";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -64,44 +65,51 @@ export const SignUp = () => {
       <S.SignUpTitle>회원가입</S.SignUpTitle>
       <S.SignUpForm onSubmit={handleSubmit}>
         {/* 아이디 */}
-        <S.SignUpFiled>
-          <label htmlFor="id">아이디</label>
-          <S.Input type="text" id="id" onChange={handleInputData} />
-        </S.SignUpFiled>
+        <InputField
+          type="text"
+          id="id"
+          content="아이디"
+          onChange={handleInputData}
+        />
 
         {/* 닉네임 */}
-        <S.SignUpFiled>
-          <label htmlFor="nickname">닉네임</label>
-          <S.Input type="text" id="nickname" onChange={handleInputData} />
-        </S.SignUpFiled>
+        <InputField
+          type="text"
+          id="nickname"
+          content="닉네임"
+          onChange={handleInputData}
+        />
 
         {/* 이메일 */}
-        <S.SignUpFiled>
-          <label htmlFor="email">이메일</label>
-          <S.Input type="email" id="email" onChange={handleInputData} />
-        </S.SignUpFiled>
+        <InputField
+          type="text"
+          id="email"
+          content="이메일"
+          onChange={handleInputData}
+        />
 
         {/* 이메일 인증 */}
-        <S.SignUpFiled>
-          <label htmlFor="email">이메일 인증번호</label>
-          <EmailVerification
-            userEmail={userInputData.email}
-            onChange={handleInputData}
-            onEmailVerified={handleEmailVerified}
-          />
-        </S.SignUpFiled>
+        <EmailVerification
+          userEmail={userInputData.email}
+          onChange={handleInputData}
+          onEmailVerified={handleEmailVerified}
+        />
 
         {/* 비밀번호 */}
-        <S.SignUpFiled>
-          <label htmlFor="password">비밀번호</label>
-          <S.Input type="password" id="password" onChange={handleInputData} />
-        </S.SignUpFiled>
+        <InputField
+          type="password"
+          id="password"
+          content="비밀번호"
+          onChange={handleInputData}
+        />
 
         {/* 비밀번호 재입력 */}
-        <S.SignUpFiled>
-          <label htmlFor="re-password">비밀번호</label>
-          <S.Input type="password" id="rePassword" onChange={handleInputData} />
-        </S.SignUpFiled>
+        <InputField
+          type="password"
+          id="rePassword"
+          content="비밀번호 재입력"
+          onChange={handleInputData}
+        />
 
         {/* 회원가입 버튼 */}
         <S.SignUpButton type="submit" disabled={!isEmailVerified}>
