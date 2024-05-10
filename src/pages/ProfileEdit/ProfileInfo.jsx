@@ -66,7 +66,8 @@ export const ProfileInfo = () => {
       alert("2 ~ 14 글자의 닉네임을 작성해주세요.");
       return;
     }
-    const changeImgaName = await handleUpload(selectedFile);
+    const floderPath = "profileImg/";
+    const changeImgaName = await handleUpload(selectedFile, floderPath);
     const editData = {
       ...profileDB,
       nickname: nickname,
