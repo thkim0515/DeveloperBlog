@@ -47,7 +47,7 @@ export const TeamProjectDetail = () => {
         >
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
-        {userId === ptPostingId && (
+        {user && userId === ptPostingId && (
           <Button variant="info" onClick={updateContents(data._id)}>
             수정하기
           </Button>
