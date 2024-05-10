@@ -60,9 +60,6 @@ export const UserLogin = () => {
           <li>
             <S.ListLink to="/myCodes">My Code</S.ListLink>
           </li>
-          <li>
-            <S.ListLink to="/myProject">My Project</S.ListLink>
-          </li>
           <li onClick={handleLogout}>Logout</li>
         </S.MenuListBox>
       </S.MenuBox>
