@@ -1,4 +1,4 @@
-import { decryptData } from "../../js/secure";
+import { decryptData } from "../../utils/secure";
 
 export const filterImages = async (images, searchTerm, value, selectedIcon) => {
   let filterimages = [];

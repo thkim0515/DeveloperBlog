@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Modal } from "./Modal";
 import { LiveChat } from "../../components/LiveChat/LiveChat";
-import { decryptData } from "../../js/secure";
+import { decryptData } from "../../utils/secure";
 
 // 리덕스 적용
 import { useSelector, useDispatch } from "react-redux";

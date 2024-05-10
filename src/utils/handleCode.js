@@ -1,5 +1,5 @@
 import axios from "axios";
-import { decryptData } from "../js/secure";
+import { decryptData } from "../utils/secure";
 
 //글 작성 함수
 export const handlePostCode = async (

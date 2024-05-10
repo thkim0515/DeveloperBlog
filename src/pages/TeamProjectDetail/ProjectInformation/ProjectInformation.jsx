@@ -5,7 +5,6 @@ import { Metas } from "../../../components/common/Metas";
 
 export const ProjectInformation = (data) => {
   const infoData = data.data;
-
   const timeString = (postdate) => {
     const match = postdate.match(/(\d{4}).(\d{2}).(\d{2})/);
 
@@ -45,7 +44,7 @@ export const ProjectInformation = (data) => {
           startDate={infoData.startDate}
           endDate={infoData.endDate}
           memberList={infoData.memberList.length}
-          tableOfOrganiztion={infoData.tableOfOrganization}
+          tableOfOrganization={infoData.tableOfOrganization}
           stacks={infoData.stacks}
           roles={infoData.roles}
         />

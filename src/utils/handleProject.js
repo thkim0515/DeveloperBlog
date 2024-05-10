@@ -1,6 +1,5 @@
 import axios from "axios";
-import { decryptData } from "../js/secure";
-
+import { decryptData } from "../utils/secure";
 //글 작성 함수
 export const handlePostProject = async (...projectData) => {
   const user = await decryptData("user", sessionStorage);
@@ -22,10 +21,10 @@ export const handlePostProject = async (...projectData) => {
     roles: spreadProjectData.roles,
     content: spreadProjectData.content,
     memberList: spreadProjectData.recruitmentCompleted,
-    tableOfOrganiztion: spreadProjectData.tableOfOrganiztion,
+    tableOfOrganization: spreadProjectData.tableOfOrganization,
   };
 
-  await postCodeToServer(Data);
+  return await postCodeToServer(Data);
 };
 
 const postCodeToServer = async (Data) => {
@@ -33,8 +32,7 @@ const postCodeToServer = async (Data) => {
     const response = await axios.post("/project/create", Data);
     alert("글 등록 성공!");
     const userSession = await decryptData("user", sessionStorage);
-    // const content = response.data.info;
-    // content.userId = userSession;
+    return response.data.info;
   } catch (error) {
     console.error("에러:", error);
     alert("글 등록 실패. 서버 에러.");

@@ -17,7 +17,7 @@ import { Metas } from "./../../../components/common/Metas";
 // button array
 import { SOCIAL_LOGIN } from "./socialLogin/SocialLoginType";
 
-import { encryptData } from "../../../js/secure";
+import { encryptData } from "../../../utils/secure";
 
 export const Login = () => {
   const [id, onChangeId] = useInput();
