@@ -1,21 +1,22 @@
 import axios from "axios";
 
-export const handleUpload = async (selectedFile) => {
+export const handleUpload = async (selectedFile, path) => {
   if (!selectedFile) {
     // alert("파일을 선택해주세요.");
-    return;
+    return null;
   }
 
   const formData = new FormData();
   formData.append("file", selectedFile);
+  formData.append("path", path);
 
   try {
-    const response = await axios.post(`/awss3/userprofileimg`, formData, {
+    const response = await axios.post(`/awss3/uploadimage`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-    alert(`성공적으로 변경되었습니다.`);
+    //alert(`성공적으로 변경되었습니다.`);
     return response.data.filename;
   } catch (err) {
     const errorMessage =

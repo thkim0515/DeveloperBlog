@@ -13,7 +13,7 @@ const { loadSecrets } = require("../loadSecrets");
 
 const region = "ap-northeast-2";
 const bucket = "starblog-bucket";
-const folderPath = "profileImg/";
+const folderPath = "tempImg/";
 const s3Client = new S3Client({
   region: region,
   credentials: fromEnv(),
@@ -24,15 +24,21 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 },
 });
 
-router.post("/userprofileimg", upload.single("file"), async (req, res) => {
+router.post("/uploadimage", upload.single("file"), async (req, res) => {
   const file = req.file;
+  const folderPath = req.body.path;
   file.originalname = Buffer.from(file.originalname, "ascii").toString("utf8");
 
   if (!file) {
     return res.status(400).send({ message: "No file uploaded." });
   }
 
-  const filename = `${Date.now()}-${file.originalname}`;
+  const filename =
+    file.originalname === "noprofile.jpg"
+      ? file.originalname
+      : `${Date.now()}-${file.originalname}`;
+
+  // const filename = `${Date.now()}-${file.originalname}`;
   const checkParams = {
     Bucket: bucket,
     Key: `${folderPath}${filename}`,
