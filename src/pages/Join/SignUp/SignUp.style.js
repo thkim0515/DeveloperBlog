@@ -48,23 +48,14 @@ export const SignUpButton = styled.button`
   }
 `;
 
-// export const PasswordStrength = styled.span`
-//   color: ${(props) => {
-//     switch (props.children) {
-//       case "Weak":
-//         return "#ff4d4f";
-//       case "Medium":
-//         return "#faad14";
-//       case "Strong":
-//         return "#52c41a";
-//       default:
-//         return "#ff4d4f";
-//     }
-//   }};
-// `;
-
 export const MoveLink = styled.p`
   font-size: 0.9rem;
   color: #112d4e;
   text-align: center;
+`;
+
+export const ErrorMessage = styled.div`
+  display: inline-block;
+  margin-left: 1rem;
+  color: red;
 `;

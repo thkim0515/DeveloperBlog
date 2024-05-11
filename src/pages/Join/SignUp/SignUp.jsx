@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { EmailVerification } from "./EmailVerification";
 import { Metas } from "./../../../components/common/Metas";
+import { validateSignUp } from "../../../utils/validation";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ export const SignUp = () => {
     password: "",
     rePassword: "",
   });
+  const [errorMessage, setErrormessage] = useState({});
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   const handleInputData = (e) => {
     const { id, value } = e.target;
@@ -22,42 +25,36 @@ export const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (userInputData.password !== userInputData.rePassword) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-    try {
-      await axios.post("/users/signup", {
-        id: userInputData.id,
-        nickname: userInputData.nickname,
-        email: userInputData.email,
-        password: userInputData.password,
-      });
-      alert("회원가입이 완료되었습니다.");
-      navigate("/login");
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        alert(error.response.data.message);
-      } else if (error.response && error.response.status === 409) {
-        alert(error.response.data.message);
-      } else {
-        alert("회원가입 실패");
+
+    const { id, nickname, password, rePassword } = userInputData;
+    const errors = validateSignUp(id, nickname, password, rePassword);
+    setErrormessage(errors);
+
+    if (Object.keys(errors).length === 0) {
+      try {
+        await axios.post("/users/signup", {
+          id: userInputData.id,
+          nickname: userInputData.nickname,
+          email: userInputData.email,
+          password: userInputData.password,
+        });
+        alert("회원가입이 완료되었습니다.");
+        navigate("/login");
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          alert(error.response.data.message);
+        } else if (error.response && error.response.status === 409) {
+          alert(error.response.data.message);
+        } else {
+          alert("회원가입 실패");
+        }
       }
     }
   };
 
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
-
   const handleEmailVerified = (verified) => {
     setIsEmailVerified(verified);
   };
-
-  // const checkPasswordStrength = (password) => {
-  //   // Implement password strength checking logic here
-  //   // Return a string indicating the strength level (e.g., "Weak", "Medium", "Strong")
-  //   // For simplicity, let's assume it always returns "Weak" for now
-  //   return "Weak";
-  // };
 
   return (
     <>
@@ -107,6 +104,14 @@ export const SignUp = () => {
           <label htmlFor="rePassword">비밀번호 재입력</label>
           <S.Input type="password" id="rePassword" onChange={handleInputData} />
         </S.SignUpFiled>
+
+        {/* 에러메시지 */}
+        <S.ErrorMessage>
+          {errorMessage.id ||
+            errorMessage.nickname ||
+            errorMessage.password ||
+            errorMessage.rePassword}
+        </S.ErrorMessage>
 
         {/* 회원가입 버튼 */}
         <S.SignUpButton type="submit" disabled={!isEmailVerified}>

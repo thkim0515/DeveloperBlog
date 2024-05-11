@@ -1,25 +1,50 @@
-// 이메일 형식인지 확인 (true 혹은 false 반환)
-export const validateEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
+// 아이디 형식 확인
+export const validateId = (id) => {
+  return String(id).match(/^[가-힣a-zA-Z0-9]{6,14}$/) !== null;
 };
 
-// 비밀번호 검증
-export const validatePassword = (password) => {
-  const PASSWORD_REG = /^[a-zA-Z0-9]+$/;
+// 닉네임 형식 확인
+export const validateNickname = (nickname) => {
+  return String(nickname).match(/^[가-힣a-zA-Z0-9]{2,14}$/) !== null;
+};
 
-  if (!PASSWORD_REG.test(password))
-    return "영문 대소문자, 숫자, 특수문로 구성된 8글자 이상이여야 합니다";
+// 이메일 형식 확인
+export const validateEmail = (email) => {
+  return (
+    String(email).match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    ) !== null
+  );
+};
+
+// 비밀번호 형식 확인
+export const validatePassword = (password) => {
+  return (
+    String(password).match(
+      /^[\wㄱ-힣!@#$%^&*()\-_=+\[\]{};:'",<.>/?]{8,16}$/
+    ) !== null
+  );
 };
 
 // 비밀번호 일치 확인
-export const rePassword = (password, rePassword) => {
-  if (password !== rePassword) {
-    return "아이디 또는 비밀번호가 일치하지 않습니다.";
-  }
+export const validateRePassword = (password, rePassword) => {
+  return password === rePassword;
+};
+
+// 회원가입 양식 입력 유효성 검사 및 오류를 포함하는 객체 반환
+export const validateSignUp = (id, nickname, password, rePassword) => {
+  const errors = {};
+
+  if (!validateId(id))
+    errors.id = "아이디는 6글자 이상 14글자 이하여야 합니다.";
+  if (!validateNickname(nickname))
+    errors.nickname = "닉네임은 2글자 이상 14글자 이하여야 합니다.";
+  if (!validatePassword(password))
+    errors.password = "비밀번호는 8자 이상 16자리 이하여야 합니다.";
+  if (!validateRePassword(password, rePassword))
+    errors.rePassword = "비밀번호가 일치하지 않습니다.";
+
+  return errors;
 };
 
 export const validateProjectForm = (fields) => {
