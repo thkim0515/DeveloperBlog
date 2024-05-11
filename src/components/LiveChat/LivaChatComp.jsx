@@ -15,10 +15,11 @@ const ChatAndWriteBox = styled.div`
 `;
 
 const LiveChatButton = styled.button`
-  width: 120px;
+  width: 40px;
   height: 40px;
   padding: 10px;
-  background-color: #3f72af;
+  background-image: url("/img/chat.png");
+  background-size: cover; 
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -140,7 +141,6 @@ export const LiveChatComp = () => {
     <div>
       <ChatAndWriteBox>
         <LiveChatButton onClick={toggleLiveChat}>
-          실시간 채팅
           {unreadMessages > 0 && <Notification>{unreadMessages}</Notification>}
         </LiveChatButton>
       </ChatAndWriteBox>
