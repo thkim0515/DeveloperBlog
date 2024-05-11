@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
-import { InputField } from "./../../../components/common/InputField";
 
 export const EmailVerification = ({ userEmail, onEmailVerified }) => {
   const [authCode, setauthCode] = useState("");
@@ -50,15 +49,14 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
   return (
     <>
       <VerifyInputnAndButtonBox>
-        <div className="input">
-          <InputField
-            type="text"
-            id="emailVertify"
-            content="이메일 인증번호 입력"
-            value={userInputauthCode}
-            onChange={handleInputauthCode}
-          />
-        </div>
+        <input
+          type="text"
+          id="emailVertify"
+          className="input"
+          content="이메일 인증번호 입력"
+          value={userInputauthCode}
+          onChange={handleInputauthCode}
+        />
 
         <SendButton
           type="button"
@@ -73,7 +71,7 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
           disabled={!isSend}
           className="button"
         >
-          확인
+          인증확인
         </ConfirmButton>
       </VerifyInputnAndButtonBox>
     </>
@@ -89,6 +87,9 @@ const VerifyInputnAndButtonBox = styled.div`
 
   .input {
     width: 70%;
+    padding: 0.65rem;
+    border: 1px solid #d9d9d9;
+    background: #ffffff;
   }
 
   .button {
@@ -103,6 +104,5 @@ const SendButton = styled.button`
 `;
 
 const ConfirmButton = styled.button`
-  width: 79.69px;
-  background-color: ${(props) => (props.disabled ? "#c0c0c0" : "#3f72af")};
+  background-color: ${(props) => (props.disabled ? "#c0c0c0" : "#2a80c2")};
 `;

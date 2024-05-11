@@ -1,9 +1,7 @@
 // rootReducer.js
-import { combineReducers, configureStore } from "redux";
-import projectReducer from "../_slice/projectSlice";
+import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
-  project: projectReducer,
   // Add more reducers here if you have additional slices of state
 });
 

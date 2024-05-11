@@ -1,17 +1,12 @@
 import styled from "styled-components";
 import { useState, forwardRef } from "react";
 
-const isValidName = (name) => {
-  return name.trim() !== "";
-};
-
 export const InputField = forwardRef(({ type, id, content, onChange }, ref) => {
   const [isValid, setIsValid] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
 
   const handleInputChange = (e) => {
     const { value } = e.target;
-    setIsValid(isValidName(value));
     onChange(e);
   };
 

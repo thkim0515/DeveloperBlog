@@ -1,9 +1,7 @@
+import * as S from "./SignUp.style";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import * as S from "./SignUp.style";
-
-// components
 import { EmailVerification } from "./EmailVerification";
 import { Metas } from "./../../../components/common/Metas";
 
@@ -54,6 +52,13 @@ export const SignUp = () => {
     setIsEmailVerified(verified);
   };
 
+  // const checkPasswordStrength = (password) => {
+  //   // Implement password strength checking logic here
+  //   // Return a string indicating the strength level (e.g., "Weak", "Medium", "Strong")
+  //   // For simplicity, let's assume it always returns "Weak" for now
+  //   return "Weak";
+  // };
+
   return (
     <>
       <Metas
@@ -83,6 +88,7 @@ export const SignUp = () => {
 
         {/* 이메일 인증 */}
         <S.SignUpFiled>
+          <label htmlFor="emailVertify">이메일 인증</label>
           <EmailVerification
             userEmail={userInputData.email}
             onChange={handleInputData}
@@ -98,7 +104,7 @@ export const SignUp = () => {
 
         {/* 비밀번호 재입력 */}
         <S.SignUpFiled>
-          <label htmlFor="re-password">비밀번호</label>
+          <label htmlFor="rePassword">비밀번호 재입력</label>
           <S.Input type="password" id="rePassword" onChange={handleInputData} />
         </S.SignUpFiled>
 
