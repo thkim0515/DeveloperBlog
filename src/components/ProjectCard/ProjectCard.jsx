@@ -2,7 +2,6 @@ import * as S from "./ProjectCard.style";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { translateRoleToKr } from "../../utils/convertToTemplate";
 
 // components
@@ -11,7 +10,9 @@ import { UserProfile } from "../../components/common/UserProfile";
 // util
 import { timeString } from "./../../utils/timeString";
 
+import { useSelector } from "react-redux";
 export const ProjectCard = ({ data }) => {
+  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
   const navigate = useNavigate();
 
   const moveToProjectDetail = (id) => {
@@ -26,12 +27,7 @@ export const ProjectCard = ({ data }) => {
       {/*  */}
       <S.ProjectHeader>
         <div>
-          <FontAwesomeIcon icon={faCalendar} />
-          <span>
-            {data.startDate
-              ? ` ${timeString(data.startDate)}~${timeString(data.endDate)}`
-              : ""}
-          </span>
+          <span>{data.startDate ? ` ${timeString(data.startDate)}` : ""}</span>
         </div>
 
         <div>
@@ -53,10 +49,7 @@ export const ProjectCard = ({ data }) => {
         <S.projectStackBox>
           {data.stacks.slice(0, 4).map((stack, idx) => (
             <li key={`stack-${idx}`}>
-              <img
-                src={`https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/svgs/${stack}.svg`}
-                alt={stack}
-              />
+              <img src={`${imageUrl}svgs/${stack}.svg`} alt={stack} />
             </li>
           ))}
         </S.projectStackBox>

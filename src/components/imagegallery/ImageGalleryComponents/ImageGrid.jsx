@@ -11,7 +11,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 
 export const ImageGrid = (value) => {
-  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
+  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
   const [selectedIcon, setSelectedIcon] = useState(null); // 선택된 아이콘의 이름
   const [searchTerm, setSearchTerm] = useState(""); // 검색내용
 
@@ -51,7 +51,7 @@ export const ImageGrid = (value) => {
             data.svgImages.map((svgName, idx) => (
               <img
                 key={idx}
-                src={`${bucketUrl}svgs/${svgName}.svg`}
+                src={`${imageUrl}svgs/${svgName}.svg`}
                 alt={svgName}
                 onClick={() => setSelectedIcon(svgName)}
                 style={{

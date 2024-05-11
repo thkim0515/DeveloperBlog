@@ -5,7 +5,7 @@ import { useUserLogin } from "../../context/UserLoginContext";
 import { useSelector } from "react-redux";
 
 export const UserLogin = () => {
-  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
+  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
   //로그인 유저정보
   const { setIsLogin, setUser, setIsChange, profileDB } = useUserLogin();
 
@@ -44,7 +44,7 @@ export const UserLogin = () => {
           <div>{profileDB.nickname}</div>
           <S.ProfileImage
             alt="프로필 사진"
-            src={`${bucketUrl}profileImg/` + profileDB.profileimg}
+            src={`${imageUrl}profileImg/` + profileDB.profileimg}
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
             }}

@@ -19,7 +19,7 @@ const LiveChatButton = styled.button`
   height: 40px;
   padding: 10px;
   background-image: url("/img/chat.png");
-  background-size: cover; 
+  background-size: cover;
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -40,8 +40,6 @@ const Notification = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  // background-image: url("https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/starblogimg/bell.png");
-  // background-size: cover;
 `;
 
 const develop = 1;

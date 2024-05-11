@@ -8,7 +8,7 @@ import { handleUpload } from "../../utils/uploadImage";
 import { useSelector } from "react-redux";
 
 export const ProfileInfo = () => {
-  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
+  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
   const { profileDB, setIsChange } = useUserLogin();
 
   //user정보변경상태 false로 초기화
@@ -20,7 +20,7 @@ export const ProfileInfo = () => {
   //로그인 유저정보
   const [nickname, setNickname] = useState(profileDB.nickname);
   const email = profileDB.email;
-  const imgSrc = `${bucketUrl}profileImg/${profileDB.profileimg}`;
+  const imgSrc = `${imageUrl}profileImg/${profileDB.profileimg}`;
 
   //이미지 미리보기
   const [imgPreview, setImgPreview] = useState(null);

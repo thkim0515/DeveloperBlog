@@ -9,7 +9,7 @@ import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { useSelector } from "react-redux";
 
 export const ImageItem = ({ content }) => {
-  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
+  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
   const navigate = useNavigate();
   const handleImageClick = () => {
     if (content) {
@@ -44,7 +44,7 @@ export const ImageItem = ({ content }) => {
               <div className="img_box">
                 <img
                   src={`
-                      ${bucketUrl}svgs/${content.language.toLowerCase()}.svg`}
+                      ${imageUrl}svgs/${content.language.toLowerCase()}.svg`}
                   alt={content.language.toLowerCase()}
                   className="svgIcon"
                 />
@@ -59,8 +59,8 @@ export const ImageItem = ({ content }) => {
             <S.SProfileImage title="프로필">
               {content.userId.profileimg && (
                 <S.ProfileImage
-                  src={`${bucketUrl}profileImg/${content.userId.profileimg}`}
-                  alt={`${bucketUrl}profileImg/${content.userId.profileimg}`}
+                  src={`${imageUrl}profileImg/${content.userId.profileimg}`}
+                  alt={`${imageUrl}profileImg/${content.userId.profileimg}`}
                 />
               )}
             </S.SProfileImage>

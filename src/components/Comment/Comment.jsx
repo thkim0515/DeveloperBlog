@@ -10,7 +10,7 @@ import { useCalculatePage } from "./CommentUtil";
 import { useSelector } from "react-redux";
 
 export const Comment = ({ content }) => {
-  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
+  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
   //로그인 유저 정보 가져오기
   const { user } = useUserLogin();
 
@@ -206,7 +206,7 @@ export const Comment = ({ content }) => {
                     <div className="profile_box">
                       <img
                         src={
-                          `${bucketUrl}profileImg/` + comment.userId.profileimg
+                          `${imageUrl}profileImg/` + comment.userId.profileimg
                         }
                         alt="유저이미지"
                       ></img>

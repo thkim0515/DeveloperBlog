@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  bucketUrl: "https://starblog-bucket.s3.ap-northeast-2.amazonaws.com/",
+  imageUrl: "https://d3kcrktwedekfj.cloudfront.net/",
 };
 
 export const bucketUrlSlice = createSlice({

@@ -20,7 +20,7 @@ import { Metas } from "../../components/common/Metas";
 import { useSelector } from "react-redux";
 
 export const PostDetailComp = () => {
-  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
+  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
   //스크롤위치 초기화
   useScrollReset();
 
@@ -81,7 +81,7 @@ export const PostDetailComp = () => {
             <div className="img_box">
               <img
                 src={`
-                    ${bucketUrl}svgs/${detailContent.language}.svg`}
+                    ${imageUrl}svgs/${detailContent.language}.svg`}
                 alt=""
               />{" "}
               {/* alt={image.language} */}
@@ -98,8 +98,8 @@ export const PostDetailComp = () => {
               <S.SProfileImage title="프로필">
                 {detailContent.userId.profileimg && (
                   <S.ProfileImage
-                    src={`${bucketUrl}profileImg/${detailContent.userId.profileimg}`}
-                    alt={`${bucketUrl}profileImg/${detailContent.userId.profileimg}`}
+                    src={`${imageUrl}profileImg/${detailContent.userId.profileimg}`}
+                    alt={`${imageUrl}profileImg/${detailContent.userId.profileimg}`}
                   />
                 )}
               </S.SProfileImage>

@@ -2,12 +2,11 @@ import { ToastEditor as ToastUiEditor } from "../../editor/ToastEditor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/i18n/ko-kr";
 import { useRef, useEffect } from "react";
-// import { uploadImage } from "../../../utils/uploadImage";
 import { handleUpload } from "../../../utils/uploadImage";
 import { useSelector } from "react-redux";
 
 export const ToastEditor = ({ postData, onEditorChange }) => {
-  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
+  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
   const editorRef = useRef();
 
   const onChange = () => {
@@ -25,7 +24,7 @@ export const ToastEditor = ({ postData, onEditorChange }) => {
     try {
       const floderPath = "images/";
       const url = await handleUpload(blob, floderPath);
-      const callbackUrl = bucketUrl + floderPath + url;
+      const callbackUrl = imageUrl + floderPath + url;
       callback(callbackUrl, ""); // 에디터에 이미지 URL 적용
     } catch (error) {
       console.error("업로드 실패 >> ", error);
@@ -44,7 +43,13 @@ export const ToastEditor = ({ postData, onEditorChange }) => {
       usageStatistics={false}
       toolbarItems={[
         // 툴바 옵션 설정
-        ["code", "codeblock", "image"],
+        // ["code", "codeblock", "image"],
+        ["heading", "bold"],
+        ["quote"],
+        ["ul", "ol", "task", "indent", "outdent"],
+        ["table", "image"],
+        ["code", "codeblock"],
+        ["scrollSync"],
       ]}
       hideModeSwitch={true}
       onChange={onChange}

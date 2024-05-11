@@ -4,7 +4,7 @@ import { timeString } from "../../../../utils/timeString";
 import { useSelector } from "react-redux";
 
 export const RecruitmentInfo = (...props) => {
-  const bucketUrl = useSelector((state) => state.butketUrl.bucketUrl);
+  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
   const infoData = props[0];
 
   return (
@@ -35,7 +35,7 @@ export const RecruitmentInfo = (...props) => {
             <span className="title">사용 기술</span>
             {infoData.stacks.map((stack, idx) => (
               <S.IconBox key={idx}>
-                <img src={`${bucketUrl}svgs/${stack}.svg`} alt={stack} />
+                <img src={`${imageUrl}svgs/${stack}.svg`} alt={stack} />
               </S.IconBox>
             ))}
           </S.Li>
