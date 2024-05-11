@@ -39,14 +39,16 @@ loadSecrets().then((secrets) => {
       const user = await User.findOne({ id }).exec();
 
       if (!user) {
-        return res.status(404).json({ message: "아이디를 찾을 수 없습니다." });
+        return res
+          .status(404)
+          .json({ message: "아이디 또는 비밀번호가 일치하지 않습니다." }); // 보안을 위해 메시지 통일
       }
 
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
         return res
           .status(401)
-          .json({ message: "비밀번호가 일치하지 않습니다." });
+          .json({ message: "아이디 또는 비밀번호가 일치하지 않습니다." }); // 보안을 위해 메시지 통일
       }
 
       await User.findOneAndUpdate(
@@ -110,7 +112,7 @@ loadSecrets().then((secrets) => {
 
       if (!/^[\wㄱ-힣!@#$%^&*()\-_=+\[\]{};:'",<.>/?]{8,16}$/.test(password)) {
         return res.status(400).json({
-          message: "패스워드는 8자 이상 16자리 이하여야 합니다.",
+          message: "비밀번호는 8자 이상 16자리 이하여야 합니다.",
         });
       }
       const duplicatId = await User.findOne({ id });

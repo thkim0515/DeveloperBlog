@@ -13,6 +13,8 @@ import { ProjectCard } from "../../components/ProjectCard/ProjectCard";
 import { Metas } from "../../components/common/Metas";
 import { WriteButton } from "../../components/imagegallery/WriteButton";
 
+import { useUserLogin } from "../../context/UserLoginContext";
+
 export const TeamProject = () => {
   const [projectData, setProjectData] = useState([]);
   const [search, setSearch] = useState("");
@@ -20,6 +22,7 @@ export const TeamProject = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [displayData, setDisplayData] = useState([]);
+  const { user } = useUserLogin();
   let itemsPerPage = 9;
 
   useEffect(() => {
