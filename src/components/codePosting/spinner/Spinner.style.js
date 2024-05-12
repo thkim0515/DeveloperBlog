@@ -22,15 +22,32 @@ export const Modal = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  margin: 15% auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
   padding: 20px;
-  width: 50%;
+  width: 70%;
+  margin: auto;
   text-align: center;
-
   p {
-    color: white;
+    color: black;
     font-size: 3rem;
     opacity: 0;
     transition: opacity 2s ease-in-out;
   }
 `;
+// export const ModalContent = styled.div`
+//   margin: 15% auto;
+//   padding: 20px;
+//   width: 50%;
+//   text-align: center;
+
+//   p {
+//     color: white;
+//     font-size: 3rem;
+//     opacity: 0;
+//     transition: opacity 2s ease-in-out;
+//   }
+// `;

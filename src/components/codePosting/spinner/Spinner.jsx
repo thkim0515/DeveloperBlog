@@ -1,12 +1,13 @@
 import React from "react";
 import * as S from "./Spinner.style";
 import { CustomSpinner } from "./Spinner.style";
-
+import { HamsterSpinner } from "./HamsterSpinner";
 export const Spinner = ({ isLoading }) => {
   return (
     <>
       <S.Modal $show={isLoading}>
         <S.ModalContent>
+          {/* <HamsterSpinner /> */}
           <CustomSpinner
             animation="border"
             role="status"

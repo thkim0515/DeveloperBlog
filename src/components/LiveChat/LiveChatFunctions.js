@@ -11,12 +11,15 @@ export const connectWebSocket = (setMessages, userNickname, addr) => {
       const text = await event.data.text();
       try {
         const data = JSON.parse(text);
-        const displayMessage = {
-          userId: data.userId || userNickname,
-          text: ` : ${data.message}`,
-          timestamp: data.timestamp,
-        };
-        setMessages((prev) => [...prev, displayMessage]);
+        if (data.message !== "") {
+          const displayMessage = {
+            userId: data.userId || userNickname,
+            text: ` : ${data.message}`,
+            timestamp: data.timestamp,
+          };
+          setMessages((prev) => [...prev, displayMessage]);
+        } else {
+        }
       } catch (error) {
         console.error("JSON 파싱 에러:", error);
       }
