@@ -7,13 +7,13 @@ export const Spinner = ({ isLoading }) => {
     <>
       <S.Modal $show={isLoading}>
         <S.ModalContent>
-          {/* <HamsterSpinner /> */}
-          <CustomSpinner
+          <HamsterSpinner />
+          {/* <CustomSpinner
             animation="border"
             role="status"
             variant="light"
             style={{ width: "6rem", height: "6rem" }}
-          />
+          />*/}
         </S.ModalContent>
       </S.Modal>
     </>
