@@ -30,7 +30,6 @@ export const handlePostProject = async (...projectData) => {
 const postCodeToServer = async (Data) => {
   try {
     const response = await axios.post("/project/create", Data);
-    alert("글 등록 성공!");
     const userSession = await decryptData("user", sessionStorage);
     return response.data.info;
   } catch (error) {
@@ -50,7 +49,6 @@ export const handleUpdateCode = async (data, navigate) => {
 const updateContents = async (_id, content, navigate) => {
   try {
     await axios.put(`/project/update/${_id}`, content);
-    alert("성공적으로 수정");
     const data = content;
     navigate(`/project/${_id}`, { state: { data } });
   } catch (error) {
