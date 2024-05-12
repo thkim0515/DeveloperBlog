@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
 import { Logo } from "./Logo";
 import { LiveChatComp } from "../LiveChat/LivaChatComp";
+
 export const Header = () => {
   // 네비게이션 객체 생성
   const navigate = useNavigate();

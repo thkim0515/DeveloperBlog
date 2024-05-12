@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
 const { sendAuthEmail } = require("./sendEmail");
+const { logError } = require("../error/processError");
 
 router.post("/email", async (req, res) => {
   const { email } = req.body;
@@ -23,7 +24,7 @@ router.post("/email", async (req, res) => {
       res.status(500).send("인증번호 전송 실패");
     }
   } catch (error) {
-    console.error(error);
+    logError(error);
     res.status(500).json({ message: "서버 에러가 발생했습니다." });
   }
 });

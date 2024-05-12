@@ -80,8 +80,7 @@ router.delete("/deleteimg/:profileimg", async (req, res) => {
   const { profileimg } = req.params;
 
   if (profileimg && profileimg !== "noprofile.jpg") {
-    const filePath = `${folderPath}${profileimg}`;
-
+    const filePath = `profileImg/${profileimg}`;
     const deleteParams = {
       Bucket: bucket,
       Key: filePath,
@@ -106,6 +105,7 @@ router.get("/getbucket", async (req, res) => {
     const secrets = await loadSecrets();
     res.json({ bucketUrl: secrets.REACT_APP_BUCKETNAME });
   } catch (error) {
+    logError(error);
     res.status(500).json({ error: "서버 에러 발생" });
   }
 });

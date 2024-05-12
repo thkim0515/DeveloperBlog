@@ -21,6 +21,7 @@ export const ProfileInfo = () => {
   const [nickname, setNickname] = useState(profileDB.nickname);
   const email = profileDB.email;
   const imgSrc = `${imageUrl}profileImg/${profileDB.profileimg}`;
+  let checkNull = false;
 
   //이미지 미리보기
   const [imgPreview, setImgPreview] = useState(null);
@@ -67,15 +68,27 @@ export const ProfileInfo = () => {
       return;
     }
     const floderPath = "profileImg/";
-    const changeImgaName = await handleUpload(selectedFile, floderPath);
+    let changeImgaeName = await handleUpload(selectedFile, floderPath);
+
+    if (changeImgaeName === null) {
+      changeImgaeName = profileDB.profileimg;
+      checkNull = true;
+    }
+
     const editData = {
       ...profileDB,
       nickname: nickname,
-      profileimg: changeImgaName,
+      profileimg: changeImgaeName,
     };
 
     try {
       await axios.put(`/users/update/${profileDB._id}`, editData);
+
+      if (profileDB.profileimg !== "noprofile.jpg" && checkNull !== true) {
+        console.log(1);
+        await axios.delete(`/awss3/deleteimg/${profileDB.profileimg}`);
+      }
+
       setIsChange(true);
       navigate("/profile");
       //TODO 새로고침 줄이기... >> 완료
@@ -91,10 +104,6 @@ export const ProfileInfo = () => {
 
   const updateSessionStorage = async (newData) => {
     const storedData = await decryptData("user", sessionStorage);
-    // 변경 완료 후, 서버에 존재하는 기존 이미지 삭제
-    if (storedData.profileimg !== "noprofile.jpg") {
-      await axios.delete(`/awss3/deleteimg/${storedData.profileimg}`);
-    }
     const updatedData = { ...storedData, ...newData };
     delete updatedData.email;
     delete updatedData.id;

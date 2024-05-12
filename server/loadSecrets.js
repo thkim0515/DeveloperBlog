@@ -7,6 +7,7 @@ const region = "ap-northeast-2";
 
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+const { logError } = require("./error/processError");
 
 const client = new SecretsManagerClient({
   region: region,
@@ -27,7 +28,7 @@ const loadSecrets = async () => {
       throw new Error("시크릿팅이 존재 하지 않음");
     }
   } catch (err) {
-    console.error("에러: ", err);
+    logError(err);
     throw err;
   }
 };

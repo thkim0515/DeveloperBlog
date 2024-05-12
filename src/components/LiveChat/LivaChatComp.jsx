@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Modal } from "./Modal";
 import { LiveChat } from "../../components/LiveChat/LiveChat";
-import { decryptData } from "../../utils/secure";
 
 // 리덕스 적용
 import { useSelector, useDispatch } from "react-redux";
@@ -42,12 +41,12 @@ const Notification = styled.div`
   font-size: 12px;
 `;
 
-const develop = 1;
+const develop = false;
 
 export const LiveChatComp = () => {
   const [isLiveChatVisible, setIsLiveChatVisible] = useState(false);
   const WEBSOCKET_ADDRESS =
-    develop === 1
+    develop === true
       ? "wss://d3kcrktwedekfj.cloudfront.net"
       : "ws://localhost:5000";
 
@@ -75,30 +74,21 @@ export const LiveChatComp = () => {
     }
   }, [isLiveChatVisible, handleReset]);
 
-  // const [timeStamp, setTimeStamp] = useState("");
   useEffect(() => {
+    if (!isLiveChatVisible) return;
+
     const init = async () => {
       const ws = new WebSocket(WEBSOCKET_ADDRESS);
-      // const userSession = await decryptData("user", sessionStorage);
-      // const timestamp = sessionStorage.getItem("timestamp");
+      const timestamp = sessionStorage.getItem("timestamp");
 
-      const randomSuffix =
-        "비로그인유저" + sessionStorage.getItem("randomSuffix");
       ws.onmessage = async (event) => {
         if (event.data instanceof Blob) {
           const text = await event.data.text();
 
           try {
             const data = JSON.parse(text);
-            if (data.userId !== randomSuffix) {
-              // if (data.timestamp > timeStamp) {
+            if (data.timestamp > timestamp) {
               handleIncrement();
-              // }
-              // if (
-              //   data.userId !== randomSuffix &&
-              //   (!userSession || data.userId !== userSession.nickname)
-              // ) {
-              // handleIncrement();
             }
           } catch (error) {
             console.error("JSON 파싱 에러:", error);
@@ -106,10 +96,8 @@ export const LiveChatComp = () => {
         } else {
           try {
             const data = JSON.parse(event.data);
-            if (data.userId !== randomSuffix) {
-              // if (data.timestamp > timeStamp) {
+            if (data.timestamp > timestamp) {
               handleIncrement();
-              // }
             }
           } catch (error) {
             console.error("JSON 파싱 에러:", error);
@@ -120,21 +108,8 @@ export const LiveChatComp = () => {
       return () => ws.close();
     };
     init();
-  }, []); //[timestamp]):
+  }, [isLiveChatVisible, WEBSOCKET_ADDRESS]); //[timestamp]):
 
-  // useEffect(() => {
-  //   const updateTimestamp = () => {
-  //     const storedTimestamp = sessionStorage.getItem("timestamp");
-  //     setTimeStamp(storedTimestamp || "");
-  //   };
-
-  //   updateTimestamp();
-  //   const intervalId = setInterval(updateTimestamp, 1000);
-
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, []);
   return (
     <div>
       <ChatAndWriteBox>

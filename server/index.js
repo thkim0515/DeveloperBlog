@@ -36,6 +36,7 @@ setupWebSocket(server);
 
 const PORT = 5000;
 const { router } = require("./error/processError");
+const visitor = require("./user/visitor");
 const users = require("./user/users");
 const email = require("./user/email");
 const awss3 = require("./user/awss3");
@@ -44,10 +45,10 @@ const comments = require("./contents/comments");
 const project = require("./contents/project");
 const main = require("./contents/main");
 const endecrypt = require("./contents/endecrypt");
-// const s3bucket = require("./contents/s3bucket");
 
 app.use(bodyParser.json());
 app.use(router);
+app.use("/visitor", visitor);
 app.use("/users", users);
 app.use("/email", email);
 app.use("/contents", contents);
@@ -56,7 +57,6 @@ app.use("/project", project);
 app.use("/main", main);
 app.use("/endecrypt", endecrypt);
 app.use("/awss3", awss3);
-// app.use("/s3bucket", s3bucket);
 
 app.use(express.static(path.join(__dirname, "../build")));
 
