@@ -17,7 +17,7 @@ import { useFormFields } from "../../hooks/form/useprojectFormFields";
 // utils
 import { handlePostProject } from "../../utils/handleProject";
 import { validateProjectForm } from "../../utils/validation";
-
+import { decryptData } from "../../utils/secure";
 // styled
 const ErrorMessage = styled.div`
   display: inline-block;
@@ -38,6 +38,7 @@ export const ProjectCreateForm = () => {
   const [search, setSearch] = useState("");
   const [hashTag, setHashTag] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [userSessionInfo, setUserSessionInfo] = useState([]);
   // TODO errorMessage 컴포넌트화 하기
 
   const [
@@ -48,18 +49,30 @@ export const ProjectCreateForm = () => {
     handleRemoveStacks,
     handleAddHashTags,
     handleRemoveHashTags,
+    handleAddMember,
   ] = useFormFields({
     title: "",
     updatedDate: new Date().toLocaleDateString(),
     startDate: "",
     endDate: "",
-    memberList: ["1"],
+    memberList: [],
     tableOfOrganization: 0,
     content: "",
     hashTags: [],
     roles: [],
     stacks: [],
   });
+
+  useEffect(() => {
+    const init = async () => {
+      const userSession = await decryptData("user", sessionStorage);
+      userSession._id = userSession.id;
+      delete userSession.id;
+      handleAddMember(userSession.id);
+      setUserSessionInfo(userSession);
+    };
+    init();
+  }, []);
 
   useEffect(() => {
     function simulateNetworkRequest() {
@@ -98,11 +111,11 @@ export const ProjectCreateForm = () => {
   const onSubmit = async () => {
     const errors = validateProjectForm(projectFields);
     setErrorMessage(errors);
-
     if (Object.keys(errors).length === 0) {
       setLoading(true);
       const response = await handlePostProject(projectFields);
       const data = response;
+      data.userId = userSessionInfo;
       navigate(`/project/${data._id}`, { state: { data } });
     } else {
       window.scroll(0, 0);
@@ -249,7 +262,7 @@ export const ProjectCreateForm = () => {
           <div>
             <Form.Label className="fs-5 mb-3">모집인원</Form.Label>
             <span className="ms-3 text-primary">{`${Number(
-              projectFields.memberList[0]
+              projectFields.memberList.length
             )} / ${projectFields.tableOfOrganization}`}</span>
             <ErrorMessage>{errorMessage.recruitment}</ErrorMessage>
           </div>

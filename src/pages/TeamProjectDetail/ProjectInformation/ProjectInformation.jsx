@@ -43,7 +43,7 @@ export const ProjectInformation = (data) => {
         <RecruitmentInfo
           startDate={infoData.startDate}
           endDate={infoData.endDate}
-          memberList={infoData.memberList.length}
+          memberList={infoData.memberList}
           tableOfOrganization={infoData.tableOfOrganization}
           stacks={infoData.stacks}
           roles={infoData.roles}

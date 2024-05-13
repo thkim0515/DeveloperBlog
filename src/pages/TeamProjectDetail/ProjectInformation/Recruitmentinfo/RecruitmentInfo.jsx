@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 export const RecruitmentInfo = (...props) => {
   const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
   const infoData = props[0];
-
   return (
     <>
       <S.UuorderListBox>
@@ -27,7 +26,7 @@ export const RecruitmentInfo = (...props) => {
           </S.Li>
           <S.Li>
             <span className="title">모집 인원</span>
-            <span>{infoData.memberList}</span>
+            <span>{infoData.memberList.length}</span>
             <span>/</span>
             <span>{infoData.tableOfOrganization}</span>
           </S.Li>

@@ -20,7 +20,7 @@ export const handlePostProject = async (...projectData) => {
     stacks: spreadProjectData.stacks,
     roles: spreadProjectData.roles,
     content: spreadProjectData.content,
-    memberList: spreadProjectData.recruitmentCompleted,
+    memberList: spreadProjectData.memberList,
     tableOfOrganization: spreadProjectData.tableOfOrganization,
   };
 

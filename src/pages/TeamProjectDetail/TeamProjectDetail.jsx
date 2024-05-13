@@ -38,6 +38,12 @@ export const TeamProjectDetail = () => {
       .catch((error) => console.error("Error:", error));
   }, [data._id]);
 
+  useEffect(() => {
+    if (data) {
+      setPtPostingId(data);
+    }
+  }, [data]);
+
   return (
     <TeamProjectDetailBox>
       <Buttons>

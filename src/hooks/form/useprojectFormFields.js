@@ -2,14 +2,21 @@ import { useState } from "react";
 
 export const useFormFields = (initialState) => {
   const [fields, setFields] = useState(initialState);
-
   const handleProjectForm = (e) => {
     const { name, value } = e.target;
-
     setFields((prevFields) => ({
       ...prevFields,
       [name]: value,
     }));
+  };
+
+  const handleAddMember = (userId) => {
+    if (!fields.memberList.includes(userId)) {
+      setFields((prevFields) => ({
+        ...prevFields,
+        memberList: [...prevFields.memberList, userId],
+      }));
+    }
   };
 
   const handleCheckboxChange = (e) => {
@@ -70,5 +77,6 @@ export const useFormFields = (initialState) => {
     handleRemoveStacks,
     handleAddHashTags,
     handleRemoveHashTags,
+    handleAddMember,
   ];
 };
