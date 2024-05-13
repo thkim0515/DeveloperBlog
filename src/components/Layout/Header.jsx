@@ -3,7 +3,7 @@ import { UserLogin } from "./UserLogin";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
 import { Logo } from "./Logo";
-import { LiveChatComp } from "../LiveChat/LivaChatComp";
+import { LiveChatComp } from "../LiveChat/LiveChatComp";
 
 export const Header = () => {
   // 네비게이션 객체 생성

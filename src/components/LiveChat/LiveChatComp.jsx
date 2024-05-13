@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Modal } from "./Modal";
-import { LiveChat } from "../../components/LiveChat/LiveChat";
+import { LiveChat } from "./LiveChat";
 
 // 리덕스 적용
 import { useSelector, useDispatch } from "react-redux";
@@ -41,7 +41,7 @@ const Notification = styled.div`
   font-size: 12px;
 `;
 
-const develop = false;
+const develop = true;
 
 export const LiveChatComp = () => {
   const [isLiveChatVisible, setIsLiveChatVisible] = useState(false);
