@@ -12,7 +12,7 @@ export const MyProject = () => {
       const res = await axios.get("/project/project");
       setProjectData(res.data);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

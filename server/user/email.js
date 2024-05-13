@@ -12,12 +12,10 @@ router.post("/email", async (req, res) => {
       return res.status(409).json({ message: "사용중인 이메일입니다." });
     }
 
-    const subject = "StarBlod 이메일 인증번호 입니다.";
+    const subject = "StarBlog 이메일 인증번호 입니다.";
     const content = "이메일의 인증번호는 ";
-
     const authCode = Math.floor(100000 + Math.random() * 900000);
-    const emailSent = await sendAuthEmail(email, subject, content, authCode);
-
+    const emailSent = sendAuthEmail(email, subject, content, authCode);
     if (emailSent) {
       res.json({ message: "인증번호 전송 성공", authCode });
     } else {

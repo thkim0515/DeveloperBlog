@@ -85,10 +85,10 @@ export const ProfileInfo = () => {
       await axios.put(`/users/update/${profileDB._id}`, editData);
 
       if (profileDB.profileimg !== "noprofile.jpg" && checkNull !== true) {
-        console.log(1);
         await axios.delete(`/awss3/deleteimg/${profileDB.profileimg}`);
       }
 
+      alert("정보가 성공적으로 수정되었습니다.");
       setIsChange(true);
       navigate("/profile");
       //TODO 새로고침 줄이기... >> 완료
