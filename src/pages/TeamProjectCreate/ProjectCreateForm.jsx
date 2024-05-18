@@ -68,7 +68,7 @@ export const ProjectCreateForm = () => {
       const userSession = await decryptData("user", sessionStorage);
       userSession._id = userSession.id;
       delete userSession.id;
-      handleAddMember(userSession.id);
+      handleAddMember(userSession._id);
       setUserSessionInfo(userSession);
     };
     init();

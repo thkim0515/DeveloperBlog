@@ -47,7 +47,7 @@ export const ProjectCard = ({ data }) => {
         </S.ProjectHashTagBox>
         <S.ProjectTitle>{data.title}</S.ProjectTitle>
         <S.projectStackBox>
-          {data.stacks.slice(0, 4).map((stack, idx) => (
+          {data.stacks.slice(0, 5).map((stack, idx) => (
             <li key={`stack-${idx}`}>
               <img src={`${imageUrl}svgs/${stack}.svg`} alt={stack} />
             </li>

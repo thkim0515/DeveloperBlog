@@ -365,5 +365,19 @@ loadSecrets().then((secrets) => {
       res.status(500).json({ message: "서버 에러" });
     }
   });
+
+  router.post("/readproject/:_id", async (req, res) => {
+    const userInfo = req.body._id;
+    try {
+      const user = await User.findById(userInfo).select("nickname profileimg");
+      if (!user) {
+        return res.status(404).send({ error: "User not found" });
+      }
+
+      res.send(user);
+    } catch (error) {
+      logError("유저 읽기", error.message);
+    }
+  });
 });
 module.exports = router;

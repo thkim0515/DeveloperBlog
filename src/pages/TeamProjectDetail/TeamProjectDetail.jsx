@@ -10,6 +10,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { ProjectInformation } from "./ProjectInformation/ProjectInformation";
 import { ProjectContent } from "./ProjectContent/ProjectContent";
 import { ProjectComments } from "./ProjectComments/ProjectComments";
+import { ProjectMember } from "./ProjectMember/ProjectMember";
 
 // context
 import { useUserLogin } from "../../context/UserLoginContext";
@@ -43,7 +44,6 @@ export const TeamProjectDetail = () => {
       setPtPostingId(data);
     }
   }, [data]);
-
   return (
     <TeamProjectDetailBox>
       <Buttons>
@@ -61,6 +61,7 @@ export const TeamProjectDetail = () => {
       </Buttons>
 
       <ProjectInformation data={data} />
+      <ProjectMember data={data.memberList} />
       <ProjectContent content={data.content} />
       <ProjectComments content={data} />
 
