@@ -129,13 +129,16 @@ export const MenuListBox = styled.ul`
     text-align: center;
     line-height: 40px;
     list-style: none;
-    cursor: pointer;
   }
   li:hover {
     background-color: #D4DBE9; /* 마우스를 올렸을 때 배경 색상 변경 */
   }
   li:last-child {
     border-top: 1px solid #fff;
+  }
+
+  .logout{
+    cursor: pointer;
   }
 `;
 

@@ -41,7 +41,7 @@ export const PostDetailWriter = ({ content }) => {
       try {
         await axios.delete(`/contents/delete/${_id}`);
 
-        navigate(-1);
+        navigate("/codeMain");
         // if (response.status === 200) {
         //   await removePostFromLocalStorage(_id);
         // }

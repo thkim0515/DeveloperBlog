@@ -30,7 +30,7 @@ export const Header = () => {
         <div style={{ display: "flex", alignItems: "ceneter", gap: "8px" }}>
           <S.CodeProjectMenuBox>
             <ul>
-              <S.ListLink to="/CodeMain">Code</S.ListLink>
+              <S.ListLink to="/codeMain">Code</S.ListLink>
               <S.ListLink to="/teamProject">Project</S.ListLink>
             </ul>
           </S.CodeProjectMenuBox>
