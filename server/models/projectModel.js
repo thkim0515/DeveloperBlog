@@ -27,16 +27,7 @@ const projectSchema = new mongoose.Schema({
   roles: [{ type: String, required: true }],
   content: { type: String },
   memberList: [{ type: String }],
-  // memberList: [
-  //   {
-  //     type: String,
-  //     validate: {
-  //       validator: function (v) {
-  //         return v.length <= 5;
-  //       },
-  //     },
-  //   },
-  // ],
+  participateList: [{ type: String }],
   tableOfOrganization: { type: Number, default: 1 },
   views: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },

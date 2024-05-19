@@ -211,4 +211,68 @@ router.post("/like", async (req, res) => {
   }
 });
 
+// -------------- Participate -----------------
+// 신청완료
+router.put("/participate/update/:_id", async (req, res) => {
+  try {
+    const participateMember = await Project.findOneAndUpdate(
+      { _id: req.params._id },
+      { $addToSet: { participateList: req.body.userId } },
+      { new: true }
+    );
+
+    if (!participateMember) {
+      return res.status(404).json({ message: "멤버없음" });
+    }
+    res.status(200).json({ message: "참여 신청 성공", participateMember });
+  } catch (error) {
+    logError("프로젝트 참여신청 업데이트", error.message);
+    res.status(500).json({ message: "서버 에러" });
+  }
+});
+
+// 수락
+router.put("/participate/accept/:_id", async (req, res) => {
+  try {
+    const participateMember = await Project.findOneAndUpdate(
+      { _id: req.params._id },
+      {
+        $pull: { participateList: req.body.userId },
+        $addToSet: { memberList: req.body.userId },
+      },
+      { new: true }
+    );
+
+    if (!participateMember) {
+      return res.status(404).json({ message: "멤버없음" });
+    }
+    res.status(200).json({ message: "참여 신청 수락 성공", participateMember });
+  } catch (error) {
+    logError("프로젝트 참여신청 수락 업데이트", error.message);
+    res.status(500).json({ message: "서버 에러" });
+  }
+});
+
+// 거절
+router.put("/participate/reject/:_id", async (req, res) => {
+  try {
+    const deletedMember = await Project.findOneAndUpdate(
+      { _id: req.params._id },
+      { $pull: { participateList: req.body.userId } },
+      { new: true }
+    );
+    console.log(deletedMember);
+    if (!deletedMember) {
+      return res.status(404).json({ message: "멤버없음" });
+    }
+
+    res.status(200).json({
+      message: "삭제성공",
+    });
+  } catch (error) {
+    logError("참여자 거절", error.message);
+    res.status(500).json({ message: "서버 에러" });
+  }
+});
+
 module.exports = router;

@@ -2,18 +2,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  margin: 6px 0;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 100%;
-  height: 48px;
+  height: auto;
   font-size: 1rem;
-`;
-
-export const MmeberList = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 2px;
 
   h3 {
     font-weight: bold;
@@ -22,6 +18,19 @@ export const MmeberList = styled.div`
     color: #112d4e;
     margin-right: 10px;
   }
+`;
+
+export const MemberConatiner = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+export const MmeberList = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 2px;
 `;
 
 export const MemberItem = styled.div`
@@ -33,8 +42,6 @@ export const MemberItem = styled.div`
   border-radius: 20px;
 `;
 
-export const ParticipateButton = styled.button``;
-
 export const ProfileImage = styled.img`
   width: 40px;
   height: 40px;
@@ -45,4 +52,19 @@ export const ProfileImage = styled.img`
 export const MemberText = styled.span`
   display: flex;
   align-items: center;
+`;
+
+export const ParticipateConatiner = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 2px;
+`;
+
+export const ParticipateButton = styled.button``;
+
+export const ParticipateList = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 2px;
 `;

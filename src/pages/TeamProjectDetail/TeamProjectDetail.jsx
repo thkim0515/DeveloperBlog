@@ -44,6 +44,7 @@ export const TeamProjectDetail = () => {
       setPtPostingId(data);
     }
   }, [data]);
+
   return (
     <TeamProjectDetailBox>
       <Buttons>
@@ -61,7 +62,12 @@ export const TeamProjectDetail = () => {
       </Buttons>
 
       <ProjectInformation data={data} />
-      <ProjectMember data={data.memberList} />
+      <ProjectMember
+        postid={data._id}
+        memberList={data.memberList}
+        participateList={data.participateList}
+        userid={data.userId._id}
+      />
       <ProjectContent content={data.content} />
       <ProjectComments content={data} />
 

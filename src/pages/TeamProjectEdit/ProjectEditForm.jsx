@@ -266,7 +266,7 @@ export const ProjectEditForm = (props) => {
           <div>
             <Form.Label className="fs-5 mb-3">모집인원</Form.Label>
             <span className="ms-3 text-primary">{`${Number(
-              projectFields.memberList[0]
+              projectFields.memberList.length
             )} / ${projectFields.tableOfOrganization}`}</span>
             <ErrorMessage>{errorMessage.recruitment}</ErrorMessage>
           </div>
