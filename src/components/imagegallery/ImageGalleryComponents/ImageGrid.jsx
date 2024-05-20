@@ -17,7 +17,8 @@ export const ImageGrid = (value) => {
 
   const maxcount = 9;
   const data = useGetData(value, maxcount, selectedIcon, searchTerm);
-
+  const half = Math.ceil(data.svgImages.length / 2);
+  // console.log(data.svgImages);
   const handleUpdateSelectedIcon = () => {
     setSelectedIcon(searchTerm);
   };
@@ -47,8 +48,14 @@ export const ImageGrid = (value) => {
           </InputGroup>
         </div>
         <div>
-          {value.value === "all" &&
-            data.svgImages.map((svgName, idx) => (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "10px",
+            }}
+          >
+            {data.svgImages.slice(0, half).map((svgName, idx) => (
               <img
                 key={idx}
                 src={`${imageUrl}svgs/${svgName}.svg`}
@@ -59,9 +66,43 @@ export const ImageGrid = (value) => {
                   backgroundColor:
                     svgName === selectedIcon ? "#F9F7F7" : "transparent",
                   padding: svgName === selectedIcon ? "4px" : "0",
+                  margin: "-2px 3px",
                 }}
               />
             ))}
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {data.svgImages.slice(half).map((svgName, idx) => (
+              <img
+                key={idx}
+                src={`${imageUrl}svgs/${svgName}.svg`}
+                alt={svgName}
+                onClick={() => setSelectedIcon(svgName)}
+                style={{
+                  cursor: "pointer",
+                  backgroundColor:
+                    svgName === selectedIcon ? "#F9F7F7" : "transparent",
+                  padding: svgName === selectedIcon ? "4px" : "0",
+                  margin: "-2px 3px",
+                }}
+              />
+            ))}
+          </div>
+          {/* {value.value === "all" &&
+            data.svgImages.map((svgName, idx) => (
+              <img
+                key={idx}
+                src={`${imageUrl}svgs/${svgName}.svg`}
+                alt={svgName}
+                onClick={() => setSelectedIcon(svgName)}
+                style={{
+                  cursor: "pointer",
+                  backgroundColor:
+                    svgName === selectedIcon ? "#F9F7F7" : "transparent",
+                  padding: svgName === selectedIcon ? "6px" : "0",
+                }}
+              />
+            ))} */}
         </div>
       </S.Spacer>
 

@@ -105,7 +105,7 @@ export const ProjectMember = (props) => {
       alert("성공적으로 수락!");
     }
   };
-  const rejctButton = async (targetId) => {
+  const rejectButton = async (targetId) => {
     const response = await axios.put(
       `/project/participate/reject/${props.postid}`,
       {
@@ -156,7 +156,7 @@ export const ProjectMember = (props) => {
               {props.userid === userInfo?.id && (
                 <>
                   <Button onClick={() => acceptButton(member._id)}>수락</Button>
-                  <Button onClick={() => rejctButton(member._id)}>거절</Button>
+                  <Button onClick={() => rejectButton(member._id)}>거절</Button>
                 </>
               )}
             </S.MemberItem>

@@ -261,7 +261,6 @@ router.put("/participate/reject/:_id", async (req, res) => {
       { $pull: { participateList: req.body.userId } },
       { new: true }
     );
-    console.log(deletedMember);
     if (!deletedMember) {
       return res.status(404).json({ message: "멤버없음" });
     }

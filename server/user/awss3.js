@@ -28,9 +28,9 @@ loadSecrets().then((secrets) => {
   router.post("/uploadimage", upload.single("file"), async (req, res) => {
     const file = req.file;
     const folderPath = req.body.path;
-    file.originalname = Buffer.from(file.originalname, "ascii").toString(
-      "utf8"
-    );
+    file.originalname = Buffer.from(file.originalname, "ascii")
+      .toString("utf8")
+      .replace(/\s+/g, "");
 
     if (!file) {
       return res.status(400).send({ message: "No file uploaded." });
@@ -46,7 +46,6 @@ loadSecrets().then((secrets) => {
       Bucket: bucket,
       Key: `${folderPath}${filename}`,
     };
-
     try {
       // 파일이 없으면 업로드 진행
       const uploadParams = {
