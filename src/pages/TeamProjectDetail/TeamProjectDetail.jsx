@@ -26,7 +26,7 @@ export const TeamProjectDetail = () => {
   const [ptPostingId, setPtPostingId] = useState(null);
 
   const navigate = useNavigate();
-  const updateContents = (_id) => () => {
+  const updateContents = _id => () => {
     navigate(`/projectEdit/${_id}`, { state: { _id } });
   };
 
@@ -36,7 +36,7 @@ export const TeamProjectDetail = () => {
     axios
       .post("/project/view", { _id: data._id })
       .then(() => setPtPostingId(data.userId._id))
-      .catch((error) => console.error("Error:", error));
+      .catch(error => console.error("Error:", error));
   }, [data._id]);
 
   useEffect(() => {
@@ -48,10 +48,7 @@ export const TeamProjectDetail = () => {
   return (
     <TeamProjectDetailBox>
       <Buttons>
-        <button
-          className="back-button"
-          onClick={() => navigate("/teamProject")}
-        >
+        <button className="back-button" onClick={() => navigate("/teamProject")}>
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
         {user && userId === ptPostingId && (
@@ -70,12 +67,6 @@ export const TeamProjectDetail = () => {
       />
       <ProjectContent content={data.content} />
       <ProjectComments content={data} />
-
-      {/* TODO 추가 기능 */}
-      {/* <RecruitmentStatusBox>
-    <h2 className="status-title">모집 현황</h2>
-    <p>OO님이 프로젝트에 합류했어요!</p>
-  </RecruitmentStatusBox> */}
     </TeamProjectDetailBox>
   );
 };
