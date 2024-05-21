@@ -111,6 +111,15 @@ router.get("/read/:_id", async (req, res) => {
   }
 });
 
+router.get("/myproject/:userId", async (req, res) => {
+  try {
+    const projects = await Project.find({ userId: req.params.userId });
+    res.status(200).json(projects);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // U
 router.put("/update/:_id", async (req, res) => {
   try {
