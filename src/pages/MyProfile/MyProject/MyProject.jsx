@@ -16,7 +16,7 @@ export const MyProject = ({ user }) => {
       }
     }
     fetchData();
-  }, []);
+  }, [user]);
 
   return <></>;
 };

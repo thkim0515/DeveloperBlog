@@ -67,7 +67,7 @@ export const MyProfile = () => {
         <SideTab />
 
         {/* 프로젝트 리스트 */}
-        {selectedTab === "myProject" && <MyProject user={user} />}
+        {selectedTab === "myProject" && <MyProject user={user.id} />}
         {}
 
         {/* 프로젝트 알림 */}
