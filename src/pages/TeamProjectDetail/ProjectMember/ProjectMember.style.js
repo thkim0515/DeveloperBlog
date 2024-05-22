@@ -1,7 +1,7 @@
 // ProjectMember.style.js
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const ProjectMemberBox = styled.div`
   margin: 6px 0;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@ export const Container = styled.div`
   }
 `;
 
-export const MemberConatiner = styled.div`
+export const MemberBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -54,7 +54,7 @@ export const MemberText = styled.span`
   align-items: center;
 `;
 
-export const ParticipateConatiner = styled.div`
+export const ParticipateBox = styled.div`
   width: 100%;
   display: flex;
   align-items: center;

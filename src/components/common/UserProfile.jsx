@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 
 export const UserProfile = ({ imagePath, nickname }) => {
-  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
+  const bucketUrl = useSelector(state => state.bucketUrl);
+  const imageUrl = bucketUrl ? bucketUrl.imageUrl : "";
 
   return (
     <UserProfileBox>

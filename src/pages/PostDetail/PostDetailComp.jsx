@@ -20,7 +20,8 @@ import { Metas } from "../../components/common/Metas";
 import { useSelector } from "react-redux";
 
 export const PostDetailComp = () => {
-  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
+  const bucketUrl = useSelector(state => state.bucketUrl);
+  const imageUrl = bucketUrl ? bucketUrl.imageUrl : "";
   //스크롤위치 초기화
   useScrollReset();
 

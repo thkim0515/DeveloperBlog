@@ -8,8 +8,8 @@ export const CodeMain = () => {
   return (
     <div>
       <Metas main="main" />
-      <div style={{display: "flex", justifyContent: "space-between", alignItems:"center"}}>
-        <h2 style={{ fontSize:"1.5rem", fontWeight: "bold"}}>Code</h2>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Code</h2>
         <WriteButton />
       </div>
       <ImageGrid value={value} />

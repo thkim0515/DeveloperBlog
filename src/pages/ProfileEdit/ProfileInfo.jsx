@@ -2,13 +2,14 @@ import * as S from "./ProfileEdit.style.js";
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserLogin } from "../../context/UserLoginContext.jsx";
-import { decryptData, encryptData } from "../../utils/secure.js";
+import { useUserLogin } from "../../context/UserLoginContext";
+import { decryptData, encryptData } from "../../utils/secure";
 import { handleUpload } from "../../utils/uploadImage";
 import { useSelector } from "react-redux";
 
 export const ProfileInfo = () => {
-  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
+  const bucketUrl = useSelector(state => state.bucketUrl);
+  const imageUrl = bucketUrl ? bucketUrl.imageUrl : "";
   const { profileDB, setIsChange } = useUserLogin();
 
   //user정보변경상태 false로 초기화
@@ -27,7 +28,7 @@ export const ProfileInfo = () => {
   const [imgPreview, setImgPreview] = useState(null);
 
   //이름, 닉네임 state 변경 함수
-  const handleInputChange = (setState) => (e) => {
+  const handleInputChange = setState => e => {
     setState(e.target.value);
   };
 
@@ -36,7 +37,7 @@ export const ProfileInfo = () => {
 
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleFileChange = (event) => {
+  const handleFileChange = event => {
     const file = event.target.files[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
@@ -56,7 +57,7 @@ export const ProfileInfo = () => {
   };
 
   //업데이트 요쳥
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     //입력값 공백이면 함수 중단
     if (nickname.trim() === "") {
@@ -102,7 +103,7 @@ export const ProfileInfo = () => {
     }
   };
 
-  const updateSessionStorage = async (newData) => {
+  const updateSessionStorage = async newData => {
     const storedData = await decryptData("user", sessionStorage);
     const updatedData = { ...storedData, ...newData };
     delete updatedData.email;
@@ -119,10 +120,7 @@ export const ProfileInfo = () => {
       <S.InfoAndBtnFormBox onSubmit={handleSubmit}>
         <S.ProfileInfoBox>
           <S.ProfileImgBox>
-            <S.ProfileImg
-              alt="프로필 이미지"
-              src={imgPreview ? imgPreview : imgSrc}
-            />
+            <S.ProfileImg alt="프로필 이미지" src={imgPreview ? imgPreview : imgSrc} />
           </S.ProfileImgBox>
           <S.ProfileTextBox>
             <S.TextBoxItem>
@@ -136,10 +134,7 @@ export const ProfileInfo = () => {
               <p>닉네임</p>
             </S.TextBoxItem>
             <S.TextBoxItem>
-              <input
-                value={nickname}
-                onChange={handleInputChange(setNickname)}
-              />
+              <input value={nickname} onChange={handleInputChange(setNickname)} />
             </S.TextBoxItem>
             <S.TextBoxItem>
               <p>이메일</p>
@@ -158,13 +153,11 @@ export const ProfileInfo = () => {
               id="image-edit"
               accept="image/*"
               type="file"
-              onChange={(e) => handleFileChange(e)}
+              onChange={e => handleFileChange(e)}
             />
           </div>
           <div>
-            <S.ProfileEditButton type="submit">
-              변경사항 저장
-            </S.ProfileEditButton>
+            <S.ProfileEditButton type="submit">변경사항 저장</S.ProfileEditButton>
           </div>
         </S.EditButtonBox>
       </S.InfoAndBtnFormBox>

@@ -5,7 +5,7 @@ import { Metas } from "../../components/common/Metas.jsx";
 import { useSelector } from "react-redux";
 
 export const Profile = () => {
-  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
+  const imageUrl = useSelector(state => state.butketUrl.imageUrl);
   //유저정보 받아와서 프로필 데이터로 저장
   const { profileDB } = useUserLogin();
 
@@ -23,10 +23,7 @@ export const Profile = () => {
         {profileDB && (
           <S.ProfileInfoBox>
             <S.ProfileImgBox>
-              <S.ProfileImg
-                alt="프로필 이미지"
-                src={`${imageUrl}profileImg/` + profileDB.profileimg}
-              />
+              <S.ProfileImg alt="프로필 이미지" src={`${imageUrl}profileImg/` + profileDB.profileimg} />
             </S.ProfileImgBox>
             <S.ProfileTextBox>
               <S.TextBoxItem>
@@ -57,9 +54,7 @@ export const Profile = () => {
           </S.ProfileInfoBox>
         )}
 
-        <S.ProfileEditButton onClick={handleEditButtonClick}>
-          정보 수정
-        </S.ProfileEditButton>
+        <S.ProfileEditButton onClick={handleEditButtonClick}>정보 수정</S.ProfileEditButton>
       </S.InfoAndBtnBox>
     </S.ProfileInfoMainBox>
   );

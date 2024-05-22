@@ -86,9 +86,7 @@ router.post("/create", async (req, res) => {
     await newContents.save();
 
     const newContentInfo = await Project.findOne({ pid: newContents.pid });
-    res
-      .status(201)
-      .json({ message: "프로젝트 모집 등록 성공", info: newContentInfo });
+    res.status(201).json({ message: "프로젝트 모집 등록 성공", info: newContentInfo });
   } catch (error) {
     logError("프로젝트 생성", error.message);
     res.status(500).json({ message: "서버 에러" });
@@ -98,9 +96,7 @@ router.post("/create", async (req, res) => {
 // R
 router.get("/read/:_id", async (req, res) => {
   try {
-    const project = await Project.findOne({ _id: req.params._id })
-      .populate("userId", "nickname profileimg")
-      .exec();
+    const project = await Project.findOne({ _id: req.params._id }).populate("userId", "nickname profileimg").exec();
     if (!project) {
       return res.status(404).json({ message: "프로젝트없음" });
     }
@@ -114,11 +110,7 @@ router.get("/read/:_id", async (req, res) => {
 // U
 router.put("/update/:_id", async (req, res) => {
   try {
-    const updateProject = await Project.findOneAndUpdate(
-      { _id: req.params._id },
-      req.body,
-      { new: true }
-    );
+    const updateProject = await Project.findOneAndUpdate({ _id: req.params._id }, req.body, { new: true });
 
     if (!updateProject) {
       return res.status(404).json({ message: "프로젝트없음" });
@@ -156,6 +148,16 @@ router.delete("/delete/:_id", async (req, res) => {
   }
 });
 
+// Profile > My Project 프로젝트 리스트 불러오기
+router.get("/myproject/:userId", async (req, res) => {
+  try {
+    const projects = await Project.find({ userId: req.params.userId });
+    res.status(200).json(projects);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // 조회수
 router.post("/view", async (req, res) => {
   const { _id } = req.body;
@@ -166,11 +168,7 @@ router.post("/view", async (req, res) => {
   }
 
   try {
-    const project = await Project.findOneAndUpdate(
-      { _id: _id },
-      { $inc: { views: 1 } },
-      { new: true }
-    );
+    const project = await Project.findOneAndUpdate({ _id: _id }, { $inc: { views: 1 } }, { new: true });
     if (!project) {
       return res.status(404).send("프로젝트 없음");
     }

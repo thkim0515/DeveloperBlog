@@ -1,4 +1,3 @@
-//import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./ImageItem.style";
 
@@ -9,7 +8,9 @@ import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { useSelector } from "react-redux";
 
 export const ImageItem = ({ content }) => {
-  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
+  const bucketUrl = useSelector(state => state.bucketUrl);
+  const imageUrl = bucketUrl ? bucketUrl.imageUrl : "";
+
   const navigate = useNavigate();
   const handleImageClick = () => {
     if (content) {
@@ -17,7 +18,7 @@ export const ImageItem = ({ content }) => {
     }
   };
 
-  const timeString = (postdate) => {
+  const timeString = postdate => {
     const match = postdate.match(/(\d{4}).(\d{2}).(\d{2})/);
 
     if (match) {
@@ -34,10 +35,7 @@ export const ImageItem = ({ content }) => {
       {content && (
         <S.SItem>
           <S.RoutingPage onClick={handleImageClick}>
-            <div
-              className="lang_box"
-              style={{ backgroundColor: switchColor(content.language) }}
-            >
+            <div className="lang_box" style={{ backgroundColor: switchColor(content.language) }}>
               <p>{content.language.toUpperCase()}</p>
             </div>
             {content.language && (
@@ -69,23 +67,11 @@ export const ImageItem = ({ content }) => {
             </div>
             <div className="user_write_info">
               <div>
-                <FontAwesomeIcon
-                  icon={faEye}
-                  color="#999"
-                  style={{ margin: "0 4px", opacity: 0.6 }}
-                />
+                <FontAwesomeIcon icon={faEye} color="#999" style={{ margin: "0 4px", opacity: 0.6 }} />
                 {content.views}
-                <FontAwesomeIcon
-                  icon={faComment}
-                  color="#999"
-                  style={{ margin: "0 4px", opacity: 0.6 }}
-                />
+                <FontAwesomeIcon icon={faComment} color="#999" style={{ margin: "0 4px", opacity: 0.6 }} />
                 {content.commentCount}
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  color="#FF6666"
-                  style={{ margin: "0 4px" }}
-                />
+                <FontAwesomeIcon icon={faHeart} color="#FF6666" style={{ margin: "0 4px" }} />
                 {content.likes}
               </div>
             </div>

@@ -97,14 +97,3 @@ const Buttons = styled.section`
     }
   }
 `;
-
-const RecruitmentStatusBox = styled.div`
-  border-top: 4px dashed #dbe2ef;
-  padding: 2rem 0;
-
-  .status-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    padding-bottom: 1.5rem;
-  }
-`;
