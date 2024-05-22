@@ -1,99 +1,72 @@
 import styled from "styled-components";
 
-//프로필 페이지 전체 박스
-export const ProfileInfoMainBox = styled.div`
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 80px;
-`;
-
-//프로필 제목
 export const ProfileTitle = styled.h2`
-  font-size: 1.5rem;
   color: #112d4e;
-  align-self: start;
-  cursor: default;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0;
 `;
 
-//프로필 내용 & 버튼 박스
-export const InfoAndBtnBox = styled.div`
-  width: 70%;
+export const MyProfileBox = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+`;
+
+export const InfoBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 180px;
 `;
 
-//프로필 이미지& 텍스트 박스
 export const ProfileInfoBox = styled.div`
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  width: 100%;
 `;
 
 //프로필 이미지 박스
 export const ProfileImgBox = styled.div`
-  width: 200px;
-  height: 200px;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  cursor: pointer;
 `;
 
 //프로필 이미지
 export const ProfileImg = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
 `;
 
 //프로필 텍스트박스
 export const ProfileTextBox = styled.div`
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 4fr 1fr 4fr;
-  column-gap: 12px;
-  row-gap: 24px;
-`;
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
 
-//텍스트 박스 아이템들
-export const TextBoxItem = styled.div`
-  display: flex;
-  align-items: center;
-  /* 이메일 박스에 적용되는 스타일 */
-  &:nth-child(6) {
-    grid-column: 2/5;
-  }
-  /* 자식 p태그 스타일 적용 */
-  p {
-    color: #112d4e;
-    font-weight: 600;
-    text-align: left;
-  }
-  /* 자식 div 태그 스타일 적용 */
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 40px;
+  .nickname {
+    padding: 0.5rem;
     border-radius: 20px;
     background-color: #dbe2ef;
   }
 `;
 
-//정보 수정 버튼
-export const ProfileEditButton = styled.button`
-  width: 100%;
-  margin-top: 24px;
-  height: 40px;
-  background-color: #3f72af;
-  border-radius: 12px;
-  color: white;
+export const TeamProjectBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  place-items: center;
+  grid-row-gap: 1.75rem;
+  margin-top: 1.5rem;
 `;
