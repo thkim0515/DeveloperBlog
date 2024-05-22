@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-export const ProjectContent = (content) => {
-  return <ProjectContentBox>{content.content}</ProjectContentBox>;
+export const ProjectContent = content => {
+  return (
+    <ProjectContentBox>
+      <pre>{content.content}</pre>
+    </ProjectContentBox>
+  );
 };
 
 const ProjectContentBox = styled.section`

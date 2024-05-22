@@ -56,7 +56,7 @@ export const App = () => {
             <Route path="projectEdit/:_id" element={<PrivateRoute component={<TeamProjectEdit />} />} />
 
             {/* Profile */}
-            <Route path="/profile/:_id" element={<Profile />} />
+            <Route path="/profile/:nickname" element={<Profile />} />
             <Route path="myProfile" element={<PrivateRoute component={<MyProfile />} />} />
             <Route path="profileEdit" element={<PrivateRoute component={<ProfileEdit />} />} />
             <Route path="myCodes" element={<PrivateRoute component={<MyCodes />} />} />

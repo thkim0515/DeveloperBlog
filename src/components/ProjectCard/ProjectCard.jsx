@@ -40,7 +40,7 @@ export const ProjectCard = ({ data }) => {
       <S.ProjectBody>
         <S.ProjectHashTagBox>
           {data.hashTags.map((hashTag, idx) => (
-            <S.ProjectHashTag key={`${hashTag}-${idx}`}>{`#${hashTag}`}</S.ProjectHashTag>
+            <S.ProjectHashTag key={`hashTag-${idx}`}>{`#${hashTag}`}</S.ProjectHashTag>
           ))}
         </S.ProjectHashTagBox>
         <S.ProjectTitle>{data.title}</S.ProjectTitle>
@@ -60,7 +60,7 @@ export const ProjectCard = ({ data }) => {
 
       {/*  */}
       <S.ProjectFooter>
-        <UserProfile imagePath={data.userId.profileimg} nickname={data.userId.nickname} />
+        <UserProfile imagePath={data.profileimg || data.userId.profileimg} nickname={data.userId.nickname} />
         <span>{`${data.memberList.length}/${data.tableOfOrganization}`}</span>
       </S.ProjectFooter>
     </S.ProjectCardBox>

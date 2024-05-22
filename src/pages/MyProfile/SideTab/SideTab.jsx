@@ -18,6 +18,12 @@ export const SideTab = () => {
 
 const SideTabBox = styled.aside`
   display: flex;
+  gap: 2rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 2.75rem 0;
 `;
 
-const TabItem = styled.p``;
+const TabItem = styled.p`
+  cursor: pointer;
+`;

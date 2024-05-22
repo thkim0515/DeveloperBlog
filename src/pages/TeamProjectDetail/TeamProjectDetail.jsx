@@ -37,7 +37,7 @@ export const TeamProjectDetail = () => {
       .post("/project/view", { _id: data._id })
       .then(() => setPtPostingId(data.userId._id))
       .catch(error => console.error("Error:", error));
-  }, [data._id]);
+  }, [data]);
 
   useEffect(() => {
     if (data) {
@@ -48,7 +48,7 @@ export const TeamProjectDetail = () => {
   return (
     <TeamProjectDetailBox>
       <Buttons>
-        <button className="back-button" onClick={() => navigate("/teamProject")}>
+        <button className="back-button" onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
         {user && userId === ptPostingId && (
