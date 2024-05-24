@@ -29,11 +29,11 @@ const ErrorMessage = styled.div`
 // svgs
 const getSvgsData = await axios.get("/contents/svgsdata");
 const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
-  .map((item) => item.replace(/\.svg$/, ""))
-  .filter((item) => item !== "back" && item !== "unknown")
-  .map((item) => item.toUpperCase());
+  .map(item => item.replace(/\.svg$/, ""))
+  .filter(item => item !== "back" && item !== "unknown")
+  .map(item => item.toUpperCase());
 
-export const ProjectEditForm = (props) => {
+export const ProjectEditForm = props => {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -53,7 +53,7 @@ export const ProjectEditForm = (props) => {
     updatedDate: new Date().toLocaleDateString(),
     startDate: new Date().toISOString().slice(0, 10),
     endDate: new Date().toISOString().slice(0, 10),
-    memberList: ["1"],
+    memberList: [],
     tableOfOrganization: 0,
     content: "",
     hashTags: [],
@@ -63,7 +63,7 @@ export const ProjectEditForm = (props) => {
 
   useEffect(() => {
     if (props.postData) {
-      Object.keys(props.postData).forEach((key) => {
+      Object.keys(props.postData).forEach(key => {
         handleProjectForm({
           target: {
             name: key,
@@ -76,7 +76,7 @@ export const ProjectEditForm = (props) => {
 
   useEffect(() => {
     function simulateNetworkRequest() {
-      return new Promise((resolve) => setTimeout(resolve, 2000));
+      return new Promise(resolve => setTimeout(resolve, 2000));
     }
 
     if (isLoading) {
@@ -86,7 +86,7 @@ export const ProjectEditForm = (props) => {
     }
   }, [isLoading]);
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     const { value } = e.target;
     setSearch(value);
   };
@@ -96,14 +96,12 @@ export const ProjectEditForm = (props) => {
       return TECH_STACK_OPTIONS;
     }
 
-    return TECH_STACK_OPTIONS.filter((stack) =>
-      stack.toLowerCase().includes(search.toLowerCase())
-    );
+    return TECH_STACK_OPTIONS.filter(stack => stack.toLowerCase().includes(search.toLowerCase()));
   };
 
   const filteredStacks = getFilteredData();
 
-  const handleHashTags = (e) => {
+  const handleHashTags = e => {
     const { value } = e.target;
     setHashTag(value);
   };
@@ -193,11 +191,7 @@ export const ProjectEditForm = (props) => {
             {projectFields.stacks.map((item, idx) => (
               <span key={idx} className="me-2">
                 <span className="text-primary">{item}</span>
-                <button
-                  type="button"
-                  className="border rounded-2 ms-2 p-1"
-                  onClick={() => handleRemoveStacks(idx)}
-                >
+                <button type="button" className="border rounded-2 ms-2 p-1" onClick={() => handleRemoveStacks(idx)}>
                   x
                 </button>
               </span>
@@ -216,8 +210,7 @@ export const ProjectEditForm = (props) => {
               as="ul"
               className={search.trim() !== "" ? "d-block w-50" : "d-none w-50"}
               style={{ cursor: "pointer" }}
-              onClick={handleAddStack}
-            >
+              onClick={handleAddStack}>
               {filteredStacks.map((item, idx) => (
                 <ListGroup.Item as="li" key={idx}>
                   {item.toLowerCase()}
@@ -234,29 +227,17 @@ export const ProjectEditForm = (props) => {
             <span className="ms-3 text-primary">{`${timeString(
               projectFields.startDate
             )} ~ ${timeString(projectFields.endDate)}`}</span>
-            <ErrorMessage>
-              {errorMessage.startDate || errorMessage.endDate}
-            </ErrorMessage>
+            <ErrorMessage>{errorMessage.startDate || errorMessage.endDate}</ErrorMessage>
           </div>
 
           <div className="d-flex gap-2 align-items-center">
             <div>
               <Form.Label className="mb-2">시작 날짜</Form.Label>
-              <Form.Control
-                type="date"
-                value={projectFields.startDate}
-                onChange={handleProjectForm}
-                name="startDate"
-              />
+              <Form.Control type="date" value={projectFields.startDate} onChange={handleProjectForm} name="startDate" />
             </div>
             <div>
               <Form.Label className="mb-2">종료 날짜</Form.Label>
-              <Form.Control
-                type="date"
-                value={projectFields.endDate}
-                onChange={handleProjectForm}
-                name="endDate"
-              />
+              <Form.Control type="date" value={projectFields.endDate} onChange={handleProjectForm} name="endDate" />
             </div>
           </div>
         </Form.Group>
@@ -282,10 +263,7 @@ export const ProjectEditForm = (props) => {
         </Form.Group>
 
         {/*  */}
-        <Form.Group
-          className="mt-3 mb-4"
-          controlId="exampleForm.ControlTextarea1"
-        >
+        <Form.Group className="mt-3 mb-4" controlId="exampleForm.ControlTextarea1">
           <Form.Label className="fs-5 mt-2 mb-3">내용</Form.Label>
           <ErrorMessage>{errorMessage.content}</ErrorMessage>
           <Form.Control
@@ -322,19 +300,14 @@ export const ProjectEditForm = (props) => {
                 onClick={() => {
                   handleAddHashTags(hashTag.trim());
                   setHashTag("");
-                }}
-              >
+                }}>
                 Button
               </Button>
             </InputGroup>
             {projectFields.hashTags.map((item, idx) => (
               <span key={idx} className="ms-3">
                 <span className="text-primary">{`#${item}`}</span>
-                <button
-                  type="button"
-                  className="border rounded-2 ms-1 p-1"
-                  onClick={() => handleRemoveHashTags(idx)}
-                >
+                <button type="button" className="border rounded-2 ms-1 p-1" onClick={() => handleRemoveHashTags(idx)}>
                   x
                 </button>
               </span>
@@ -342,12 +315,7 @@ export const ProjectEditForm = (props) => {
           </div>
         </div>
 
-        <Button
-          className="w-100 p-2"
-          variant="primary"
-          disabled={isLoading}
-          onClick={!isLoading ? onSubmit : null}
-        >
+        <Button className="w-100 p-2" variant="primary" disabled={isLoading} onClick={!isLoading ? onSubmit : null}>
           {isLoading ? "Loading…" : "수정하기"}
         </Button>
       </Form>

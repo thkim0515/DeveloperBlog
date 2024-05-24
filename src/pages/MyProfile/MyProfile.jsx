@@ -81,12 +81,12 @@ export const MyProfile = () => {
 
         {/* Side Tab */}
         <div>
-          <SideTab className="sideTab" />
+          <SideTab className="sideTab" selectedTab={selectedTab} />
         </div>
 
         {/* 프로젝트 리스트 */}
         <S.TeamProjectBox>
-          {selectedTab === "myProject" && data.map((data, idx) => <ProjectCard key={idx} data={data} />)}
+          {selectedTab === "myProject" && data.map((data, idx) => <ProjectCard key={idx} data={data} s />)}
         </S.TeamProjectBox>
 
         {/* 프로젝트 알림 */}
