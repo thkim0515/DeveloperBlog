@@ -2,13 +2,15 @@
 import styled from "styled-components";
 
 export const ProjectMemberBox = styled.div`
-  margin: 6px 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
   height: auto;
+  margin: 6px 0;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #dbe2ef;
   font-size: 1rem;
 
   h3 {
@@ -27,13 +29,14 @@ export const MemberBox = styled.div`
   align-items: center;
   margin-bottom: 10px;
 `;
-export const MmeberList = styled.div`
+export const MmeberList = styled.ul`
   display: flex;
   align-items: center;
   margin-left: 2px;
 `;
 
-export const MemberItem = styled.div`
+export const MemberItem = styled.li`
+  position: relative;
   display: flex;
   align-items: center;
   margin-right: 8px;
@@ -61,7 +64,10 @@ export const ParticipateBox = styled.div`
   margin-left: 2px;
 `;
 
-export const ParticipateButton = styled.button``;
+export const ParticipateButtons = styled.div`
+  position: absolute;
+  right: -124px;
+`;
 
 export const ParticipateList = styled.div`
   display: flex;

@@ -11,7 +11,7 @@ export const ProjectContent = content => {
 const ProjectContentBox = styled.section`
   max-height: 1200px;
   height: 100%;
-  margin: 2.5rem 0;
+  margin: 1.5rem 0;
   padding-bottom: 2.25rem;
   font-size: 1.125rem;
   word-break: break-all;

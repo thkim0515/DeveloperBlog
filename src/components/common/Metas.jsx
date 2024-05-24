@@ -16,7 +16,6 @@ export const Metas = ({ main, none, title = "", url = "", description = "" }) =>
         <>
           <title>{main ? DEFAULT.title : `${title} - StarBlog`}</title>
           <meta property="og:StarBlog" content="/* 우리의 지식이 별이 되는 공간 */" />
-          <meta property="og:locale" content="ko" />
           <meta property="og:title" content={main ? DEFAULT.title : title} />
           <meta property="og:url" content={url} />
           <meta property="og:image" content="표시되는 이미지" />

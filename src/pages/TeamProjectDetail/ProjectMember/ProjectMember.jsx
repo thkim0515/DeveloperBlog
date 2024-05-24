@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { decryptData } from "../../../utils/secure";
 import axios from "axios";
-import { getProjectMemberData } from "./ProjectMemberFunction/ProjectMemberFunction";
+import { getProjectMemberData } from "./ProjectMemberFunction";
 
 export const ProjectMember = props => {
   const bucketUrl = useSelector(state => state.bucketUrl);
@@ -117,11 +117,11 @@ export const ProjectMember = props => {
             </S.MemberItem>
           ))}
         </S.MmeberList>
-        <S.ParticipateButton>
+        <div>
           <Button onClick={handleParticipate} disabled={buttonText === "참여중" || buttonText === "신청완료"}>
             {buttonText}
           </Button>
-        </S.ParticipateButton>
+        </div>
       </S.MemberBox>
       <S.ParticipateBox>
         <h3>신청인원</h3>
@@ -130,10 +130,14 @@ export const ProjectMember = props => {
             <S.ProfileImage alt="프로필 사진" src={`${imageUrl}profileImg/${member.profileimg}`} />
             <S.MemberText>{member.nickname}</S.MemberText>
             {props.userid === userInfo?.id && (
-              <>
-                <Button onClick={() => acceptButton(member._id)}>수락</Button>
-                <Button onClick={() => rejectButton(member._id)}>거절</Button>
-              </>
+              <S.ParticipateButtons>
+                <Button className="me-1 d-inline" onClick={() => acceptButton(member._id)}>
+                  수락
+                </Button>
+                <Button className="d-inline" onClick={() => rejectButton(member._id)}>
+                  거절
+                </Button>
+              </S.ParticipateButtons>
             )}
           </S.MemberItem>
         ))}

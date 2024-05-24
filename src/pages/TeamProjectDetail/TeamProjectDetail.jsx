@@ -57,15 +57,14 @@ export const TeamProjectDetail = () => {
           </Button>
         )}
       </Buttons>
-
       <ProjectInformation data={data} />
+      <ProjectContent content={data.content} />
       <ProjectMember
         postid={data._id}
         memberList={data.memberList}
         participateList={data.participateList}
         userid={data.userId._id}
       />
-      <ProjectContent content={data.content} />
       <ProjectComments content={data} />
     </TeamProjectDetailBox>
   );
