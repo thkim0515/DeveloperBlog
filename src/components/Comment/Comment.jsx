@@ -10,7 +10,8 @@ import { useCalculatePage } from "./CommentUtil";
 import { useSelector } from "react-redux";
 
 export const Comment = ({ content }) => {
-  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
+  const bucketUrl = useSelector(state => state.bucketUrl);
+  const imageUrl = bucketUrl ? bucketUrl.imageUrl : "";
   //로그인 유저 정보 가져오기
   const { user } = useUserLogin();
 
@@ -20,7 +21,7 @@ export const Comment = ({ content }) => {
   const [comment, setComment] = useState("");
 
   //댓글 작성, 수정 input값 변경 감지 함수
-  const handleInputChange = (setState) => (e) => {
+  const handleInputChange = setState => e => {
     setState(e.target.value);
   };
 
@@ -62,7 +63,7 @@ export const Comment = ({ content }) => {
     }
   };
 
-  const postCommentToServer = async (commentData) => {
+  const postCommentToServer = async commentData => {
     try {
       await axios.post("/comments/create", commentData);
       readCommentsFunc();
@@ -111,7 +112,7 @@ export const Comment = ({ content }) => {
     setEditComment("");
   };
 
-  const handleComplete = async (_id) => {
+  const handleComplete = async _id => {
     const commentData = {
       comment: editComment,
     };
@@ -150,11 +151,11 @@ export const Comment = ({ content }) => {
   /*-------------대댓글 기능---------------*/
   const [replyId, setReplyId] = useState(null);
   const [reply, setReply] = useState({});
-  const handleReplyChange = (commentId) => (event) => {
+  const handleReplyChange = commentId => event => {
     setReply({ ...reply, [commentId]: event.target.value });
   };
 
-  const toggleReplyInput = (id) => {
+  const toggleReplyInput = id => {
     if (!user) {
       alert("로그인이 필요한 영역입니다.");
       return;
@@ -168,48 +169,29 @@ export const Comment = ({ content }) => {
   };
 
   /*----------페이지네이션------------*/
-  const {
-    currentComments,
-    currentPage,
-    totalPages,
-    paginate,
-    nextPage,
-    prevPage,
-    firstPage,
-    lastPage,
-  } = useCalculatePage(10, commentList);
+  const { currentComments, currentPage, totalPages, paginate, nextPage, prevPage, firstPage, lastPage } =
+    useCalculatePage(10, commentList);
 
   return (
     <S.CommentAndFormBox>
       <h3>댓글</h3>
       <S.CommentForm className="comment_form" onSubmit={handleCreateSubmit}>
-        <input
-          type="text"
-          value={comment}
-          onChange={handleInputChange(setComment)}
-          placeholder="댓글 쓰기..."
-        />
+        <input type="text" value={comment} onChange={handleInputChange(setComment)} placeholder="댓글 쓰기..." />
         <button type="submit">작성</button>
       </S.CommentForm>
       {commentList[0] && (
         <S.CommentBox>
           <ul>
             {/**댓글 리스트*/}
-            {currentComments.map((comment) => {
+            {currentComments.map(comment => {
               return (
                 <>
                   <li
                     className="comment_list"
                     key={comment._id}
-                    style={{ marginLeft: comment.parentId ? "20px" : "0px" }}
-                  >
+                    style={{ marginLeft: comment.parentId ? "20px" : "0px" }}>
                     <div className="profile_box">
-                      <img
-                        src={
-                          `${imageUrl}profileImg/` + comment.userId.profileimg
-                        }
-                        alt="유저이미지"
-                      ></img>
+                      <img src={`${imageUrl}profileImg/` + comment.userId.profileimg} alt="유저이미지"></img>
                       <div className="userid">{comment.userId.nickname}</div>
                     </div>
                     <div className="comment_box">
@@ -220,7 +202,7 @@ export const Comment = ({ content }) => {
                               ref={textarea}
                               type="text"
                               value={editComment}
-                              onChange={(event) => {
+                              onChange={event => {
                                 handleInputChange(setEditComment)(event); // handleInputChange 함수 호출
                                 handleResizeHeight(); // handleResizeHeight 함수 호출
                               }}
@@ -234,9 +216,7 @@ export const Comment = ({ content }) => {
                           )}
                         </div>
                         <div>
-                          <div className="date">
-                            {timeStringWithHour(comment.postdate)}
-                          </div>
+                          <div className="date">{timeStringWithHour(comment.postdate)}</div>
                           {user && comment.userId._id === user.id ? (
                             <div className="edit_delete">
                               <button
@@ -244,26 +224,20 @@ export const Comment = ({ content }) => {
                                   editId === comment._id
                                     ? handleComplete(comment._id)
                                     : handleUpdate(comment._id, comment.comment)
-                                }
-                              >
+                                }>
                                 {editId === comment._id ? "완료" : "수정"}
                               </button>
                               <button
                                 onClick={() =>
-                                  editId === comment._id
-                                    ? handleCancel()
-                                    : deleteContents(comment._id, "comments")
-                                }
-                              >
+                                  editId === comment._id ? handleCancel() : deleteContents(comment._id, "comments")
+                                }>
                                 {editId === comment._id ? "취소" : "삭제"}
                               </button>
                             </div>
                           ) : (
                             // 대댓글 입력 여부 - 본인댓글엔 대댓글 X
                             <div className="edit_delete">
-                              <button
-                                onClick={() => toggleReplyInput(comment._id)}
-                              >
+                              <button onClick={() => toggleReplyInput(comment._id)}>
                                 {!user || replyId === comment._id ? "" : "답글"}
                               </button>
                             </div>
@@ -276,18 +250,10 @@ export const Comment = ({ content }) => {
                   {replyId === comment._id && (
                     <S.ReplyBox key={replyId}>
                       <div className="reply_title">ㄴ답글</div>
-                      <input
-                        type="text"
-                        value={reply[comment._id] || ""}
-                        onChange={handleReplyChange(comment._id)}
-                      />
+                      <input type="text" value={reply[comment._id] || ""} onChange={handleReplyChange(comment._id)} />
                       <div className="submit_cancel">
-                        <button
-                          onClick={(e) => handleCreateSubmit(e, comment._id)}
-                        >
-                          등록
-                        </button>
-                        <button onClick={(e) => setReplyId(null)}>취소</button>
+                        <button onClick={e => handleCreateSubmit(e, comment._id)}>등록</button>
+                        <button onClick={e => setReplyId(null)}>취소</button>
                       </div>
                     </S.ReplyBox>
                   )}

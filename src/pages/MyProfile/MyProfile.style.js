@@ -41,6 +41,26 @@ export const ProfileImgBox = styled.div`
   height: 150px;
   border-radius: 50%;
   cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-radius: 10px;
+
+    &::before {
+      content: "프로필 수정";
+      position: absolute;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      color: #ffffff;
+      background-color: rgba(0, 0, 0, 0.65);
+      font-size: 1.2rem;
+      border-radius: 10px;
+    }
+  }
 `;
 
 //프로필 이미지

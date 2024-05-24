@@ -5,17 +5,8 @@ import axios from "axios";
 export const useGetData = (value, PageCount, selectedIcon, searchTerm) => {
   const [svgImages, setSvgImages] = useState([]);
   const [filteredImages, setFilteredImages] = useState([]);
-  const {
-    currentImages,
-    currentPage,
-    setCurrentPage,
-    totalPages,
-    paginate,
-    nextPage,
-    prevPage,
-    firstPage,
-    lastPage,
-  } = useCalculatePage(PageCount, filteredImages);
+  const { currentImages, currentPage, setCurrentPage, totalPages, paginate, nextPage, prevPage, firstPage, lastPage } =
+    useCalculatePage(PageCount, filteredImages);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +19,7 @@ export const useGetData = (value, PageCount, selectedIcon, searchTerm) => {
         // 조건부 필터링기능 ( 필터 , 검색)
         const images = await filterImages(
           contents,
-          searchTerm,
+          searchTerm.replace(/[A-Za-z]+/g, match => match.toLowerCase()),
           value,
           selectedIcon
         );

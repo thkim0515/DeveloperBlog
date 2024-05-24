@@ -1,14 +1,14 @@
-import React from "react";
 import * as S from "./ProjectMember.style";
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { decryptData } from "../../../utils/secure";
 import axios from "axios";
-import { getProjectMemberData } from "./ProjectMemberFunction/ProjectMemberFunction";
+import { getProjectMemberData } from "./ProjectMemberFunction";
 
-export const ProjectMember = (props) => {
-  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
+export const ProjectMember = props => {
+  const bucketUrl = useSelector(state => state.bucketUrl);
+  const imageUrl = bucketUrl ? bucketUrl.imageUrl : "";
   const [memberList, setMemberList] = useState([]);
   const [participateList, setParticipateList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
@@ -20,8 +20,10 @@ export const ProjectMember = (props) => {
       setUserInfo(userSession);
 
       try {
-        const { memberResponses, participateResponses } =
-          await getProjectMemberData(props.memberList, props.participateList);
+        const { memberResponses, participateResponses } = await getProjectMemberData(
+          props.memberList,
+          props.participateList
+        );
         setMemberList(memberResponses);
         setParticipateList(participateResponses);
       } catch (error) {
@@ -48,16 +50,13 @@ export const ProjectMember = (props) => {
   //  참여신청 API 호출
   const handlePostToServer = async () => {
     try {
-      const response = await axios.put(
-        `/project/participate/update/${props.postid}`,
-        {
-          userId: userInfo.id,
-        }
-      );
+      const response = await axios.put(`/project/participate/update/${props.postid}`, {
+        userId: userInfo.id,
+      });
 
       if (response.status === 200) {
         setButtonText("신청완료");
-        setParticipateList((prevList) => [
+        setParticipateList(prevList => [
           ...prevList,
           {
             nickname: userInfo.nickname,
@@ -87,82 +86,62 @@ export const ProjectMember = (props) => {
     }
   };
 
-  const acceptButton = async (targetId) => {
-    const response = await axios.put(
-      `/project/participate/accept/${props.postid}`,
-      {
-        userId: targetId,
-      }
-    );
+  const acceptButton = async targetId => {
+    const response = await axios.put(`/project/participate/accept/${props.postid}`, {
+      userId: targetId,
+    });
     if (response.status === 200) {
-      setMemberList((prevList) => [
-        ...prevList,
-        participateList.find((participant) => participant._id === targetId),
-      ]);
-      setParticipateList((prevList) =>
-        prevList.filter((participant) => participant._id !== targetId)
-      );
-      alert("성공적으로 수락!");
+      setMemberList(prevList => [...prevList, participateList.find(participant => participant._id === targetId)]);
+      setParticipateList(prevList => prevList.filter(participant => participant._id !== targetId));
+      alert(`님의 참여신청을 승인하였습니다.`);
     }
   };
-  const rejectButton = async (targetId) => {
-    const response = await axios.put(
-      `/project/participate/reject/${props.postid}`,
-      {
-        userId: targetId,
-      }
-    );
+  const rejectButton = async targetId => {
+    const response = await axios.put(`/project/participate/reject/${props.postid}`, {
+      userId: targetId,
+    });
     if (response.status === 200) {
-      setParticipateList((prevList) =>
-        prevList.filter((participant) => participant._id !== targetId)
-      );
-      alert("성공적으로 거절!");
+      setParticipateList(prevList => prevList.filter(participant => participant._id !== targetId));
+      alert(`님의 참여신청을 거절하였습니다.`);
     }
   };
   return (
-    <>
-      <S.Container>
-        <S.MemberConatiner>
-          <S.MmeberList>
-            <h3>참여인원</h3>
-            {memberList.map((member, index) => (
-              <S.MemberItem key={index}>
-                <S.ProfileImage
-                  alt="프로필 사진"
-                  src={`${imageUrl}profileImg/${member.profileimg}`}
-                />
-                <S.MemberText>{member.nickname}</S.MemberText>
-              </S.MemberItem>
-            ))}
-          </S.MmeberList>
-          <S.ParticipateButton>
-            <Button
-              onClick={handleParticipate}
-              disabled={buttonText === "참여중" || buttonText === "신청완료"}
-            >
-              {buttonText}
-            </Button>
-          </S.ParticipateButton>
-        </S.MemberConatiner>
-        <S.ParticipateConatiner>
-          <h3>신청인원</h3>
-          {participateList.map((member, index) => (
+    <S.ProjectMemberBox>
+      <S.MemberBox>
+        <S.MmeberList>
+          <h3>참여인원</h3>
+          {memberList.map((member, index) => (
             <S.MemberItem key={index}>
-              <S.ProfileImage
-                alt="프로필 사진"
-                src={`${imageUrl}profileImg/${member.profileimg}`}
-              />
+              <S.ProfileImage alt="프로필 사진" src={`${imageUrl}profileImg/${member.profileimg}`} />
               <S.MemberText>{member.nickname}</S.MemberText>
-              {props.userid === userInfo?.id && (
-                <>
-                  <Button onClick={() => acceptButton(member._id)}>수락</Button>
-                  <Button onClick={() => rejectButton(member._id)}>거절</Button>
-                </>
-              )}
             </S.MemberItem>
           ))}
-        </S.ParticipateConatiner>
-      </S.Container>
-    </>
+        </S.MmeberList>
+        <div>
+          <Button onClick={handleParticipate} disabled={buttonText === "참여중" || buttonText === "신청완료"}>
+            {buttonText}
+          </Button>
+        </div>
+      </S.MemberBox>
+      <S.ParticipateBox>
+        <h3>신청인원</h3>
+        {participateList.map((member, index) => (
+          <S.MemberItem key={index}>
+            <S.ProfileImage alt="프로필 사진" src={`${imageUrl}profileImg/${member.profileimg}`} />
+            <S.MemberText>{member.nickname}</S.MemberText>
+            {props.userid === userInfo?.id && (
+              <S.ParticipateButtons>
+                <Button className="me-1 d-inline" onClick={() => acceptButton(member._id)}>
+                  수락
+                </Button>
+                <Button className="d-inline" onClick={() => rejectButton(member._id)}>
+                  거절
+                </Button>
+              </S.ParticipateButtons>
+            )}
+          </S.MemberItem>
+        ))}
+      </S.ParticipateBox>
+    </S.ProjectMemberBox>
   );
 };

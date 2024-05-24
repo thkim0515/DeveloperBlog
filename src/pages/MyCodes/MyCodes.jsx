@@ -7,9 +7,9 @@ export const MyCodes = () => {
 
   return (
     <div>
-      <Metas title="내 코드" none />
-      <div style={{display: "flex", justifyContent: "space-between", alignItems:"center"}}>
-        <h2 style={{ fontSize:"1.5rem", fontWeight: "bold"}}>My Code</h2>
+      <Metas title="My Codes" none />
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>My Code</h2>
         <WriteButton />
       </div>
       <ImageGrid value={value} />

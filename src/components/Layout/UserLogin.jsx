@@ -5,7 +5,9 @@ import { useUserLogin } from "../../context/UserLoginContext";
 import { useSelector } from "react-redux";
 
 export const UserLogin = () => {
-  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
+  const bucketUrl = useSelector(state => state.bucketUrl);
+  const imageUrl = bucketUrl ? bucketUrl.imageUrl : "";
+
   //로그인 유저정보
   const { setIsLogin, setUser, setIsChange, profileDB } = useUserLogin();
 
@@ -16,7 +18,7 @@ export const UserLogin = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const clickOutside = (e) => {
+    const clickOutside = e => {
       if (isMenuOpen && !dropMenuRef.current.contains(e.target)) {
         setIsMenuOpen(false);
       }
@@ -55,7 +57,7 @@ export const UserLogin = () => {
       <S.MenuBox $isOpen={isMenuOpen}>
         <S.MenuListBox>
           <li>
-            <S.ListLink to="/profile">Profile</S.ListLink>
+            <S.ListLink to="/myProfile">My Profile</S.ListLink>
           </li>
           <li>
             <S.ListLink to="/myCodes">My Code</S.ListLink>

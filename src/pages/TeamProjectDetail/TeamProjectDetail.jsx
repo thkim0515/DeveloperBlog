@@ -37,7 +37,7 @@ export const TeamProjectDetail = () => {
       .post("/project/view", { _id: data._id })
       .then(() => setPtPostingId(data.userId._id))
       .catch(error => console.error("Error:", error));
-  }, [data._id]);
+  }, [data]);
 
   useEffect(() => {
     if (data) {
@@ -48,7 +48,7 @@ export const TeamProjectDetail = () => {
   return (
     <TeamProjectDetailBox>
       <Buttons>
-        <button className="back-button" onClick={() => navigate("/teamProject")}>
+        <button className="back-button" onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
         {user && userId === ptPostingId && (
@@ -57,15 +57,14 @@ export const TeamProjectDetail = () => {
           </Button>
         )}
       </Buttons>
-
       <ProjectInformation data={data} />
+      <ProjectContent content={data.content} />
       <ProjectMember
         postid={data._id}
         memberList={data.memberList}
         participateList={data.participateList}
         userid={data.userId._id}
       />
-      <ProjectContent content={data.content} />
       <ProjectComments content={data} />
     </TeamProjectDetailBox>
   );
@@ -95,16 +94,5 @@ const Buttons = styled.section`
       border: 1px solid #ebebeb;
       border-radius: 3px;
     }
-  }
-`;
-
-const RecruitmentStatusBox = styled.div`
-  border-top: 4px dashed #dbe2ef;
-  padding: 2rem 0;
-
-  .status-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    padding-bottom: 1.5rem;
   }
 `;

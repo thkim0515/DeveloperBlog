@@ -4,8 +4,10 @@ import { timeString } from "../../../../utils/timeString";
 import { useSelector } from "react-redux";
 
 export const RecruitmentInfo = (...props) => {
-  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
+  const bucketUrl = useSelector(state => state.bucketUrl);
+  const imageUrl = bucketUrl ? bucketUrl.imageUrl : "";
   const infoData = props[0];
+
   return (
     <>
       <S.UuorderListBox>

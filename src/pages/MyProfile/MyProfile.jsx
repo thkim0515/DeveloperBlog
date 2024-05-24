@@ -1,4 +1,4 @@
-import * as S from "./Profile.style.js";
+import * as S from "./MyProfile.style.js";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,12 +7,14 @@ import { decryptData } from "../../utils/secure";
 
 // components
 import { Metas } from "../../components/common/Metas.jsx";
+import { ProjectAlarm } from "./ProjectAlarm/ProjectAlarm.jsx";
+import { SideTab } from "./SideTab/SideTab.jsx";
 import { ProjectCard } from "../../components/ProjectCard/ProjectCard.jsx";
 
 // context
 import { useUserLogin } from "../../context/UserLoginContext";
 
-export const Profile = () => {
+export const MyProfile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState("");
   const [data, setData] = useState([]);
@@ -51,6 +53,10 @@ export const Profile = () => {
     fetchData();
   }, [user]);
 
+  const handleEditButtonClick = () => {
+    navigate("/profileEdit");
+  };
+
   return (
     <>
       <Metas title="My Profile" none />
@@ -60,7 +66,7 @@ export const Profile = () => {
           <S.InfoBox>
             {profileDB && (
               <>
-                <S.ProfileImgBox>
+                <S.ProfileImgBox onClick={handleEditButtonClick}>
                   <S.ProfileImg alt="프로필 이미지" src={`${imageUrl}profileImg/` + profileDB.profileimg} />
                 </S.ProfileImgBox>
                 <S.ProfileTextBox>
@@ -72,10 +78,19 @@ export const Profile = () => {
             )}
           </S.InfoBox>
         </div>
+
+        {/* Side Tab */}
+        <div>
+          <SideTab className="sideTab" selectedTab={selectedTab} />
+        </div>
+
         {/* 프로젝트 리스트 */}
         <S.TeamProjectBox>
-          {selectedTab === "myProject" && data.map((data, idx) => <ProjectCard key={idx} data={data} />)}
+          {selectedTab === "myProject" && data.map((data, idx) => <ProjectCard key={idx} data={data} s />)}
         </S.TeamProjectBox>
+
+        {/* 프로젝트 알림 */}
+        {selectedTab === "projectAlarm" && <ProjectAlarm />}
       </S.MyProfileBox>
     </>
   );
