@@ -27,7 +27,20 @@ export const TeamProject = () => {
   let itemsPerPage = 9;
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/project/project");
+        setProjectData(res.data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchData();
+
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
@@ -35,17 +48,6 @@ export const TeamProject = () => {
     setTotalPages(Math.ceil(filteredData.length / itemsPerPage));
     setDisplayData(filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
   }, [projectData, currentPage, search]);
-
-  const fetchData = async () => {
-    try {
-      const res = await axios.get("/project/project");
-      setProjectData(res.data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleSearchProject = e => {
     const { value } = e.target;
