@@ -15,11 +15,11 @@ export const SideTab = ({ selectedTab }) => {
 
   return (
     <SideTabBox onClick={handleSelectedTab}>
+      <TabItem data-name="myCode" active={activeTab === "myCode"}>
+        My Codes
+      </TabItem>
       <TabItem data-name="myProject" active={activeTab === "myProject"}>
         My Project
-      </TabItem>
-      <TabItem data-name="projectAlarm" active={activeTab === "projectAlarm"}>
-        Project Alarm
       </TabItem>
     </SideTabBox>
   );

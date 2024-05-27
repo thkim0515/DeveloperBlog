@@ -35,13 +35,7 @@ export const Header = () => {
             </ul>
           </S.CodeProjectMenuBox>
 
-          {isLogin ? (
-            <UserLogin></UserLogin>
-          ) : (
-            <S.LogineButton onClick={handleLoginButtonClick}>
-              로그인
-            </S.LogineButton>
-          )}
+          {isLogin ? <UserLogin></UserLogin> : <S.LogineButton onClick={handleLoginButtonClick}>로그인</S.LogineButton>}
           <LiveChatComp />
         </div>
       </S.HeaderBox>

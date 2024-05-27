@@ -60,7 +60,7 @@ export const UserLogin = () => {
             <S.ListLink to="/myProfile">My Profile</S.ListLink>
           </li>
           <li>
-            <S.ListLink to="/myCodes">My Code</S.ListLink>
+            <S.ListLink to="/accountSetting">Account</S.ListLink>
           </li>
           <li onClick={handleLogout} className="logout">
             Logout

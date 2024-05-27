@@ -13,9 +13,8 @@ import { CodeCreate } from "./pages/CodeCreate/CodeCreate";
 import { PostDetail } from "./pages/PostDetail/PostDetail";
 import { PostUpdate } from "./pages/PostUpdate/PostUpdate";
 import { Profile } from "./pages/Profile/Profile";
-import { ProfileEdit } from "./pages/ProfileEdit/ProfileEdit";
+import { AccountSetting } from "./pages/ProfileEdit/AccountSetting";
 import { MyProfile } from "./pages/MyProfile/MyProfile";
-import { MyCodes } from "./pages/MyCodes/MyCodes";
 import { TeamProject } from "./pages/TeamProject/TeamProject";
 import { TeamProjectDetail } from "./pages/TeamProjectDetail/TeamProjectDetail";
 import { TeamProjectCreate } from "./pages/TeamProjectCreate/TeamProjectCreate";
@@ -55,11 +54,10 @@ export const App = () => {
             <Route path="projectCreate" element={<PrivateRoute component={<TeamProjectCreate />} />} />
             <Route path="projectEdit/:_id" element={<PrivateRoute component={<TeamProjectEdit />} />} />
 
-            {/* Profile */}
+            {/* MyPage */}
             <Route path="profile/:nickname" element={<Profile />} />
             <Route path="myProfile" element={<PrivateRoute component={<MyProfile />} />} />
-            <Route path="profileEdit" element={<PrivateRoute component={<ProfileEdit />} />} />
-            <Route path="myCodes" element={<PrivateRoute component={<MyCodes />} />} />
+            <Route path="accountSetting" element={<PrivateRoute component={<AccountSetting />} />} />
 
             {/* NotFound */}
             <Route path="/*" element={<NotFound />} />

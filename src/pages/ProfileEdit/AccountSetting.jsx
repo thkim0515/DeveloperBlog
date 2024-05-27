@@ -1,9 +1,9 @@
 import { ProfileInfo } from "./ProfileInfo";
 import { PasswordAndUserOut } from "./PasswordAndUserOut";
 import { useUserLogin } from "../../context/UserLoginContext";
-import { Metas } from "./../../components/common/Metas";
+import { Metas } from "../../components/common/Metas";
 
-export const ProfileEdit = () => {
+export const AccountSetting = () => {
   //유저정보
   const { profileDB } = useUserLogin();
 

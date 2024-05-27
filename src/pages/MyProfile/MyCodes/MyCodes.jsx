@@ -1,6 +1,6 @@
-import { ImageGrid } from "../../components/imagegallery/ImageGalleryComponents/ImageGrid";
-import { Metas } from "./../../components/common/Metas";
-import { WriteButton } from "../../components/imagegallery/WriteButton";
+import { ImageGrid } from "../../../components/imagegallery/ImageGalleryComponents/ImageGrid";
+import { Metas } from "../../../components/common/Metas";
+import { WriteButton } from "../../../components/imagegallery/WriteButton";
 
 export const MyCodes = () => {
   const value = "my";

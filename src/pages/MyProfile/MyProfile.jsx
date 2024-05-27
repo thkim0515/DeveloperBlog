@@ -7,8 +7,8 @@ import { decryptData } from "../../utils/secure";
 
 // components
 import { Metas } from "../../components/common/Metas.jsx";
-import { ProjectAlarm } from "./ProjectAlarm/ProjectAlarm.jsx";
 import { SideTab } from "./SideTab/SideTab.jsx";
+import { MyCodes } from "./MyCodes/MyCodes.jsx";
 import { ProjectCard } from "../../components/ProjectCard/ProjectCard.jsx";
 
 // context
@@ -84,13 +84,13 @@ export const MyProfile = () => {
           <SideTab className="sideTab" selectedTab={selectedTab} />
         </div>
 
+        {/* 프로젝트 알림 */}
+        {selectedTab === "myCode" && <MyCodes />}
+
         {/* 프로젝트 리스트 */}
         <S.TeamProjectBox>
           {selectedTab === "myProject" && data.map((data, idx) => <ProjectCard key={idx} data={data} s />)}
         </S.TeamProjectBox>
-
-        {/* 프로젝트 알림 */}
-        {selectedTab === "projectAlarm" && <ProjectAlarm />}
       </S.MyProfileBox>
     </>
   );
