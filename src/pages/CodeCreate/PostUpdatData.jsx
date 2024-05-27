@@ -46,24 +46,22 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
   }, [_id, setPostDataToToast]);
 
   const navigate = useNavigate();
-  // const [aceEditor, setAceEditor] = useState("");
-  // const [title, setTitle] = useState("");
 
-  const handleTitleChange = (event) => {
-    setPostData((prevData) => ({
+  const handleTitleChange = event => {
+    setPostData(prevData => ({
       ...prevData,
       title: event.target.value,
     }));
   };
 
-  const onChange = (secondAceEditorString) => {
-    setPostData((prevData) => ({
+  const onChange = secondAceEditorString => {
+    setPostData(prevData => ({
       ...prevData,
       code: secondAceEditorString,
     }));
   };
-  // ----------------------------------------------
-  const handlePostCode = async (_id) => {
+
+  const handlePostCode = async _id => {
     const content = {
       ...postData,
       title: postData.title ? postData.title : "제목없음",
@@ -82,7 +80,7 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
       alert("수정실패에러:", error);
     }
   };
-  // ----------------------------------------------
+
   return (
     <>
       <S.Container>
@@ -99,13 +97,7 @@ export const PostUpdatData = ({ setPostDataToToast, _id, editorData }) => {
               onChange={handleTitleChange}
             />
           </div>
-          <div className="button-group">
-            {/* <button onClick={handleCaptureImage}>이미지로 보기</button> */}
-            {/* <S.Button onClick={handlePostCode}>등록하기</S.Button> */}
-            {_id && (
-              <S.Button onClick={() => handlePostCode(_id)}>수정하기</S.Button>
-            )}
-          </div>
+          <div className="button-group">{_id && <S.Button onClick={() => handlePostCode(_id)}>수정하기</S.Button>}</div>
         </S.FormField>
         <S.AceEditorContainer $isUpdate={true}>
           <AceEditor

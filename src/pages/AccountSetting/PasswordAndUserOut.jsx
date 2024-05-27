@@ -1,6 +1,6 @@
 import * as S from "./ProfileEdit.style.js";
 import axios from "axios";
-import { useUserLogin } from "../../context/UserLoginContext";
+import { useUserLogin } from "../../context/UserLoginContext.js";
 import { logout } from "../../components/Layout/UserLogin.jsx";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -14,12 +14,12 @@ export const PasswordAndUserOut = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   //비밀번호 변경 input 관리
-  const handleInputChange = (setState) => (e) => {
+  const handleInputChange = setState => e => {
     setState(e.target.value);
   };
 
   //업데이트 요쳥
-  const handleUpdate = async (e) => {
+  const handleUpdate = async e => {
     e.preventDefault();
 
     const currentPassword = password;
@@ -82,20 +82,9 @@ export const PasswordAndUserOut = () => {
           <label htmlFor="username" style={{ display: "none" }}>
             사용자명:
           </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            style={{ display: "none" }}
-            autoComplete="username"
-          />
+          <input type="text" id="username" name="username" style={{ display: "none" }} autoComplete="username" />
           <label htmlFor="current-password">현재 비밀번호</label>
-          <input
-            type="password"
-            name="current-password"
-            autoComplete="off"
-            onChange={handleInputChange(setPassword)}
-          />
+          <input type="password" name="current-password" autoComplete="off" onChange={handleInputChange(setPassword)} />
           <label htmlFor="new-password">새로운 비밀번호</label>
           <input
             type="password"

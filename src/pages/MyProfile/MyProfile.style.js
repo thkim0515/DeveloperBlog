@@ -78,7 +78,7 @@ export const ProfileTextBox = styled.div`
   .nickname {
     padding: 0.5rem;
     border-radius: 20px;
-    background-color: #dbe2ef;
+    background-color: #b5c7e5;
   }
 `;
 

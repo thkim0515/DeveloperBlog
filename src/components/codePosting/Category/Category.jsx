@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 export const Category = ({ category, setCategory }) => {
-  const imageUrl = useSelector((state) => state.butketUrl.imageUrl);
+  const imageUrl = useSelector(state => state.butketUrl?.imageUrl);
   const [svgImages, setSvgImages] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const Category = ({ category, setCategory }) => {
     fetchSvgImages();
   }, []);
 
-  const handleCategory = (svgName) => {
+  const handleCategory = svgName => {
     setCategory(svgName);
   };
 
@@ -30,11 +30,7 @@ export const Category = ({ category, setCategory }) => {
       <p>카테고리를 선택하세요:</p>
       {svgImages.map((svgName, idx) => {
         return (
-          <ImageWrapper
-            key={idx}
-            onClick={() => handleCategory(svgName)}
-            $isSelected={category === svgName}
-          >
+          <ImageWrapper key={idx} onClick={() => handleCategory(svgName)} $isSelected={category === svgName}>
             <img src={`${imageUrl}svgs/${svgName}.svg`} alt={svgName} />
           </ImageWrapper>
         );

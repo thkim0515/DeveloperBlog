@@ -13,7 +13,7 @@ import { CodeCreate } from "./pages/CodeCreate/CodeCreate";
 import { PostDetail } from "./pages/PostDetail/PostDetail";
 import { PostUpdate } from "./pages/PostUpdate/PostUpdate";
 import { Profile } from "./pages/Profile/Profile";
-import { AccountSetting } from "./pages/ProfileEdit/AccountSetting";
+import { AccountSetting } from "./pages/AccountSetting/AccountSetting";
 import { MyProfile } from "./pages/MyProfile/MyProfile";
 import { TeamProject } from "./pages/TeamProject/TeamProject";
 import { TeamProjectDetail } from "./pages/TeamProjectDetail/TeamProjectDetail";

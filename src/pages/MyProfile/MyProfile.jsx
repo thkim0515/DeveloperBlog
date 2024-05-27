@@ -7,7 +7,7 @@ import { decryptData } from "../../utils/secure";
 
 // components
 import { Metas } from "../../components/common/Metas.jsx";
-import { SideTab } from "./SideTab/SideTab.jsx";
+import { TabMenu } from "./TabMenu/TabMenu.jsx";
 import { MyCodes } from "./MyCodes/MyCodes.jsx";
 import { ProjectCard } from "../../components/ProjectCard/ProjectCard.jsx";
 
@@ -54,7 +54,7 @@ export const MyProfile = () => {
   }, [user]);
 
   const handleEditButtonClick = () => {
-    navigate("/profileEdit");
+    navigate("/accountSett");
   };
 
   return (
@@ -79,12 +79,10 @@ export const MyProfile = () => {
           </S.InfoBox>
         </div>
 
-        {/* Side Tab */}
-        <div>
-          <SideTab className="sideTab" selectedTab={selectedTab} />
-        </div>
+        {/* Tab Menu */}
+        <TabMenu className="tabMenu" selectedTab={selectedTab} />
 
-        {/* 프로젝트 알림 */}
+        {/* 코드 리스트 */}
         {selectedTab === "myCode" && <MyCodes />}
 
         {/* 프로젝트 리스트 */}

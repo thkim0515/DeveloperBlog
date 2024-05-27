@@ -2,9 +2,9 @@ import * as S from "./ProfileEdit.style.js";
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserLogin } from "../../context/UserLoginContext";
-import { decryptData, encryptData } from "../../utils/secure";
-import { handleUpload } from "../../utils/uploadImage";
+import { useUserLogin } from "../../context/UserLoginContext.js";
+import { decryptData, encryptData } from "../../utils/secure.js";
+import { handleUpload } from "../../utils/uploadImage.js";
 import { useSelector } from "react-redux";
 
 export const ProfileInfo = () => {

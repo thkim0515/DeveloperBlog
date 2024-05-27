@@ -1,6 +1,7 @@
 import { Metas } from "../../components/common/Metas";
 import { ImageGrid } from "../../components/imagegallery/ImageGalleryComponents/ImageGrid";
-import { WriteButton } from "../../components/imagegallery/WriteButton";
+import { WriteButton } from "../../components/common/WriteButton";
+import { TeamProjectTitle } from "../TeamProject/TeamProject.style";
 
 export const CodeMain = () => {
   const value = "all";
@@ -9,7 +10,7 @@ export const CodeMain = () => {
     <div>
       <Metas main="main" />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Code</h2>
+        <TeamProjectTitle>Code</TeamProjectTitle>
         <WriteButton />
       </div>
       <ImageGrid value={value} />

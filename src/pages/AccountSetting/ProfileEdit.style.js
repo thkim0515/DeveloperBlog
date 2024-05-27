@@ -12,11 +12,12 @@ export const ProfileInfoMainBox = styled.div`
 
 //프로필 제목
 export const ProfileTitle = styled.h2`
-  font-size: 1.5rem;
-  color: #112d4e;
   margin-bottom: 16px;
   align-self: start;
-  cursor: default;
+  color: #112d4e;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
 `;
 
 //프로필 내용 & 버튼 폼 박스

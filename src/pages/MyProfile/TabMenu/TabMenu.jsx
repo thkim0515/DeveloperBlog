@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { useDispatch } from "react-redux";
 import { selectTab } from "../../../_slice/tabSlice";
 
-export const SideTab = ({ selectedTab }) => {
+export const TabMenu = ({ selectedTab }) => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState(selectedTab);
 
@@ -14,18 +14,18 @@ export const SideTab = ({ selectedTab }) => {
   };
 
   return (
-    <SideTabBox onClick={handleSelectedTab}>
+    <TabMenuBox onClick={handleSelectedTab}>
       <TabItem data-name="myCode" active={activeTab === "myCode"}>
         My Codes
       </TabItem>
       <TabItem data-name="myProject" active={activeTab === "myProject"}>
         My Project
       </TabItem>
-    </SideTabBox>
+    </TabMenuBox>
   );
 };
 
-const SideTabBox = styled.aside`
+const TabMenuBox = styled.aside`
   display: flex;
   gap: 2rem;
   font-size: 1.25rem;

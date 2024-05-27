@@ -3,11 +3,11 @@ import * as S from "./ImageGrid.style";
 import { ImageItem } from "./ImageItem";
 import { MainPagination } from "./MainPagination";
 import { useGetData } from "../../../hooks/useGetData";
-
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Button from "react-bootstrap/Button";
 import { useSelector } from "react-redux";
 
 export const ImageGrid = value => {
@@ -18,7 +18,6 @@ export const ImageGrid = value => {
   const maxcount = 9;
   const data = useGetData(value, maxcount, selectedIcon, searchTerm);
   const half = Math.ceil(data.svgImages.length / 2);
-  // console.log(data.svgImages);
   const handleUpdateSelectedIcon = () => {
     setSelectedIcon(searchTerm);
   };
@@ -27,10 +26,10 @@ export const ImageGrid = value => {
     <S.Container>
       <S.Spacer>
         <div>
-          <InputGroup>
+          <InputGroup className="mb-3">
             <Form.Control
-              aria-label="Search"
-              style={{ border: "2px solid #000", width: "350px" }}
+              className="py-2"
+              placeholder="코드를 검색하세요"
               onChange={e => setSearchTerm(e.target.value)}
               value={searchTerm}
               onKeyPress={e => {
@@ -39,9 +38,9 @@ export const ImageGrid = value => {
                 }
               }}
             />
-            <InputGroup.Text style={{ border: "2px solid #000", cursor: "pointer" }} onClick={handleUpdateSelectedIcon}>
+            <Button variant="outline-secondary" id="button-addon2">
               <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </InputGroup.Text>
+            </Button>
           </InputGroup>
         </div>
         <div>
@@ -82,21 +81,6 @@ export const ImageGrid = value => {
               />
             ))}
           </div>
-          {/* {value.value === "all" &&
-            data.svgImages.map((svgName, idx) => (
-              <img
-                key={idx}
-                src={`${imageUrl}svgs/${svgName}.svg`}
-                alt={svgName}
-                onClick={() => setSelectedIcon(svgName)}
-                style={{
-                  cursor: "pointer",
-                  backgroundColor:
-                    svgName === selectedIcon ? "#F9F7F7" : "transparent",
-                  padding: svgName === selectedIcon ? "6px" : "0",
-                }}
-              />
-            ))} */}
         </div>
       </S.Spacer>
 

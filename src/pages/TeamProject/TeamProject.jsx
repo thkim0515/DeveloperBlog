@@ -11,8 +11,9 @@ import Pagination from "react-bootstrap/Pagination";
 // components
 import { ProjectCard } from "../../components/ProjectCard/ProjectCard";
 import { Metas } from "../../components/common/Metas";
-import { WriteButton } from "../../components/imagegallery/WriteButton";
+import { WriteButton } from "../../components/common/WriteButton";
 
+// context
 import { useUserLogin } from "../../context/UserLoginContext";
 
 export const TeamProject = () => {
@@ -22,7 +23,7 @@ export const TeamProject = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [displayData, setDisplayData] = useState([]);
-  const { user } = useUserLogin();
+
   let itemsPerPage = 9;
 
   useEffect(() => {
@@ -32,12 +33,7 @@ export const TeamProject = () => {
   useEffect(() => {
     const filteredData = getFilteredData();
     setTotalPages(Math.ceil(filteredData.length / itemsPerPage));
-    setDisplayData(
-      filteredData.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-      )
-    );
+    setDisplayData(filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
   }, [projectData, currentPage, search]);
 
   const fetchData = async () => {
@@ -51,7 +47,7 @@ export const TeamProject = () => {
     }
   };
 
-  const handleSearchProject = (e) => {
+  const handleSearchProject = e => {
     const { value } = e.target;
     setSearch(value);
     setCurrentPage(1);
@@ -62,12 +58,10 @@ export const TeamProject = () => {
       return projectData;
     }
 
-    return projectData.filter((project) =>
-      project.title.toLowerCase().includes(search.toLowerCase())
-    );
+    return projectData.filter(project => project.title.toLowerCase().includes(search.toLowerCase()));
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = page => {
     setCurrentPage(page);
   };
 
@@ -97,25 +91,13 @@ export const TeamProject = () => {
         {/* 페이지네이션 */}
         <Pagination className="d-flex justify-content-center mt-5">
           <Pagination.First onClick={() => handlePageChange(1)} />
-          <Pagination.Prev
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          />
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-            (page) => (
-              <Pagination.Item
-                key={page}
-                onClick={() => handlePageChange(page)}
-                active={page === currentPage}
-              >
-                {page}
-              </Pagination.Item>
-            )
-          )}
-          <Pagination.Next
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          />
+          <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map(page => (
+            <Pagination.Item key={page} onClick={() => handlePageChange(page)} active={page === currentPage}>
+              {page}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
           <Pagination.Last onClick={() => handlePageChange(totalPages)} />
         </Pagination>
       </section>

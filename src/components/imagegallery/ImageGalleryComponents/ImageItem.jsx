@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-dom";
 import * as S from "./ImageItem.style";
-
-import { switchColor } from "../../../utils/switchColor";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
-import { useSelector } from "react-redux";
+import { switchColor } from "../../../utils/switchColor";
 
 export const ImageItem = ({ content }) => {
   const bucketUrl = useSelector(state => state.bucketUrl);

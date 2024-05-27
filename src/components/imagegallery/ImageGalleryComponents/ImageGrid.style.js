@@ -27,11 +27,6 @@ export const Spacer = styled.div`
     color: #112d4e;
     font-size: 1.5rem;
   }
-  // span {
-  //   position: absolute;
-  //   bottom: 0;
-  //   right: 0;
-  // }
 `;
 
 export const SPContainer = styled.div`

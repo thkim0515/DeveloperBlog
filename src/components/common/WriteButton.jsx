@@ -4,20 +4,21 @@ import styled from "styled-components";
 
 const WriteBox = styled.div`
   display: flex;
-  gap: 10px;
   justify-content: flex-end;
+  gap: 10px;
 `;
 
-
 const Button = styled.button`
-  width: 120px;
-  height: 40px;
-  padding: 10px;
-  background-color: #dbe2ef;
+  padding: 1rem;
+  background-color: #b2eaff;
   color: #112d4e;
   border: none;
   border-radius: 12px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #dbe2ef;
+  }
 `;
 
 export const WriteButton = ({ project }) => {
