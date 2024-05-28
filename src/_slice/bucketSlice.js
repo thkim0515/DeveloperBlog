@@ -8,13 +8,13 @@ export const bucketUrlSlice = createSlice({
   name: "bucketUrl",
   initialState,
   reducers: {
-    setBucketUrlUrl: (state, action) => {
+    setBucketUrl: (state, action) => {
       state.bucketUrlUrl = action.payload;
     },
   },
 });
 
-export const { setBucketUrlUrl } = bucketUrlSlice.actions;
+export const { setBucketUrl } = bucketUrlSlice.actions;
 
 export default bucketUrlSlice.reducer;
 
