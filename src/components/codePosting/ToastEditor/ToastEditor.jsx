@@ -6,7 +6,7 @@ import { handleUpload } from "../../../utils/uploadImage";
 import { useSelector } from "react-redux";
 
 export const ToastEditor = ({ postData, onEditorChange }) => {
-  const imageUrl = useSelector(state => state.butketUrl.imageUrl);
+  const imageUrl = useSelector(state => state.bucketUrl.imageUrl);
   const editorRef = useRef();
 
   const onChange = () => {

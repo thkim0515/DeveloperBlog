@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 export const Category = ({ category, setCategory }) => {
-  const imageUrl = useSelector(state => state.butketUrl?.imageUrl);
+  const imageUrl = useSelector(state => state.bucketUrl?.imageUrl);
   const [svgImages, setSvgImages] = useState([]);
 
   useEffect(() => {
