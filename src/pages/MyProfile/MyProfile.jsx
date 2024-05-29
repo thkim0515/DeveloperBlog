@@ -9,7 +9,7 @@ import { decryptData } from "../../utils/secure";
 import { Metas } from "../../components/common/Metas.jsx";
 import { TabMenu } from "./TabMenu/TabMenu.jsx";
 import { MyCodes } from "./MyCodes/MyCodes.jsx";
-import { ProjectCard } from "../../components/ProjectCard/ProjectCard.jsx";
+import { MyProject } from "./MyProject/MyProject.jsx";
 
 // context
 import { useUserLogin } from "../../context/UserLoginContext";
@@ -86,9 +86,7 @@ export const MyProfile = () => {
         {selectedTab === "myCode" && <MyCodes />}
 
         {/* 프로젝트 리스트 */}
-        <S.TeamProjectBox>
-          {selectedTab === "myProject" && data.map((data, idx) => <ProjectCard key={idx} data={data} s />)}
-        </S.TeamProjectBox>
+        <S.TeamProjectBox>{selectedTab === "myProject" && <MyProject data={data} />}</S.TeamProjectBox>
       </S.MyProfileBox>
     </>
   );

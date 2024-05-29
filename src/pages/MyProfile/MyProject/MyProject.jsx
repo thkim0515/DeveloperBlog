@@ -1,22 +1,24 @@
-import axios from "axios";
-import { useEffect } from "react";
+import styled from "styled-components";
 import { ProjectCard } from "../../../components/ProjectCard/ProjectCard";
-import { useUserLogin } from "../../../context/UserLoginContext";
+import { WriteButton } from "../../../components/common/WriteButton";
 
-export const MyProject = ({ user }) => {
-  console.log(`myProject-user: ${user}`);
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(`/project/myproject/${user}`);
-        const data = response.data;
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchData();
-  }, [user]);
+const MyProjectBox = styled.div`
+  position: relative;
 
-  return <></>;
+  button {
+    position: absolute;
+    top: -70px;
+    right: -650px;
+  }
+`;
+
+export const MyProject = ({ data }) => {
+  return (
+    <MyProjectBox>
+      <WriteButton project />
+      {data.map((data, idx) => (
+        <ProjectCard key={idx} data={data} />
+      ))}
+    </MyProjectBox>
+  );
 };
