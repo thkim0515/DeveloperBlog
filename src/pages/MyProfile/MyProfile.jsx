@@ -54,7 +54,7 @@ export const MyProfile = () => {
   }, [user]);
 
   const handleEditButtonClick = () => {
-    navigate("/accountSett");
+    navigate("/accountSetting");
   };
 
   return (
