@@ -1,16 +1,16 @@
 import * as S from "./Layout.style";
-import { Header } from "./Header";
+import { Header } from "./Header/Header";
 import { Footer } from "./Footer";
 import { Outlet } from "react-router-dom";
 
-export const Layout = (props) => {
+export const Layout = () => {
   return (
-    <div>
+    <>
       <Header />
       <S.Container>
         <Outlet />
       </S.Container>
       <Footer />
-    </div>
+    </>
   );
 };

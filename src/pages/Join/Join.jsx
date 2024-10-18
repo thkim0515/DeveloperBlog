@@ -5,7 +5,7 @@ import { Login } from "./Login/Login";
 import { SignUp } from "./SignUp/SignUp";
 
 // component
-import { Logo } from "./../../components/Layout/Logo";
+import { Logo } from "../../components/Layout/Header/Logo";
 
 export const Join = () => {
   const location = useLocation();

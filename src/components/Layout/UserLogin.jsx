@@ -43,7 +43,6 @@ export const UserLogin = () => {
     <div ref={dropMenuRef}>
       {profileDB && (
         <S.UserLoginBox>
-          <div>{profileDB.nickname}</div>
           <S.ProfileImage
             alt="프로필 사진"
             src={`${imageUrl}profileImg/` + profileDB.profileimg}
@@ -57,13 +56,13 @@ export const UserLogin = () => {
       <S.MenuBox $isOpen={isMenuOpen}>
         <S.MenuListBox>
           <li>
-            <S.ListLink to="/myProfile">My Profile</S.ListLink>
+            <S.ListLink to="/accountSetting">마이페이지</S.ListLink>
           </li>
           <li>
-            <S.ListLink to="/accountSetting">Account</S.ListLink>
+            <S.ListLink to="/myProfile">프로필</S.ListLink>
           </li>
           <li onClick={handleLogout} className="logout">
-            Logout
+            로그아웃
           </li>
         </S.MenuListBox>
       </S.MenuBox>
