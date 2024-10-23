@@ -1,13 +1,7 @@
-import styled from "styled-components";
+import * as S from "./PreviewPost.style";
 import { PostCard } from "../../../components/PostCard/PostCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-const PostCardList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.125rem;
-`;
 
 export const PreviewPost = () => {
   const [post, setPost] = useState([]);
@@ -26,14 +20,16 @@ export const PreviewPost = () => {
   }, []);
 
   return (
-    <section>
+    <S.PreviewPostBox>
       <h2>새로 업로드된 글</h2>
-      <PostCardList>
+      <S.PostCardList>
         {post.map((item, idx) => (
           <PostCard key={`post-${idx}`} post={item} />
         ))}
-      </PostCardList>
-      <button>더보기</button>
-    </section>
+      </S.PostCardList>
+      <S.MoreButton>
+        <button>더보기</button>
+      </S.MoreButton>
+    </S.PreviewPostBox>
   );
 };

@@ -1,17 +1,36 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-export const Banner = styled.section`
-  background-image: url("/galaxy.webp");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 360px;
-  display: flex;
-  align-items: center;
-  border-radius: 20px;
+const moveBackground = keyframes`
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -200px 0; // 이미지가 왼쪽으로 이동
+  }
 `;
 
-export const Content = styled.div`
+export const BannerBox = styled.section`
+  padding: 0 1.5rem;
+  margin-bottom: 2.5rem;
+`;
+
+export const Banner = styled.div`
+  background-image: url("/galaxy.webp");
+  background-repeat: repeat-x;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 360px;
+  border-radius: 20px;
+  animation: ${moveBackground} 20s linear infinite;
+`;
+
+export const BannerText = styled.div`
   color: #ffffff;
   font-size: 2rem;
-  padding-left: 3.5rem;
+  padding-left: 5rem;
+  letter-spacing: 0.1rem;
+  line-height: 1.5;
+  font-weight: bold;
 `;
