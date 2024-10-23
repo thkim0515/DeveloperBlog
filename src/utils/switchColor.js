@@ -1,6 +1,6 @@
-export const switchColor = (lang) => {
+export const switchColor = langauge => {
   let bgColor;
-  switch (lang) {
+  switch (langauge) {
     case "react":
       bgColor = "#007ACC";
       break;

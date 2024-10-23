@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import * as S from "./PostingComp.style";
 import { CodePost } from "./CodePost";
 import { Input } from "../LiveChat/LiveChat.style";
-import { Spinner } from "./spinner/Spinner";
+import { Spinner } from "../Spinner/Spinner";
 import { Category } from "./Category/Category";
 import { handlePostCode, handleUpdateCode } from "../../utils/handleCode";
 import useOpenai from "../../hooks/useOpenAi";
 import { useNavigate } from "react-router-dom";
 import ace from "ace-builds/src-noconflict/ace";
+import { HamsterSpinner } from "../Spinner/HamsterSpinner";
 
 export const PostingComp = ({ edit, postData }) => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export const PostingComp = ({ edit, postData }) => {
   }, [commentedCode, error]);
 
   //제목창 관리
-  const handleTitleChange = (event) => {
+  const handleTitleChange = event => {
     setTitle(event.target.value);
   };
 
@@ -45,7 +46,7 @@ export const PostingComp = ({ edit, postData }) => {
     editor.setValue("");
   };
   //해석하기(코드 주석)
-  const handleCodeAnnotation = async (event) => {
+  const handleCodeAnnotation = async event => {
     event.preventDefault();
     const editor = ace.edit("setCode");
     editor.setValue("");
@@ -60,21 +61,14 @@ export const PostingComp = ({ edit, postData }) => {
   };
 
   //토스트에디터 내용
-  const handleEditorChange = (data) => {
+  const handleEditorChange = data => {
     setTextData(data);
   };
 
   //등록,수정 함수
   const handlePost = async () => {
     if (edit) {
-      await handleUpdateCode(
-        postData,
-        title,
-        category,
-        commentedCode,
-        textData,
-        navigate
-      );
+      await handleUpdateCode(postData, title, category, commentedCode, textData, navigate);
     } else {
       await handlePostCode(commentedCode, title, category, textData, navigate);
     }
@@ -86,36 +80,28 @@ export const PostingComp = ({ edit, postData }) => {
       <S.CodePostingBox>
         {/* 제목 입력 */}
         <S.InputBox>
-          <Input
-            type="text"
-            id="title"
-            placeholder="제목을 입력하세요"
-            onChange={handleTitleChange}
-            value={title}
-          />
+          <Input type="text" id="title" placeholder="제목을 입력하세요" onChange={handleTitleChange} value={title} />
         </S.InputBox>
         {/* 내용 입력 */}
-        {isLoading && <Spinner isLoading={isLoading} />}
+        {isLoading && (
+          <Spinner isLoading={isLoading}>
+            <HamsterSpinner />
+          </Spinner>
+        )}
         <div>
           <Category category={category} setCategory={setCategory} />
           <S.ViewOptionsBox>
             <tbody>
               <tr>
-                <td
-                  name="clear-getAce"
-                  style={{ display: !toastBox ? "block" : "none" }}
-                >
+                <td name="clear-getAce" style={{ display: !toastBox ? "block" : "none" }}>
                   <button onClick={handleCodeReset}>입력창 초기화</button>
                 </td>
                 <td
                   name="setToast"
                   style={{
                     display: commentedCode || edit ? "" : "none",
-                  }}
-                >
-                  <button onClick={handleToggle}>
-                    {!toastBox ? "텍스트에디터" : "입력창"}
-                  </button>
+                  }}>
+                  <button onClick={handleToggle}>{!toastBox ? "텍스트에디터" : "입력창"}</button>
                 </td>
               </tr>
             </tbody>
@@ -140,16 +126,10 @@ export const PostingComp = ({ edit, postData }) => {
             <p>3. 텍스트 에디터에 공부한 내용을 기록해요!</p>
           </div>
           <div className="button_box">
-            <button
-              onClick={handleCodeAnnotation}
-              style={{ display: !toastBox ? "block" : "none" }}
-            >
+            <button onClick={handleCodeAnnotation} style={{ display: !toastBox ? "block" : "none" }}>
               해석하기
             </button>
-            <button
-              onClick={handlePost}
-              style={{ display: commentedCode || edit ? "block" : "none" }}
-            >
+            <button onClick={handlePost} style={{ display: commentedCode || edit ? "block" : "none" }}>
               작성 완료
             </button>
           </div>

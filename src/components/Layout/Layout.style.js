@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 //메인 컨테이너 스타일
 export const Container = styled.div`
-  max-width: 1140px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 2.75rem 0;
 `;
