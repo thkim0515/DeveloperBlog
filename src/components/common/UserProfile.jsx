@@ -1,13 +1,10 @@
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { getProfileImg } from "../../utils/getImagePath";
 
 export const UserProfile = ({ imagePath, nickname }) => {
-  const bucketUrl = useSelector(state => state.bucketUrl);
-  const imageUrl = bucketUrl ? bucketUrl.imageUrl : "";
-
   return (
     <UserProfileBox>
-      <ProfileImage src={`${imageUrl}profileImg/${imagePath}`} alt="user" />
+      <ProfileImage src={getProfileImg(imagePath)} alt="user" />
       <UserNickname>{nickname}</UserNickname>
     </UserProfileBox>
   );

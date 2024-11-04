@@ -25,7 +25,7 @@ export const filterImages = async (images, searchTerm, value, selectedIcon) => {
   }
 
   const userItem = await decryptData("user", sessionStorage);
-
+  console.log(userItem);
   // 내 코드 필터 if > mainCode 필터 if if > 내 코드 필터
   if (userItem) {
     const nickname = userItem.nickname;

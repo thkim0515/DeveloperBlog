@@ -8,7 +8,7 @@ import { Join } from "./pages/Join/Join";
 import { Main } from "./pages/Main/Main";
 import { Login } from "./pages/Join/Login/Login";
 import { SignUp } from "./pages/Join/SignUp/SignUp";
-import { CodeMain } from "./pages/CodeMain/CodeMain";
+import { Blog } from "./pages/Blog/Blog";
 import { CodeCreate } from "./pages/CodeCreate/CodeCreate";
 import { PostDetail } from "./pages/PostDetail/PostDetail";
 import { PostUpdate } from "./pages/PostUpdate/PostUpdate";
@@ -40,27 +40,27 @@ export const App = () => {
 
           <Route element={<Layout />}>
             {/* Layout 컴포넌트 안에서 자식 Route들을 배치 */}
-            <Route index element={<Main />} />
+            <Route path="/" element={<Main />} />
 
-            {/* Code Posting */}
-            <Route path="codeMain" element={<CodeMain />} />
-            <Route path="codeCreate" element={<PrivateRoute component={<CodeCreate />} />} />
-            <Route path="post/:_id" element={<PostDetail />} />
-            <Route path="postUpdate/:_id" element={<PrivateRoute component={<PostUpdate />} />} />
+            {/* blog */}
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/post-create" element={<PrivateRoute component={<CodeCreate />} />} />
+            <Route path="/post/:_id" element={<PostDetail />} />
+            <Route path="/post-update/:_id" element={<PrivateRoute component={<PostUpdate />} />} />
 
-            {/* Team Project */}
-            <Route path="/teamProject" element={<TeamProject />} />
+            {/* project */}
+            <Route path="/project" element={<TeamProject />} />
             <Route path="/project/:_id" element={<TeamProjectDetail />} />
-            <Route path="projectCreate" element={<PrivateRoute component={<TeamProjectCreate />} />} />
-            <Route path="projectEdit/:_id" element={<PrivateRoute component={<TeamProjectEdit />} />} />
+            <Route path="/project-create" element={<PrivateRoute component={<TeamProjectCreate />} />} />
+            <Route path="/project-edit/:_id" element={<PrivateRoute component={<TeamProjectEdit />} />} />
 
             {/* MyPage */}
-            <Route path="profile/:nickname" element={<Profile />} />
-            <Route path="myProfile" element={<PrivateRoute component={<MyProfile />} />} />
-            <Route path="accountSetting" element={<PrivateRoute component={<AccountSetting />} />} />
+            <Route path="/profile/:nickname" element={<Profile />} />
+            <Route path="/myProfile" element={<PrivateRoute component={<MyProfile />} />} />
+            <Route path="/accountSetting" element={<PrivateRoute component={<AccountSetting />} />} />
 
             {/* NotFound */}
-            <Route path="/*" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </UserLoginProvider>

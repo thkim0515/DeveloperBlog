@@ -8,13 +8,6 @@ export const PreviewPostBox = styled.section`
   }
 `;
 
-export const PostCardList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.125rem;
-  margin: 2.75rem 0;
-`;
-
 export const MoreButton = styled.div`
   text-align: center;
 

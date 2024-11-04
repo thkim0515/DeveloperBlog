@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import * as S from "./PostDetailComp.style";
+import * as S from "./PostDetail.style";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../context/UserLoginContext";
@@ -17,7 +17,7 @@ export const PostDetailWriter = ({ content }) => {
   const dropMenuRef = useRef();
 
   useEffect(() => {
-    const clickOutside = (e) => {
+    const clickOutside = e => {
       if (isDropOpen && !dropMenuRef.current.contains(e.target)) {
         setIsDropOpen(false);
       }
@@ -30,11 +30,11 @@ export const PostDetailWriter = ({ content }) => {
 
   const navigate = useNavigate();
 
-  const updateContents = (_id) => () => {
+  const updateContents = _id => () => {
     navigate(`/postUpdate/${_id}`, { state: { _id, userId } });
   };
 
-  const deleteContents = async (_id) => {
+  const deleteContents = async _id => {
     const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
 
     if (isConfirmed) {
@@ -58,8 +58,7 @@ export const PostDetailWriter = ({ content }) => {
         className="drop-box-btn"
         onClick={() => {
           setIsDropOpen(!isDropOpen);
-        }}
-      >
+        }}>
         ...
       </div>
       <S.DropList $isOpen={isDropOpen}>

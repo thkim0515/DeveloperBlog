@@ -17,7 +17,7 @@ const LiveChatButton = styled.button`
   width: 40px;
   height: 40px;
   padding: 10px;
-  background-image: url("/img/chat.png");
+  background-image: url("/chat.png");
   background-size: cover;
   color: #fff;
   border: none;
@@ -45,12 +45,9 @@ const develop = true;
 
 export const LiveChatComp = () => {
   const [isLiveChatVisible, setIsLiveChatVisible] = useState(false);
-  const WEBSOCKET_ADDRESS =
-    develop === true
-      ? "wss://d3kcrktwedekfj.cloudfront.net"
-      : "ws://localhost:5000";
+  const WEBSOCKET_ADDRESS = develop === true ? "wss://d3kcrktwedekfj.cloudfront.net" : "ws://localhost:5000";
 
-  const unreadMessages = useSelector((state) => state.unreadMessages.value);
+  const unreadMessages = useSelector(state => state.unreadMessages.value);
   const dispatch = useDispatch();
 
   const handleIncrement = () => {
@@ -81,7 +78,7 @@ export const LiveChatComp = () => {
       const ws = new WebSocket(WEBSOCKET_ADDRESS);
       const timestamp = sessionStorage.getItem("timestamp");
 
-      ws.onmessage = async (event) => {
+      ws.onmessage = async event => {
         if (event.data instanceof Blob) {
           const text = await event.data.text();
 

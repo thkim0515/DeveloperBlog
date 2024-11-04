@@ -1,10 +1,12 @@
 import * as S from "./PreviewPost.style";
-import { PostCard } from "../../../components/PostCard/PostCard";
+import { PostList } from "../../../components/PostList/PostList";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const PreviewPost = () => {
   const [post, setPost] = useState([]);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -22,13 +24,9 @@ export const PreviewPost = () => {
   return (
     <S.PreviewPostBox>
       <h2>새로 업로드된 글</h2>
-      <S.PostCardList>
-        {post.map((item, idx) => (
-          <PostCard key={`post-${idx}`} post={item} />
-        ))}
-      </S.PostCardList>
+      <PostList post={post} />
       <S.MoreButton>
-        <button>더보기</button>
+        <button onClick={() => navigate("/blog")}>더보기</button>
       </S.MoreButton>
     </S.PreviewPostBox>
   );

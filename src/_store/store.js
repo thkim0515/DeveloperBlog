@@ -1,11 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "../_reducers/rootReducer";
+import tabReducer from "../_slice/tabSlice";
+import unreadMessagesReducer from "../_slice/unreadMessagesSlice";
 import createWebSocketMiddleware from "../_actions/websocketMiddleware";
 
 const websocketMiddleware = createWebSocketMiddleware();
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    tab: tabReducer,
+    unreadMessages: unreadMessagesReducer,
+  },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(websocketMiddleware),
 });
 

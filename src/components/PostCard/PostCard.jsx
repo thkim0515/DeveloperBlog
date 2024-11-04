@@ -23,14 +23,14 @@ const PostCardBox = styled.div`
 
 export const PostCard = ({ post }) => {
   const navigate = useNavigate();
-  // const onClickPostCard = () => {
-  //   if (post) {
-  //     navigate(`/post/${post._id}`, { state: { post } });
-  //   }
-  // };
+  const onClickPostCard = () => {
+    if (post) {
+      navigate(`/post/${post._id}`, { state: { post } });
+    }
+  };
 
   return (
-    <PostCardBox>
+    <PostCardBox onClick={onClickPostCard}>
       <PostCardHeader language={post.language} />
       <PostCardBody title={post.title} postdate={post.postdate} />
       <PostCardFooter {...post} />

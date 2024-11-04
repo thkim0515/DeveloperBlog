@@ -6,10 +6,10 @@ const Menu = () => {
     <S.MenuBox>
       <ul>
         <li>
-          <Link to="/codeMain">블로그</Link>
+          <Link to="/blog">블로그</Link>
         </li>
         <li>
-          <Link to="/teamProject">프로젝트</Link>
+          <Link to="/project">프로젝트</Link>
         </li>
       </ul>
     </S.MenuBox>
