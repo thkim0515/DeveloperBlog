@@ -12,7 +12,10 @@ export const AceEditorSet = ({ name, onChange, value, readOnly = false }) => {
       onChange={onChange}
       name={name}
       editorProps={{ $blockScrolling: false }}
-      setOptions={{ useWorker: false }}
+      setOptions={{
+        useWorker: false,
+        printMargin: false, // 프린트 마진 (하얀선) 제거
+      }}
       wrapEnabled={true}
       width="100%"
       fontSize="1rem"

@@ -1,11 +1,12 @@
 export const connectWebSocket = (setMessages, userNickname, addr) => {
   const WEBSOCKET_ADDRESS = addr;
+  console.log(WEBSOCKET_ADDRESS);
   let ws = new WebSocket(WEBSOCKET_ADDRESS);
 
   ws.onopen = () => {
     setMessages([]);
   };
-  ws.onmessage = async (event) => {
+  ws.onmessage = async event => {
     if (event.data instanceof Blob) {
       // Blob 객체를 처리하는 로직
       const text = await event.data.text();
@@ -17,7 +18,7 @@ export const connectWebSocket = (setMessages, userNickname, addr) => {
             text: ` : ${data.message}`,
             timestamp: data.timestamp,
           };
-          setMessages((prev) => [...prev, displayMessage]);
+          setMessages(prev => [...prev, displayMessage]);
         } else {
         }
       } catch (error) {

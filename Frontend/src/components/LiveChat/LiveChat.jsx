@@ -4,7 +4,7 @@ import { decryptData } from "../../utils/secure";
 import { connectWebSocket, sendMessage } from "./LiveChatFunctions";
 import * as S from "./LiveChat.style";
 
-export const LiveChat = (addr) => {
+export const LiveChat = addr => {
   const address = addr.addr;
 
   /* 로그인 여부 상태관리 */
@@ -56,11 +56,11 @@ export const LiveChat = (addr) => {
   /* 채팅 인풋 박스 상태관리 */
   const [inputText, setInputText] = useState("");
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     setInputText(e.target.value);
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = e => {
     if (e.key === "Enter") {
       sendMessage(ws, inputText, userNickname, setInputText);
     }
@@ -77,12 +77,7 @@ export const LiveChat = (addr) => {
     <S.Container>
       <S.MessageList>
         {messages.map((item, idx) => (
-          <S.Message
-            key={idx}
-            isUserMessage={
-              item.userId === userNickname && userNickname !== "비로그인유저"
-            }
-          >
+          <S.Message key={idx} isUserMessage={item.userId === userNickname && userNickname !== "비로그인유저"}>
             <span>
               {item.userId}
               {item.text}
@@ -92,12 +87,7 @@ export const LiveChat = (addr) => {
         ))}
         <div ref={messagesEndRef} />
       </S.MessageList>
-      <S.Input
-        type="text"
-        value={inputText}
-        onChange={handleInputChange}
-        onKeyPress={handleKeyPress}
-      />
+      <S.Input type="text" value={inputText} onChange={handleInputChange} onKeyPress={handleKeyPress} />
     </S.Container>
   );
 };

@@ -7,6 +7,7 @@ function setupWebSocket(server) {
   const wss = new WebSocket.Server({ server });
 
   wss.on("connection", (ws, req) => {
+    // console.log("New client connected");
     messages.forEach((message) => {
       ws.send(message);
     });
@@ -16,12 +17,16 @@ function setupWebSocket(server) {
       lastReadIndex: messages.length - 1,
       ws: ws,
     };
+
     ws.on("message", (message) => {
+      // console.log("Raw message received:", message);
       // const parsedMessage = JSON.parse(message);
       const messageBuffer = Buffer.from(message);
       if (messages.length >= 200) {
         messages.shift();
       }
+
+      // console.log("Received message:", messageBuffer.toString());
 
       messages.push(messageBuffer);
       // messages.push({ ...parsedMessage, index: messages.length });
