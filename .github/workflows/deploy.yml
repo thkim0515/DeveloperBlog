@@ -1,0 +1,67 @@
+name: Deploy # Workflow 이름
+on:
+  push:
+    branches:
+      - main # 파이프라인이 동작할 브랜치
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Check Node v
+        run: node -v
+
+      # 프론트엔드 빌드
+      - name: Install Dependencies for Frontend
+        working-directory: ./Frontend
+        run: npm install --legacy-peer-deps --frozen-lockfile
+
+      - name: Build Frontend
+        working-directory: ./Frontend
+        run: yarn build
+        env:
+          CI: ""
+
+      # 백엔드 빌드
+      - name: Install Dependencies for Backend
+        working-directory: ./Backend
+        run: npm install --legacy-peer-deps --frozen-lockfile
+
+      - name: Build Backend
+        working-directory: ./Backend
+        run: yarn build
+        env:
+          CI: ""
+
+      # 빌드 결과 압축
+      - name: zip create
+        run: zip -qq -r ./build-app.zip .
+        shell: bash
+
+      # AWS 설정
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp --region ap-northeast-2 ./build-app.zip s3://${{ secrets.S3_BUCKET }}/build-app.zip
+
+      - name: Deploy
+        run: aws deploy create-deployment \
+          --application-name CodeDeploy-starblog \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --deployment-group-name code-deploy-group \
+          --s3-location bucket=${{ secrets.S3_BUCKET }},key=build-app.zip,bundleType=zip
