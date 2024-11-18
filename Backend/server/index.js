@@ -57,10 +57,12 @@ app.use("/main", main);
 app.use("/endecrypt", endecrypt);
 app.use("/awss3", awss3);
 
-app.use(express.static(path.join(__dirname, "../build")));
+console.log(__dirname);
+
+app.use(express.static(path.join(__dirname, "../../Frontend/build")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../build", "index.html"));
+  res.sendFile(path.join(__dirname, "../../Frontend/build", "index.html"));
 });
 
 server.listen(PORT, () => {
