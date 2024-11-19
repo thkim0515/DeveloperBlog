@@ -40,7 +40,7 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async e => {
     e.preventDefault();
 
     try {
@@ -67,35 +67,29 @@ export const Login = () => {
         {/* 로그인 문구 */}
         <S.LoginText>똑소리 나는 코드 기록</S.LoginText>
         {/* 소셜 로그인  */}
-        <S.SocialButtonBox>
+        {/* <S.SocialButtonBox>
           {SOCIAL_LOGIN.map((item, index) => (
-            <SocialButton
-              key={index}
-              social={item.social}
-              background={item.background}
-              color={item.color}
-            />
+            <SocialButton key={index} social={item.social} background={item.background} color={item.color} />
           ))}
-        </S.SocialButtonBox>
+        </S.SocialButtonBox> */}
       </S.LoginBox>
-      <hr />
+      {/* <hr /> */}
 
       {/* 로그인 양식 */}
       <form>
         {/* 아이디 */}
         <S.LoginField>
           <label htmlFor="id">아이디</label>
+        </S.LoginField>
+        <S.LoginField>
           <S.Input type="text" id="id" value={id} onChange={onChangeId} />
         </S.LoginField>
 
         <S.LoginField>
           <label htmlFor="password">비밀번호</label>
-          <S.Input
-            type="password"
-            id="password"
-            value={password}
-            onChange={onChangePassword}
-          />
+        </S.LoginField>
+        <S.LoginField>
+          <S.Input type="password" id="password" value={password} onChange={onChangePassword} />
         </S.LoginField>
 
         {/* 로그인 버튼 */}
@@ -105,14 +99,17 @@ export const Login = () => {
       </form>
 
       {/* 아이디/비밀번호 찾기 */}
-      <S.ResetAccount onClick={showResetModal}>
-        아이디/비밀번호 찾기
-      </S.ResetAccount>
+      <S.ResetAccount onClick={showResetModal}>아이디/비밀번호 찾기</S.ResetAccount>
       {isShowModal && <AccountModal onClick={closeResetModal} />}
+      <hr />
 
       {/* 페이지 이동 */}
       <S.MoveLink>
-        <Link to={"/signup"}>회원이 아니신가요? 회원가입 하기</Link>
+        <S.SingupButton type="button" onClick={() => navigate("/emailcheck")}>
+          회원가입
+        </S.SingupButton>
+
+        {/* <Link to={"/signup"}>회원이 아니신가요? 회원가입 하기</Link> */}
       </S.MoveLink>
     </>
   );

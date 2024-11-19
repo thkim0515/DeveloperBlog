@@ -38,13 +38,13 @@ export const SignUpButton = styled.button`
   margin: 0.5rem 0 1.25rem;
   padding: 0.75rem;
   border-style: none;
-  border-radius: 20px;
+  border-radius: 8px;
   color: #ffffff;
-  background-color: ${(props) => (props.disabled ? "#c0c0c0" : "#3f72af")};
+  background-color: ${props => (props.disabled ? "#c0c0c0" : "#3f72af")};
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => (props.disabled ? "#c0c0c0" : "#2a5298")};
+    background-color: ${props => (props.disabled ? "#c0c0c0" : "#2a5298")};
   }
 `;
 
@@ -58,4 +58,31 @@ export const ErrorMessage = styled.div`
   display: inline-block;
   margin-left: 1rem;
   color: red;
+`;
+
+export const SingupButton = styled.button`
+  width: 100%;
+  margin-top: 20px;
+  padding: 0.75rem;
+  font-size: 1.2rem;
+  font-style: bold;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #ffffff;
+  background-color: #3f72af;
+`;
+
+export const ProgressBarContainer = styled.div`
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  margin: 20px 0;
+`;
+
+export const ProgressBar = styled.div`
+  height: 20px;
+  width: ${({ progress }) => progress}%;
+  background-color: #00d8d6;
+  border-radius: 20px;
+  transition: width 0.3s ease-in-out;
 `;

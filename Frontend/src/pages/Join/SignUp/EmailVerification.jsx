@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 export const EmailVerification = ({ userEmail, onEmailVerified }) => {
   const [authCode, setauthCode] = useState("");
   const [userInputauthCode, setUserInputauthCode] = useState("");
   const [isSend, setIsSend] = useState(false);
-
+const navigate = useNavigate();
   const handleSnedAuthCode = async () => {
     try {
       if (!userEmail) {
@@ -28,7 +29,7 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
     }
   };
 
-  const handleInputauthCode = (e) => {
+  const handleInputauthCode = e => {
     setUserInputauthCode(e.target.value);
   };
 
@@ -40,6 +41,7 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
       alert("이메일 인증 성공!");
       onEmailVerified(true);
       setIsSend(false);
+      navigate("/signup", { state: { email: userEmail } });
     } else {
       alert("입력하신 인증번호가 올바르지 않습니다.");
       onEmailVerified(false);
@@ -58,19 +60,10 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
           onChange={handleInputauthCode}
         />
 
-        <SendButton
-          type="button"
-          onClick={handleSnedAuthCode}
-          className="button"
-        >
-          메일인증
+        <SendButton type="button" onClick={handleSnedAuthCode} className="button">
+          인증번호 전송
         </SendButton>
-        <ConfirmButton
-          type="button"
-          onClick={handleCheckAuthCode}
-          disabled={!isSend}
-          className="button"
-        >
+        <ConfirmButton type="button" onClick={handleCheckAuthCode} disabled={!isSend} className="button">
           인증확인
         </ConfirmButton>
       </VerifyInputnAndButtonBox>
@@ -86,7 +79,7 @@ const VerifyInputnAndButtonBox = styled.div`
   width: 100%;
 
   .input {
-    width: 70%;
+    width: 64%;
     padding: 0.65rem;
     border: 1px solid #d9d9d9;
     background: #ffffff;
@@ -104,5 +97,5 @@ const SendButton = styled.button`
 `;
 
 const ConfirmButton = styled.button`
-  background-color: ${(props) => (props.disabled ? "#c0c0c0" : "#2a80c2")};
+  background-color: ${props => (props.disabled ? "#c0c0c0" : "#2a80c2")};
 `;

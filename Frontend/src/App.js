@@ -7,6 +7,7 @@ import { Join } from "./pages/Join/Join";
 //페이지
 import { Main } from "./pages/Main/Main";
 import { Login } from "./pages/Join/Login/Login";
+import { EmailCheck } from "./pages/Join/SignUp/EmailCheck";
 import { SignUp } from "./pages/Join/SignUp/SignUp";
 import { Blog } from "./pages/Blog/Blog";
 import { CodeCreate } from "./pages/CodeCreate/CodeCreate";
@@ -35,6 +36,7 @@ export const App = () => {
           {/* 로그인 및 회원가입 페이지를 레이아웃 밖에 배치 */}
           <Route element={<Join />}>
             <Route path="/login" element={<Login />} />
+            <Route path="/emailcheck" element={<EmailCheck />} />
             <Route path="/signup" element={<SignUp />} />
           </Route>
 

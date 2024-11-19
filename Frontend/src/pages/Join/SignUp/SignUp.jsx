@@ -1,6 +1,6 @@
 import * as S from "./SignUp.style";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { EmailVerification } from "./EmailVerification";
 import { Metas } from "./../../../components/common/Metas";
@@ -8,22 +8,29 @@ import { validateSignUp } from "../../../utils/validation";
 
 export const SignUp = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [step, setStep] = useState(1); // 단계 상태
+
+  const progress = (step / 1) * 100;
+
   const [userInputData, setUserInputData] = useState({
     id: "",
     nickname: "",
-    email: "",
+    email: location.state?.email || "",
     password: "",
     rePassword: "",
   });
+  console.log(userInputData)
   const [errorMessage, setErrormessage] = useState({});
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  // const [isEmailVerified, setIsEmailVerified] = useState(false);
 
-  const handleInputData = (e) => {
+  const handleInputData = e => {
     const { id, value } = e.target;
-    setUserInputData((prev) => ({ ...prev, [id]: value }));
+    setUserInputData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     const { id, nickname, password, rePassword } = userInputData;
@@ -52,18 +59,19 @@ export const SignUp = () => {
     }
   };
 
-  const handleEmailVerified = (verified) => {
-    setIsEmailVerified(verified);
-  };
+  // const handleEmailVerified = verified => {
+  //   setIsEmailVerified(verified);
+  // };
 
   return (
     <>
-      <Metas
-        title="회원가입"
-        url="/signUp"
-        description="스타블로그와 함께 공부해요!"
-      />
+      <Metas title="회원가입" url="/signUp" description="스타블로그와 함께 공부해요!" />
       <S.SignUpTitle>회원가입</S.SignUpTitle>
+
+      <S.ProgressBarContainer>
+        <S.ProgressBar progress={progress} />
+      </S.ProgressBarContainer>
+
       <S.SignUpForm onSubmit={handleSubmit}>
         {/* 아이디 */}
         <S.SignUpFiled>
@@ -78,20 +86,20 @@ export const SignUp = () => {
         </S.SignUpFiled>
 
         {/* 이메일 */}
-        <S.SignUpFiled>
+        {/* <S.SignUpFiled>
           <label htmlFor="email">이메일</label>
           <S.Input type="email" id="email" onChange={handleInputData} />
-        </S.SignUpFiled>
+        </S.SignUpFiled> */}
 
         {/* 이메일 인증 */}
-        <S.SignUpFiled>
+        {/* <S.SignUpFiled>
           <label htmlFor="emailVertify">이메일 인증</label>
           <EmailVerification
             userEmail={userInputData.email}
             onChange={handleInputData}
             onEmailVerified={handleEmailVerified}
           />
-        </S.SignUpFiled>
+        </S.SignUpFiled> */}
 
         {/* 비밀번호 */}
         <S.SignUpFiled>
@@ -107,14 +115,12 @@ export const SignUp = () => {
 
         {/* 에러메시지 */}
         <S.ErrorMessage>
-          {errorMessage.id ||
-            errorMessage.nickname ||
-            errorMessage.password ||
-            errorMessage.rePassword}
+          {errorMessage.id || errorMessage.nickname || errorMessage.password || errorMessage.rePassword}
         </S.ErrorMessage>
 
         {/* 회원가입 버튼 */}
-        <S.SignUpButton type="submit" disabled={!isEmailVerified}>
+        <S.SignUpButton type="submit">
+          {/* <S.SignUpButton type="submit" disabled={!isEmailVerified}> */}
           회원가입
         </S.SignUpButton>
       </S.SignUpForm>
