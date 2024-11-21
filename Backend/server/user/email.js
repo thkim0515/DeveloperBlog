@@ -9,7 +9,9 @@ router.post("/email", async (req, res) => {
   try {
     const duplicateEmail = await User.findOne({ email });
     if (duplicateEmail) {
-      return res.status(409).json({ message: "사용중인 이메일입니다." });
+      return res.status(409).json({
+        message: "사용중인 이메일입니다.\n로그인 페이지로 이동합니다.",
+      });
     }
 
     const subject = "StarBlog 이메일 인증번호 입니다.";

@@ -280,9 +280,9 @@ loadSecrets().then((secrets) => {
         _id: { $ne: req.params._id },
       });
       if (existingEmail) {
-        return res
-          .status(409)
-          .json({ message: "새로운 이메일이 이미 사용 중입니다." });
+        return res.status(409).json({
+          message: "새로운 이메일이 이미 사용 중입니다.",
+        });
       }
 
       const updateUserData = await User.findOneAndUpdate(

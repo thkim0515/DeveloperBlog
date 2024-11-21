@@ -24,6 +24,7 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
     } catch (error) {
       if (error.response && error.response.status === 409) {
         alert(error.response.data.message);
+        navigate("/login/");
       } else {
         console.error("인증번호 전송 실패:", error);
       }
