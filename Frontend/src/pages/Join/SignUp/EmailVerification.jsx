@@ -7,7 +7,8 @@ export const EmailVerification = ({ userEmail, onEmailVerified }) => {
   const [authCode, setauthCode] = useState("");
   const [userInputauthCode, setUserInputauthCode] = useState("");
   const [isSend, setIsSend] = useState(false);
-const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const handleSnedAuthCode = async () => {
     try {
       if (!userEmail) {
@@ -38,13 +39,15 @@ const navigate = useNavigate();
     const inputCodeString = String(userInputauthCode).trim();
 
     if (authCodeString === inputCodeString) {
-      alert("이메일 인증 성공!");
+      // alert("이메일 인증 성공!");
       onEmailVerified(true);
       setIsSend(false);
       navigate("/signup", { state: { email: userEmail } });
     } else {
-      alert("입력하신 인증번호가 올바르지 않습니다.");
+      alert("입력하신 인증번호가 올바르지 않습니다.\n인증번호 전송을 다시 시도해주세요.");
+      setUserInputauthCode("");
       onEmailVerified(false);
+      setIsSend(false);
     }
   };
 
@@ -60,9 +63,14 @@ const navigate = useNavigate();
           onChange={handleInputauthCode}
         />
 
-        <SendButton type="button" onClick={handleSnedAuthCode} className="button">
+        <SendButton
+          type="button"
+          onClick={handleSnedAuthCode}
+          disabled={isSend} // isSend가 true일 때 버튼 비활성화
+          className="button">
           인증번호 전송
         </SendButton>
+
         <ConfirmButton type="button" onClick={handleCheckAuthCode} disabled={!isSend} className="button">
           인증확인
         </ConfirmButton>
@@ -93,7 +101,8 @@ const VerifyInputnAndButtonBox = styled.div`
 `;
 
 const SendButton = styled.button`
-  background-color: #3f72af;
+  background-color: ${props => (props.disabled ? "#c0c0c0" : "#3f72af")};
+  cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
 const ConfirmButton = styled.button`

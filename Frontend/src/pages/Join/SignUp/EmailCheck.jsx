@@ -27,6 +27,7 @@ export const EmailCheck = () => {
       alert("이메일을 입력해주세요.");
       return;
     }
+    alert("입력하신 이메일을 확인 후, 인증번호 전송 버튼을 클릭해주세요.");
     setShowVerification(true); // 인증 컴포넌트를 표시
   };
 
@@ -37,9 +38,6 @@ export const EmailCheck = () => {
       navigate("/signup", { state: { email: userInputData.email } }); // 인증 완료 후 이동
     }
   };
-
-    
-    
 
   return (
     <>
