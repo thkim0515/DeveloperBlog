@@ -1,18 +1,27 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { getProfileImg } from "../../utils/getImagePath";
 
-export const UserProfile = ({ imagePath, nickname }) => {
+export const UserProfile = ({ imagePath, nickname, direction = "row" }) => {
   return (
-    <UserProfileBox>
+    <UserProfileBox direction={direction}>
       <ProfileImage src={getProfileImg(imagePath)} alt="user" />
-      <UserNickname>{nickname}</UserNickname>
+      <UserNickname direction={direction}>{nickname}</UserNickname>
     </UserProfileBox>
   );
 };
 
 const UserProfileBox = styled.div`
   display: flex;
-  align-items: center;
+  ${({ direction }) =>
+    direction === "column"
+      ? css`
+          flex-direction: column;
+          justify-content: center;
+        `
+      : css`
+          flex-direction: row;
+          align-items: center;
+        `}
 `;
 
 const ProfileImage = styled.img`
@@ -22,5 +31,5 @@ const ProfileImage = styled.img`
 `;
 
 const UserNickname = styled.span`
-  margin-left: 8px;
+  ${({ direction }) => (direction === "column" ? "margin-top: 8px;" : "margin-left: 8px;")}
 `;

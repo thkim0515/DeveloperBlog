@@ -1,6 +1,5 @@
-import * as S from "./TeamProject.style";
+import * as S from "./Project.style";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
@@ -8,41 +7,24 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Pagination from "react-bootstrap/Pagination";
 
+// hooks
+import { useFetchData } from "../../hooks/useFetchData";
+
 // components
 import { ProjectCard } from "../../components/ProjectCard/ProjectCard";
 import { Metas } from "../../components/common/Metas";
 import { WriteButton } from "../../components/common/WriteButton";
 
-// context
-import { useUserLogin } from "../../context/UserLoginContext";
-
-export const TeamProject = () => {
-  const [projectData, setProjectData] = useState([]);
+export const Project = () => {
+  const [projectData, isLoading, error] = useFetchData("/project/project");
   const [search, setSearch] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [displayData, setDisplayData] = useState([]);
 
-  let itemsPerPage = 9;
+  const itemsPerPage = 9;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("/project/project");
-        setProjectData(res.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-
-    window.scrollTo(0, 0);
-  }, []);
-
+  // 데이터 필터링 및 페이지네이션 처리
   useEffect(() => {
     const filteredData = getFilteredData();
     setTotalPages(Math.ceil(filteredData.length / itemsPerPage));
@@ -56,10 +38,7 @@ export const TeamProject = () => {
   };
 
   const getFilteredData = () => {
-    if (search === "") {
-      return projectData;
-    }
-
+    if (search === "") return projectData;
     return projectData.filter(project => project.title.toLowerCase().includes(search.toLowerCase()));
   };
 
@@ -67,9 +46,17 @@ export const TeamProject = () => {
     setCurrentPage(page);
   };
 
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error loading projects: {error.message}</p>;
+  }
+
   return (
     <>
-      <Metas title="Team Project" />
+      <Metas title="프로젝트" />
       <section>
         <WriteButton project />
         <S.TeamProjectTitle>Team Project</S.TeamProjectTitle>

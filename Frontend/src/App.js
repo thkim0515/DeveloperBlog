@@ -16,8 +16,8 @@ import { PostUpdate } from "./pages/PostUpdate/PostUpdate";
 import { Profile } from "./pages/Profile/Profile";
 import { AccountSetting } from "./pages/AccountSetting/AccountSetting";
 import { MyProfile } from "./pages/MyProfile/MyProfile";
-import { TeamProject } from "./pages/TeamProject/TeamProject";
-import { TeamProjectDetail } from "./pages/TeamProjectDetail/TeamProjectDetail";
+import { Project } from "./pages/Project/Project";
+import { ProjectDetail } from "./pages/ProjectDetail/ProjectDetail";
 import { TeamProjectCreate } from "./pages/TeamProjectCreate/TeamProjectCreate";
 import { TeamProjectEdit } from "./pages/TeamProjectEdit/TeamProjectEdit";
 import { NotFound } from "./pages/NotFound/NotFound";
@@ -51,8 +51,8 @@ export const App = () => {
             <Route path="/post-update/:_id" element={<PrivateRoute component={<PostUpdate />} />} />
 
             {/* project */}
-            <Route path="/project" element={<TeamProject />} />
-            <Route path="/project/:_id" element={<TeamProjectDetail />} />
+            <Route path="/project" element={<Project />} />
+            <Route path="/project/:_id" element={<ProjectDetail />} />
             <Route path="/project-create" element={<PrivateRoute component={<TeamProjectCreate />} />} />
             <Route path="/project-edit/:_id" element={<PrivateRoute component={<TeamProjectEdit />} />} />
 
