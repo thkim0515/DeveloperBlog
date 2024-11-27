@@ -3,10 +3,10 @@ import styled from "styled-components";
 // components
 import { ProjectCreateForm } from "./ProjectCreateForm";
 
-export const TeamProjectCreate = () => {
+export const ProjectCreate = () => {
   return (
     <section>
-      <H2>팀 프로젝트 글 작성</H2>
+      <H2>프로젝트 글 작성</H2>
       <Box>
         <ProjectCreateForm />
       </Box>

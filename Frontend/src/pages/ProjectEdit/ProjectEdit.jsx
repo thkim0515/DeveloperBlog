@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 // components
 import { ProjectEditForm } from "./ProjectEditForm";
 
-export const TeamProjectEdit = () => {
+export const ProjectEdit = () => {
   const [postData, setPostData] = useState([]);
   let params = useParams();
   const _id = params._id;
@@ -31,7 +31,7 @@ export const TeamProjectEdit = () => {
     fetchData();
   }, [_id]);
 
-  const handleDeleteProject = async (_id) => {
+  const handleDeleteProject = async _id => {
     alert("프로젝트를 삭제하시겠습니까?");
     try {
       await axios.delete(`/project/delete/${_id}`);
@@ -44,13 +44,9 @@ export const TeamProjectEdit = () => {
 
   return (
     <section>
-      <H2>팀 프로젝트 글 수정</H2>
+      <H2>프로젝트 글 수정</H2>
       <Box>
-        <Button
-          className="delete-button"
-          variant="info"
-          onClick={() => handleDeleteProject(_id)}
-        >
+        <Button className="delete-button" variant="info" onClick={() => handleDeleteProject(_id)}>
           삭제하기
         </Button>
         <ProjectEditForm postData={postData} />
