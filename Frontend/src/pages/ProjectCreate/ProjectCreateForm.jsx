@@ -6,7 +6,8 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
-// import { ProjectContentEditor } from "./../../components/editor/ProjectContentEditor";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faLeaf, faCode, faDatabase } from "@fortawesome/free-solid-svg-icons";
 
 // component
 import { Metas } from "../../components/common/Metas";
@@ -18,6 +19,7 @@ import { useFormFields } from "../../hooks/form/useprojectFormFields";
 import { handlePostProject } from "../../utils/handleProject";
 import { validateProjectForm } from "../../utils/validation";
 import { decryptData } from "../../utils/secure";
+
 // styled
 const ErrorMessage = styled.div`
   display: inline-block;
@@ -28,9 +30,9 @@ const ErrorMessage = styled.div`
 // svgs
 const getSvgsData = await axios.get("/contents/svgsdata");
 const TECH_STACK_OPTIONS = getSvgsData.data[0].svgs
-  .map((item) => item.replace(/\.svg$/, ""))
-  .filter((item) => item !== "back" && item !== "unknown")
-  .map((item) => item.toUpperCase());
+  .map(item => item.replace(/\.svg$/, ""))
+  .filter(item => item !== "back" && item !== "unknown")
+  .map(item => item.toUpperCase());
 
 export const ProjectCreateForm = () => {
   const navigate = useNavigate();
@@ -39,7 +41,26 @@ export const ProjectCreateForm = () => {
   const [hashTag, setHashTag] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [userSessionInfo, setUserSessionInfo] = useState([]);
-  // TODO errorMessage 컴포넌트화 하기
+  const [counts, setCounts] = useState({
+    planning: 0,
+    design: 0,
+    frontend: 0,
+    backend: 0,
+  });
+
+  const handleIncrement = key => {
+    setCounts(prevCounts => ({
+      ...prevCounts,
+      [key]: prevCounts[key] + 1,
+    }));
+  };
+
+  const handleDecrement = key => {
+    setCounts(prevCounts => ({
+      ...prevCounts,
+      [key]: prevCounts[key] > 0 ? prevCounts[key] - 1 : 0,
+    }));
+  };
 
   const [
     projectFields,
@@ -76,7 +97,7 @@ export const ProjectCreateForm = () => {
 
   useEffect(() => {
     function simulateNetworkRequest() {
-      return new Promise((resolve) => setTimeout(resolve, 2000));
+      return new Promise(resolve => setTimeout(resolve, 2000));
     }
 
     if (isLoading) {
@@ -86,7 +107,7 @@ export const ProjectCreateForm = () => {
     }
   }, [isLoading]);
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     const { value } = e.target;
     setSearch(value);
   };
@@ -96,14 +117,12 @@ export const ProjectCreateForm = () => {
       return TECH_STACK_OPTIONS;
     }
 
-    return TECH_STACK_OPTIONS.filter((stack) =>
-      stack.toLowerCase().includes(search.toLowerCase())
-    );
+    return TECH_STACK_OPTIONS.filter(stack => stack.toLowerCase().includes(search.toLowerCase()));
   };
 
   const filteredStacks = getFilteredData();
 
-  const handleHashTags = (e) => {
+  const handleHashTags = e => {
     const { value } = e.target;
     setHashTag(value);
   };
@@ -128,6 +147,7 @@ export const ProjectCreateForm = () => {
     <>
       <Metas title="프로젝트 글 작성" />
       <Form>
+        {/* 제목 */}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label className="fs-5 mb-3 ">프로젝트 제목</Form.Label>
           <ErrorMessage>{errorMessage.title}</ErrorMessage>
@@ -141,46 +161,66 @@ export const ProjectCreateForm = () => {
           />
         </Form.Group>
 
+        {/* 내용 */}
+        <Form.Group className="mt-3 mb-4" controlId="exampleForm.ControlTextarea1">
+          <Form.Label className="fs-5 mt-2 mb-3">내용</Form.Label>
+          <ErrorMessage>{errorMessage.content}</ErrorMessage>
+          <Form.Control
+            as="textarea"
+            rows={20}
+            placeholder="내용을 입력하세요."
+            style={{ resize: "none" }}
+            value={projectFields.content}
+            onChange={handleProjectForm}
+            name="content"
+          />
+        </Form.Group>
+
         {/*  */}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label className="fs-5 mb-3">모집 분야</Form.Label>
-          <div>
-            <Form.Check
-              inline
-              label="기획자"
-              type="checkbox"
-              onChange={handleCheckboxChange}
-              name="projectManager"
-            />
-
-            <Form.Check
-              inline
-              label="디자이너"
-              type="checkbox"
-              onChange={handleCheckboxChange}
-              name="designer"
-            />
-            <Form.Check
-              inline
-              label="프론트엔드"
-              type="checkbox"
-              onChange={handleCheckboxChange}
-              name="frontEnd"
-            />
-            <Form.Check
-              inline
-              label="백엔드"
-              type="checkbox"
-              onChange={handleCheckboxChange}
-              name="backEnd"
-            />
-            <Form.Check
-              inline
-              label="추후결정"
-              type="checkbox"
-              onChange={handleCheckboxChange}
-              name="undecided"
-            />
+          <div
+            style={{ display: "flex", flexDirection: "column", alignItems: "center", fontFamily: "Arial, sans-serif" }}>
+            <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
+              {[
+                { key: "planning", icon: faPen, label: "기획" },
+                { key: "design", icon: faLeaf, label: "디자인" },
+                { key: "frontend", icon: faCode, label: "프론트엔드" },
+                { key: "backend", icon: faDatabase, label: "백엔드" },
+              ].map(({ key, icon, label }) => (
+                <div
+                  key={key}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    padding: "10px",
+                    border: "1px solid #ddd",
+                    borderRadius: "8px",
+                    width: "100px",
+                    textAlign: "center",
+                    backgroundColor: "#f9f9f9",
+                  }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                    <button
+                      onClick={() => handleDecrement(key)}
+                      style={{ border: "none", background: "none", cursor: "pointer" }}>
+                      -
+                    </button>
+                    <button
+                      onClick={() => handleIncrement(key)}
+                      style={{ border: "none", background: "none", cursor: "pointer" }}>
+                      +
+                    </button>
+                  </div>
+                  <FontAwesomeIcon icon={icon} size="2x" style={{ margin: "10px 0" }} />
+                  <p>{label}</p>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: "20px", fontSize: "16px" }}>
+              기획 {counts.planning} 디자인 {counts.design} 프론트엔드 {counts.frontend} 백엔드 {counts.backend}
+            </div>
           </div>
         </Form.Group>
 
@@ -191,11 +231,7 @@ export const ProjectCreateForm = () => {
             {projectFields.stacks.map((item, idx) => (
               <span key={idx} className="me-2">
                 <span className="text-primary">{item}</span>
-                <button
-                  type="button"
-                  className="border rounded-2 ms-2 p-1"
-                  onClick={() => handleRemoveStacks(idx)}
-                >
+                <button type="button" className="border rounded-2 ms-2 p-1" onClick={() => handleRemoveStacks(idx)}>
                   x
                 </button>
               </span>
@@ -214,8 +250,7 @@ export const ProjectCreateForm = () => {
               as="ul"
               className={search.trim() !== "" ? "d-block w-50" : "d-none w-50"}
               style={{ cursor: "pointer" }}
-              onClick={handleAddStack}
-            >
+              onClick={handleAddStack}>
               {filteredStacks.map((item, idx) => (
                 <ListGroup.Item as="li" key={idx}>
                   {item.toLowerCase()}
@@ -230,35 +265,22 @@ export const ProjectCreateForm = () => {
           <div>
             <Form.Label className="fs-5 mb-3">모집 기간</Form.Label>
             <span className="ms-3 text-primary">{`${projectFields.startDate} ~ ${projectFields.endDate}`}</span>
-            <ErrorMessage>
-              {errorMessage.startDate || errorMessage.endDate}
-            </ErrorMessage>
+            <ErrorMessage>{errorMessage.startDate || errorMessage.endDate}</ErrorMessage>
           </div>
 
           <div className="d-flex gap-2 align-items-center">
             <div>
               <Form.Label className="mb-2">시작 날짜</Form.Label>
-              <Form.Control
-                type="date"
-                value={projectFields.startDate}
-                onChange={handleProjectForm}
-                name="startDate"
-              />
+              <Form.Control type="date" value={projectFields.startDate} onChange={handleProjectForm} name="startDate" />
             </div>
             <div>
               <Form.Label className="mb-2">종료 날짜</Form.Label>
-              <Form.Control
-                type="date"
-                value={projectFields.endDate}
-                onChange={handleProjectForm}
-                name="endDate"
-              />
+              <Form.Control type="date" value={projectFields.endDate} onChange={handleProjectForm} name="endDate" />
             </div>
           </div>
         </Form.Group>
 
-        {/*  */}
-        <Form.Group className="w-75">
+        {/* <Form.Group className="w-75">
           <div>
             <Form.Label className="fs-5 mb-3">모집인원</Form.Label>
             <span className="ms-3 text-primary">{`${Number(
@@ -275,30 +297,9 @@ export const ProjectCreateForm = () => {
             max="10"
             className="w-50"
           />
-        </Form.Group>
+        </Form.Group> */}
 
-        {/*  */}
-        <Form.Group
-          className="mt-3 mb-4"
-          controlId="exampleForm.ControlTextarea1"
-        >
-          <Form.Label className="fs-5 mt-2 mb-3">내용</Form.Label>
-          <ErrorMessage>{errorMessage.content}</ErrorMessage>
-          <Form.Control
-            as="textarea"
-            rows={20}
-            placeholder="내용을 입력하세요."
-            style={{ resize: "none" }}
-            value={projectFields.content}
-            onChange={handleProjectForm}
-            name="content"
-          />
-          {/* FIXME ToastEditor test */}
-          {/* <ProjectContentEditor /> */}
-        </Form.Group>
-
-        {/*  */}
-        <div>
+        {/* <div>
           <div className="mb-3">
             <span className="fs-5">프로젝트 해시태그</span>
             <div></div>
@@ -318,32 +319,22 @@ export const ProjectCreateForm = () => {
                 onClick={() => {
                   handleAddHashTags(hashTag);
                   setHashTag("");
-                }}
-              >
+                }}>
                 Button
               </Button>
             </InputGroup>
             {projectFields.hashTags.map((elem, idx) => (
               <span key={idx} className="ms-3">
                 <span className="text-primary">{`#${elem}`}</span>
-                <button
-                  type="button"
-                  className="border rounded-2 ms-1 p-1"
-                  onClick={() => handleRemoveHashTags(idx)}
-                >
+                <button type="button" className="border rounded-2 ms-1 p-1" onClick={() => handleRemoveHashTags(idx)}>
                   x
                 </button>
               </span>
             ))}
           </div>
-        </div>
+        </div> */}
 
-        <Button
-          className="w-100 p-2"
-          variant="primary"
-          disabled={isLoading}
-          onClick={!isLoading ? onSubmit : null}
-        >
+        <Button className="w-100 p-2" variant="primary" disabled={isLoading} onClick={!isLoading ? onSubmit : null}>
           {isLoading ? "Loading…" : "올리기"}
         </Button>
       </Form>

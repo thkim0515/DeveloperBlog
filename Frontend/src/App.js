@@ -18,8 +18,8 @@ import { AccountSetting } from "./pages/AccountSetting/AccountSetting";
 import { MyProfile } from "./pages/MyProfile/MyProfile";
 import { Project } from "./pages/Project/Project";
 import { ProjectDetail } from "./pages/ProjectDetail/ProjectDetail";
-import { TeamProjectCreate } from "./pages/TeamProjectCreate/TeamProjectCreate";
-import { TeamProjectEdit } from "./pages/TeamProjectEdit/TeamProjectEdit";
+import { ProjectCreate } from "./pages/ProjectCreate/ProjectCreate";
+import { ProjectEdit } from "./pages/ProjectEdit/ProjectEdit";
 import { NotFound } from "./pages/NotFound/NotFound";
 
 //context
@@ -53,8 +53,8 @@ export const App = () => {
             {/* project */}
             <Route path="/project" element={<Project />} />
             <Route path="/project/:_id" element={<ProjectDetail />} />
-            <Route path="/project-create" element={<PrivateRoute component={<TeamProjectCreate />} />} />
-            <Route path="/project-edit/:_id" element={<PrivateRoute component={<TeamProjectEdit />} />} />
+            <Route path="/project-create" element={<PrivateRoute component={<ProjectCreate />} />} />
+            <Route path="/project-edit/:_id" element={<PrivateRoute component={<ProjectEdit />} />} />
 
             {/* MyPage */}
             <Route path="/profile/:nickname" element={<Profile />} />

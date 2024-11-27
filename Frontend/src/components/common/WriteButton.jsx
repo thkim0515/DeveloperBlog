@@ -23,7 +23,7 @@ const Button = styled.button`
 
 export const WriteButton = ({ project }) => {
   const { isLogin, user } = useUserLogin();
-  const path = !project ? "/codeCreate" : "/projectCreate";
+  const path = !project ? "/post-create" : "/project-create";
   return (
     <WriteBox>
       {isLogin && user && (

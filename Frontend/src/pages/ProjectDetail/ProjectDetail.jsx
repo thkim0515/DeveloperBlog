@@ -26,7 +26,7 @@ export const ProjectDetail = () => {
 
   const navigate = useNavigate();
   const updateContents = _id => () => {
-    navigate(`/projectEdit/${_id}`, { state: { _id } });
+    navigate(`/project-edit/${_id}`, { state: { _id } });
   };
 
   useEffect(() => {
