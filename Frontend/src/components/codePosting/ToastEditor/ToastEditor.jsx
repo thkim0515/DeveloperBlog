@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 export const ToastEditor = ({ postData, onEditorChange }) => {
   const imageUrl = useSelector(state => state.bucketUrl.imageUrl);
+
   const editorRef = useRef();
 
   const onChange = () => {

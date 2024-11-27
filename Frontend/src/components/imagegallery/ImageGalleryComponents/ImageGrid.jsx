@@ -10,7 +10,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { useSelector } from "react-redux";
 
-export const ImageGrid = value => {
+export const ImageGrid = ({ value }) => {
   const [selectedIcon, setSelectedIcon] = useState(null); // 선택된 아이콘의 이름
   const [searchTerm, setSearchTerm] = useState(""); // 검색내용
   const bucketUrl = useSelector(state => state.bucketUrl);

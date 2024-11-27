@@ -1,6 +1,6 @@
 import { decryptData } from "../../utils/secure";
 
-export const filterImages = async (images, searchTerm, value, selectedIcon) => {
+export const filterImages = async (images, searchTerm, value, selectedIcon, filterLanguage) => {
   let filterimages = [];
 
   // 일반 필터 > 기본적으로 적용
@@ -24,8 +24,11 @@ export const filterImages = async (images, searchTerm, value, selectedIcon) => {
     filterimages = images;
   }
 
+  if (value === "frontend" || value === "backend" || value === "etc") {
+    filterimages = filterimages.filter(content => filterLanguage.includes(content.language));
+  }
+
   const userItem = await decryptData("user", sessionStorage);
-  console.log(userItem);
   // 내 코드 필터 if > mainCode 필터 if if > 내 코드 필터
   if (userItem) {
     const nickname = userItem.nickname;

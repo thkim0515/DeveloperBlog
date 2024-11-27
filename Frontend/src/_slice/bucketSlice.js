@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  imageUrl: "https://d3kcrktwedekfj.cloudfront.net/",
+  // imageUrl: "https://d3kcrktwedekfj.cloudfront.net/",
+  imageUrl: "https://kstarblog.com/",
 };
 
 export const bucketUrlSlice = createSlice({

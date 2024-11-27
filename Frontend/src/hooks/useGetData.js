@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useCalculatePage } from "./useCalculatePage";
 import { filterImages } from "./dataFetchFilter/filterImages";
+import { filterByCategory } from "../utils/filterByCategory";
 import axios from "axios";
 export const useGetData = (value, PageCount, selectedIcon, searchTerm) => {
   const [svgImages, setSvgImages] = useState([]);
@@ -16,12 +17,15 @@ export const useGetData = (value, PageCount, selectedIcon, searchTerm) => {
         const contents = contentData;
         setSvgImages(userData[0].svgs);
 
+        const filterLanguage = filterByCategory(value, svgImages);
+
         // 조건부 필터링기능 ( 필터 , 검색)
         const images = await filterImages(
           contents,
           searchTerm.replace(/[A-Za-z]+/g, match => match.toLowerCase()),
           value,
-          selectedIcon
+          selectedIcon,
+          filterLanguage
         );
         setFilteredImages(images);
 
@@ -34,7 +38,7 @@ export const useGetData = (value, PageCount, selectedIcon, searchTerm) => {
       }
     };
     fetchData();
-  }, [value.value, selectedIcon, searchTerm]);
+  }, [value, selectedIcon, searchTerm]);
 
   return {
     svgImages,
