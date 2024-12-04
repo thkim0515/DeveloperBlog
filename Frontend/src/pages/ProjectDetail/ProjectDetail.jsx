@@ -48,13 +48,13 @@ export const ProjectDetail = () => {
       <ProjectTitle projectData={data} />
       <ProjectContent content={data.content} />
       <ProjectInformation projectData={data} />
-      <ProjectTeam />
-      {/* <ProjectMember
+      {/* <ProjectTeam /> */}
+      <ProjectMember
         postid={data._id}
         memberList={data.memberList}
         participateList={data.participateList}
         userid={data.userId._id}
-      /> */}
+      />
       <ProjectComments content={data} />
     </S.ProjectDetailBox>
   );
