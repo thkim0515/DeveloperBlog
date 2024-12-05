@@ -9,6 +9,28 @@ const moveBackground = keyframes`
   }
 `;
 
+export const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(10px); 
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+export const fadeOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px); 
+  }
+`;
+
 export const BannerBox = styled.section`
   padding: 0 1.5rem;
   margin-bottom: 2.5rem;
@@ -33,4 +55,6 @@ export const BannerText = styled.div`
   letter-spacing: 0.1rem;
   line-height: 1.5;
   font-weight: bold;
+  opacity: 1;
+  animation: ${({ isFading }) => (isFading ? fadeOut : fadeIn)} 0.5s ease-in-out;
 `;
