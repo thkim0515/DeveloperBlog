@@ -31,7 +31,7 @@ export const PostDetail = () => {
 
   // ImageItem 클릭시 state값 전달
   const location = useLocation();
-  const { post } = location.state;
+  const post = location.state.content;
   const [detailContent, setDetailContent] = useState([]);
 
   useEffect(() => {
