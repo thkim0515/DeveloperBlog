@@ -2,7 +2,7 @@ name: Deploy # Workflow 이름
 on:
   push:
     branches:
-      - main # 파이프라인이 동작할 브랜치
+      - pipeline # 파이프라인이 동작할 브랜치
 jobs:
   build:
     runs-on: ubuntu-latest
