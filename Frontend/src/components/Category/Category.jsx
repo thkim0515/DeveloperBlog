@@ -27,10 +27,10 @@ export const Category = ({ onCategoryChange }) => {
           <option value="etc">다른 언어</option>
         </S.Select>
 
-        <S.SearchBox>
+        {/* <S.SearchBox>
           <S.Input type="text" />
           <S.Button>검색</S.Button>
-        </S.SearchBox>
+        </S.SearchBox> */}
       </S.CategoryBox>
     </>
   );
