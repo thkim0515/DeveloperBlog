@@ -7,14 +7,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # 소스 코드 체크아웃
       - uses: actions/checkout@v4
 
+      # Node.js 설정
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
 
-      - name: Check Node v
+      - name: Check Node.js Version
         run: node -v
 
       # 프론트엔드 빌드
@@ -22,25 +24,22 @@ jobs:
         working-directory: ./Frontend
         run: npm install --legacy-peer-deps --frozen-lockfile
 
+      - name: Clean Frontend Build Directory
+        run: rm -rf ./Frontend/build
+
       - name: Build Frontend
         working-directory: ./Frontend
-        run: yarn build
+        run: npm run build
         env:
           CI: ""
 
-      # 백엔드 빌드
+      # 백엔드 의존성 설치
       - name: Install Dependencies for Backend
         working-directory: ./Backend
-        run: npm install --legacy-peer-deps --frozen-lockfile
-
-      - name: Build Backend
-        working-directory: ./Backend
-        run: yarn build
-        env:
-          CI: ""
+        run: npm install --legacy-peer-deps --frozen-lockfile --production
 
       # 빌드 결과 압축
-      - name: zip create
+      - name: Zip Build Files
         run: zip -qq -r ./build-app.zip .
         shell: bash
 
@@ -52,14 +51,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      # S3에 빌드 결과 업로드
       - name: Upload to S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           aws s3 cp --region ap-northeast-2 ./build-app.zip s3://${{ secrets.S3_BUCKET }}/build-app.zip
 
-      - name: Deploy
+      # AWS CodeDeploy를 사용한 배포
+      - name: Deploy to EC2 via CodeDeploy
         run: aws deploy create-deployment \
           --application-name CodeDeploy-starblog \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
