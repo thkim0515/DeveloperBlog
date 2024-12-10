@@ -1,3 +1,4 @@
+import axios from "axios";
 import styled from "styled-components";
 import { PostCardHeader } from "./PostCardHeader/PostCardHeader";
 import { PostCardBody } from "./PostCardBody/PostCardBody";
@@ -23,10 +24,15 @@ const PostCardBox = styled.div`
 
 export const PostCard = ({ post }) => {
   const navigate = useNavigate();
-  const onClickPostCard = () => {
-    if (post) {
-      navigate(`/post/${post._id}`, { state: { post } });
-    }
+
+  const onClickPostCard = async () => {
+    if (!post) return;
+
+    try {
+      const response = await axios.get(`/contents/read/${post._id}`);
+      const postData = response.data;
+      navigate(`/post/${post._id}`, { state: { content: postData } });
+    } catch (error) {}
   };
 
   return (
