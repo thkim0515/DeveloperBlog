@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { Metas } from "./../../components/common/Metas";
 import * as S from "./NotFound.style";
 
 export const NotFound = () => {
@@ -11,7 +10,6 @@ export const NotFound = () => {
 
   return (
     <S.NotFoundBox>
-      <Metas title="NotFound" />
       <S.NotFoundWrapper>
         <S.Title>존재하지 않는 페이지 입니다.</S.Title>
         <S.Links>

@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { decryptData } from "../../utils/secure";
 
 // components
-import { Metas } from "../../components/common/Metas.jsx";
 import { ProjectCard } from "../../components/ProjectCard/ProjectCard.jsx";
 
 // context
@@ -53,7 +52,6 @@ export const Profile = () => {
 
   return (
     <>
-      <Metas title="My Profile" none />
       <S.ProfileTitle>Profile</S.ProfileTitle>
       <S.MyProfileBox>
         <div>

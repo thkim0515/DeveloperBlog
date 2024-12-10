@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Metas } from "./../../components/common/Metas";
 import { useLocation } from "react-router-dom";
 import { NotFound } from "../NotFound/NotFound";
 import { PostingComp } from "../../components/codePosting/PostingComp";
@@ -37,7 +36,6 @@ export const PostUpdate = () => {
 
   return userId ? (
     <div>
-      <Metas title="게시글 업로드" none />
       <PostingComp edit={true} postData={postData} />
     </div>
   ) : (

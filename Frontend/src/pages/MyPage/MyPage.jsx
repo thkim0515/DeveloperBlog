@@ -1,5 +1,4 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { Metas } from "../../components/common/Metas";
 import { useUserLogin } from "../../context/UserLoginContext";
 import * as S from "./MyPage.style";
 
@@ -10,7 +9,6 @@ export const MyPage = () => {
 
   return (
     <>
-      <Metas title="마이페이지" none />
       {profileDB && (
         <S.MyPageBox>
           <S.Title>마이페이지</S.Title>

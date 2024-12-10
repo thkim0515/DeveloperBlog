@@ -2,8 +2,6 @@ import * as S from "./SignUp.style";
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { EmailVerification } from "./EmailVerification";
-import { Metas } from "./../../../components/common/Metas";
 import { validateSignUp } from "../../../utils/validation";
 
 export const SignUp = () => {
@@ -21,9 +19,8 @@ export const SignUp = () => {
     password: "",
     rePassword: "",
   });
-  console.log(userInputData)
+
   const [errorMessage, setErrormessage] = useState({});
-  // const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   const handleInputData = e => {
     const { id, value } = e.target;
@@ -59,13 +56,8 @@ export const SignUp = () => {
     }
   };
 
-  // const handleEmailVerified = verified => {
-  //   setIsEmailVerified(verified);
-  // };
-
   return (
     <>
-      <Metas title="회원가입" url="/signUp" description="스타블로그와 함께 공부해요!" />
       <S.SignUpTitle>회원가입</S.SignUpTitle>
 
       <S.ProgressBarContainer>
@@ -85,22 +77,6 @@ export const SignUp = () => {
           <S.Input type="text" id="nickname" onChange={handleInputData} />
         </S.SignUpFiled>
 
-        {/* 이메일 */}
-        {/* <S.SignUpFiled>
-          <label htmlFor="email">이메일</label>
-          <S.Input type="email" id="email" onChange={handleInputData} />
-        </S.SignUpFiled> */}
-
-        {/* 이메일 인증 */}
-        {/* <S.SignUpFiled>
-          <label htmlFor="emailVertify">이메일 인증</label>
-          <EmailVerification
-            userEmail={userInputData.email}
-            onChange={handleInputData}
-            onEmailVerified={handleEmailVerified}
-          />
-        </S.SignUpFiled> */}
-
         {/* 비밀번호 */}
         <S.SignUpFiled>
           <label htmlFor="password">비밀번호</label>
@@ -119,10 +95,7 @@ export const SignUp = () => {
         </S.ErrorMessage>
 
         {/* 회원가입 버튼 */}
-        <S.SignUpButton type="submit">
-          {/* <S.SignUpButton type="submit" disabled={!isEmailVerified}> */}
-          회원가입
-        </S.SignUpButton>
+        <S.SignUpButton type="submit">회원가입</S.SignUpButton>
       </S.SignUpForm>
 
       {/* 페이지 이동 */}

@@ -16,7 +16,6 @@ import axios from "axios";
 import { useUserLogin } from "../../context/UserLoginContext";
 import { useScrollReset } from "../../hooks/useScrollReset";
 import { LikeButton } from "../../components/imagegallery/ImageGalleryComponents/LikeButton";
-import { Metas } from "../../components/common/Metas";
 import { useSelector } from "react-redux";
 
 export const PostDetail = () => {
@@ -41,7 +40,6 @@ export const PostDetail = () => {
         setDetailContent(response.data);
       } catch (e) {
         return;
-        //console.log(e);
       }
     };
 
@@ -73,7 +71,6 @@ export const PostDetail = () => {
 
   return (
     <>
-      <Metas title={detailContent.title} />
       {detailContent.imagePath && (
         <S.SContainer>
           <S.STitle>
@@ -82,8 +79,7 @@ export const PostDetail = () => {
                 src={`
                     ${imageUrl}svgs/${detailContent.language}.svg`}
                 alt=""
-              />{" "}
-              {/* alt={image.language} */}
+              />
             </div>
             <h2>{detailContent.title}</h2>
             {user && (userId === detailContent.userId._id || userId === detailContent.userId.id) && (

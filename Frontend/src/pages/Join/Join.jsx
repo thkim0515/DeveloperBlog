@@ -1,7 +1,5 @@
 import styled from "styled-components";
-
 import { Routes, Route } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { Login } from "./Login/Login";
 import { SignUp } from "./SignUp/SignUp";
 import { EmailCheck } from "./SignUp/EmailCheck";
@@ -10,9 +8,6 @@ import { EmailCheck } from "./SignUp/EmailCheck";
 import { Logo } from "../../components/Layout/Header/Logo";
 
 export const Join = () => {
-  const location = useLocation();
-  let { pathname } = location;
-
   return (
     <Container>
       <LeftBox>
@@ -29,8 +24,6 @@ export const Join = () => {
           <Route path="emailcheck" element={<EmailCheck />} />
           <Route path="signup" element={<SignUp />} />
         </Routes>
-        {/* {pathname === "/login" ? <Login /> : <EmailCheck />} */}
-        {/* {pathname === "/login" ? <Login /> : <SignUp />} */}
       </RightBox>
     </Container>
   );
