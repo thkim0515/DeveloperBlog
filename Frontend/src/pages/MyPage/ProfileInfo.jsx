@@ -1,4 +1,4 @@
-import * as S from "./ProfileEdit.style.js";
+import * as S from "./ProfileInfo.style.js";
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -56,6 +56,10 @@ export const ProfileInfo = () => {
     }
   };
 
+  const handleEditIconClick = () => {
+    document.getElementById("image-edit").click();
+  };
+
   //업데이트 요쳥
   const handleSubmit = async e => {
     e.preventDefault();
@@ -91,7 +95,7 @@ export const ProfileInfo = () => {
 
       alert("정보가 성공적으로 수정되었습니다.");
       setIsChange(true);
-      navigate("/profile");
+      navigate("/mypage/info");
       //TODO 새로고침 줄이기... >> 완료
       await updateSessionStorage(editData);
     } catch (error) {
@@ -115,52 +119,43 @@ export const ProfileInfo = () => {
   };
 
   return (
-    <S.ProfileInfoMainBox>
-      <S.ProfileTitle>Profile</S.ProfileTitle>
-      <S.InfoAndBtnFormBox onSubmit={handleSubmit}>
-        <S.ProfileInfoBox>
-          <S.ProfileImgBox>
-            <S.ProfileImg alt="프로필 이미지" src={imgPreview ? imgPreview : imgSrc} />
-          </S.ProfileImgBox>
-          <S.ProfileTextBox>
-            <S.TextBoxItem>
-              <p>아이디</p>
-            </S.TextBoxItem>
-            <S.TextBoxItem>
-              {/* id변경 못 하게 div*/}
-              <div>{profileDB.id}</div>
-            </S.TextBoxItem>
-            <S.TextBoxItem>
-              <p>닉네임</p>
-            </S.TextBoxItem>
-            <S.TextBoxItem>
-              <input value={nickname} onChange={handleInputChange(setNickname)} />
-            </S.TextBoxItem>
-            <S.TextBoxItem>
-              <p>이메일</p>
-            </S.TextBoxItem>
-            <S.TextBoxItem>
-              {/* 이메일 변경 못하게 */}
-              <div>{email}</div>
-            </S.TextBoxItem>
-          </S.ProfileTextBox>
-        </S.ProfileInfoBox>
-        <S.EditButtonBox>
-          <div>
-            <S.ImgEditButton htmlFor="image-edit">사진 수정</S.ImgEditButton>
-            <input
-              style={{ display: "none" }}
-              id="image-edit"
-              accept="image/*"
-              type="file"
-              onChange={e => handleFileChange(e)}
-            />
-          </div>
-          <div>
-            <S.ProfileEditButton type="submit">변경사항 저장</S.ProfileEditButton>
-          </div>
-        </S.EditButtonBox>
-      </S.InfoAndBtnFormBox>
-    </S.ProfileInfoMainBox>
+    <S.ProfileInfoBox>
+      <S.ProfileImageBox>
+        <S.ProfileImage>
+          <img src={imgPreview ? imgPreview : imgSrc} alt="프로필 이미지" />
+          <S.EditIcon onClick={handleEditIconClick} />
+          <input id="image-edit" accept="image/*" type="file" onChange={e => handleFileChange(e)} />
+        </S.ProfileImage>
+        <S.ProfileText>{profileDB.id}</S.ProfileText>
+      </S.ProfileImageBox>
+
+      {/* 한 줄 소개 */}
+      <div>
+        <S.CommentTitle>한 줄 소개</S.CommentTitle>
+        <S.Comment>한줄소개 crud 코드 추가하기</S.Comment>
+      </div>
+
+      {/* 가입 정보 */}
+      <div>
+        <S.FormRow>
+          <S.FormGroup>
+            <S.Label>아이디</S.Label>
+            <S.StyledInput value={profileDB.id} readOnly />
+          </S.FormGroup>
+          <S.FormGroup>
+            <S.Label>닉네임</S.Label>
+            <S.StyledInput value={nickname} onChange={e => handleInputChange(setNickname)(e)} />
+          </S.FormGroup>
+        </S.FormRow>
+        <S.FormGroup>
+          <S.Label>이메일</S.Label>
+          <S.StyledInput value={email} readOnly />
+        </S.FormGroup>
+      </div>
+
+      <S.ProfileEditButton type="submit" onClick={handleSubmit}>
+        변경사항 저장
+      </S.ProfileEditButton>
+    </S.ProfileInfoBox>
   );
 };

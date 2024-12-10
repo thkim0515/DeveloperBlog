@@ -38,39 +38,18 @@ export const ProjectCreateForm = () => {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-  const [hashTag, setHashTag] = useState("");
+  // const [hashTag, setHashTag] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [userSessionInfo, setUserSessionInfo] = useState([]);
-  const [counts, setCounts] = useState({
-    planning: 0,
-    design: 0,
-    frontend: 0,
-    backend: 0,
-  });
-
-  const handleIncrement = key => {
-    setCounts(prevCounts => ({
-      ...prevCounts,
-      [key]: prevCounts[key] + 1,
-    }));
-  };
-
-  const handleDecrement = key => {
-    setCounts(prevCounts => ({
-      ...prevCounts,
-      [key]: prevCounts[key] > 0 ? prevCounts[key] - 1 : 0,
-    }));
-  };
 
   const [
     projectFields,
     handleProjectForm,
-    handleCheckboxChange,
     handleAddStack,
     handleRemoveStacks,
-    handleAddHashTags,
-    handleRemoveHashTags,
     handleAddMember,
+    handleIncrement,
+    handleDecrement,
   ] = useFormFields({
     title: "",
     updatedDate: new Date().toLocaleDateString(),
@@ -82,6 +61,12 @@ export const ProjectCreateForm = () => {
     hashTags: [],
     roles: [],
     stacks: [],
+    counts: {
+      planning: 0,
+      design: 0,
+      frontend: 0,
+      backend: 0,
+    },
   });
 
   useEffect(() => {
@@ -122,10 +107,10 @@ export const ProjectCreateForm = () => {
 
   const filteredStacks = getFilteredData();
 
-  const handleHashTags = e => {
-    const { value } = e.target;
-    setHashTag(value);
-  };
+  // const handleHashTags = e => {
+  //   const { value } = e.target;
+  //   setHashTag(value);
+  // };
 
   const onSubmit = async () => {
     const errors = validateProjectForm(projectFields);
@@ -203,12 +188,18 @@ export const ProjectCreateForm = () => {
                   }}>
                   <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
                     <button
-                      onClick={() => handleDecrement(key)}
+                      onClick={e => {
+                        e.preventDefault();
+                        handleDecrement(key);
+                      }}
                       style={{ border: "none", background: "none", cursor: "pointer" }}>
                       -
                     </button>
                     <button
-                      onClick={() => handleIncrement(key)}
+                      onClick={e => {
+                        e.preventDefault();
+                        handleIncrement(key);
+                      }}
                       style={{ border: "none", background: "none", cursor: "pointer" }}>
                       +
                     </button>
@@ -219,7 +210,8 @@ export const ProjectCreateForm = () => {
               ))}
             </div>
             <div style={{ marginTop: "20px", fontSize: "16px" }}>
-              기획 {counts.planning} 디자인 {counts.design} 프론트엔드 {counts.frontend} 백엔드 {counts.backend}
+              기획 {projectFields.counts.planning} 디자인 {projectFields.counts.design} 프론트엔드
+              {projectFields.counts.frontend} 백엔드 {projectFields.counts.backend}
             </div>
           </div>
         </Form.Group>
