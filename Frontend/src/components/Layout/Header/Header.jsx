@@ -3,8 +3,8 @@ import { UserLogin } from "../UserLogin";
 import { useNavigate } from "react-router-dom";
 import { useUserLogin } from "../../../context/UserLoginContext";
 import { Logo } from "./Logo";
-import { LiveChatComp } from "../../LiveChat/LiveChatComp";
 import Menu from "./Menu";
+import { WriteButton } from "../../common/WriteButton";
 
 export const Header = () => {
   // 네비게이션 객체 생성
@@ -24,9 +24,15 @@ export const Header = () => {
         <Logo />
         <Menu />
       </S.HeaderLeft>
+
       <S.HeaderRight>
-        {isLogin ? <UserLogin /> : <S.LogineButton onClick={handleLoginButtonClick}>로그인</S.LogineButton>}
-        <LiveChatComp />
+        {isLogin && (
+          <>
+            <WriteButton />
+            <UserLogin />
+          </>
+        )}
+        {!isLogin && <S.LoginButton onClick={handleLoginButtonClick}>로그인</S.LoginButton>}
       </S.HeaderRight>
     </S.Header>
   );

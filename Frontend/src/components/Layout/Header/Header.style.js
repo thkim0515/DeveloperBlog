@@ -22,7 +22,7 @@ export const Logo = styled.h1`
 export const Header = styled.header`
   position: relative;
   z-index: 10;
-  max-width: 1600px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 1rem 2rem;
   display: flex;
@@ -81,7 +81,7 @@ export const CodeProjectMenuBox = styled.div`
 `;
 
 //로그인 버튼
-export const LogineButton = styled.button`
+export const LoginButton = styled.button`
   width: 80px;
   height: 40px;
   padding: 10px;

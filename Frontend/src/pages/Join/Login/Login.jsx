@@ -10,7 +10,7 @@ import { useUserLogin } from "../../../context/UserLoginContext";
 import { useInput } from "../../../hooks/form/useInput";
 
 // component
-import { AccountModal } from "./AccountModal/AccountModal";
+import { Account } from "./Account/Account";
 
 import { encryptData } from "../../../utils/secure";
 
@@ -87,7 +87,7 @@ export const Login = () => {
 
       {/* 아이디/비밀번호 찾기 */}
       <S.ResetAccount onClick={showResetModal}>아이디/비밀번호 찾기</S.ResetAccount>
-      {isShowModal && <AccountModal onClick={closeResetModal} />}
+      {isShowModal && <Account onClick={closeResetModal} />}
       <hr />
 
       {/* 페이지 이동 */}

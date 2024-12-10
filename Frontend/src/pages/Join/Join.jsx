@@ -16,9 +16,6 @@ export const Join = () => {
         <span>KOSTA 281</span>
       </LeftBox>
       <RightBox>
-        <LogoBox>
-          <Logo />
-        </LogoBox>
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="emailcheck" element={<EmailCheck />} />
@@ -58,14 +55,4 @@ const RightBox = styled.div`
   justify-content: space-evenly;
   padding: 60px;
   background-color: #ffffff;
-`;
-
-const LogoBox = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 60px;
-
-  a {
-    font-size: 2.25rem;
-  }
 `;

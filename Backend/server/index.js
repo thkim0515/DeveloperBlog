@@ -33,7 +33,7 @@ loadSecrets().then((secrets) => {
 const server = http.createServer(app);
 setupWebSocket(server);
 
-const PORT = 5001;
+const PORT = 5000;
 const { router } = require('./error/processError');
 const visitor = require('./user/visitor');
 const users = require('./user/users');

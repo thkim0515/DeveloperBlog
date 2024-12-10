@@ -1,5 +1,4 @@
-import { useUserLogin } from "../../context/UserLoginContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const WriteBox = styled.div`
@@ -21,16 +20,20 @@ const Button = styled.button`
   }
 `;
 
-export const WriteButton = ({ project }) => {
-  const { isLogin, user } = useUserLogin();
-  const path = !project ? "/post-create" : "/project-create";
+export const WriteButton = () => {
+  const location = useLocation();
+  const path =
+    location.pathname === "/blog"
+      ? "/post-create"
+      : location.pathname === "/project"
+        ? "/project-create"
+        : "/post-create";
+
   return (
     <WriteBox>
-      {isLogin && user && (
-        <Link to={path}>
-          <Button>글쓰기</Button>
-        </Link>
-      )}
+      <Link to={path}>
+        <Button>글쓰기</Button>
+      </Link>
     </WriteBox>
   );
 };

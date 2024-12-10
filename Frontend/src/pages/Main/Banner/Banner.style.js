@@ -56,5 +56,5 @@ export const BannerText = styled.div`
   line-height: 1.5;
   font-weight: bold;
   opacity: 1;
-  animation: ${({ isFading }) => (isFading ? fadeOut : fadeIn)} 0.5s ease-in-out;
+  animation: ${({ $isFading }) => ($isFading ? fadeOut : fadeIn)} 0.5s ease-in-out;
 `;

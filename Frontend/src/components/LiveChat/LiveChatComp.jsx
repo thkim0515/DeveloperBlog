@@ -14,12 +14,12 @@ const ChatAndWriteBox = styled.div`
 `;
 
 const LiveChatButton = styled.button`
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   padding: 10px;
   background-image: url("/chat.png");
   background-size: cover;
-  color: #fff;
+  color: #ffffff;
   border: none;
   border-radius: 12px;
   cursor: pointer;
