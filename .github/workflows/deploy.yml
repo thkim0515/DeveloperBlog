@@ -1,35 +1,49 @@
 name: Deploy # Workflow 이름
-on: # Event 감지
+on:
   push:
     branches:
-      - main # << 파이프라인 브렌치 이름
+      - pipeline # 파이프라인이 동작할 브랜치
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout source code. # Repo checkout
-      #   uses: actions/checkout@v2
+      # 소스 코드 체크아웃
       - uses: actions/checkout@v4
+
+      # Node.js 설정
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
 
-      - name: Check Node v # Node v 확인
+      - name: Check Node.js Version
         run: node -v
 
-      - name: Install Dependencies # 의존 파일 설치
+      # 프론트엔드 빌드
+      - name: Install Dependencies for Frontend
+        working-directory: ./Frontend
         run: npm install --legacy-peer-deps --frozen-lockfile
 
-      - name: Build
-        run: yarn build
+      - name: Clean Frontend Build Directory
+        run: rm -rf ./Frontend/build
+
+      - name: Build Frontend
+        working-directory: ./Frontend
+        run: npm run build
         env:
           CI: ""
 
-      - name: zip create
+      # 백엔드 의존성 설치
+      - name: Install Dependencies for Backend
+        working-directory: ./Backend
+        run: npm install --legacy-peer-deps --frozen-lockfile --production
+
+      # 빌드 결과 압축
+      - name: Zip Build Files
         run: zip -qq -r ./build-app.zip .
         shell: bash
 
+      # AWS 설정
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -37,13 +51,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Upload to S3 # << S3 업로드
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # S3에 빌드 결과 업로드
+      - name: Upload to S3
         run: |
           aws s3 cp --region ap-northeast-2 ./build-app.zip s3://${{ secrets.S3_BUCKET }}/build-app.zip
 
+      # AWS CodeDeploy를 사용한 배포
       - name: Deploy # EC2에 배포
         run: aws deploy create-deployment
           --application-name CodeDeploy-starblog
