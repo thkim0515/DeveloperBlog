@@ -1,4 +1,3 @@
-import { Metas } from "../../components/common/Metas";
 import { timeStringWithKo } from "../../utils/timeString";
 import { Banner } from "./Banner/Banner";
 import { PreviewPost } from "./PreviewPost/PreviewPost";
@@ -12,13 +11,10 @@ export const Main = () => {
   }
 
   return (
-    <>
-      <Metas main="main" />
-      <main>
-        <Banner />
-        <TryCode />
-        <PreviewPost />
-      </main>
-    </>
+    <main>
+      <Banner />
+      <TryCode />
+      <PreviewPost />
+    </main>
   );
 };

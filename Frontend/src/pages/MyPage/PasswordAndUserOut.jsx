@@ -1,4 +1,4 @@
-import * as S from "./ProfileEdit.style.js";
+import * as S from "./PasswordAndUserOut.style.js";
 import axios from "axios";
 import { useUserLogin } from "../../context/UserLoginContext.js";
 import { logout } from "../../components/Layout/UserLogin.jsx";
@@ -74,17 +74,16 @@ export const PasswordAndUserOut = () => {
       }
     }
   };
+
   return (
     <S.PasswordAndUserOutBox>
-      <S.PwdTitle>비밀번호 변경</S.PwdTitle>
-      <S.PwdFormBox>
-        <S.PwdForm onSubmit={handleUpdate}>
-          <label htmlFor="username" style={{ display: "none" }}>
-            사용자명:
-          </label>
-          <input type="text" id="username" name="username" style={{ display: "none" }} autoComplete="username" />
+      <S.PwdForm onSubmit={handleUpdate}>
+        <S.InputGroup>
           <label htmlFor="current-password">현재 비밀번호</label>
           <input type="password" name="current-password" autoComplete="off" onChange={handleInputChange(setPassword)} />
+        </S.InputGroup>
+
+        <S.InputGroup>
           <label htmlFor="new-password">새로운 비밀번호</label>
           <input
             type="password"
@@ -92,6 +91,9 @@ export const PasswordAndUserOut = () => {
             autoComplete="new-password"
             onChange={handleInputChange(setNewPassword)}
           />
+        </S.InputGroup>
+
+        <S.InputGroup>
           <label htmlFor="new-password-confirm">비밀번호 재입력</label>
           <input
             type="password"
@@ -99,12 +101,10 @@ export const PasswordAndUserOut = () => {
             autoComplete="new-password"
             onChange={handleInputChange(setConfirmPassword)}
           />
-          <S.PwdEditButton type="submit">변경사항 저장</S.PwdEditButton>
-        </S.PwdForm>
-      </S.PwdFormBox>
-      <S.UseroutBtnBox>
-        <button onClick={handleDelete}>회원탈퇴</button>
-      </S.UseroutBtnBox>
+        </S.InputGroup>
+
+        <S.PwdEditButton type="submit">변경사항 저장</S.PwdEditButton>
+      </S.PwdForm>
     </S.PasswordAndUserOutBox>
   );
 };

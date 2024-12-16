@@ -56,7 +56,7 @@ export const UserLogin = () => {
       <S.MenuBox $isOpen={isMenuOpen}>
         <S.MenuListBox>
           <li>
-            <S.ListLink to="/accountSetting">마이페이지</S.ListLink>
+            <S.ListLink to="/mypage/info">마이페이지</S.ListLink>
           </li>
           <li>
             <S.ListLink to="/myProfile">프로필</S.ListLink>

@@ -14,7 +14,10 @@ import { CodeCreate } from "./pages/CodeCreate/CodeCreate";
 import { PostDetail } from "./pages/PostDetail/PostDetail";
 import { PostUpdate } from "./pages/PostUpdate/PostUpdate";
 import { Profile } from "./pages/Profile/Profile";
-import { AccountSetting } from "./pages/AccountSetting/AccountSetting";
+import { MyPage } from "./pages/MyPage/MyPage";
+import { ProfileInfo } from "./pages/MyPage/ProfileInfo";
+import { PasswordAndUserOut } from "./pages/MyPage/PasswordAndUserOut";
+import { Notifications } from "./pages/MyPage/Notifications";
 import { MyProfile } from "./pages/MyProfile/MyProfile";
 import { Project } from "./pages/Project/Project";
 import { ProjectDetail } from "./pages/ProjectDetail/ProjectDetail";
@@ -57,9 +60,15 @@ export const App = () => {
             <Route path="/project-edit/:_id" element={<PrivateRoute component={<ProjectEdit />} />} />
 
             {/* MyPage */}
+            <Route path="/mypage" element={<MyPage />}>
+              <Route index path="info" element={<ProfileInfo />} />
+              <Route path="password" element={<PasswordAndUserOut />} />
+              <Route path="notifications" element={<Notifications />} />
+            </Route>
+
+            {/* Profile */}
             <Route path="/profile/:nickname" element={<Profile />} />
             <Route path="/myProfile" element={<PrivateRoute component={<MyProfile />} />} />
-            <Route path="/accountSetting" element={<PrivateRoute component={<AccountSetting />} />} />
 
             {/* NotFound */}
             <Route path="*" element={<NotFound />} />

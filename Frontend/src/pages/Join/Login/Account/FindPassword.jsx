@@ -1,4 +1,4 @@
-import * as S from "./AccountModal.style";
+import * as S from "./Account.style";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -25,15 +25,15 @@ export const FindPassword = () => {
     return () => clearTimeout(timeoutId);
   }, [isSubmit]);
 
-  const handleId = (e) => {
+  const handleId = e => {
     setId(e.target.value);
   };
 
-  const handleEmail = (e) => {
+  const handleEmail = e => {
     setEmail(e.target.value);
   };
 
-  const onSubmitData = async (e) => {
+  const onSubmitData = async e => {
     e.preventDefault();
 
     if (!id || !email) {
@@ -48,14 +48,9 @@ export const FindPassword = () => {
         secondField: email,
       });
       setIsSubmit(true);
-      setAlertMessage(
-        `임시비밀번호를 메일로 발송했습니다. 메일함을 확인해주세요!`
-      );
+      setAlertMessage(`임시비밀번호를 메일로 발송했습니다. 메일함을 확인해주세요!`);
     } catch (error) {
-      console.error(
-        "에러 발생:",
-        error.response ? error.response.data.message : error.message
-      );
+      console.error("에러 발생:", error.response ? error.response.data.message : error.message);
     }
 
     setTimeout(() => {
@@ -74,12 +69,7 @@ export const FindPassword = () => {
         </S.FormField>
         <S.FormField>
           <label htmlFor="field2">이메일</label>
-          <S.Input
-            type="email"
-            id="field2"
-            value={email}
-            onChange={handleEmail}
-          />
+          <S.Input type="email" id="field2" value={email} onChange={handleEmail} />
         </S.FormField>
 
         {/* 찾기 버튼 */}

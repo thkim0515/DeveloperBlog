@@ -3,9 +3,17 @@ import { Link } from "react-router-dom";
 
 //메인 컨테이너 스타일
 export const Container = styled.div`
+  position: relative;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2.75rem 0;
+`;
+
+export const LiveChatWrapper = styled.div`
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
 `;
 
 //로그인 된 유저 박스

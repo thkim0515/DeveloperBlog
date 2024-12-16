@@ -1,13 +1,13 @@
 import { NotFound } from "../pages/NotFound/NotFound";
 import { useUserLogin } from "../context/UserLoginContext";
 
-export const PrivateRoute = ({component: Component }) => {
-
-  const {isLogin} = useUserLogin();
+export const PrivateRoute = ({ component }) => {
+  const { isLogin } = useUserLogin();
 
   if (!isLogin) {
     return <NotFound />;
   }
 
-  return Component;
+  // JSX 형태로 렌더링
+  return <>{component}</>;
 };

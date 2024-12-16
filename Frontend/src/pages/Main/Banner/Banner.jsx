@@ -27,7 +27,7 @@ export const Banner = () => {
   return (
     <S.BannerBox>
       <S.Banner>
-        <S.BannerText isFading={isFading} dangerouslySetInnerHTML={{ __html: messages[currentMessage] }} />
+        <S.BannerText $isFading={isFading} dangerouslySetInnerHTML={{ __html: messages[currentMessage] }} />
       </S.Banner>
     </S.BannerBox>
   );

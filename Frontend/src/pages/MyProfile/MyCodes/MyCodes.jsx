@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { ImageGrid } from "../../../components/imagegallery/ImageGalleryComponents/ImageGrid";
-import { Metas } from "../../../components/common/Metas";
 import { WriteButton } from "../../../components/common/WriteButton";
 
 export const MyCodes = () => {
@@ -8,7 +7,6 @@ export const MyCodes = () => {
 
   return (
     <>
-      <Metas title="My Codes" none />
       <ButtonBox>
         <WriteButton />
       </ButtonBox>

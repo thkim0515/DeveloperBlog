@@ -12,8 +12,6 @@ import { useFetchData } from "../../hooks/useFetchData";
 
 // components
 import { ProjectCard } from "../../components/ProjectCard/ProjectCard";
-import { Metas } from "../../components/common/Metas";
-import { WriteButton } from "../../components/common/WriteButton";
 
 export const Project = () => {
   const [projectData, isLoading, error] = useFetchData("/project/project");
@@ -55,41 +53,36 @@ export const Project = () => {
   }
 
   return (
-    <>
-      <Metas title="프로젝트" />
-      <section>
-        <WriteButton project />
-        <S.TeamProjectTitle>Team Project</S.TeamProjectTitle>
-        <InputGroup className="mb-3 mx-auto w-50">
-          <Form.Control
-            className="py-2"
-            placeholder="프로젝트를 검색하세요"
-            value={search}
-            onChange={handleSearchProject}
-          />
-          <Button variant="outline-secondary" id="button-addon2">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </Button>
-        </InputGroup>
-        <S.TeamProjectBox>
-          {displayData.map((item, idx) => (
-            <ProjectCard key={idx} data={item} />
-          ))}
-        </S.TeamProjectBox>
+    <section>
+      <InputGroup className="mb-3 mx-auto w-50">
+        <Form.Control
+          className="py-2"
+          placeholder="프로젝트를 검색하세요"
+          value={search}
+          onChange={handleSearchProject}
+        />
+        <Button variant="outline-secondary" id="button-addon2">
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </Button>
+      </InputGroup>
+      <S.TeamProjectBox>
+        {displayData.map((item, idx) => (
+          <ProjectCard key={idx} data={item} />
+        ))}
+      </S.TeamProjectBox>
 
-        {/* 페이지네이션 */}
-        <Pagination className="d-flex justify-content-center mt-5">
-          <Pagination.First onClick={() => handlePageChange(1)} />
-          <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map(page => (
-            <Pagination.Item key={page} onClick={() => handlePageChange(page)} active={page === currentPage}>
-              {page}
-            </Pagination.Item>
-          ))}
-          <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
-          <Pagination.Last onClick={() => handlePageChange(totalPages)} />
-        </Pagination>
-      </section>
-    </>
+      {/* 페이지네이션 */}
+      <Pagination className="d-flex justify-content-center mt-5">
+        <Pagination.First onClick={() => handlePageChange(1)} />
+        <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map(page => (
+          <Pagination.Item key={page} onClick={() => handlePageChange(page)} active={page === currentPage}>
+            {page}
+          </Pagination.Item>
+        ))}
+        <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
+        <Pagination.Last onClick={() => handlePageChange(totalPages)} />
+      </Pagination>
+    </section>
   );
 };
